@@ -144,6 +144,7 @@ public class LufelfContentProvider extends ContentProvider {
             case FRIEND:
                 queryBuilder.setTables(FriendsTable.TABLE_FRIENDS);
                 queryBuilder.appendWhere(FriendsTable.COLUMN_ID + "=" + uri.getLastPathSegment());
+                break;
 
             case MESSAGES:
                 queryBuilder.setTables(MessagesTable.TABLE_MESSAGES);
@@ -226,6 +227,103 @@ public class LufelfContentProvider extends ContentProvider {
 
         getContext().getContentResolver().notifyChange(uri, null);
         return Uri.parse(base_path + "/" + id);
+    }
+
+    @Override
+    public int delete(Uri uri, String selection, String[] selectionArgs){
+        int uriType = sURIMatcher.match(uri);
+        SQLiteDatabase sqlDB = database.getWritableDatabase();
+        int rowsDeleted = 0;
+        String id = "";
+
+        switch (uriType) {
+
+            case ATTENDEES:
+                rowsDeleted = sqlDB.delete(AttendeesTable.TABLE_ATTENDEES, selection, selectionArgs);
+                break;
+
+            case ATTENDEE:
+                id = uri.getLastPathSegment();
+                if (TextUtils.isEmpty(selection)) {
+                    rowsDeleted = sqlDB.delete(AttendeesTable.TABLE_ATTENDEES, AttendeesTable.COLUMN_ID + "=" + id, null);
+                } else {
+                    rowsDeleted = sqlDB.delete(AttendeesTable.TABLE_ATTENDEES, AttendeesTable.COLUMN_ID + "=" + id + " and " + selection, selectionArgs);
+                }
+                break;
+
+            case EVENTS:
+                rowsDeleted = sqlDB.delete(EventsTable.TABLE_EVENTS, selection, selectionArgs);
+                break;
+
+            case EVENT:
+                id = uri.getLastPathSegment();
+                if (TextUtils.isEmpty(selection)) {
+                    rowsDeleted = sqlDB.delete(EventsTable.TABLE_EVENTS, EventsTable.COLUMN_ID + "=" + id, null);
+                } else {
+                    rowsDeleted = sqlDB.delete(EventsTable.TABLE_EVENTS, EventsTable.COLUMN_ID + "=" + id + " and " + selection, selectionArgs);
+                }
+                break;
+
+            case FRIEND_REQUESTS:
+                rowsDeleted = sqlDB.delete(FriendRequestsTable.TABLE_FRIEND_REQUESTS, selection, selectionArgs);
+                break;
+
+            case FRIEND_REQUEST:
+                id = uri.getLastPathSegment();
+                if (TextUtils.isEmpty(selection)) {
+                    rowsDeleted = sqlDB.delete(FriendRequestsTable.TABLE_FRIEND_REQUESTS, FriendRequestsTable.COLUMN_ID + "=" + id, null);
+                } else {
+                    rowsDeleted = sqlDB.delete(FriendRequestsTable.TABLE_FRIEND_REQUESTS, FriendRequestsTable.COLUMN_ID + "=" + id + " and " + selection, selectionArgs);
+                }
+                break;
+
+            case FRIENDS:
+                rowsDeleted = sqlDB.delete(FriendsTable.TABLE_FRIENDS, selection, selectionArgs);
+                break;
+
+            case FRIEND:
+                id = uri.getLastPathSegment();
+                if (TextUtils.isEmpty(selection)) {
+                    rowsDeleted = sqlDB.delete(FriendsTable.TABLE_FRIENDS, FriendsTable.COLUMN_ID + "=" + id, null);
+                } else {
+                    rowsDeleted = sqlDB.delete(FriendsTable.TABLE_FRIENDS, FriendsTable.COLUMN_ID + "=" + id + " and " + selection, selectionArgs);
+                }
+                break;
+
+            case MESSAGES:
+                rowsDeleted = sqlDB.delete(MessagesTable.TABLE_MESSAGES, selection, selectionArgs);
+                break;
+
+            case MESSAGE:
+                id = uri.getLastPathSegment();
+                if (TextUtils.isEmpty(selection)) {
+                    rowsDeleted = sqlDB.delete(MessagesTable.TABLE_MESSAGES, MessagesTable.COLUMN_ID + "=" + id, null);
+                } else {
+                    rowsDeleted = sqlDB.delete(MessagesTable.TABLE_MESSAGES, MessagesTable.COLUMN_ID + "=" + id + " and " + selection, selectionArgs);
+                }
+                break;
+
+            case PLACES:
+                rowsDeleted = sqlDB.delete(PlacesTable.TABLE_PLACES, selection, selectionArgs);
+                break;
+
+            case PLACE:
+                id = uri.getLastPathSegment();
+                if (TextUtils.isEmpty(selection)) {
+                    rowsDeleted = sqlDB.delete(PlacesTable.TABLE_PLACES, PlacesTable.COLUMN_ID + "=" + id, null);
+                } else {
+                    rowsDeleted = sqlDB.delete(PlacesTable.TABLE_PLACES, PlacesTable.COLUMN_ID + "=" + id + " and " + selection, selectionArgs);
+                }
+                break;
+
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+
+        }
+
+        getContext().getContentResolver().notifyChange(uri, null);
+        return rowsDeleted;
+
     }
 
 }

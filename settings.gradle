@@ -1,1 +1,1 @@
-include ':lufelf', ':database'
+include ':lufelf', ':database', ':contentprovider'

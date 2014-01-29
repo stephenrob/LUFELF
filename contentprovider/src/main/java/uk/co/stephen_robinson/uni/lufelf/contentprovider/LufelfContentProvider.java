@@ -182,4 +182,50 @@ public class LufelfContentProvider extends ContentProvider {
         return null;
     }
 
+    @Override
+    public Uri insert(Uri uri, ContentValues values){
+        int uriType = sURIMatcher.match(uri);
+        SQLiteDatabase sqlDB = database.getWritableDatabase();
+        long id = 0;
+        String base_path = "";
+
+        switch (uriType) {
+            case ATTENDEES:
+                id = sqlDB.insert(AttendeesTable.TABLE_ATTENDEES, null, values);
+                base_path = ATTENDEES_BASE_PATH;
+                break;
+
+            case EVENTS:
+                id = sqlDB.insert(EventsTable.TABLE_EVENTS, null, values);
+                base_path = EVENTS_BASE_PATH;
+                break;
+
+            case FRIEND_REQUESTS:
+                id = sqlDB.insert(FriendRequestsTable.TABLE_FRIEND_REQUESTS, null, values);
+                base_path = FRIEND_REQUESTS_BASE_PATH;
+                break;
+
+            case FRIENDS:
+                id = sqlDB.insert(FriendsTable.TABLE_FRIENDS, null, values);
+                base_path = FRIENDS_BASE_PATH;
+                break;
+
+            case MESSAGES:
+                id = sqlDB.insert(MessagesTable.TABLE_MESSAGES, null, values);
+                base_path = MESSAGES_BASE_PATH;
+                break;
+
+            case PLACES:
+                id = sqlDB.insert(PlacesTable.TABLE_PLACES, null, values);
+                base_path = PLACES_BASE_PATH;
+                break;
+
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
+
+        getContext().getContentResolver().notifyChange(uri, null);
+        return Uri.parse(base_path + "/" + id);
+    }
+
 }

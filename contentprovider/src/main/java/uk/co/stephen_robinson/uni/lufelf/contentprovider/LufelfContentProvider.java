@@ -92,4 +92,94 @@ public class LufelfContentProvider extends ContentProvider {
         sURIMatcher.addURI(AUTHORITY, PLACES_BASE_PATH + "/#", PLACE);
     }
 
+    @Override
+    public boolean onCreate() {
+        database = new LufelfDatabaseHelper(getContext());
+        return false;
+    }
+
+    @Override
+    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder){
+
+        // Use query builder instead of query() method
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+
+        // Check caller hasn't requested invalid column
+        checkColumns(projection);
+
+        int uriType = sURIMatcher.match(uri);
+
+        switch (uriType) {
+
+            case ATTENDEES:
+                queryBuilder.setTables(AttendeesTable.TABLE_ATTENDEES);
+                break;
+
+            case ATTENDEE:
+                queryBuilder.setTables(AttendeesTable.TABLE_ATTENDEES);
+                queryBuilder.appendWhere(AttendeesTable.COLUMN_ID + "=" + uri.getLastPathSegment());
+                break;
+
+            case EVENTS:
+                queryBuilder.setTables(EventsTable.TABLE_EVENTS);
+                break;
+
+            case EVENT:
+                queryBuilder.setTables(EventsTable.TABLE_EVENTS);
+                queryBuilder.appendWhere(EventsTable.COLUMN_ID + "=" + uri.getLastPathSegment());
+
+            case FRIEND_REQUESTS:
+                queryBuilder.setTables(FriendRequestsTable.TABLE_FRIEND_REQUESTS);
+                break;
+
+            case FRIEND_REQUEST:
+                queryBuilder.setTables(FriendRequestsTable.TABLE_FRIEND_REQUESTS);
+                queryBuilder.appendWhere(FriendRequestsTable.COLUMN_ID + "=" + uri.getLastPathSegment());
+                break;
+
+            case FRIENDS:
+                queryBuilder.setTables(FriendsTable.TABLE_FRIENDS);
+                break;
+
+            case FRIEND:
+                queryBuilder.setTables(FriendsTable.TABLE_FRIENDS);
+                queryBuilder.appendWhere(FriendsTable.COLUMN_ID + "=" + uri.getLastPathSegment());
+
+            case MESSAGES:
+                queryBuilder.setTables(MessagesTable.TABLE_MESSAGES);
+                break;
+
+            case MESSAGE:
+                queryBuilder.setTables(MessagesTable.TABLE_MESSAGES);
+                queryBuilder.appendWhere(MessagesTable.COLUMN_ID + "=" + uri.getLastPathSegment());
+                break;
+
+            case PLACES:
+                queryBuilder.setTables(PlacesTable.TABLE_PLACES);
+                break;
+
+            case PLACE:
+                queryBuilder.setTables(PlacesTable.TABLE_PLACES);
+                queryBuilder.appendWhere(PlacesTable.COLUMN_ID + "=" + uri.getLastPathSegment());
+                break;
+
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+
+        }
+
+        SQLiteDatabase db = database.getWritableDatabase();
+        Cursor cursor = queryBuilder.query(db, projection, selection, selectionArgs, null, null, sortOrder);
+
+        cursor.setNotificationUri(getContext().getContentResolver(), uri);
+
+        return cursor;
+
+    }
+
+    @Override
+    public String getType(Uri uri) {
+        return null;
+    }
+
 }

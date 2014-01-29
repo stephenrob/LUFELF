@@ -1,4 +1,5 @@
 package uk.co.stephen_robinson.uni.lufelf.database;
+
 /**
  * Created by Stephen on 28/01/2014.
  */
@@ -18,7 +19,7 @@ public class PlacesTable {
     public static final String COLUMN_LON = "lon";
     public static final String COLUMN_USER ="user_id";
 
-    private static final String DATABASE_CREATE = "create table "
+    private static final String CREATE_TABLE = "create table "
         + TABLE_PLACES
         + "("
         + COLUMN_ID + " integer primary key autoincrement, "
@@ -30,7 +31,7 @@ public class PlacesTable {
         + ");";
 
     public static void onCreate(SQLiteDatabase database){
-        database.execSQL(DATABASE_CREATE);
+        database.execSQL(CREATE_TABLE);
     }
 
     public static void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {

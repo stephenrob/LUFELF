@@ -13,6 +13,9 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 // Import Database Classes
+import java.util.Arrays;
+import java.util.HashSet;
+
 import uk.co.stephen_robinson.uni.lufelf.database.LufelfDatabaseHelper;
 import uk.co.stephen_robinson.uni.lufelf.database.AttendeesTable;
 import uk.co.stephen_robinson.uni.lufelf.database.EventsTable;
@@ -420,6 +423,54 @@ public class LufelfContentProvider extends ContentProvider {
 
         getContext().getContentResolver().notifyChange(uri, null);
         return rowsUpdated;
+    }
+
+    private void checkColumns(String[] projection){
+        String[] available = {
+                AttendeesTable.COLUMN_DATE,
+                AttendeesTable.COLUMN_EVENT,
+                AttendeesTable.COLUMN_ID,
+                AttendeesTable.COLUMN_NAME,
+                EventsTable.COLUMN_ATTENDING,
+                EventsTable.COLUMN_DATE,
+                EventsTable.COLUMN_ID,
+                EventsTable.COLUMN_LOCATION_ADDRESS,
+                EventsTable.COLUMN_LOCATION_LAT,
+                EventsTable.COLUMN_LOCATION_LON,
+                EventsTable.COLUMN_LOCATION_NAME,
+                EventsTable.COLUMN_NAME,
+                EventsTable.COLUMN_ORGANISER_EMAIL,
+                EventsTable.COLUMN_ORGANISER_NAME,
+                FriendRequestsTable.COLUMN_FRIEND_ID,
+                FriendRequestsTable.COLUMN_ID,
+                FriendRequestsTable.COLUMN_STATUS,
+                FriendsTable.COLUMN_DELETE,
+                FriendsTable.COLUMN_ID,
+                FriendsTable.COLUMN_LAT,
+                FriendsTable.COLUMN_LOCATION_STATUS,
+                FriendsTable.COLUMN_LON,
+                FriendsTable.COLUMN_NAME,
+                FriendsTable.COLUMN_USERNAME,
+                MessagesTable.COLUMN_CONTENT,
+                MessagesTable.COLUMN_FRIEND,
+                MessagesTable.COLUMN_ID,
+                MessagesTable.COLUMN_TYPE,
+                PlacesTable.COLUMN_ADDRESS,
+                PlacesTable.COLUMN_ID,
+                PlacesTable.COLUMN_LAT,
+                PlacesTable.COLUMN_LON,
+                PlacesTable.COLUMN_NAME,
+                PlacesTable.COLUMN_USER
+            };
+
+        if (projection != null){
+            HashSet<String> requestedColumns = new HashSet<String>(Arrays.asList(projection));
+            HashSet<String> availableColumns = new HashSet<String>(Arrays.asList(available));
+
+            if(!availableColumns.containsAll(requestedColumns)) {
+                throw new IllegalArgumentException("Unknown columns in projection");
+            }
+        }
     }
 
 }

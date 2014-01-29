@@ -326,4 +326,100 @@ public class LufelfContentProvider extends ContentProvider {
 
     }
 
+    @Override
+    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        int uriType = sURIMatcher.match(uri);
+        SQLiteDatabase sqlDB = database.getWritableDatabase();
+        int rowsUpdated = 0;
+        String id = "";
+
+        switch (uriType) {
+
+            case ATTENDEES:
+                rowsUpdated = sqlDB.update(AttendeesTable.TABLE_ATTENDEES, values, selection, selectionArgs);
+                break;
+
+            case ATTENDEE:
+                id = uri.getLastPathSegment();
+                if (TextUtils.isEmpty(selection)){
+                    rowsUpdated = sqlDB.update(AttendeesTable.TABLE_ATTENDEES, values, AttendeesTable.COLUMN_ID + "=" + id, null);
+                } else {
+                    rowsUpdated = sqlDB.update(AttendeesTable.TABLE_ATTENDEES, values, AttendeesTable.COLUMN_ID + "=" + id + " and " + selection, selectionArgs);
+                }
+                break;
+
+            case EVENTS:
+                rowsUpdated = sqlDB.update(EventsTable.TABLE_EVENTS, values, selection, selectionArgs);
+                break;
+
+            case EVENT:
+                id = uri.getLastPathSegment();
+                if (TextUtils.isEmpty(selection)){
+                    rowsUpdated = sqlDB.update(EventsTable.TABLE_EVENTS, values, EventsTable.COLUMN_ID + "=" + id, null);
+                } else {
+                    rowsUpdated = sqlDB.update(EventsTable.TABLE_EVENTS, values, EventsTable.COLUMN_ID + "=" + id + " and " + selection, selectionArgs);
+                }
+                break;
+
+            case FRIEND_REQUESTS:
+                rowsUpdated = sqlDB.update(FriendRequestsTable.TABLE_FRIEND_REQUESTS, values, selection, selectionArgs);
+                break;
+
+            case FRIEND_REQUEST:
+                id = uri.getLastPathSegment();
+                if (TextUtils.isEmpty(selection)){
+                    rowsUpdated = sqlDB.update(FriendRequestsTable.TABLE_FRIEND_REQUESTS, values, FriendRequestsTable.COLUMN_ID + "=" + id, null);
+                } else {
+                    rowsUpdated = sqlDB.update(FriendRequestsTable.TABLE_FRIEND_REQUESTS, values, FriendRequestsTable.COLUMN_ID + "=" + id + " and " + selection, selectionArgs);
+                }
+                break;
+
+            case FRIENDS:
+                rowsUpdated = sqlDB.update(FriendsTable.TABLE_FRIENDS, values, selection, selectionArgs);
+                break;
+
+            case FRIEND:
+                id = uri.getLastPathSegment();
+                if (TextUtils.isEmpty(selection)){
+                    rowsUpdated = sqlDB.update(FriendsTable.TABLE_FRIENDS, values, FriendsTable.COLUMN_ID + "=" + id, null);
+                } else {
+                    rowsUpdated = sqlDB.update(FriendsTable.TABLE_FRIENDS, values, FriendsTable.COLUMN_ID + "=" + id + " and " + selection, selectionArgs);
+                }
+                break;
+
+            case MESSAGES:
+                rowsUpdated = sqlDB.update(MessagesTable.TABLE_MESSAGES, values, selection, selectionArgs);
+                break;
+
+            case MESSAGE:
+                id = uri.getLastPathSegment();
+                if (TextUtils.isEmpty(selection)){
+                    rowsUpdated = sqlDB.update(MessagesTable.TABLE_MESSAGES, values, MessagesTable.COLUMN_ID + "=" + id, null);
+                } else {
+                    rowsUpdated = sqlDB.update(MessagesTable.TABLE_MESSAGES, values, MessagesTable.COLUMN_ID + "=" + id + " and " + selection, selectionArgs);
+                }
+                break;
+
+            case PLACES:
+                rowsUpdated = sqlDB.update(PlacesTable.TABLE_PLACES, values, selection, selectionArgs);
+                break;
+
+            case PLACE:
+                id = uri.getLastPathSegment();
+                if (TextUtils.isEmpty(selection)){
+                    rowsUpdated = sqlDB.update(PlacesTable.TABLE_PLACES, values, PlacesTable.COLUMN_ID + "=" + id, null);
+                } else {
+                    rowsUpdated = sqlDB.update(PlacesTable.TABLE_PLACES, values, PlacesTable.COLUMN_ID + "=" + id + " and " + selection, selectionArgs);
+                }
+                break;
+
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+
+        }
+
+        getContext().getContentResolver().notifyChange(uri, null);
+        return rowsUpdated;
+    }
+
 }

@@ -1,0 +1,26 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="uk.co.stephen_robinson.uni.lufelf.NewsFeed" >
+    <item android:id="@+id/action_friends"
+        android:title="@string/action_friends"
+        android:icon="@drawable/ic_friends"
+        android:showAsAction="always"
+        android:onClick="showFriends"
+        />
+    <item android:id="@+id/action_events"
+        android:title="@string/action_events"
+        android:icon="@drawable/ic_events"
+        android:showAsAction="always"
+        android:onClick="showEvents"
+        />
+    <item android:id="@+id/action_locations"
+        android:title="@string/action_locations"
+        android:icon="@drawable/ic_location"
+        android:showAsAction="always"
+        android:onClick="showLocations"
+        />
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+</menu>

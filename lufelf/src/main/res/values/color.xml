@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+    nav drawer specific colors
+    -->
+    <color name="list_bg_pressed">#cb2026</color>
+    <color name="list_bg">#232b32</color>
+    <color name="list_div">#fff</color>
+
+    <!--
+    general application colors
+    -->
+    <color name="action_bar_bg">#cb2026</color>
+    <color name="app_bg">#EDEDED</color>
+    <color name="stdtxt">#fff</color>
+</resources>

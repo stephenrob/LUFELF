@@ -1,3 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">LUFELF</string>
+    <string name="title_activity_news_feed">News Feed</string>
+
+    <!--
+
+    drawer options
+
+    -->
+
+    <string name="news_feed_activity">News Feed</string>
+    <string name="friends_activity">Friends</string>
+    <string name="events_activity">Events</string>
+    <string name="locations_activity">Locations</string>
+    <string name="settings_activity">Settings</string>
+
+    <!--
+
+    navigation accessibility Strings
+
+    -->
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!--
+
+    actionbar Strings
+
+    -->
+    <string name="action_friends">Friends</string>
+    <string name="action_events">Events</string>
+    <string name="action_locations">Locations</string>
+    <string name="action_settings">Settings</string>
+
 </resources>

@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="uk.co.stephen_robinson.uni.lufelf.NewsFeed" >
+    tools:context="uk.co.stephen_robinson.uni.lufelf.MainActivity" >
     <item android:id="@+id/action_friends"
         android:title="@string/action_friends"
         android:icon="@drawable/ic_friends"

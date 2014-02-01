@@ -1,6 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf;
 
-;
+
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -21,7 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
+import android.content.Intent;
 import java.util.ArrayList;
 
 /**
@@ -194,6 +194,9 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     private void selectItem(int position) {
+        //int previous=mCurrentSelectedPosition;
+        //if(previous==position)
+        //    return;
         mCurrentSelectedPosition = position;
         if (mDrawerListView != null) {
             mDrawerListView.setItemChecked(position, true);
@@ -201,9 +204,23 @@ public class NavigationDrawerFragment extends Fragment {
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
         }
+
         if (mCallbacks != null) {
             mCallbacks.onNavigationDrawerItemSelected(position);
+        }/*
+        Intent switchActivity=new Intent();
+        switch(position){
+            case 1:
+                switchActivity.setClassName("uk.co.stephen_robinson.uni.lufelf","uk.co.stephen_robinson.uni.lufelf.MainActivity");
+                break;
+            case 2:
+                switchActivity.setClassName("uk.co.stephen_robinson.uni.lufelf","uk.co.stephen_robinson.uni.lufelf.FriendsActivity");
+                break;
+            default:
+                switchActivity.setClassName("uk.co.stephen_robinson.uni.lufelf","uk.co.stephen_robinson.uni.lufelf.MainActivity");
+                break;
         }
+        startActivity(switchActivity);*/
     }
 
     @Override
@@ -241,7 +258,7 @@ public class NavigationDrawerFragment extends Fragment {
         // showGlobalContextActionBar, which controls the top-left area of the action bar.
         if (mDrawerLayout != null && isDrawerOpen()) {
             inflater.inflate(R.menu.global, menu);
-            showGlobalContextActionBar();
+            //showGlobalContextActionBar();
         }
         super.onCreateOptionsMenu(menu, inflater);
     }

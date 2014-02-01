@@ -37,26 +37,41 @@ public class MapViewFragment extends BaseFragment implements LocationListener{
 
         setFragmentManager(getFragmentManager());
 
-        Log.e("CRAP", "HELP HELP HELP");
-
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
+        setContext(rootView.getContext());
 
-
-        if(!locationManager.isProviderEnabled(Context.LOCATION_SERVICE))
-            Toast.makeText(context,"Enable GPS",5).show();
-
-        //this.locationManager=(LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
-       // locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 400, 1000, this);
+        this.locationManager=(LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 400, 5, this);
 
         map = ((MapFragment) fragmentManager.findFragmentById(R.id.map)).getMap();
-        //map.setMyLocationEnabled(true);
-        CameraUpdate center= CameraUpdateFactory.newLatLng(getLocation());
-        //CameraUpdate zoom=CameraUpdateFactory.zoomTo(15);
 
-        map.moveCamera(center);
+        //check if location services are available
+        if(!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+            //if they're not available display toast message
+            Toast.makeText(context,"Please enable your GPS",5).show();
 
-        //map.animateCamera(zoom);
+            //center on the university campus
+            CameraUpdate center= CameraUpdateFactory.newLatLng(new LatLng(54.0103,2.7856));
+            CameraUpdate zoom=CameraUpdateFactory.zoomTo(16);
 
+            map.moveCamera(center);
+            map.animateCamera(zoom);
+        }else{
+
+            //set the call back request for every 400 milliseconds or every 5 metres
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 400, 5, this);
+
+            //set the locationenabled boolean
+            map.setMyLocationEnabled(true);
+
+            //centre on current location
+            CameraUpdate center= CameraUpdateFactory.newLatLng(getLocation());
+            CameraUpdate zoom=CameraUpdateFactory.zoomTo(16);
+
+            map.moveCamera(center);
+
+            map.animateCamera(zoom);
+        }
         return rootView;
     }
     public LatLng getLocation(){

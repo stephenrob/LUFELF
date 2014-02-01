@@ -14,7 +14,7 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
     public void onNavigationDrawerItemSelected(int position) {
 
         // array to hold the various fragments used in the navigation drawer.
-        Fragment[] fragments={NewsFeedFragment.newInstance(),FriendsFragment.newInstance(),EventsFragment.newInstance(), MapFragment.newInstance(),LoginFragment.newInstance()};
+        Fragment[] fragments={NewsFeedFragment.newInstance(),FriendsFragment.newInstance(),EventsFragment.newInstance(), MapViewFragment.newInstance(),LoginFragment.newInstance()};
 
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getFragmentManager();

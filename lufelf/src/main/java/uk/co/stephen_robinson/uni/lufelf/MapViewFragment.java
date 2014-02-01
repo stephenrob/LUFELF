@@ -49,7 +49,7 @@ public class MapViewFragment extends BaseFragment implements LocationListener{
         if(!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
             //if they're not available display toast message
             Toast.makeText(context,"Please enable your GPS",5).show();
-
+            //change
             //center on the university campus
             CameraUpdate center= CameraUpdateFactory.newLatLng(new LatLng(54.0103,2.7856));
             CameraUpdate zoom=CameraUpdateFactory.zoomTo(16);

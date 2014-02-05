@@ -35,4 +35,17 @@
 
     <!-- login fragment -->
     <string name="login_text">Login</string>
+
+    <!-- Register fragment -->
+    <string name="register_text">Register</string>
+    <string name="register_name">User name</string>
+    <string name="register_libno">Library Card Number</string>
+    <string name="register_emailadd">Email Address</string>
+    <string name="register_password">Password</string>
+    <string name="register_dob">Date Of Birth</string>
+    @string/register_dob
+    @string/register_password
+    @string/register_emailadd
+    @string/register_libno
+    @string/register_name
 </resources>

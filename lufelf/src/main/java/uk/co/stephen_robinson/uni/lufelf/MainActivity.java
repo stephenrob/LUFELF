@@ -1,6 +1,7 @@
 package uk.co.stephen_robinson.uni.lufelf;
 import android.app.ActionBar;
 import android.os.Bundle;
+import android.app.FragmentManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -103,5 +104,15 @@ public class MainActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
 
+        FragmentManager fm=getFragmentManager();
+        int size=fm.getBackStackEntryCount();
+        Log.d("CRAP", "size "+size);
+        if(size>1)
+            this.getFragmentManager().popBackStack();
+        else
+            finish();
+    }
 }

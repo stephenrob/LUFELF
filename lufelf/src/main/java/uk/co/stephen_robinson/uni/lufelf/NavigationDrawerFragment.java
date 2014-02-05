@@ -106,6 +106,7 @@ public class NavigationDrawerFragment extends Fragment {
         navigationItems.add(new NavDrawerItem(getString(R.string.events_activity),R.drawable.ic_events));
         navigationItems.add(new NavDrawerItem(getString(R.string.locations_activity),R.drawable.ic_location));
         navigationItems.add(new NavDrawerItem(getString(R.string.settings_activity),0));
+        navigationItems.add(new NavDrawerItem(getString(R.string.register_text),0));
 
         mDrawerListView.setAdapter(new NavDrawerItemAdapter(
                 getActionBar().getThemedContext(),

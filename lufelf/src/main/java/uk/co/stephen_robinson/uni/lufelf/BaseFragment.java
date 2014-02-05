@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import java.lang.reflect.Field;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
@@ -37,5 +38,20 @@ public class BaseFragment  extends Fragment{
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+    }
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        try {
+            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+            childFragmentManager.setAccessible(true);
+            childFragmentManager.set(this, null);
+
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

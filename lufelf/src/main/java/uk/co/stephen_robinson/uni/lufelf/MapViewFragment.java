@@ -14,7 +14,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.widget.Toast;
-
+import android.content.Intent;
+import android.net.Uri;
 /**
  * Created by James on 31/01/2014.
  */
@@ -71,8 +72,17 @@ public class MapViewFragment extends BaseFragment implements LocationListener{
             map.moveCamera(center);
 
             map.animateCamera(zoom);
+
         }
+        //navigateTo(new LatLng(54.0103,2.7856));
         return rootView;
+    }
+    public void navigateTo(LatLng finish){
+        LatLng current=getLocation();
+        Intent navigation = new Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("http://maps.google.com/maps?saddr="+current.latitude+","+current.longitude+"&daddr="+finish.latitude+","+finish.longitude));
+        startActivity(navigation);
     }
     public LatLng getLocation(){
         double latitude =0;
@@ -101,4 +111,13 @@ public class MapViewFragment extends BaseFragment implements LocationListener{
 
     @Override
     public void onProviderDisabled(String provider) { }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        MapFragment f = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        if (f != null)
+            fragmentManager.beginTransaction().remove(f).commit();
+    }
 }

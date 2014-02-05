@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/LUFELF.iml" filepath="$PROJECT_DIR$/LUFELF.iml" />
       <module fileurl="file://$PROJECT_DIR$/LUFELF2.iml" filepath="$PROJECT_DIR$/LUFELF2.iml" />
       <module fileurl="file://$PROJECT_DIR$/lufelf/lufelf.iml" filepath="$PROJECT_DIR$/lufelf/lufelf.iml" />
+      <module fileurl="file://$PROJECT_DIR$/navigation-lib/navigation-lib.iml" filepath="$PROJECT_DIR$/navigation-lib/navigation-lib.iml" />
     </modules>
   </component>
 </project>

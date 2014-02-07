@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.*;
 import android.location.*;
 import com.google.android.gms.maps.SupportMapFragment;
 import android.app.Fragment;
@@ -16,6 +17,10 @@ import android.app.FragmentManager;
 import android.widget.Toast;
 import android.content.Intent;
 import android.net.Uri;
+import uk.co.stephen_robinson.uni.lufelf.route.*;
+import uk.co.stephen_robinson.uni.lufelf.route.DirectionsQuery;
+import java.util.List;
+import android.graphics.Color;
 /**
  * Created by James on 31/01/2014.
  */
@@ -74,6 +79,10 @@ public class MapViewFragment extends BaseFragment implements LocationListener{
             map.animateCamera(zoom);
 
         }
+
+        DirectionsQuery query = new DirectionsQuery();
+        query.getRoute(getLocation(), new LatLng(54.0078566, -2.7856414),map);
+        //query.loginUser(new LatLng(54.0097969,-2.7862154),new LatLng(54.0078566,-2.7856414));
         //navigateTo(new LatLng(54.0103,2.7856));
         return rootView;
     }
@@ -84,6 +93,7 @@ public class MapViewFragment extends BaseFragment implements LocationListener{
                 Uri.parse("http://maps.google.com/maps?saddr="+current.latitude+","+current.longitude+"&daddr="+finish.latitude+","+finish.longitude));
         startActivity(navigation);
     }
+
     public LatLng getLocation(){
         double latitude =0;
         double longitude =0;

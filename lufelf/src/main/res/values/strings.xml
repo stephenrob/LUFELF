@@ -30,10 +30,10 @@
     <string name="action_example">Example action</string>
     <string name="hello_world">Hello world!</string>
 
-    <!-- error message Strings -->
+    <!-- Error message Strings -->
     <string name="already_here">Woah! You\'re already here...</string>
 
-    <!-- login fragment -->
+    <!-- Login fragment -->
     <string name="login_text">Login</string>
 
     <!-- Register fragment -->
@@ -50,4 +50,15 @@
     @string/register_emailadd
     @string/register_libno
     @string/register_name
+
+    <!-- Create Event fragment -->
+    <string name="event_text">Create Event</string>
+    <string name="event_name">Name</string>
+    <string name="event_type">Type</string>
+    <string name="event_place">Location</string>
+    <string name="event_date_time">Time and Date</string>
+    <string name="event_description">Description</string>
+
+
+
 </resources>

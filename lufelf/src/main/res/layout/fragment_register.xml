@@ -71,13 +71,25 @@
                 />
 
             <EditText
+            android:layout_width="fill_parent"
+            android:lines="1"
+            android:singleLine="true"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:background="@drawable/text_field"
+            android:hint="@string/register_password"
+            android:inputType="textPassword"
+            android:layout_marginTop="5dp"
+            />
+
+            <EditText
                 android:layout_width="fill_parent"
                 android:lines="1"
                 android:singleLine="true"
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:background="@drawable/text_field"
-                android:hint="@string/register_password"
+                android:hint="@string/register_confirmpassword"
                 android:inputType="textPassword"
                 android:layout_marginTop="5dp"
                 />
@@ -91,8 +103,7 @@
                 android:background="@drawable/text_field"
                 android:hint="@string/register_dob"
                 android:inputType="date"
-                android:layout_marginTop="5dp"
-                />
+                android:layout_marginTop="5dp"  />
 
         </LinearLayout>
 
@@ -101,7 +112,6 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:background="@drawable/button"
-
             android:textColor="@color/stdtxt"
             android:text="Confirm"
             android:layout_centerHorizontal="true"

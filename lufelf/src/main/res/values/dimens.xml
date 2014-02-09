@@ -10,4 +10,5 @@
     <dimen name="title">35dp</dimen>
     <dimen name="subtitle">20dp</dimen>
     <dimen name="text">15dp</dimen>
+    <dimen name="name">30dp</dimen>
 </resources>

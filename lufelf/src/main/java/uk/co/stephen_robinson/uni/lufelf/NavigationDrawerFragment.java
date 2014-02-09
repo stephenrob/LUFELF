@@ -102,11 +102,12 @@ public class NavigationDrawerFragment extends Fragment {
 
         ArrayList navigationItems=new ArrayList<NavDrawerItem>();
         navigationItems.add(new NavDrawerItem(getString(R.string.news_feed_activity),0));
-        navigationItems.add(new NavDrawerItem(getString(R.string.friends_activity),R.drawable.ic_friends));
+        navigationItems.add(new NavDrawerItem(getString(R.string.friends_activity),R.drawable.ic_social_person));
         navigationItems.add(new NavDrawerItem(getString(R.string.events_activity),R.drawable.ic_events));
-        navigationItems.add(new NavDrawerItem(getString(R.string.locations_activity),R.drawable.ic_location));
+        navigationItems.add(new NavDrawerItem(getString(R.string.locations_activity),R.drawable.ic_location_place));
         navigationItems.add(new NavDrawerItem(getString(R.string.settings_activity),0));
         navigationItems.add(new NavDrawerItem(getString(R.string.register_text),0));
+        navigationItems.add(new NavDrawerItem(getString(R.string.create_event_text),0));
 
         mDrawerListView.setAdapter(new NavDrawerItemAdapter(
                 getActionBar().getThemedContext(),
@@ -154,7 +155,7 @@ public class NavigationDrawerFragment extends Fragment {
                     return;
                 }
 
-                getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
+                //getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
             }
 
             @Override
@@ -173,7 +174,7 @@ public class NavigationDrawerFragment extends Fragment {
                     sp.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).apply();
                 }
 
-                getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
+                //getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
             }
         };
 
@@ -208,20 +209,7 @@ public class NavigationDrawerFragment extends Fragment {
 
         if (mCallbacks != null) {
             mCallbacks.onNavigationDrawerItemSelected(position);
-        }/*
-        Intent switchActivity=new Intent();
-        switch(position){
-            case 1:
-                switchActivity.setClassName("uk.co.stephen_robinson.uni.lufelf","uk.co.stephen_robinson.uni.lufelf.MainActivity");
-                break;
-            case 2:
-                switchActivity.setClassName("uk.co.stephen_robinson.uni.lufelf","uk.co.stephen_robinson.uni.lufelf.FriendsActivity");
-                break;
-            default:
-                switchActivity.setClassName("uk.co.stephen_robinson.uni.lufelf","uk.co.stephen_robinson.uni.lufelf.MainActivity");
-                break;
         }
-        startActivity(switchActivity);*/
     }
 
     @Override

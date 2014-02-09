@@ -1,31 +1,43 @@
 package uk.co.stephen_robinson.uni.lufelf;
+
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.util.Log;
 import android.view.MenuItem;
-
-import uk.co.stephen_robinson.uni.*;
-
-import com.google.android.gms.maps.MapFragment;
 
 /**
  * Created by James on 30/01/2014.
  */
 public class BaseActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks{
-    int currentPosition=-1;
+    int currentChildPosition=-1;
+    int currentGroupPosition=-1;
 
     // array to hold the various fragments used in the navigation drawer.
-    Fragment[] fragments={NewsFeedFragment.newInstance(),FriendsFragment.newInstance(),EventsFragment.newInstance(), MapViewFragment.newInstance(),LoginFragment.newInstance(),RegisterFragment.newInstance(),CreateEventFragment.newInstance()};
-    String[] tags={"newsfeed","Friends","Events","Locations","Settings","register","create_event"};
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
+    Fragment[][] fragments={{NewsFeedFragment.newInstance()},
+            {RegisterFragment.newInstance(),FriendsFragment.newInstance()},
+            {EventsFragment.newInstance(),EventsFragment.newInstance(),EventsFragment.newInstance()},
+            {MapViewFragment.newInstance()},
+            {LoginFragment.newInstance()}};
 
+
+    String[][] tags={{"Newsfeed"},
+            {"Friends","Add Friends"},
+            {"Events","Create Event","Remove Event"},
+            {"Locations"},
+            {"Settings"}};
+
+    @Override
+    public void onNavigationDrawerItemSelected(int groupPos,int position) {
+        Log.e("CRAP",groupPos+" "+position+" "+fragments[groupPos][position].toString());
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getFragmentManager();
-        if(currentPosition!=position)
-            fragmentManager.beginTransaction().replace(R.id.container, fragments[position],tags[position]).addToBackStack(null).commit();
-        currentPosition=position;
+        if(currentChildPosition!=position||currentGroupPosition!=groupPos){
+            fragmentManager.beginTransaction().replace(R.id.container, fragments[groupPos][position],tags[groupPos][position]).addToBackStack(null).commit();
+            Log.e("CRAP","INSIDE IF");
+        }
+        currentChildPosition=position;
+        currentGroupPosition=groupPos;
     }
     @Override
     public void onPause(){
@@ -40,11 +52,11 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
         String title=String.valueOf(item.getTitle());
 
         //go through tags array until there is a match, then switch
-        for(int i=0;i<tags.length;i++)
+        /*for(int i=0;i<tags.length;i++)
             if(tags[i].equals(title)){
                 onNavigationDrawerItemSelected(i);
                 break;
-            }
+            }*/
     }
     @Override
     public void onBackPressed() {
@@ -60,8 +72,8 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
 
         Fragment currentFragment=null;
         int count=0;
-        while(currentFragment==null&&count<tags.length)
-            currentFragment=fm.findFragmentByTag(tags[count]);
+        /*while(currentFragment==null&&count<tags.length)
+            currentFragment=fm.findFragmentByTag(tags[count]);*/
 
     }
 }

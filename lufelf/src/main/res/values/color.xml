@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="list_bg_pressed">#cb2026</color>
-    <color name="list_bg">#232b32</color>
+    <color name="list_bg_nav_group">#484646</color>
+    <color name="list_bg">#352e2c</color>
     <color name="action_bar_bg">#cb2026</color>
     <color name="app_bg">#E6E6E6</color>
     <color name="subview_bg">#dcdcdc</color>
     <color name="stdtxt">#232323</color>
     <color name="titletxt">#cb2026</color>
+
+    <color name="expandable_list_div">#333535</color>
+    <color name="expandable_List_child">#4c4b4b</color>
 
 </resources>

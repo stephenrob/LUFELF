@@ -5,13 +5,22 @@
     <string name="title_activity_news_feed">News Feed</string>
 
     <!-- drawer options -->
-
+    <!-- group headings -->
     <string name="news_feed_activity">News Feed</string>
     <string name="friends_activity">Friends</string>
     <string name="events_activity">Events</string>
     <string name="locations_activity">Locations</string>
     <string name="settings_activity">Settings</string>
+
+
+    <!-- subheadings -->
+    <string name="view_friends_text">View Friends List</string>
+    <string name="add_friends_text">Add Friend</string>
+
+    <string name="view_event_text">View Events</string>
     <string name="create_event_text">Create Event</string>
+    <string name="remove_event_text">Remove Event</string>
+
     <!-- navigation accessibility Strings -->
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

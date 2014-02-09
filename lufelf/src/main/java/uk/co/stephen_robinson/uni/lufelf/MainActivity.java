@@ -30,7 +30,7 @@ public class MainActivity extends BaseActivity {
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-
+        onNavigationDrawerItemSelected(0,0);
     }
 
 

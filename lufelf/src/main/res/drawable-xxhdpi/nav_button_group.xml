@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <gradient
-        android:startColor="@color/list_bg_nav_group"
-        android:endColor="@color/list_bg_nav_group"
+        android:startColor="@color/list_bg"
+        android:endColor="@color/list_bg"
         android:angle="90" />
 </shape>

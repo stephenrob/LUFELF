@@ -1,27 +1,27 @@
 package uk.co.stephen_robinson.uni.lufelf;
 
 
-import android.app.Activity;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.content.Intent;
+
 import java.util.ArrayList;
 
 /**
@@ -34,7 +34,9 @@ public class NavigationDrawerFragment extends Fragment {
     /**
      * Remember the position of the selected item.
      */
-    private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
+    private static final String STATE_GROUP_SELECTED_POSITION = "selected_navigation_drawer_group";
+
+    private static final String STATE_CHILD_SELECTED_POSITION = "selected_navigation_drawer_child";
 
     /**
      * Per the design guidelines, you should show the drawer on launch until the user manually
@@ -53,10 +55,11 @@ public class NavigationDrawerFragment extends Fragment {
     private ActionBarDrawerToggle mDrawerToggle;
 
     private DrawerLayout mDrawerLayout;
-    private ListView mDrawerListView;
+    private ExpandableListView mDrawerListView;
     private View mFragmentContainerView;
 
-    private int mCurrentSelectedPosition = 0;
+    private int mCurrentSelectedGroupPosition = 0;
+    private int mCurrentSelectedChildPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
 
@@ -73,12 +76,12 @@ public class NavigationDrawerFragment extends Fragment {
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
 
         if (savedInstanceState != null) {
-            mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
+            mCurrentSelectedGroupPosition=savedInstanceState.getInt(STATE_GROUP_SELECTED_POSITION);
+            mCurrentSelectedChildPosition = savedInstanceState.getInt(STATE_CHILD_SELECTED_POSITION);
             mFromSavedInstanceState = true;
         }
+        Log.e("CRAP","SHOULD BE OPENING"+mCurrentSelectedGroupPosition+" "+mCurrentSelectedChildPosition);
 
-        // Select either the default item (0) or the last selected item.
-        selectItem(mCurrentSelectedPosition);
     }
 
     @Override
@@ -91,28 +94,56 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        mDrawerListView = (ListView) inflater.inflate(
-                R.layout.fragment_navigation_drawer, container, false);
-        mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mDrawerListView = (ExpandableListView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        mDrawerListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        mDrawerListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectItem(position);
+            public boolean onGroupClick(ExpandableListView expandableListView, View view, int pos, long l) {
+
+                int index=expandableListView.getFlatListPosition(ExpandableListView.getPackedPositionForGroup(pos));
+                NavDrawerGroup group=(NavDrawerGroup)mDrawerListView.getItemAtPosition(index);
+                Log.e("Crap",index+" Index");
+                if(group.countItems()==0){
+
+                    mDrawerListView.setItemChecked(index, true);
+                    selectItem(pos,0);
+                }
+                return false;
             }
         });
+        mDrawerListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPos, int childPos, long id) {
+                Log.e("Crap",groupPos+" "+childPos);
+                int index=expandableListView.getFlatListPosition(ExpandableListView.getPackedPositionForChild(groupPos, childPos));
+                mDrawerListView.setItemChecked(index, true);
+                selectItem(groupPos, childPos);
+                return false;
+            }
+        });
+        ArrayList navigationGroups=new ArrayList<NavDrawerGroup>();
 
-        ArrayList navigationItems=new ArrayList<NavDrawerItem>();
-        navigationItems.add(new NavDrawerItem(getString(R.string.news_feed_activity),0));
-        navigationItems.add(new NavDrawerItem(getString(R.string.friends_activity),R.drawable.ic_friends));
-        navigationItems.add(new NavDrawerItem(getString(R.string.events_activity),R.drawable.ic_events));
-        navigationItems.add(new NavDrawerItem(getString(R.string.locations_activity),R.drawable.ic_location));
-        navigationItems.add(new NavDrawerItem(getString(R.string.settings_activity),0));
-        navigationItems.add(new NavDrawerItem(getString(R.string.register_text),0));
+        ArrayList friendsItems=new ArrayList<NavDrawerItem>();
+        friendsItems.add(new NavDrawerItem(getString(R.string.view_friends_text), 0));
+        friendsItems.add(new NavDrawerItem(getString(R.string.add_friends_text), 0));
 
-        mDrawerListView.setAdapter(new NavDrawerItemAdapter(
+        ArrayList eventItems=new ArrayList<NavDrawerItem>();
+        eventItems.add(new NavDrawerItem(getString(R.string.view_event_text), 0));
+        eventItems.add(new NavDrawerItem(getString(R.string.create_event_text), 0));
+        eventItems.add(new NavDrawerItem(getString(R.string.remove_event_text), 0));
+
+        navigationGroups.add(new NavDrawerGroup(getString(R.string.news_feed_activity),0,new ArrayList<NavDrawerItem>()));
+        navigationGroups.add(new NavDrawerGroup(getString(R.string.friends_activity),R.drawable.ic_social_person,friendsItems));
+        navigationGroups.add(new NavDrawerGroup(getString(R.string.events_activity),R.drawable.ic_events,eventItems));
+        navigationGroups.add(new NavDrawerGroup(getString(R.string.locations_activity),R.drawable.ic_location_place,new ArrayList<NavDrawerItem>()));
+        navigationGroups.add(new NavDrawerGroup(getString(R.string.settings_activity),R.drawable.ic_device_access_accounts,new ArrayList<NavDrawerItem>()));
+
+        mDrawerListView.setAdapter(new ExpandableListNavAdapter(
                 getActionBar().getThemedContext(),
-                navigationItems));
+                navigationGroups));
 
-        mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+        mDrawerListView.setItemChecked(mCurrentSelectedGroupPosition, true);
+
         return mDrawerListView;
     }
 
@@ -154,7 +185,7 @@ public class NavigationDrawerFragment extends Fragment {
                     return;
                 }
 
-                getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
+                //getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
             }
 
             @Override
@@ -173,7 +204,7 @@ public class NavigationDrawerFragment extends Fragment {
                     sp.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).apply();
                 }
 
-                getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
+                //getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
             }
         };
 
@@ -194,35 +225,29 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-    private void selectItem(int position) {
-        //int previous=mCurrentSelectedPosition;
-        //if(previous==position)
-        //    return;
-        mCurrentSelectedPosition = position;
+    private void selectItem(int groupPos,int position) {
+        int previousGroup=mCurrentSelectedGroupPosition;
+        int previousPos=mCurrentSelectedChildPosition;
+
+        if(previousGroup==groupPos&&previousPos==position){
+            Toast.makeText(getActivity().getBaseContext(), getString(R.string.already_here), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mCurrentSelectedGroupPosition= groupPos;
+        mCurrentSelectedChildPosition = position;
         if (mDrawerListView != null) {
-            mDrawerListView.setItemChecked(position, true);
+            mDrawerListView.setSelectedChild(groupPos,position,false);
         }
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
         }
 
         if (mCallbacks != null) {
-            mCallbacks.onNavigationDrawerItemSelected(position);
-        }/*
-        Intent switchActivity=new Intent();
-        switch(position){
-            case 1:
-                switchActivity.setClassName("uk.co.stephen_robinson.uni.lufelf","uk.co.stephen_robinson.uni.lufelf.MainActivity");
-                break;
-            case 2:
-                switchActivity.setClassName("uk.co.stephen_robinson.uni.lufelf","uk.co.stephen_robinson.uni.lufelf.FriendsActivity");
-                break;
-            default:
-                switchActivity.setClassName("uk.co.stephen_robinson.uni.lufelf","uk.co.stephen_robinson.uni.lufelf.MainActivity");
-                break;
+            mCallbacks.onNavigationDrawerItemSelected(groupPos,position);
         }
-        startActivity(switchActivity);*/
     }
+
 
     @Override
     public void onAttach(Activity activity) {
@@ -243,7 +268,9 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(STATE_SELECTED_POSITION, mCurrentSelectedPosition);
+        outState.putInt(STATE_GROUP_SELECTED_POSITION, mCurrentSelectedGroupPosition);
+        outState.putInt(STATE_CHILD_SELECTED_POSITION, mCurrentSelectedChildPosition);
+
     }
 
     @Override
@@ -301,6 +328,6 @@ public class NavigationDrawerFragment extends Fragment {
         /**
          * Called when an item in the navigation drawer is selected.
          */
-        void onNavigationDrawerItemSelected(int position);
+        void onNavigationDrawerItemSelected(int groupPos, int position);
     }
 }

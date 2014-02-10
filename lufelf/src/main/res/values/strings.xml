@@ -30,39 +30,22 @@
     <string name="action_example">Example action</string>
     <string name="hello_world">Hello world!</string>
 
-    <!-- Error message Strings -->
+    <!-- error message Strings -->
     <string name="already_here">Woah! You\'re already here...</string>
 
-    <!-- Login fragment -->
+    <!-- login fragment -->
     <string name="login_text">Login</string>
 
     <!-- Register fragment -->
     <string name="register_text">Register</string>
-    <string name="register_name">Name</string>
+    <string name="register_name">User name</string>
     <string name="register_libno">Library Card Number</string>
     <string name="register_emailadd">Email Address</string>
     <string name="register_password">Password</string>
-    <string name="register_confirmpassword">Confirm Password</string>
     <string name="register_dob">Date Of Birth</string>
-
     @string/register_dob
     @string/register_password
     @string/register_emailadd
     @string/register_libno
     @string/register_name
-
-    <!-- Create Event fragment -->
-    <string name="event_text">Create Event</string>
-    <string name="event_name">Name</string>
-    <string name="event_type">Type</string>
-    <string name="event_place">Location</string>
-    <string name="event_date_time">Time and Date</string>
-    <string name="event_description">Description</string>
-
-    <!-- Settings Fragment -->
-    <string name="settings_title">Settings</string>
-    <string name="settings_show_hide_location">Show/Hide Location</string>
-    <string name="settings_delete_user">Delete Account</string>
-
-
 </resources>

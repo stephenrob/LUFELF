@@ -3,24 +3,30 @@
     tools:context="uk.co.stephen_robinson.uni.lufelf.MainActivity" >
     <item android:id="@+id/action_friends"
         android:title="@string/action_friends"
-        android:icon="@drawable/ic_friends"
+        android:icon="@drawable/ic_social_person"
         android:showAsAction="always"
-        android:onClick="showFriends"
+        android:onClick="handleButton"
         />
     <item android:id="@+id/action_events"
         android:title="@string/action_events"
         android:icon="@drawable/ic_events"
         android:showAsAction="always"
-        android:onClick="showEvents"
+        android:onClick="handleButton"
         />
     <item android:id="@+id/action_locations"
         android:title="@string/action_locations"
-        android:icon="@drawable/ic_location"
+        android:icon="@drawable/ic_location_place"
         android:showAsAction="always"
-        android:onClick="showLocations"
+        android:onClick="handleButton"
         />
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
+        android:orderInCategory="100"
+        android:onClick="handleButton"
+        android:showAsAction="never" />
+
+    <item android:id="@+id/action_logout"
+        android:title="@string/action_logout"
         android:orderInCategory="100"
         android:showAsAction="never" />
 </menu>

@@ -16,7 +16,7 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
     // array to hold the various fragments used in the navigation drawer.
     Fragment[][] fragments={{NewsFeedFragment.newInstance()},
             {RegisterFragment.newInstance(),FriendsFragment.newInstance()},
-            {EventsFragment.newInstance(),EventsFragment.newInstance(),EventsFragment.newInstance()},
+            {EventsFragment.newInstance(),CreateEventFragment.newInstance(),EventsFragment.newInstance()},
             {MapViewFragment.newInstance()},
             {LoginFragment.newInstance()}};
 
@@ -48,15 +48,21 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
         super.onResume();
     }
     public void handleButton(MenuItem item){
+
+
         //get item title
         String title=String.valueOf(item.getTitle());
 
         //go through tags array until there is a match, then switch
-        /*for(int i=0;i<tags.length;i++)
-            if(tags[i].equals(title)){
-                onNavigationDrawerItemSelected(i);
-                break;
-            }*/
+        for(int outer=0;outer<tags.length;outer++){
+            for(int inner=0;inner<tags[outer].length;inner++){
+                if(tags[outer][inner].equals(title)){
+                    onNavigationDrawerItemSelected(outer,inner);
+                    break;
+                }
+            }
+        }
+
     }
     @Override
     public void onBackPressed() {

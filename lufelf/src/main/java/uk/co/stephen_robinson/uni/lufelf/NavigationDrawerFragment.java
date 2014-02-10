@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -101,9 +102,12 @@ public class NavigationDrawerFragment extends Fragment {
 
                 int index=expandableListView.getFlatListPosition(ExpandableListView.getPackedPositionForGroup(pos));
                 NavDrawerGroup group=(NavDrawerGroup)mDrawerListView.getItemAtPosition(index);
-                mDrawerListView.setItemChecked(index, true);
-                if(group.countItems()==0)
+                Log.e("Crap",index+" Index");
+                if(group.countItems()==0){
+
+                    mDrawerListView.setItemChecked(index, true);
                     selectItem(pos,0);
+                }
                 return false;
             }
         });
@@ -128,11 +132,11 @@ public class NavigationDrawerFragment extends Fragment {
         eventItems.add(new NavDrawerItem(getString(R.string.create_event_text), 0));
         eventItems.add(new NavDrawerItem(getString(R.string.remove_event_text), 0));
 
-        navigationGroups.add(new NavDrawerGroup(getString(R.string.news_feed_activity),R.drawable.ic_friends,new ArrayList<NavDrawerItem>()));
+        navigationGroups.add(new NavDrawerGroup(getString(R.string.news_feed_activity),0,new ArrayList<NavDrawerItem>()));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.friends_activity),R.drawable.ic_social_person,friendsItems));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.events_activity),R.drawable.ic_events,eventItems));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.locations_activity),R.drawable.ic_location_place,new ArrayList<NavDrawerItem>()));
-        navigationGroups.add(new NavDrawerGroup(getString(R.string.settings_activity),R.drawable.ic_social_person,new ArrayList<NavDrawerItem>()));
+        navigationGroups.add(new NavDrawerGroup(getString(R.string.settings_activity),R.drawable.ic_device_access_accounts,new ArrayList<NavDrawerItem>()));
 
         mDrawerListView.setAdapter(new ExpandableListNavAdapter(
                 getActionBar().getThemedContext(),
@@ -225,9 +229,10 @@ public class NavigationDrawerFragment extends Fragment {
         int previousGroup=mCurrentSelectedGroupPosition;
         int previousPos=mCurrentSelectedChildPosition;
 
-        if(previousGroup==groupPos&&previousPos==position)
+        if(previousGroup==groupPos&&previousPos==position){
+            Toast.makeText(getActivity().getBaseContext(), getString(R.string.already_here), Toast.LENGTH_SHORT).show();
             return;
-
+        }
 
         mCurrentSelectedGroupPosition= groupPos;
         mCurrentSelectedChildPosition = position;

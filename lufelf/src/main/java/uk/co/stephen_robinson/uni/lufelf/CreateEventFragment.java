@@ -50,6 +50,7 @@ public class CreateEventFragment extends BaseFragment{
     }
     public void showDateTime(final EditText editText){
 
+        //get current time and date
         Calendar currentDate=Calendar.getInstance();
 
         int currentyear=currentDate.get(Calendar.YEAR);
@@ -60,21 +61,24 @@ public class CreateEventFragment extends BaseFragment{
         final int minute=currentDate.get(Calendar.MINUTE);
 
         DatePickerDialog datePicker=new DatePickerDialog(context, new OnDateSetListener() {
+            //set the callback method when the user sets the date
             public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
-
+                //create the date string
                 final String dateString=String.valueOf(selectedday)+"/"+String.valueOf(selectedmonth)+"/"+String.valueOf(selectedyear);
+                //create time picker dialog
                 TimePickerDialog timePicker = new TimePickerDialog(context,new TimePickerDialog.OnTimeSetListener() {
+                    //set the functionality of the callback method
                     @Override
                     public void onTimeSet(TimePicker timePicker, int shour, int sminute) {
                         String dateAndtime=dateString+" "+String.valueOf(shour)+":"+String.valueOf(sminute);
                         editText.setText(dateAndtime);
                     }
                 },hour,minute,false);
-                timePicker.setTitle("Select time");
+                timePicker.setTitle("Select Time");
                 timePicker.show();
             }
         },currentyear, currentMonth, currentDay);
-        datePicker.setTitle("Select date");
+        datePicker.setTitle("Select Date");
         datePicker.show();
     }
 }

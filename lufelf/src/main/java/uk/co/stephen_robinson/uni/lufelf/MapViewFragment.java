@@ -1,26 +1,24 @@
 package uk.co.stephen_robinson.uni.lufelf;
 
 import android.content.Context;
+import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.google.android.gms.maps.*;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.*;
-import android.location.*;
-import com.google.android.gms.maps.SupportMapFragment;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.widget.Toast;
-import android.content.Intent;
-import android.net.Uri;
-import uk.co.stephen_robinson.uni.lufelf.route.*;
+
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+
 import uk.co.stephen_robinson.uni.lufelf.route.DirectionsQuery;
-import java.util.List;
-import android.graphics.Color;
 /**
  * Created by James on 31/01/2014.
  */
@@ -31,8 +29,16 @@ public class MapViewFragment extends BaseFragment implements LocationListener{
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static MapViewFragment newInstance() {
-        return new MapViewFragment();
+    public static MapViewFragment newInstance(LatLng finish) {
+        if(finish==null)
+            return new MapViewFragment();
+        MapViewFragment m=new MapViewFragment();
+        Bundle args=new Bundle();
+        args.putDouble("lat",finish.latitude);
+        args.putDouble("long",finish.longitude);
+
+        m.setArguments(args);
+        return m;
     }
 
     public MapViewFragment() {
@@ -81,7 +87,10 @@ public class MapViewFragment extends BaseFragment implements LocationListener{
         }
 
         DirectionsQuery query = new DirectionsQuery();
-        query.getRoute(getLocation(), new LatLng(54.0078566, -2.7856414),map);
+        if(isNetworkAvailable())
+            query.getRoute(getLocation(), new LatLng(54.0078566, -2.7856414),map);
+        else
+            Toast.makeText(context,"No Active Internet Connection Found",Toast.LENGTH_LONG).show();
         //query.loginUser(new LatLng(54.0097969,-2.7862154),new LatLng(54.0078566,-2.7856414));
         //navigateTo(new LatLng(54.0103,2.7856));
         return rootView;
@@ -130,4 +139,5 @@ public class MapViewFragment extends BaseFragment implements LocationListener{
         if (f != null)
             fragmentManager.beginTransaction().remove(f).commit();
     }
+
 }

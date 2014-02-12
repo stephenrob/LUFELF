@@ -17,15 +17,19 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
     Fragment[][] fragments={{NewsFeedFragment.newInstance()},
             {RegisterFragment.newInstance(),FriendsFragment.newInstance()},
             {EventsFragment.newInstance(),CreateEventFragment.newInstance(),EventsFragment.newInstance()},
-            {MapViewFragment.newInstance()},
-            {LoginFragment.newInstance()}};
+            {MapViewFragment.newInstance(null)},
+            {SettingsFragment.newInstance()},
+            {LoginFragment.newInstance()},
+            {RegisterFragment.newInstance()}};
 
 
     String[][] tags={{"Newsfeed"},
             {"Friends","Add Friends"},
             {"Events","Create Event","Remove Event"},
             {"Locations"},
-            {"Settings"}};
+            {"Settings"},
+            {"Login"},
+            {"Register"}};
 
     @Override
     public void onNavigationDrawerItemSelected(int groupPos,int position) {

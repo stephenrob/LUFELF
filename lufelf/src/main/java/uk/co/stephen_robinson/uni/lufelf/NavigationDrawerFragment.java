@@ -19,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -95,7 +94,7 @@ public class NavigationDrawerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         mDrawerListView = (ExpandableListView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
-        mDrawerListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
         mDrawerListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int pos, long l) {
@@ -132,11 +131,13 @@ public class NavigationDrawerFragment extends Fragment {
         eventItems.add(new NavDrawerItem(getString(R.string.create_event_text), 0));
         eventItems.add(new NavDrawerItem(getString(R.string.remove_event_text), 0));
 
-        navigationGroups.add(new NavDrawerGroup(getString(R.string.news_feed_activity),0,new ArrayList<NavDrawerItem>()));
-        navigationGroups.add(new NavDrawerGroup(getString(R.string.friends_activity),R.drawable.ic_social_person,friendsItems));
+        navigationGroups.add(new NavDrawerGroup(getString(R.string.news_feed_activity),R.drawable.ic_newsfeed,new ArrayList<NavDrawerItem>()));
+        navigationGroups.add(new NavDrawerGroup(getString(R.string.friends_activity),R.drawable.ic_friends,friendsItems));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.events_activity),R.drawable.ic_events,eventItems));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.locations_activity),R.drawable.ic_location_place,new ArrayList<NavDrawerItem>()));
-        navigationGroups.add(new NavDrawerGroup(getString(R.string.settings_activity),R.drawable.ic_device_access_accounts,new ArrayList<NavDrawerItem>()));
+        navigationGroups.add(new NavDrawerGroup(getString(R.string.settings_activity),R.drawable.ic_settings,new ArrayList<NavDrawerItem>()));
+        navigationGroups.add(new NavDrawerGroup(getString(R.string.login_text),0,new ArrayList<NavDrawerItem>()));
+        navigationGroups.add(new NavDrawerGroup(getString(R.string.register_text),0,new ArrayList<NavDrawerItem>()));
 
         mDrawerListView.setAdapter(new ExpandableListNavAdapter(
                 getActionBar().getThemedContext(),

@@ -61,5 +61,8 @@
     <string name="event_description">Description</string>
 
 
-
+    <!-- Settings Fragment -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_show_hide_location">Show/Hide Location</string>
+    <string name="settings_delete_user">Delete Account</string>
 </resources>

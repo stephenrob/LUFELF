@@ -14,23 +14,23 @@ import java.util.ArrayList;
 /**
  * Created by James on 31/01/2014.
  */
-public class BaseItemAdapter extends BaseAdapter {
+public class EventItemAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<NavDrawerItem> navDrawerItems;
+    private ArrayList<EventListItem> eventListItems;
 
-    public BaseItemAdapter(Context context, ArrayList<NavDrawerItem> navDrawerItems){
+    public EventItemAdapter(Context context, ArrayList<EventListItem> eventListItems){
         this.context = context;
-        this.navDrawerItems = navDrawerItems;
+        this.eventListItems = eventListItems;
     }
 
     @Override
     public int getCount() {
-        return navDrawerItems.size();
+        return eventListItems.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return navDrawerItems.get(position);
+        return eventListItems.get(position);
     }
 
     @Override
@@ -50,8 +50,8 @@ public class BaseItemAdapter extends BaseAdapter {
         TextView txtTitle = (TextView) convertView.findViewById(R.id.event_item_text);
 
 
-        imgIcon.setImageResource(navDrawerItems.get(position).getIcon());
-        txtTitle.setText(navDrawerItems.get(position).getTitle());
+        imgIcon.setImageResource(eventListItems.get(position).getIcon());
+        txtTitle.setText(eventListItems.get(position).getTitle());
 
         return convertView;
     }

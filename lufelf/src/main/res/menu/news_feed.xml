@@ -3,7 +3,7 @@
     tools:context="uk.co.stephen_robinson.uni.lufelf.MainActivity" >
     <item android:id="@+id/action_friends"
         android:title="@string/action_friends"
-        android:icon="@drawable/ic_social_person"
+        android:icon="@drawable/ic_friends"
         android:showAsAction="always"
         android:onClick="handleButton"
         />
@@ -23,7 +23,7 @@
         android:title="@string/action_settings"
         android:orderInCategory="100"
         android:onClick="handleButton"
-        android:showAsAction="never" />
+        android:showAsAction="never"/>
 
     <item android:id="@+id/action_logout"
         android:title="@string/action_logout"

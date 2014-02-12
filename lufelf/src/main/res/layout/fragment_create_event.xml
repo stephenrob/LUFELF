@@ -1,22 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-=======
     android:layout_width="match_parent" android:layout_height="match_parent"
->>>>>>> 13f157f5a1452baf853e151f61e71c61a9333b44
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-<<<<<<< HEAD
-    tools:context=".activity_LUFELF$PlaceholderFragment"
     android:background="@color/app_bg">
-
-=======
-    android:background="@color/app_bg">
->>>>>>> 13f157f5a1452baf853e151f61e71c61a9333b44
     <TextView
         android:layout_width="match_parent"
         android:id="@+id/register_title"
@@ -27,17 +15,6 @@
         android:gravity="center"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-<<<<<<< HEAD
-        android:layout_marginTop="10dp" />
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/login_background"
-        android:layout_gravity="center"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/register_title"
-=======
         android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"/>
 
@@ -47,22 +24,21 @@
     android:layout_height="fill_parent"
     android:layout_below="@id/register_title"
     >
-
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:background="@color/app_bg">
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@drawable/login_background"
->>>>>>> 13f157f5a1452baf853e151f61e71c61a9333b44
         android:orientation="vertical"
         android:padding="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-<<<<<<< HEAD
-        android:layout_marginTop="30dp"
-        android:id="@+id/registation_liner_layout"
-        >
-
-=======
 
         android:id="@+id/registration_linear_layout"
         >
@@ -70,7 +46,6 @@
 
 
 
->>>>>>> 13f157f5a1452baf853e151f61e71c61a9333b44
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -106,10 +81,7 @@
             />
 
         <EditText
-<<<<<<< HEAD
-=======
             android:id="@+id/setTimeDate"
->>>>>>> 13f157f5a1452baf853e151f61e71c61a9333b44
             android:layout_width="fill_parent"
             android:lines="1"
             android:singleLine="true"
@@ -117,45 +89,22 @@
             android:gravity="left"
             android:background="@drawable/text_field"
             android:hint="@string/event_date_time"
-<<<<<<< HEAD
-            android:inputType="textPassword"
-            android:layout_marginTop="5dp"  />
-
-        <EditText
-=======
-            android:onClick="displ"
             android:focusable="false"
             android:layout_marginTop="5dp"  />
 
         <EditText
 
->>>>>>> 13f157f5a1452baf853e151f61e71c61a9333b44
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:lines="4"
             android:gravity="left"
             android:background="@drawable/text_field"
-<<<<<<< HEAD
+
             android:layout_marginTop="5dp"
             android:hint="@string/event_description"    />
+
 
     </LinearLayout>
-
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="@drawable/button"
-        android:textColor="@color/stdtxt"
-        android:text="Confirm"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/registation_liner_layout" />
-
-=======
-
-            android:layout_marginTop="5dp"
-            android:hint="@string/event_description"    />
         <Button
             android:layout_width="200dp"
             android:layout_height="wrap_content"
@@ -165,10 +114,9 @@
             android:text="Confirm"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
-           />
-
-    </LinearLayout>
-
+            android:layout_below="@id/registration_linear_layout"
+            android:layout_centerHorizontal="true"
+            />
+    </RelativeLayout>
 </ScrollView>
->>>>>>> 13f157f5a1452baf853e151f61e71c61a9333b44
 </RelativeLayout>

@@ -1,27 +1,13 @@
 package uk.co.stephen_robinson.uni.lufelf;
 
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import java.lang.reflect.Field;
-import android.app.FragmentTransaction;
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.view.Window;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
-import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
+import java.lang.reflect.Field;
 /**
  * Created by James on 30/01/2014.
  */
@@ -53,5 +39,11 @@ public class BaseFragment  extends Fragment{
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+    }
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

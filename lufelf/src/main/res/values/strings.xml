@@ -5,12 +5,21 @@
     <string name="title_activity_news_feed">News Feed</string>
 
     <!-- drawer options -->
-
+    <!-- group headings -->
     <string name="news_feed_activity">News Feed</string>
     <string name="friends_activity">Friends</string>
     <string name="events_activity">Events</string>
     <string name="locations_activity">Locations</string>
     <string name="settings_activity">Settings</string>
+
+
+    <!-- subheadings -->
+    <string name="view_friends_text">View Friends List</string>
+    <string name="add_friends_text">Add Friend</string>
+
+    <string name="view_event_text">View Events</string>
+    <string name="create_event_text">Create Event</string>
+    <string name="remove_event_text">Remove Event</string>
 
     <!-- navigation accessibility Strings -->
 
@@ -22,30 +31,38 @@
     <string name="action_events">Events</string>
     <string name="action_locations">Locations</string>
     <string name="action_settings">Settings</string>
-    <string name="action_logout">Settings</string>
+    <string name="action_logout">Logout</string>
     <string name="title_activity_friends">FriendsActivity</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
     <string name="action_example">Example action</string>
     <string name="hello_world">Hello world!</string>
 
-    <!-- error message Strings -->
+    <!-- Error message Strings -->
     <string name="already_here">Woah! You\'re already here...</string>
 
-    <!-- login fragment -->
+    <!-- Login fragment -->
     <string name="login_text">Login</string>
 
     <!-- Register fragment -->
     <string name="register_text">Register</string>
-    <string name="register_name">User name</string>
+    <string name="register_name">Name</string>
     <string name="register_libno">Library Card Number</string>
     <string name="register_emailadd">Email Address</string>
     <string name="register_password">Password</string>
+    <string name="register_confirmpassword">Confirm Password</string>
     <string name="register_dob">Date Of Birth</string>
-    @string/register_dob
-    @string/register_password
-    @string/register_emailadd
-    @string/register_libno
-    @string/register_name
+
+
+    <!-- Create Event fragment -->
+    <string name="event_text">Create Event</string>
+    <string name="event_name">Name</string>
+    <string name="event_type">Type</string>
+    <string name="event_place">Location</string>
+    <string name="event_date_time">Time and Date</string>
+    <string name="event_description">Description</string>
+
+
+    <!-- Settings Fragment -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_show_hide_location">Show/Hide Location</string>
+    <string name="settings_delete_user">Delete Account</string>
 </resources>

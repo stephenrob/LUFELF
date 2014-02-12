@@ -23,23 +23,26 @@
         android:layout_marginTop="10dp" />
 
     <Switch
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/settings_show_hide_location"
         android:textSize="@dimen/subtitle"
         android:id="@+id/settings_location"
         android:layout_marginTop="30dp"
-        android:layout_below="@id/settings_title" />
+        android:layout_below="@id/settings_title"
+        android:thumb="@drawable/apptheme_switch_inner_holo_light"
+        android:track="@drawable/apptheme_switch_track_holo_light"/>
 
-    <TextView
+    <Button
         android:id="@+id/setting_delete_user"
+        android:background="@drawable/button"
         android:textSize="@dimen/subtitle"
         android:textColor="@color/stdtxt"
         android:text="@string/settings_delete_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/settings_location"
-        android:gravity="left"
+        android:gravity="center"
         android:layout_marginTop="10dp"/>
 
     <Button

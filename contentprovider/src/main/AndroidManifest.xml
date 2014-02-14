@@ -1,0 +1,16 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="uk.co.stephen_robinson.uni.lufelf.contentprovider">
+
+    <application android:allowBackup="true"
+        android:label="@string/app_name"
+        android:icon="@drawable/ic_launcher">
+
+
+        <provider
+            android:name="uk.co.stephen_robinson.uni.lufelf.contentprovider.LufelfContentProvider"
+            android:authorities="uk.co.stephen_robinson.uni.lufelf.contentprovider" >
+        </provider>
+
+    </application>
+
+</manifest>

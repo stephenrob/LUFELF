@@ -1,3 +1,6 @@
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 /**
  * Created by Stephen on 14/02/2014.
  */
@@ -52,5 +55,12 @@ public class network {
     private static final String PROFILE_PICTURE = "avatars";
     private static final String PLACE_IMAGE = "place_images";
     private static final String EVENT_IMAGE = "event_images";
+
+    // HTTP Client
+    private HttpClient serverClient;
+
+    public network(){
+
+    }
 
 }

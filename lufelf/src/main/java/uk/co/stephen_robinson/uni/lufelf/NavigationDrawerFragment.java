@@ -131,10 +131,9 @@ public class NavigationDrawerFragment extends Fragment {
         eventItems.add(new NavDrawerItem(getString(R.string.create_event_text), 0));
         eventItems.add(new NavDrawerItem(getString(R.string.remove_event_text), 0));
 
-        navigationGroups.add(new NavDrawerGroup(getString(R.string.news_feed_activity),R.drawable.ic_newsfeed,new ArrayList<NavDrawerItem>()));
+        navigationGroups.add(new NavDrawerGroup(getString(R.string.locations_activity),R.drawable.ic_location_place,new ArrayList<NavDrawerItem>()));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.friends_activity),R.drawable.ic_friends,friendsItems));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.events_activity),R.drawable.ic_events,eventItems));
-        navigationGroups.add(new NavDrawerGroup(getString(R.string.locations_activity),R.drawable.ic_location_place,new ArrayList<NavDrawerItem>()));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.settings_activity),R.drawable.ic_settings,new ArrayList<NavDrawerItem>()));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.login_text),0,new ArrayList<NavDrawerItem>()));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.register_text),0,new ArrayList<NavDrawerItem>()));
@@ -231,6 +230,7 @@ public class NavigationDrawerFragment extends Fragment {
         int previousPos=mCurrentSelectedChildPosition;
 
         if(previousGroup==groupPos&&previousPos==position){
+            mDrawerLayout.closeDrawer(mFragmentContainerView);
             Toast.makeText(getActivity().getBaseContext(), getString(R.string.already_here), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -330,5 +330,9 @@ public class NavigationDrawerFragment extends Fragment {
          * Called when an item in the navigation drawer is selected.
          */
         void onNavigationDrawerItemSelected(int groupPos, int position);
+    }
+    public void updateChildGroup(int groupPos,int childPos){
+        this.mCurrentSelectedGroupPosition=groupPos;
+        this.mCurrentSelectedChildPosition=childPos;
     }
 }

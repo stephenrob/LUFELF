@@ -43,6 +43,7 @@ public class EventsFragment extends BaseFragment{
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                resetIndexes();
                 EventListItem item=(EventListItem)list.getItemAtPosition(i);
                 Log.e("CRAP","TEXT ="+item.getId());
                 fragmentManager.beginTransaction().replace(R.id.container, EventSubFragment.newInstance(item),"EventSubView").addToBackStack(null).commit();

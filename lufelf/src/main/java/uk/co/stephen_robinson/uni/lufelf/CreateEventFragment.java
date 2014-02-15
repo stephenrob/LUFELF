@@ -7,10 +7,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -46,6 +49,13 @@ public class CreateEventFragment extends BaseFragment{
             }
         });
 
+        //populate spinner (places)
+        ArrayList<String> places = new ArrayList<String>();
+        places.add("Current Location");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,R.layout.spinner_item,places);
+
+        Spinner placeSpinner=(Spinner)rootView.findViewById(R.id.event_place_spinner);
+        placeSpinner.setAdapter(adapter);
         return rootView;
     }
     public void showDateTime(final EditText editText){
@@ -75,7 +85,7 @@ public class CreateEventFragment extends BaseFragment{
                     }
                 },hour,minute,false);
                 timePicker.setTitle("Select Time");
-                timePicker.show();
+                //timePicker.show();
             }
         },currentyear, currentMonth, currentDay);
         datePicker.setTitle("Select Date");

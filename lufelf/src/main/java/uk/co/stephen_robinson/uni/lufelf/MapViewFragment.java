@@ -7,9 +7,11 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -17,14 +19,17 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import uk.co.stephen_robinson.uni.lufelf.route.DirectionsQuery;
 /**
  * Created by James on 31/01/2014.
  */
-public class MapViewFragment extends BaseFragment implements LocationListener{
+public class MapViewFragment extends BaseFragment implements LocationListener,GoogleMap.InfoWindowAdapter,GoogleMap.OnInfoWindowClickListener{
     private GoogleMap map;
     private LocationManager locationManager;
+    private ViewGroup cont;
     /**
      * Returns a new instance of this fragment for the given section
      * number.
@@ -48,7 +53,7 @@ public class MapViewFragment extends BaseFragment implements LocationListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
         setFragmentManager(getFragmentManager());
-
+        this.cont=container;
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
         setContext(rootView.getContext());
 
@@ -86,11 +91,12 @@ public class MapViewFragment extends BaseFragment implements LocationListener{
 
         }
 
+        populateWithPlaces();
         DirectionsQuery query = new DirectionsQuery();
-        if(isNetworkAvailable())
+        /*if(isNetworkAvailable())
             query.getRoute(getLocation(), new LatLng(54.0078566, -2.7856414),map);
         else
-            Toast.makeText(context,"No Active Internet Connection Found",Toast.LENGTH_LONG).show();
+            Toast.makeText(context,"No Active Internet Connection Found",Toast.LENGTH_LONG).show();*/
         //query.loginUser(new LatLng(54.0097969,-2.7862154),new LatLng(54.0078566,-2.7856414));
         //navigateTo(new LatLng(54.0103,2.7856));
         return rootView;
@@ -103,16 +109,16 @@ public class MapViewFragment extends BaseFragment implements LocationListener{
         startActivity(navigation);
     }
 
-    public LatLng getLocation(){
-        double latitude =0;
-        double longitude =0;
+    public void populateWithPlaces(){
+        MarkerOptions mOptions1=new MarkerOptions();
 
-        Location loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        mOptions1.title("A");
+        mOptions1.snippet("ABCDEFGHIJKLMNOP");
+        mOptions1.position(getLocation());
 
-        longitude=loc.getLongitude();
-        latitude=loc.getLatitude();
-
-        return new LatLng(latitude,longitude);
+        map.addMarker(mOptions1);
+        map.setInfoWindowAdapter(this);
+        map.setOnInfoWindowClickListener(this);
     }
     @Override
     public void onLocationChanged(Location location) {
@@ -139,5 +145,35 @@ public class MapViewFragment extends BaseFragment implements LocationListener{
         if (f != null)
             fragmentManager.beginTransaction().remove(f).commit();
     }
+    @Override
+    public View getInfoWindow(Marker m){
 
+        return null;
+    }
+    public View getInfoContents(Marker m){
+        // Getting view from the layout file info_window_layout
+        View v = View.inflate(context,R.layout.info_window_place_layout, null);
+
+        // Getting the position from the marker
+        LatLng latLng = m.getPosition();
+
+        // Getting reference to the TextView to set latitude
+        TextView title = (TextView) v.findViewById(R.id.place_title);
+
+        // Getting reference to the TextView to set longitude
+        TextView description = (TextView) v.findViewById(R.id.place_description);
+
+        // Setting the latitude
+        title.setText(m.getTitle());
+
+        // Setting the longitude
+        description.setText(m.getSnippet());
+
+        // Returning the view containing InfoWindow contents
+        return v;
+    }
+    public void onInfoWindowClick(Marker m){
+        Log.e("Crap","window Clicked");
+       // m.getPosition().latitude;
+    }
 }

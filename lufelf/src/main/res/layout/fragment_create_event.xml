@@ -37,8 +37,6 @@
         android:background="@drawable/login_background"
         android:orientation="vertical"
         android:padding="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
 
         android:id="@+id/registration_linear_layout"
         >
@@ -56,29 +54,19 @@
             android:inputType="text"
             android:hint="@string/event_name"/>
 
-        <EditText
-            android:layout_width="fill_parent"
-            android:lines="1"
-            android:singleLine="true"
+        <Spinner
+            android:id="@+id/event_type_spinner"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:background="@drawable/text_field"
-            android:hint="@string/event_type"
-            android:inputType="text"
-            android:layout_marginTop="5dp"
-            />
+            android:entries="@array/event_types"
+            android:prompt="@string/event_type"/>
 
-        <EditText
-            android:layout_width="fill_parent"
-            android:lines="1"
-            android:singleLine="true"
+        <Spinner
+            android:id="@+id/event_place_spinner"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:background="@drawable/text_field"
-            android:hint="@string/event_place"
-            android:inputType="text"
-            android:layout_marginTop="5dp"
-            />
+            android:prompt="@string/event_place"
+            android:layout_marginTop="5dp"/>
 
         <EditText
             android:id="@+id/setTimeDate"

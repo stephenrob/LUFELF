@@ -53,9 +53,9 @@ public class EventSubFragment extends BaseFragment{
 
         eventName.setText(args.getString("eventName"));
         creator.setText("By: "+args.getString("creator"));
-        datetime.setText("Date/Time: \n"+args.getString("dateTime"));
+        datetime.setText(args.getString("dateTime"));
         description.setText(args.getString("description"));
-        location.setText("Location: \n"+String.valueOf(args.getDouble("lat"))+","+String.valueOf(args.getDouble("long")));
+        location.setText(String.valueOf(args.getDouble("lat"))+","+String.valueOf(args.getDouble("long")));
 
         Log.e("CRAP", "HERE");
         return rootView;

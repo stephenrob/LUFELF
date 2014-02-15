@@ -14,19 +14,17 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
     int currentGroupPosition=-1;
 
     // array to hold the various fragments used in the navigation drawer.
-    Fragment[][] fragments={{NewsFeedFragment.newInstance()},
+    Fragment[][] fragments={{MapViewFragment.newInstance(null)},
             {RegisterFragment.newInstance(),FriendsFragment.newInstance()},
             {EventsFragment.newInstance(),CreateEventFragment.newInstance(),EventsFragment.newInstance()},
-            {MapViewFragment.newInstance(null)},
             {SettingsFragment.newInstance()},
             {LoginFragment.newInstance()},
             {RegisterFragment.newInstance()}};
 
 
-    String[][] tags={{"Newsfeed"},
+    String[][] tags={{"Locations"},
             {"Friends","Add Friends"},
             {"Events","Create Event","Remove Event"},
-            {"Locations"},
             {"Settings"},
             {"Login"},
             {"Register"}};
@@ -85,5 +83,9 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
         /*while(currentFragment==null&&count<tags.length)
             currentFragment=fm.findFragmentByTag(tags[count]);*/
 
+    }
+    public void updateCurrentPositions(int groupPos,int position){
+        currentGroupPosition=groupPos;
+        currentChildPosition=position;
     }
 }

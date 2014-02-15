@@ -65,4 +65,29 @@
     <string name="settings_title">Settings</string>
     <string name="settings_show_hide_location">Show/Hide Location</string>
     <string name="settings_delete_user">Delete Account</string>
+
+    <!--place types -->
+    <string-array name="place_types">
+        <item>Pub</item>
+        <item>Restaurant</item>
+        <item>Lecture Theatre</item>
+        <item>Seminar Room</item>
+        <item>Cafe</item>
+        <item>Takeaway</item>
+        <item>Cinema</item>
+        <item>Hall</item>
+        <item>Shop</item>
+        <item>Library</item>
+        <item>Other</item>
+    </string-array>
+    <!--event types -->
+    <string-array name="event_types">
+        <item>Social</item>
+        <item>University</item>
+        <item>Open Day</item>
+        <item>Private</item>
+        <item>Public</item>
+        <item>Party</item>
+        <item>Study</item>
+    </string-array>
 </resources>

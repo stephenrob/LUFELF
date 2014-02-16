@@ -51,12 +51,12 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-
         setFragmentManager(getFragmentManager());
-        this.cont=container;
-        View rootView = inflater.inflate(R.layout.fragment_map, container, false);
-        setContext(rootView.getContext());
 
+        this.cont=container;
+        rootView = inflater.inflate(R.layout.fragment_map, container, false);
+        setContext(rootView.getContext());
+        showDialog();
         this.locationManager=(LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 400, 5, this);
 
@@ -99,6 +99,7 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
             Toast.makeText(context,"No Active Internet Connection Found",Toast.LENGTH_LONG).show();*/
         //query.loginUser(new LatLng(54.0097969,-2.7862154),new LatLng(54.0078566,-2.7856414));
         //navigateTo(new LatLng(54.0103,2.7856));
+        //hideBusy();
         return rootView;
     }
     public void navigateTo(LatLng finish){
@@ -111,7 +112,7 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
 
     public void populateWithPlaces(){
         MarkerOptions mOptions1=new MarkerOptions();
-
+        //Cursor places=provider.query(LufelfContentProvider.PLACES_CONTENT_URI,);
         mOptions1.title("A");
         mOptions1.snippet("ABCDEFGHIJKLMNOP");
         mOptions1.position(getLocation());
@@ -174,6 +175,8 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
     }
     public void onInfoWindowClick(Marker m){
         Log.e("Crap","window Clicked");
+        resetIndexes();
+        fragmentManager.beginTransaction().replace(R.id.container, PlaceSubFragment.newInstance(), "PlaceSubView").addToBackStack(null).commit();
        // m.getPosition().latitude;
     }
 }

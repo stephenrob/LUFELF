@@ -43,7 +43,9 @@ public class EventSubFragment extends BaseFragment{
         setFragmentManager(getFragmentManager());
         Bundle args=getArguments();
 
-        View rootView = inflater.inflate(R.layout.fragment_event_profile, container, false);
+        rootView = inflater.inflate(R.layout.fragment_event_profile, container, false);
+        setContext(rootView.getContext());
+        showDialog();
 
         TextView eventName=(TextView)rootView.findViewById(R.id.event_name);
         TextView creator=(TextView)rootView.findViewById(R.id.event_host);

@@ -24,7 +24,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
-                android:src="@drawable/party"
+                android:src="@drawable/ic_question_mark"
                 android:background="@drawable/image_background"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"/>

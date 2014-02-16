@@ -28,7 +28,9 @@ public class RegisterFragment extends BaseFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setFragmentManager(getFragmentManager());
-        View rootView = inflater.inflate(R.layout.fragment_register, container, false);
+        rootView = inflater.inflate(R.layout.fragment_register, container, false);
+        setContext(rootView.getContext());
+        showDialog();
         Log.e("CRAP", "HERE");
         return rootView;
     }

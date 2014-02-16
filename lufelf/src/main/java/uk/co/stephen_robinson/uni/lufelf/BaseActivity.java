@@ -1,6 +1,7 @@
 package uk.co.stephen_robinson.uni.lufelf;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.util.Log;
@@ -12,7 +13,7 @@ import android.view.MenuItem;
 public class BaseActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks{
     int currentChildPosition=-1;
     int currentGroupPosition=-1;
-
+    private Dialog dialog;
     // array to hold the various fragments used in the navigation drawer.
     Fragment[][] fragments={{MapViewFragment.newInstance(null)},
             {RegisterFragment.newInstance(),FriendsFragment.newInstance()},
@@ -88,4 +89,5 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
         currentGroupPosition=groupPos;
         currentChildPosition=position;
     }
+
 }

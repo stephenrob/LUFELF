@@ -27,7 +27,9 @@ public class SettingsFragment extends BaseFragment{
                              Bundle savedInstanceState) {
 
         setFragmentManager(getFragmentManager());
-        View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
+        rootView = inflater.inflate(R.layout.fragment_settings, container, false);
+        setContext(rootView.getContext());
+        showDialog();
         Log.e("CRAP", "HERE");
         return rootView;
     }

@@ -26,7 +26,9 @@ public class FriendsFragment extends BaseFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setFragmentManager(getFragmentManager());
-        View rootView = inflater.inflate(R.layout.fragment_friends, container, false);
+        rootView = inflater.inflate(R.layout.fragment_friends, container, false);
+        setContext(rootView.getContext());
+        showDialog();
         Log.e("CRAP", "HERE");
         return rootView;
     }

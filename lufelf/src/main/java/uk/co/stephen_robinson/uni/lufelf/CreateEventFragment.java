@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
@@ -38,9 +39,9 @@ public class CreateEventFragment extends BaseFragment{
 
         setFragmentManager(getFragmentManager());
 
-        View rootView = inflater.inflate(R.layout.fragment_create_event, container, false);
+        rootView = inflater.inflate(R.layout.fragment_create_event, container, false);
         setContext(rootView.getContext());
-
+        showDialog();
         final EditText dateTime=(EditText)rootView.findViewById(R.id.setTimeDate);
         dateTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +50,13 @@ public class CreateEventFragment extends BaseFragment{
             }
         });
 
+        ImageView imageView=(ImageView)rootView.findViewById(R.id.profile_image);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showCameraDialog();
+            }
+        });
         //populate spinner (places)
         ArrayList<String> places = new ArrayList<String>();
         places.add("Current Location");
@@ -56,6 +64,7 @@ public class CreateEventFragment extends BaseFragment{
 
         Spinner placeSpinner=(Spinner)rootView.findViewById(R.id.event_place_spinner);
         placeSpinner.setAdapter(adapter);
+
         return rootView;
     }
     public void showDateTime(final EditText editText){

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/James/Documents/Android%20studioProjects/LUFELF2/database/src/main/res/values/strings.xml -->
+    <eat-comment />
+
+    <string name="app_name">My Module</string>
+
+</resources>

@@ -35,7 +35,9 @@ public class EventsFragment extends BaseFragment{
                              Bundle savedInstanceState) {
 
         setFragmentManager(getFragmentManager());
-        View rootView = inflater.inflate(R.layout.fragment_events, container, false);
+
+        rootView = inflater.inflate(R.layout.fragment_events, container, false);
+        setContext(rootView.getContext());
         list = (ListView)rootView.findViewById(R.id.events_listview);
 
 
@@ -44,12 +46,13 @@ public class EventsFragment extends BaseFragment{
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 resetIndexes();
-                EventListItem item=(EventListItem)list.getItemAtPosition(i);
-                Log.e("CRAP","TEXT ="+item.getId());
-                fragmentManager.beginTransaction().replace(R.id.container, EventSubFragment.newInstance(item),"EventSubView").addToBackStack(null).commit();
+                EventListItem item = (EventListItem) list.getItemAtPosition(i);
+                Log.e("CRAP", "TEXT =" + item.getId());
+                fragmentManager.beginTransaction().replace(R.id.container, EventSubFragment.newInstance(item), "EventSubView").addToBackStack(null).commit();
             }
         });
         Log.e("CRAP", "HERE");
+
         return rootView;
     }
     public void addEvents(LayoutInflater inflater, ViewGroup container,View rootView){

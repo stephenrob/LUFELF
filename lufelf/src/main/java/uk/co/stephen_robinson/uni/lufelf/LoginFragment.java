@@ -28,7 +28,8 @@ public class LoginFragment extends BaseFragment{
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             setFragmentManager(getFragmentManager());
-            View rootView = inflater.inflate(R.layout.fragment_login, container, false);
+            rootView = inflater.inflate(R.layout.fragment_login, container, false);
+            setContext(rootView.getContext());
             Log.e("CRAP", "HERE");
             return rootView;
         }

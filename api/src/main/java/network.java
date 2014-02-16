@@ -127,7 +127,7 @@ public class Network extends AsyncTask<List<NameValuePair>, Integer, Hashtable>{
                 case RECEIVED_MESSAGES:
                     break;
                 default:
-                    result = formatMessage(GenericXmlParser.parseResult(responseText));
+                    result = formatMessage(XmlParser.parseGenericResult(responseText));
                     break;
             }
 

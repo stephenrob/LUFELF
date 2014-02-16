@@ -9,9 +9,9 @@ import java.util.Hashtable;
 /**
  * Created by Stephen on 16/02/14.
  */
-public class GenericXmlParser {
+public class XmlParser {
 
-    public static XmlMessage parseResult(String data){
+    public static XmlMessage parseGenericResult(String data){
         XmlMessage message = null;
         XmlPullParser parser;
 

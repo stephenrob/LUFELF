@@ -18,6 +18,8 @@ public class User {
     public enum Search {USERNAME, LIB_NO, NAME, USER_ID}
     public enum Type {STAFF, STUDENT}
 
+    // User field classes
+
     public static final String USER_ID = "user_id";
     public static final String NAME = "name";
     public static final String USERNAME = "username";

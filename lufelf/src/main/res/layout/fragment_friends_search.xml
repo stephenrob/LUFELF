@@ -9,31 +9,37 @@
     android:background="@color/app_bg">
 
     <TextView
-        android:id="@+id/events_title"
+        android:id="@+id/friend_title"
         android:textColor="@color/titletxt"
-        android:text="Events"
+        android:text="Search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/title"
         android:layout_alignParentTop="true"
         android:gravity="center_horizontal" />
-    <TextView
-        android:id="@+id/events_subtitle"
-        android:textSize="@dimen/subtitle"
-        android:textColor="@color/stdtxt"
-        android:singleLine="true"
-        android:text="Events"
-        android:layout_width="wrap_content"
+
+    <EditText
+        android:id="@+id/friend_search_box"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/events_title"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="5dp" />
+        android:gravity="left"
+        android:background="@drawable/friend_search_textbox"
+        android:hint="Search Email"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:paddingRight="7dp"
+        android:paddingLeft="10dp"
+        android:textColorHint="#000000"
+        android:inputType="text"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/friend_title"/>
+
     <ListView
         android:id="@+id/events_listview"
         android:background="@drawable/listview_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/events_subtitle"
-        android:layout_marginTop="5dp"/>
+        android:layout_below="@id/friend_search_box"
+        android:layout_marginTop="20dp"/>
 
 </RelativeLayout>

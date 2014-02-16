@@ -60,6 +60,15 @@
     <string name="event_date_time">Time and Date</string>
     <string name="event_description">Description</string>
 
+    <!-- Create Location fragment -->
+    <string name="location_title">Create Location</string>
+    <string name="location_name">Name</string>
+    <string name="location_type">Type</string>
+    <string name="location_address">Address</string>
+    <string name="location_lon">Longitude</string>
+    <string name="location_lat">Latitude</string>
+    <string name="location_description">Description</string>
+    <string name="location_pic">Image</string>
 
     <!-- Settings Fragment -->
     <string name="settings_title">Settings</string>

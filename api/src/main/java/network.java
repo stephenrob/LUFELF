@@ -103,6 +103,34 @@ public class Network extends AsyncTask<List<NameValuePair>, Integer, Hashtable>{
 
             // format response
 
+            switch (this.serverScript){
+                case CREATE_USER:
+                    break;
+                case LOGIN_USER:
+                    break;
+                case QUERY_USER_DETAILS:
+                    break;
+                case GET_FRIEND_REQUESTS:
+                    break;
+                case FRIEND_HANDSHAKE:
+                    break;
+                case FRIEND_LIST:
+                    break;
+                case EVENT_DETAILS:
+                    break;
+                case EVENT_LIST:
+                    break;
+                case PLACE_LIST:
+                    break;
+                case SENT_MESSAGES:
+                    break;
+                case RECEIVED_MESSAGES:
+                    break;
+                default:
+                    result = formatMessage(GenericXmlParser.parseResult(responseText));
+                    break;
+            }
+
         } catch(Exception e) {
             Log.e("LUFELF", e.toString());
         }
@@ -112,6 +140,15 @@ public class Network extends AsyncTask<List<NameValuePair>, Integer, Hashtable>{
 
     protected void onPostExecute(Hashtable params){
         networkCallback.results(params);
+    }
+
+    private Hashtable formatMessage(XmlMessage message){
+        Hashtable resultMessage = new Hashtable();
+
+        resultMessage.put(XmlMessage.STATUS, message.status);
+        resultMessage.put(XmlMessage.MESSAGE, message.message);
+
+        return resultMessage;
     }
 
     private String selectScript(Script script){

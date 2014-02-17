@@ -18,11 +18,15 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //init
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //get the actionbar
         ActionBar actionBar=getActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
+
+        //get the navigationdrawer
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
 
@@ -30,10 +34,12 @@ public class MainActivity extends BaseActivity {
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        //set the default index
         onNavigationDrawerItemSelected(0,0);
     }
 
-
+    //method called to restore actionbar
     public void restoreActionBar() {
         ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);

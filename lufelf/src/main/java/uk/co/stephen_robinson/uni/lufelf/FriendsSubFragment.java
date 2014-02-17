@@ -1,7 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,12 +24,12 @@ public class FriendsSubFragment extends BaseFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        //init
         setFragmentManager(getFragmentManager());
         rootView = inflater.inflate(R.layout.fragment_friend_profile, container, false);
         setContext(rootView.getContext());
-        showDialog();
-        Log.e("CRAP", "HERE");
+        showActivitySpinner();
+
         return rootView;
     }
 }

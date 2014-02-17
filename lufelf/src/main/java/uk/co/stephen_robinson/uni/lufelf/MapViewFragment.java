@@ -7,7 +7,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,6 @@ import uk.co.stephen_robinson.uni.lufelf.route.DirectionsQuery;
 public class MapViewFragment extends BaseFragment implements LocationListener,GoogleMap.InfoWindowAdapter,GoogleMap.OnInfoWindowClickListener{
     private GoogleMap map;
     private LocationManager locationManager;
-    private ViewGroup cont;
     /**
      * Returns a new instance of this fragment for the given section
      * number.
@@ -51,15 +49,18 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        setFragmentManager(getFragmentManager());
 
-        this.cont=container;
+        //init
+        setFragmentManager(getFragmentManager());
         rootView = inflater.inflate(R.layout.fragment_map, container, false);
         setContext(rootView.getContext());
-        showDialog();
+        showActivitySpinner();
+
+        //get the location manager
         this.locationManager=(LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 400, 5, this);
 
+        //get the mapfragment
         map = ((MapFragment) fragmentManager.findFragmentById(R.id.map)).getMap();
 
         //check if location services are available
@@ -102,6 +103,8 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
         //hideBusy();
         return rootView;
     }
+
+    //alternative navigateto method using intents
     public void navigateTo(LatLng finish){
         LatLng current=getLocation();
         Intent navigation = new Intent(
@@ -174,7 +177,6 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
         return v;
     }
     public void onInfoWindowClick(Marker m){
-        Log.e("Crap","window Clicked");
         resetIndexes();
         fragmentManager.beginTransaction().replace(R.id.container, PlaceSubFragment.newInstance(), "PlaceSubView").addToBackStack(null).commit();
        // m.getPosition().latitude;

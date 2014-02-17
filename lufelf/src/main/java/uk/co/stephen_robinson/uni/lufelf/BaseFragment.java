@@ -15,7 +15,6 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -30,7 +29,7 @@ import java.lang.reflect.Field;
  * Created by James on 30/01/2014.
  */
 public class BaseFragment  extends Fragment{
-    private int option=0;
+    //init global vars
     private Dialog dialog;
     protected FragmentManager fragmentManager;
     protected Context context;
@@ -38,16 +37,23 @@ public class BaseFragment  extends Fragment{
     protected View rootView;
     private Uri imageURI;
 
+    //set fragmentManager
     public void setFragmentManager(FragmentManager fragmentManager){
         this.fragmentManager=fragmentManager;
     }
+
+    //set the context
     public void setContext(Context context){
         this.context=context;
     }
+
+    //onAttach override - does nothing
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
     }
+
+    //handle onDetach from activity
     @Override
     public void onDetach() {
         super.onDetach();
@@ -63,33 +69,46 @@ public class BaseFragment  extends Fragment{
             throw new RuntimeException(e);
         }
     }
+
+    //method used to check if the network is currently available.
     public boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
+    //reset the indexes of the navigation drawer fragment
     public void resetIndexes(){
         MainActivity mainActivity=(MainActivity)getActivity();
         mainActivity.mNavigationDrawerFragment.updateChildGroup(-1,-1);
         mainActivity.updateCurrentPositions(-1,-1);
     }
+
+    //get the current location of the device
     public LatLng getLocation(){
+        //get the app location manager via context
         LocationManager locationManager=(LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+
+        //initialise variables
         double latitude =0;
         double longitude =0;
 
+        //check if the location isn't enabled, return null
         if(!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
             return null;
 
+        //otherwise get the location
         Location loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
         longitude=loc.getLongitude();
         latitude=loc.getLatitude();
 
+        //return LatLng
         return new LatLng(latitude,longitude);
     }
 
+    //present a custom dialog to the user in order to obtain the resultingimage
+    //MUST HAVE R.id.profile_image implemented in the layout.
     public void showCameraDialog(){
         final Dialog showMessage = new Dialog(context);
         showMessage.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -127,22 +146,29 @@ public class BaseFragment  extends Fragment{
         showMessage.show();
     }
 
+    //when the user has selected the image or taken a picture, the resulting action occurs here.
+    //MUST HAVE R.id.profile_image implemented in the layout.
     public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
         ImageView imageView=(ImageView)rootView.findViewById(R.id.profile_image);
         switch(requestCode) {
             case 0:
+                //check if the user hasn't cancelled input
                 if(resultCode != getActivity().RESULT_CANCELED){
+                    //if the resultcode is ok move on
                     if(resultCode == getActivity().RESULT_OK){
+                        //check if the image intent is null
                         if(imageReturnedIntent!=null){
-                            Log.e("CRAP","inside camera");
-                            Uri selectedImage = imageReturnedIntent.getData();
 
+                            //get the uri data
+                            Uri selectedImage = imageReturnedIntent.getData();
+                            //set the imageview
                             if(selectedImage!=null){
                                 imageURI=selectedImage;
                                 imageView.setImageURI(imageURI);
                             }
                         }else{
+                            //handle the bug on certain devices where the image isn't returned normally.
                             Bitmap bitmap;
                             try{
                                 bitmap=MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageURI);
@@ -156,6 +182,8 @@ public class BaseFragment  extends Fragment{
                 break;
             case 1:
                 if(resultCode == getActivity().RESULT_OK){
+                    //user has selected from gallery
+                    //set the imageview
                     Uri selectedImage = imageReturnedIntent.getData();
                     imageView.setImageURI(null);
                     imageView.setImageURI(selectedImage);
@@ -164,19 +192,25 @@ public class BaseFragment  extends Fragment{
         }
     }
 
+    //when the fragment is loaded hide the activity spinner - this will be changed
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        hideDialog();
+        if(dialog!=null)
+            hideActivitySpinner();
     }
 
-    public void showDialog(){
+    //a method to build the activity spinner dialog
+    public void showActivitySpinner(){
         dialog = new Dialog(context, android.R.style.Theme_Translucent);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.activity_indicator);
         dialog.setCancelable(false);
+        dialog.show();
     }
-    public void hideDialog(){
+
+    //hide the activity spinner dialog
+    public void hideActivitySpinner(){
         dialog.hide();
     }
 }

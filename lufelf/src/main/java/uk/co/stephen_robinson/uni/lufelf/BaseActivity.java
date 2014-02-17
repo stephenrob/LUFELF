@@ -4,16 +4,18 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.util.Log;
 import android.view.MenuItem;
 
 /**
  * Created by James on 30/01/2014.
  */
 public class BaseActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks{
+
     int currentChildPosition=-1;
     int currentGroupPosition=-1;
+
     private Dialog dialog;
+
     // array to hold the various fragments used in the navigation drawer.
     Fragment[][] fragments={{MapViewFragment.newInstance(null)},
             {RegisterFragment.newInstance(),FriendsFragment.newInstance()},
@@ -32,29 +34,37 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
             {"Register"},
             {"Search"}};
 
+    //Handle on navigationdrawer item selected (swap fragments)
     @Override
     public void onNavigationDrawerItemSelected(int groupPos,int position) {
-        Log.e("CRAP",groupPos+" "+position+" "+fragments[groupPos][position].toString());
-        // update the main content by replacing fragments
+
+        //get the fragment manager
         FragmentManager fragmentManager = getFragmentManager();
-        if(currentChildPosition!=position||currentGroupPosition!=groupPos){
+
+        //check if either the child or group position differs
+        //if it does swap frgments
+        if(currentChildPosition!=position||currentGroupPosition!=groupPos)
             fragmentManager.beginTransaction().replace(R.id.container, fragments[groupPos][position],tags[groupPos][position]).addToBackStack(null).commit();
-            Log.e("CRAP","INSIDE IF");
-        }
+
+        //update the current child and group positions
         currentChildPosition=position;
         currentGroupPosition=groupPos;
     }
+
+    //implement onPause method
     @Override
     public void onPause(){
         super.onPause();
     }
+
+    //implement onResume method
     @Override
     public void onResume(){
         super.onResume();
     }
+
+    //if an action bar button is clicked - this is where it is handled
     public void handleButton(MenuItem item){
-
-
         //get item title
         String title=String.valueOf(item.getTitle());
 
@@ -69,24 +79,25 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
         }
 
     }
+
+    //custom onBackPressed action to allow backward navigation
     @Override
     public void onBackPressed() {
-
+        //get the fragment manager
         FragmentManager fm=getFragmentManager();
+
+        //get the size of the backstack
         int size=fm.getBackStackEntryCount();
 
-        Log.d("CRAP", "size "+size);
+        //if the size is greater than one pop
+        //otherwise close the app
         if(size>1)
             this.getFragmentManager().popBackStack();
         else
             finish();
-
-        Fragment currentFragment=null;
-        int count=0;
-        /*while(currentFragment==null&&count<tags.length)
-            currentFragment=fm.findFragmentByTag(tags[count]);*/
-
     }
+
+    //method to update the currently held positions of the navigationdrawer options
     public void updateCurrentPositions(int groupPos,int position){
         currentGroupPosition=groupPos;
         currentChildPosition=position;

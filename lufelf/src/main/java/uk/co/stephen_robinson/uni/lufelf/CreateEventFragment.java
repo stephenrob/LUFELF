@@ -36,12 +36,13 @@ public class CreateEventFragment extends BaseFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        //init
         setFragmentManager(getFragmentManager());
-
         rootView = inflater.inflate(R.layout.fragment_create_event, container, false);
         setContext(rootView.getContext());
-        showDialog();
+        showActivitySpinner();
+
+        //get the datetime textedit and set the onlcik listener
         final EditText dateTime=(EditText)rootView.findViewById(R.id.setTimeDate);
         dateTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +51,7 @@ public class CreateEventFragment extends BaseFragment{
             }
         });
 
+        //get the image view and set the on click listener
         ImageView imageView=(ImageView)rootView.findViewById(R.id.profile_image);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,11 +59,11 @@ public class CreateEventFragment extends BaseFragment{
                 showCameraDialog();
             }
         });
-        //populate spinner (places)
+
+        //populate places spinner
         ArrayList<String> places = new ArrayList<String>();
         places.add("Current Location");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,R.layout.spinner_item,places);
-
         Spinner placeSpinner=(Spinner)rootView.findViewById(R.id.event_place_spinner);
         placeSpinner.setAdapter(adapter);
 
@@ -72,13 +74,14 @@ public class CreateEventFragment extends BaseFragment{
         //get current time and date
         Calendar currentDate=Calendar.getInstance();
 
+        //set current variables
         int currentyear=currentDate.get(Calendar.YEAR);
         int currentMonth=currentDate.get(Calendar.MONTH);
         int currentDay=currentDate.get(Calendar.DAY_OF_MONTH);
-
         final int hour=currentDate.get(Calendar.HOUR_OF_DAY);
         final int minute=currentDate.get(Calendar.MINUTE);
 
+        //create datepicker and time dialogs dialogs
         DatePickerDialog datePicker=new DatePickerDialog(context, new OnDateSetListener() {
             //set the callback method when the user sets the date
             public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
@@ -94,7 +97,7 @@ public class CreateEventFragment extends BaseFragment{
                     }
                 },hour,minute,false);
                 timePicker.setTitle("Select Time");
-                //timePicker.show();
+                timePicker.show();
             }
         },currentyear, currentMonth, currentDay);
         datePicker.setTitle("Select Date");

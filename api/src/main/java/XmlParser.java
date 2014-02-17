@@ -53,4 +53,26 @@ public class XmlParser {
         return message;
     }
 
+    public static void parseCreateUser(String data){}
+
+    public static void parseLoginUser(String data){}
+
+    public static void parseUserDetails(String data){}
+
+    public static void parseFriendRequests(String data){}
+
+    public static void parseFriendHandshake(String data){}
+
+    public static void parseFriendList(String data){}
+
+    public static void parseEventDetails(String data){}
+
+    public static void parseEventList(String data){}
+
+    public static void parsePlaceList(String data){}
+
+    public static void parseSentMessages(String data){}
+
+    public static void parseRecievedMessages(String data){}
+
 }

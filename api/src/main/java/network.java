@@ -105,26 +105,37 @@ public class Network extends AsyncTask<List<NameValuePair>, Integer, Hashtable>{
 
             switch (this.serverScript){
                 case CREATE_USER:
+                    XmlParser.parseCreateUser(responseText);
                     break;
                 case LOGIN_USER:
+                    XmlParser.parseLoginUser(responseText);
                     break;
                 case QUERY_USER_DETAILS:
+                    XmlParser.parseUserDetails(responseText);
                     break;
                 case GET_FRIEND_REQUESTS:
+                    XmlParser.parseFriendRequests(responseText);
                     break;
                 case FRIEND_HANDSHAKE:
+                    XmlParser.parseFriendHandshake(responseText);
                     break;
                 case FRIEND_LIST:
+                    XmlParser.parseFriendList(responseText);
                     break;
                 case EVENT_DETAILS:
+                    XmlParser.parseEventDetails(responseText);
                     break;
                 case EVENT_LIST:
+                    XmlParser.parseEventList(responseText);
                     break;
                 case PLACE_LIST:
+                    XmlParser.parsePlaceList(responseText);
                     break;
                 case SENT_MESSAGES:
+                    XmlParser.parseSentMessages(responseText);
                     break;
                 case RECEIVED_MESSAGES:
+                    XmlParser.parseRecievedMessages(responseText);
                     break;
                 default:
                     result = formatMessage(XmlParser.parseGenericResult(responseText));

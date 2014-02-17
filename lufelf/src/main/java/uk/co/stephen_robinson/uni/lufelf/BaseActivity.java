@@ -20,7 +20,8 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
             {EventsFragment.newInstance(),CreateEventFragment.newInstance(),EventsFragment.newInstance()},
             {SettingsFragment.newInstance()},
             {LoginFragment.newInstance()},
-            {RegisterFragment.newInstance()}};
+            {RegisterFragment.newInstance()},
+            {SearchFragment.newInstance(SearchFragment.friendsSearch)}};
 
 
     String[][] tags={{"Locations"},
@@ -28,7 +29,8 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
             {"Events","Create Event","Remove Event"},
             {"Settings"},
             {"Login"},
-            {"Register"}};
+            {"Register"},
+            {"Search"}};
 
     @Override
     public void onNavigationDrawerItemSelected(int groupPos,int position) {

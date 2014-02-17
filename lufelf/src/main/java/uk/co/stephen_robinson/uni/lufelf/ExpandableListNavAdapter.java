@@ -93,4 +93,5 @@ public class ExpandableListNavAdapter extends BaseExpandableListAdapter{
     public boolean isChildSelectable(int i, int i2) {
         return true;
     }
+
 }

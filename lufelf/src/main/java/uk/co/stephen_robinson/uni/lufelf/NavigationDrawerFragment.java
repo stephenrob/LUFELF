@@ -95,21 +95,20 @@ public class NavigationDrawerFragment extends Fragment {
             Bundle savedInstanceState) {
         mDrawerListView = (ExpandableListView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
 
+        //set group click handler
         mDrawerListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int pos, long l) {
 
                 int index=expandableListView.getFlatListPosition(ExpandableListView.getPackedPositionForGroup(pos));
                 NavDrawerGroup group=(NavDrawerGroup)mDrawerListView.getItemAtPosition(index);
-                Log.e("Crap",index+" Index");
                 if(group.countItems()==0){
-
-                    mDrawerListView.setItemChecked(index, true);
-                    selectItem(pos,0);
+                    selectItem(pos, 0);
                 }
                 return false;
             }
         });
+        //set child click handler
         mDrawerListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPos, int childPos, long id) {
@@ -120,6 +119,8 @@ public class NavigationDrawerFragment extends Fragment {
                 return false;
             }
         });
+
+        //create the items for the nav drawer
         ArrayList navigationGroups=new ArrayList<NavDrawerGroup>();
 
         ArrayList friendsItems=new ArrayList<NavDrawerItem>();
@@ -137,16 +138,21 @@ public class NavigationDrawerFragment extends Fragment {
         navigationGroups.add(new NavDrawerGroup(getString(R.string.settings_activity),R.drawable.ic_settings,new ArrayList<NavDrawerItem>()));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.login_text),0,new ArrayList<NavDrawerItem>()));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.register_text),0,new ArrayList<NavDrawerItem>()));
+        navigationGroups.add(new NavDrawerGroup("Search",0,new ArrayList<NavDrawerItem>()));
 
+        //apply the nav adapter
         mDrawerListView.setAdapter(new ExpandableListNavAdapter(
                 getActionBar().getThemedContext(),
                 navigationGroups));
 
+        //set the current item checked
         mDrawerListView.setItemChecked(mCurrentSelectedGroupPosition, true);
 
+        //return the nav drawer
         return mDrawerListView;
     }
 
+    //this method checks if the drawer is open
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
     }

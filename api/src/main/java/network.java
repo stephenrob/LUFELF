@@ -78,6 +78,13 @@ public class Network extends AsyncTask<List<NameValuePair>, Integer, Hashtable>{
         PLACE_LIST, SEND_MESSAGE, SENT_MESSAGES, RECEIVED_MESSAGES, UPLOAD_PROFILE_PICTURE, UPLOAD_PLACE_PICTURE, UPLOAD_EVENT_PICTURE
     }
 
+    // Return Status's
+    public static final String STATUS = "status";
+    public static final String SUCCESS = "success";
+    public static final String FAILURE = "failure";
+    public static final String MESSAGE = "message";
+    public static final String STATUS_CODE = "status_code";
+
     // Callback
     private NetworkCallback networkCallback = null;
     private Script serverScript = null;
@@ -105,7 +112,7 @@ public class Network extends AsyncTask<List<NameValuePair>, Integer, Hashtable>{
 
             switch (this.serverScript){
                 case CREATE_USER:
-                    XmlParser.parseCreateUser(responseText);
+                    result = NetworkReturnFormat.userDetails(XmlParser.parseCreateUser(responseText), Script.CREATE_USER);
                     break;
                 case LOGIN_USER:
                     XmlParser.parseLoginUser(responseText);
@@ -135,10 +142,10 @@ public class Network extends AsyncTask<List<NameValuePair>, Integer, Hashtable>{
                     XmlParser.parseSentMessages(responseText);
                     break;
                 case RECEIVED_MESSAGES:
-                    XmlParser.parseRecievedMessages(responseText);
+                    XmlParser.parseReceivedMessages(responseText);
                     break;
                 default:
-                    result = formatMessage(XmlParser.parseGenericResult(responseText));
+                    result = NetworkReturnFormat.message(XmlParser.parseGenericResult(responseText));
                     break;
             }
 
@@ -151,15 +158,6 @@ public class Network extends AsyncTask<List<NameValuePair>, Integer, Hashtable>{
 
     protected void onPostExecute(Hashtable params){
         networkCallback.results(params);
-    }
-
-    private Hashtable formatMessage(XmlMessage message){
-        Hashtable resultMessage = new Hashtable();
-
-        resultMessage.put(XmlMessage.STATUS, message.status);
-        resultMessage.put(XmlMessage.MESSAGE, message.message);
-
-        return resultMessage;
     }
 
     private String selectScript(Script script){

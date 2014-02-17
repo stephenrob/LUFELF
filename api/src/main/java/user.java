@@ -30,6 +30,7 @@ public class User {
     public static final String DESCRIPTION = "description";
     public static final String LOCATION_STATUS = "location_status";
     public static final String ACCESS_LEVEL = "access_level";
+    public static final String IS_NEW = "is_new";
 
     // Register new user with LUFELF server
 

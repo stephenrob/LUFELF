@@ -2,6 +2,8 @@ package uk.co.stephen_robinson.uni.lufelf;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -17,6 +19,7 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -114,14 +117,28 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
     }
 
     public void populateWithPlaces(){
-        MarkerOptions mOptions1=new MarkerOptions();
-        //Cursor places=provider.query(LufelfContentProvider.PLACES_CONTENT_URI,);
-        mOptions1.title("A");
-        mOptions1.snippet("ABCDEFGHIJKLMNOP");
-        mOptions1.position(getLocation());
+        LatLng loc=getLocation();
 
+        PlaceItem p=new PlaceItem("1","Test PLACE","123 fakestreet","other","this is a test PLACE","asdasd",loc.latitude,loc.longitude);
+
+        MarkerOptions mOptions1=new MarkerOptions();
+
+        //create bitmap
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), p.getIcon());
+
+        //set the title, description, position
+        mOptions1.title(p.getName());
+        mOptions1.snippet(p.getDescription());
+        mOptions1.position(p.getLocation());
+        mOptions1.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bm, 70, 70, false)));
+
+        //add marker
         map.addMarker(mOptions1);
+
+        //set the window adapter handler
         map.setInfoWindowAdapter(this);
+
+        //set the infowindow click listener
         map.setOnInfoWindowClickListener(this);
     }
     @Override
@@ -180,5 +197,15 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
         resetIndexes();
         fragmentManager.beginTransaction().replace(R.id.container, PlaceSubFragment.newInstance(), "PlaceSubView").addToBackStack(null).commit();
        // m.getPosition().latitude;
+    }
+    public String[] stripID(String id){
+        char[] identifier=id.toCharArray();
+        String idOnly="";
+        int i=0;
+        while(Character.isDigit(identifier[i]))
+            idOnly=idOnly+identifier[i];
+        String[] returnArr={idOnly,id.substring(idOnly.length())};
+
+        return returnArr;
     }
 }

@@ -62,7 +62,7 @@ public class EventsFragment extends BaseFragment{
 
         //add fake items
         for(int i=0;i<30;i++)
-            navigationItems.add(new EventListItem("item "+i,R.drawable.ic_location,String.valueOf(i),"Event Name "+i,"Creator "+i,new LatLng(i,i),i+":"+i,"This is a description for event "+i));
+            navigationItems.add(new EventListItem("item "+i,R.drawable.ic_location,String.valueOf(i),"Event Name "+i,"Creator "+i,new LatLng(i,i),i+":"+i,"This is a description for EVENT "+i));
 
         //set the adapter
         list.setAdapter(new EventItemAdapter(rootView.getContext(), navigationItems));

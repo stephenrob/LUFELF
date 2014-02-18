@@ -23,7 +23,7 @@ public class EventSubFragment extends BaseFragment{
         //create args
         Bundle args = new Bundle();
 
-        //get event details from item passed in the constructor
+        //get EVENT details from item passed in the constructor
         args.putString("eventName",item.getEventName());
         args.putString("creator",item.getCreator());
         args.putString("dateTime",item.getDateTime());

@@ -7,7 +7,10 @@ import android.app.FragmentManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
@@ -111,6 +114,7 @@ public class BaseFragment  extends Fragment{
     //MUST HAVE R.id.profile_image implemented in the layout.
     public void showCameraDialog(){
         final Dialog showMessage = new Dialog(context);
+        showMessage.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         showMessage.requestWindowFeature(Window.FEATURE_NO_TITLE);
         showMessage.setContentView(R.layout.alert_layout);
 
@@ -167,6 +171,8 @@ public class BaseFragment  extends Fragment{
                                 imageURI=selectedImage;
                                 imageView.setImageURI(imageURI);
                             }
+                            UploadImage imageUploader = new UploadImage("214",getRealPathFromURI(selectedImage),UploadImage.AVATAR);
+                            imageUploader.uploadToServer();
                         }else{
                             //handle the bug on certain devices where the image isn't returned normally.
                             Bitmap bitmap;
@@ -176,6 +182,8 @@ public class BaseFragment  extends Fragment{
                             }catch (Exception e){
 
                             }
+                            UploadImage imageUploader = new UploadImage("214",getRealPathFromURI(imageURI),UploadImage.PLACE);
+                            imageUploader.uploadToServer();
                         }
                     }
                 }
@@ -187,9 +195,12 @@ public class BaseFragment  extends Fragment{
                     Uri selectedImage = imageReturnedIntent.getData();
                     imageView.setImageURI(null);
                     imageView.setImageURI(selectedImage);
+                    UploadImage imageUploader = new UploadImage("214",getRealPathFromURI(selectedImage),UploadImage.AVATAR);
+                    imageUploader.uploadToServer();
                 }
                 break;
         }
+
     }
 
     //when the fragment is loaded hide the activity spinner - this will be changed
@@ -211,6 +222,20 @@ public class BaseFragment  extends Fragment{
 
     //hide the activity spinner dialog
     public void hideActivitySpinner(){
-        dialog.hide();
+        dialog.dismiss();
+    }
+    public String getRealPathFromURI(Uri contentUri) {
+        Cursor cursor = null;
+        try {
+            String[] proj = { MediaStore.Images.Media.DATA };
+            cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
     }
 }

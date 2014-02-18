@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 /**
  * Created by James on 30/01/2014.
@@ -29,6 +30,15 @@ public class FriendsSubFragment extends BaseFragment{
         rootView = inflater.inflate(R.layout.fragment_friend_profile, container, false);
         setContext(rootView.getContext());
         showActivitySpinner();
+
+
+                ImageView imageView=(ImageView)rootView.findViewById(R.id.image_friend);
+                DownloadImage downloadImage = new DownloadImage(imageView,getActivity());
+
+                downloadImage.downloadFromServer();
+//stuff that updates ui
+
+
 
         return rootView;
     }

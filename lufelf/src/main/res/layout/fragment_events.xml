@@ -33,6 +33,6 @@
         android:background="@drawable/listview_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/events_subtitle"></ListView>
+        android:layout_below="@id/events_subtitle"/>
 
 </RelativeLayout>

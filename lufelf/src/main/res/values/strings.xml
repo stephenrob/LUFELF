@@ -66,7 +66,7 @@
     <string name="settings_show_hide_location">Show/Hide Location</string>
     <string name="settings_delete_user">Delete Account</string>
 
-    <!--place types -->
+    <!--PLACE types -->
     <string-array name="place_types">
         <item>Pub</item>
         <item>Restaurant</item>
@@ -80,7 +80,7 @@
         <item>Library</item>
         <item>Other</item>
     </string-array>
-    <!--event types -->
+    <!--EVENT types -->
     <string-array name="event_types">
         <item>Social</item>
         <item>University</item>

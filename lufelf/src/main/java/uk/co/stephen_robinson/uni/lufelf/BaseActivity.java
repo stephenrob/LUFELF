@@ -18,7 +18,7 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
 
     // array to hold the various fragments used in the navigation drawer.
     Fragment[][] fragments={{MapViewFragment.newInstance(null)},
-            {RegisterFragment.newInstance(),FriendsFragment.newInstance()},
+            {FriendsFragment.newInstance(),FriendsSubFragment.newInstance()},
             {EventsFragment.newInstance(),CreateEventFragment.newInstance(),EventsFragment.newInstance()},
             {SettingsFragment.newInstance()},
             {LoginFragment.newInstance()},

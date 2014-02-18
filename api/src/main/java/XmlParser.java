@@ -4,6 +4,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 /**
@@ -128,7 +129,74 @@ public class XmlParser {
         return userDetails;
     }
 
-    public static void parseFriendRequests(String data){}
+    public static XmlFriendRequests parseFriendRequests(String data){
+        XmlFriendRequest currentRequest = null;
+        XmlFriendRequests requests = null;
+        XmlPullParser parser;
+        String tagName;
+
+        try {
+            parser = XmlPullParserFactory.newInstance().newPullParser();
+            parser.setInput(new StringReader(data));
+
+            int eventType = parser.getEventType();
+
+            while(eventType != XmlPullParser.END_DOCUMENT){
+                switch(eventType){
+
+                    case XmlPullParser.START_DOCUMENT:
+                        requests = new XmlFriendRequests();
+                        requests.requests = new ArrayList<XmlFriendRequest>();
+                        break;
+
+                    case XmlPullParser.START_TAG:
+                        tagName = parser.getName();
+
+                        if(requests == null){
+                            break;
+                        }
+
+                        if(tagName.equalsIgnoreCase(XmlFriendRequests.RESPONSE)) {
+                            currentRequest = new XmlFriendRequest();
+                            requests.status = parser.getAttributeValue(null, XmlFriendRequests.STATUS);
+                            // Only status=fail produce return code
+                            if(parser.getAttributeValue(null, XmlFriendRequests.CODE) != null) {
+                                requests.statusCode = Integer.parseInt(parser.getAttributeValue(null, XmlFriendRequests.CODE));
+                            }
+                        }
+                        else if(currentRequest != null){
+                            if(tagName.equalsIgnoreCase(XmlFriendRequests.MESSAGE)) {
+                                requests.message = parser.nextText();
+                            }
+                            else if(tagName.equalsIgnoreCase(XmlFriendRequests.REQUEST_ID)){
+                                currentRequest.request_id = Integer.parseInt(parser.nextText());
+                            }
+                            else if(tagName.equalsIgnoreCase(XmlFriendRequests.USER_ID)){
+                                currentRequest.user_id = Integer.parseInt(parser.nextText());
+                            }
+                            else if(tagName.equalsIgnoreCase(XmlFriendRequests.NAME)){
+                                currentRequest.name = parser.nextText();
+                            }
+
+                        }
+                        break;
+
+                    case XmlPullParser.END_TAG:
+                        tagName = parser.getName();
+                        if(tagName.equalsIgnoreCase(XmlFriendRequests.FRIEND) && currentRequest != null){
+                            requests.addRequest(currentRequest);
+                        }
+                }
+                eventType = parser.next();
+            }
+        } catch (XmlPullParserException e){
+            requests = null;
+        } catch (IOException e){
+            requests = null;
+        }
+
+        return requests;
+    }
 
     public static void parseFriendHandshake(String data){}
 

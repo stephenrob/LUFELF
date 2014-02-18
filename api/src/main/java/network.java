@@ -112,13 +112,13 @@ public class Network extends AsyncTask<List<NameValuePair>, Integer, Hashtable>{
 
             switch (this.serverScript){
                 case CREATE_USER:
-                    result = NetworkReturnFormat.userDetails(XmlParser.parseCreateUser(responseText), Script.CREATE_USER);
+                    result = NetworkReturnFormat.userDetails(XmlParser.parseUserDetails(responseText), Script.CREATE_USER);
                     break;
                 case LOGIN_USER:
-                    XmlParser.parseLoginUser(responseText);
+                    result = NetworkReturnFormat.userDetails(XmlParser.parseUserDetails(responseText), Script.LOGIN_USER);
                     break;
                 case QUERY_USER_DETAILS:
-                    XmlParser.parseUserDetails(responseText);
+                    result = NetworkReturnFormat.userDetails(XmlParser.parseUserDetails(responseText), Script.QUERY_USER_DETAILS);
                     break;
                 case GET_FRIEND_REQUESTS:
                     XmlParser.parseFriendRequests(responseText);

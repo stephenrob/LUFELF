@@ -12,8 +12,8 @@ public class UserDetails {
     String type = null;
     String description = null;
     String avatar_url = null;
-    String location_status = null;
-    String access_level = null;
+    int location_status = 0;
+    int access_level = 0;
     Boolean is_new = null;
 
     public static final String USER_ID = "user_id";
@@ -27,5 +27,13 @@ public class UserDetails {
     public static final String LOCATION_STATUS = "location_status";
     public static final String ACCESS_LEVEL = "access_level";
     public static final String IS_NEW = "is_new";
+
+    public enum Type {STAFF, STUDENT};
+
+    public static final Integer ACCESS_NORMAL = 0;
+    public static final Integer ACCESS_ADMIN = 1;
+
+    public static final Integer LOCATION_PUBLIC = 1;
+    public static final Integer LOCATION_PRIVATE = 0;
 
 }

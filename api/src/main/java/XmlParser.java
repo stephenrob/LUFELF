@@ -57,7 +57,7 @@ public class XmlParser {
         return message;
     }
 
-    public static XmlUserDetails parseCreateUser(String data){
+    public static XmlUserDetails parseUserDetails(String data){
         XmlUserDetails userDetails = null;
         XmlPullParser parser;
 
@@ -97,8 +97,20 @@ public class XmlParser {
                         else if(tagName.equalsIgnoreCase(XmlUserDetails.NAME)){
                             userDetails.name = parser.nextText();
                         }
+                        else if(tagName.equalsIgnoreCase(XmlUserDetails.USERNAME)){
+                            userDetails.username = parser.nextText();
+                        }
                         else if(tagName.equalsIgnoreCase(XmlUserDetails.LIBRARY_NUMBER)){
                             userDetails.lib_no = parser.nextText();
+                        }
+                        else if(tagName.equalsIgnoreCase(XmlUserDetails.DATE_OF_BIRTH)){
+                            userDetails.dob = parser.nextText();
+                        }
+                        else if(tagName.equalsIgnoreCase(XmlUserDetails.TYPE)){
+                            userDetails.type = parser.nextText();
+                        }
+                        else if(tagName.equalsIgnoreCase(XmlUserDetails.DESCRIPTION)){
+                            userDetails.description = parser.nextText();
                         }
                         else if(tagName.equalsIgnoreCase(XmlUserDetails.IS_NEW)){
                             userDetails.is_new = parser.nextText();
@@ -115,10 +127,6 @@ public class XmlParser {
 
         return userDetails;
     }
-
-    public static void parseLoginUser(String data){}
-
-    public static void parseUserDetails(String data){}
 
     public static void parseFriendRequests(String data){}
 

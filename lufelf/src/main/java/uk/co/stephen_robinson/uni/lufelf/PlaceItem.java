@@ -3,7 +3,8 @@ package uk.co.stephen_robinson.uni.lufelf;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
- * Created by James on 17/02/2014.
+ * @author James
+ * Models the a place
  */
 public class PlaceItem {
 
@@ -12,7 +13,7 @@ public class PlaceItem {
     private static int restaurant=R.drawable.restaurant;
     private static int lecture_theatre=R.drawable.lecture;
     private static int seminar=R.drawable.seminar_maybe;
-    private static int cafe=0;
+    private static int cafe=R.drawable.cafe;
     private static int takeaway=R.drawable.takeaway;
     private static int cinema=R.drawable.cinema;
     private static int hall=R.drawable.hall;
@@ -30,6 +31,17 @@ public class PlaceItem {
 
     private LatLng loc;
 
+    /**
+     * Constructs a place in memory
+     * @param id place id number
+     * @param name place name
+     * @param address place address
+     * @param type place type
+     * @param description place description
+     * @param imageUrl place image
+     * @param lat place latitude
+     * @param longit place longitude
+     */
     public PlaceItem(String id, String name,String address,String type,String description, String imageUrl, double lat, double longit){
         this.id=id;
         this.name=name;
@@ -41,38 +53,74 @@ public class PlaceItem {
         setIcon(type);
     }
 
+    /**
+     * Gets the place id
+     * @return place id
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Gets the place name
+     * @return place name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets the place address
+     * @return place address
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Gets the place type
+     * @return place type
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Gets the place description
+     * @return place description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Gets the place image
+     * @return place image
+     */
     public String getImageUrl() {
         return imageUrl;
     }
 
+    /**
+     * Gets the place icon
+     * @return place icon
+     */
     public int getIcon() {
         return icon;
     }
 
+    /**
+     * Gets the place location
+     * @return place location
+     */
     public LatLng getLocation() {
         return loc;
     }
 
+    /**
+     * Sets the icon depending type
+     * @param type place type
+     */
     public void setIcon(String type){
         if(type.equals("other"))
             icon=other;

@@ -5,7 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 /**
- * Created by James on 30/01/2014.
+ * @author James
+ * Place profile
  */
 public class PlaceSubFragment extends BaseFragment{
 

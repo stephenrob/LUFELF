@@ -21,7 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by James on 18/02/2014.
+ * @author James
+ * Uploads an image to server depending on type choosen
  */
 public class UploadImage{
 
@@ -39,14 +40,25 @@ public class UploadImage{
     private String type;
     private String query_id;
 
-    //standard constructor for avatar upload
-    public UploadImage(String user_id,String path, String type){
+    /**
+     * Standard constructor for avatar upload
+     * @param user_id user id
+     * @param path path of the image
+     * @param type determines the type of upload
+     */
+    public UploadImage(String user_id, String path, String type){
         this.user_id=user_id;
         this.path=path;
         this.type=type;
     }
 
-    //constructor for uploading a place or event
+    /**
+     * Constructor for uploading a place or event
+     * @param user_id user id
+     * @param path path of the image
+     * @param type determines the type of upload
+     * @param query_id id of place or event
+     */
     public UploadImage(String user_id,String path, String type,String query_id){
         this.user_id=user_id;
         this.path=path;
@@ -54,8 +66,10 @@ public class UploadImage{
         this.type=type;
     }
 
-    //method that takes a filepath and encodes it
-    //this integrates with the image selection method implemented into the ui
+    /**
+     * Method that takes a filepath and encodes it, this integrates with the image selection method implemented into the ui
+     * @return base 64 encoded string
+     */
     public String encodeImage(){
         Bitmap bm = BitmapFactory.decodeFile(path);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -64,7 +78,9 @@ public class UploadImage{
         return Base64.encodeToString(b, Base64.DEFAULT);
     }
 
-    //upload to the server
+    /**
+     * Upload to the server
+     */
     public void uploadToServer(){
         new AsyncTask<Void,Void,Void>(){
 

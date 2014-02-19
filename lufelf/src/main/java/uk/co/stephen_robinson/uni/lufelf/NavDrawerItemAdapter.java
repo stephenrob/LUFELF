@@ -14,12 +14,18 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 /**
- * Created by James on 29/01/2014.
+ * @author James
+ * Converts to arraylist
  */
 public class NavDrawerItemAdapter extends BaseAdapter{
     private Context context;
     private ArrayList<NavDrawerItem> navDrawerItems;
 
+    /**
+     * Turns into a listItem view
+     * @param context context of app location
+     * @param navDrawerItems the sublists in a group
+     */
     public NavDrawerItemAdapter(Context context, ArrayList<NavDrawerItem> navDrawerItems){
         this.context = context;
         this.navDrawerItems = navDrawerItems;

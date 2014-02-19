@@ -5,12 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 /**
- * Created by James on 30/01/2014.
+ * @author James
+ * Fragment for searching friends
  */
 public class SearchFragment extends BaseFragment{
     public static final int placeSearch=0;
     public static final int friendsSearch=1;
     public static final int eventSearch=2;
+
     /**
      * Returns a new instance of this fragment for the given section
      * number.

@@ -6,7 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by James on 31/01/2014.
+ * @author James
+ * Fragment for log in
  */
 public class LoginFragment extends BaseFragment{
 

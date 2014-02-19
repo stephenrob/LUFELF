@@ -6,7 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by James on 30/01/2014.
+ * @author James
+ * Fragment for the settings
  */
 public class SettingsFragment extends BaseFragment{
 

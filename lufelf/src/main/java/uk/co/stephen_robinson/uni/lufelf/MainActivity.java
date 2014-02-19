@@ -35,11 +35,13 @@ public class MainActivity extends BaseActivity {
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        //set the default index
+        // Set the default index
         onNavigationDrawerItemSelected(0,0);
     }
 
-    //method called to restore actionbar
+    /**
+     * Method called to restore actionbar
+     */
     public void restoreActionBar() {
         ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);

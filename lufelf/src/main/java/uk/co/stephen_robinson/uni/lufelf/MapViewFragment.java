@@ -26,7 +26,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import uk.co.stephen_robinson.uni.lufelf.route.DirectionsQuery;
 /**
- * Created by James on 31/01/2014.
+ * @author James
+ * Fragment that displays the map with location or the navigation view
  */
 public class MapViewFragment extends BaseFragment implements LocationListener,GoogleMap.InfoWindowAdapter,GoogleMap.OnInfoWindowClickListener{
     private GoogleMap map;
@@ -107,15 +108,21 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
         return rootView;
     }
 
-    //alternative navigateto method using intents
+    /**
+     * Alternative navigate to method using intents
+     * @param finish where you want to go to
+     */
     public void navigateTo(LatLng finish){
-        LatLng current=getLocation();
+        LatLng current = getLocation();
         Intent navigation = new Intent(
                 Intent.ACTION_VIEW,
                 Uri.parse("http://maps.google.com/maps?saddr="+current.latitude+","+current.longitude+"&daddr="+finish.latitude+","+finish.longitude));
         startActivity(navigation);
     }
 
+    /**
+     * Adds a marker to the map
+     */
     public void populateWithPlaces(){
         LatLng loc=getLocation();
 
@@ -141,6 +148,7 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
         //set the infowindow click listener
         map.setOnInfoWindowClickListener(this);
     }
+
     @Override
     public void onLocationChanged(Location location) {
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
@@ -158,7 +166,6 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
     @Override
     public void onProviderDisabled(String provider) { }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -166,11 +173,17 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
         if (f != null)
             fragmentManager.beginTransaction().remove(f).commit();
     }
+
     @Override
     public View getInfoWindow(Marker m){
-
         return null;
     }
+
+    /**
+     * Getting the information from the marker when clicked
+     * @param m the marker on the map
+     * @return the view containing all the information
+     */
     public View getInfoContents(Marker m){
         // Getting view from the layout file info_window_layout
         View v = View.inflate(context,R.layout.info_window_place_layout, null);
@@ -193,11 +206,22 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
         // Returning the view containing InfoWindow contents
         return v;
     }
+
+    /**
+     * When marker is clicked, it swaps fragments
+     * @param m the marker on the map
+     */
     public void onInfoWindowClick(Marker m){
         resetIndexes();
         fragmentManager.beginTransaction().replace(R.id.container, PlaceSubFragment.newInstance(), "PlaceSubView").addToBackStack(null).commit();
        // m.getPosition().latitude;
     }
+
+    /**
+     * Separates id and place name
+     * @param id id from the marker
+     * @return an array of the id and marker name
+     */
     public String[] stripID(String id){
         char[] identifier=id.toCharArray();
         String idOnly="";

@@ -40,20 +40,20 @@ public class V1 {
         User.delete(nc);
     }
 
-    public void createEvent(Hashtable params, NetworkCallback nc){
-
+    public void createEvent(EventDetails event, NetworkCallback nc){
+        Event.create(event, nc);
     }
 
-    public void getSingleEventDetails(Hashtable params, NetworkCallback nc){
-
+    public void getSingleEventDetails(Integer id, NetworkCallback nc){
+        Event.details(id, nc);
     }
 
-    public void deleteEvent(Hashtable params, NetworkCallback nc){
-
+    public void deleteEvent(Integer id, NetworkCallback nc){
+        Event.delete(id, nc);
     }
 
-    public void getAllEvents(Hashtable params, NetworkCallback nc){
-
+    public void getAllEvents(NetworkCallback nc){
+        Event.all(nc);
     }
 
     public void getSocialEvents(Hashtable params, NetworkCallback nc){
@@ -80,8 +80,8 @@ public class V1 {
 
     }
 
-    public void attendEvent(Hashtable params, NetworkCallback nc){
-
+    public void attendEvent(Integer id, NetworkCallback nc){
+        Event.attend(id, nc);
     }
 
     public void updateUserLocation(Hashtable params, NetworkCallback nc){

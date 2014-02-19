@@ -91,6 +91,8 @@ public class Network extends AsyncTask<List<NameValuePair>, Integer, Hashtable>{
     public static final String MESSAGE = "message";
     public static final String STATUS_CODE = "status_code";
 
+    public static final String PASSWORD = "password";
+
     // Callback
     private NetworkCallback networkCallback = null;
     private Script serverScript = null;

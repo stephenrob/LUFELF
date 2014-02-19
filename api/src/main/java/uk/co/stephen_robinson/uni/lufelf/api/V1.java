@@ -7,20 +7,37 @@ import java.util.Hashtable;
  */
 public class V1 {
 
-    public void registerUser(Hashtable params, NetworkCallback nc){
-
+    public void registerUser(UserDetails userDetails, NetworkCallback nc){
+        User.register(userDetails, nc);
     }
 
-    public void loginUser(Hashtable params, NetworkCallback nc){
+    public void loginUser(String username, String password, NetworkCallback nc){
+        UserDetails userDetails = new UserDetails();
 
+        userDetails.username = username;
+        userDetails.password = password;
+
+        User.login(userDetails, nc);
     }
 
-    public void getSingleUserDetails(Hashtable params, NetworkCallback nc){
-
+    public void findUserByUsername(String param, NetworkCallback nc){
+        User.getDetails(User.Search.USERNAME, param, nc);
     }
 
-    public void deleteUser(Hashtable params, NetworkCallback nc){
+    public void findUserByLibraryNumber(String param, NetworkCallback nc){
+        User.getDetails(User.Search.LIB_NO, param, nc);
+    }
 
+    public void findUserByName(String param, NetworkCallback nc){
+        User.getDetails(User.Search.NAME, param, nc);
+    }
+
+    public void findUserByUserId(String param, NetworkCallback nc){
+        User.getDetails(User.Search.USER_ID, param, nc);
+    }
+
+    public void deleteUser(NetworkCallback nc){
+        User.delete(nc);
     }
 
     public void createEvent(Hashtable params, NetworkCallback nc){

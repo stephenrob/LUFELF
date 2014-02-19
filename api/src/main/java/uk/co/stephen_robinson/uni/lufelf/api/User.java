@@ -6,6 +6,8 @@ import org.apache.http.message.BasicNameValuePair;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.stephen_robinson.uni.lufelf.api.Network.Network;
+
 /**
  * Created by Stephen on 18/02/14.
  */
@@ -13,7 +15,7 @@ public class User {
 
     public enum Search {USERNAME, LIB_NO, NAME, USER_ID};
 
-    void register(UserDetails user, NetworkCallback nc){
+    static void register(UserDetails user, NetworkCallback nc){
 
         List<NameValuePair> params = new ArrayList<NameValuePair>(9);
 
@@ -27,18 +29,24 @@ public class User {
         params.add(new BasicNameValuePair(UserDetails.LOCATION_STATUS, Integer.toString(user.location_status)));
         params.add(new BasicNameValuePair(UserDetails.ACCESS_LEVEL, Integer.toString(user.access_level)));
 
+        Network networkTask = new Network(nc, Network.Script.CREATE_USER);
+        networkTask.execute(params);
+
     }
 
-    void login(UserDetails user, NetworkCallback nc){
+   static  void login(UserDetails user, NetworkCallback nc){
 
         List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 
         params.add(new BasicNameValuePair(UserDetails.USERNAME, user.username));
         params.add(new BasicNameValuePair(UserDetails.PASSWORD, user.password));
 
+       Network networkTask = new Network(nc, Network.Script.LOGIN_USER);
+       networkTask.execute(params);
+
     }
 
-    void getDetails(Search searchField, String searchValue, NetworkCallback nc){
+    static void getDetails(Search searchField, String searchValue, NetworkCallback nc){
 
         List<NameValuePair> params = new ArrayList<NameValuePair>(1);
 
@@ -57,17 +65,23 @@ public class User {
                 break;
         }
 
+        Network networkTask = new Network(nc, Network.Script.QUERY_USER_DETAILS);
+        networkTask.execute(params);
+
     }
 
-    void delete(NetworkCallback nc){
+    static void delete(NetworkCallback nc){
 
-        int userId = 0;
-        String password = null;
+        int userId = Integer.parseInt(Api.getSessionManager().getUserDetails().get(SessionManager.KEY_USERID));
+        String password = Api.getSessionManager().getUserDetails().get(SessionManager.KEY_PASSWORD);
 
         List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 
         params.add(new BasicNameValuePair(UserDetails.USER_ID, Integer.toString(userId)));
         params.add(new BasicNameValuePair(UserDetails.PASSWORD, password));
+
+        Network networkTask =  new Network(nc, Network.Script.DELETE_USER);
+        networkTask.execute(params);
 
     }
 

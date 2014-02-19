@@ -1,3 +1,5 @@
+package uk.co.stephen_robinson.uni.lufelf.api;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 

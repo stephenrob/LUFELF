@@ -1,3 +1,5 @@
+package uk.co.stephen_robinson.uni.lufelf.api;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 

@@ -4,7 +4,7 @@
     <permission
         android:name="uk.co.stephen_robinson.uni.lufelf.permission.MAPS_RECEIVE"
         android:protectionLevel="signature"/>
-
+    <uses-sdk android:minSdkVersion="9" />
     <uses-permission android:name="uk.co.stephen_robinson.uni.lufelf.permission.MAPS_RECEIVE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>

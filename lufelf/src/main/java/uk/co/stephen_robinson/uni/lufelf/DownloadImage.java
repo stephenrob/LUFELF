@@ -3,6 +3,12 @@ package uk.co.stephen_robinson.uni.lufelf;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.RectF;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
@@ -77,8 +83,9 @@ public class DownloadImage{
                     @Override
                     public void run() {
                         if (resp != -1){
+
                             //set the image bitmap to the downloaded image
-                            imageView.setImageBitmap(image);
+                            imageView.setImageBitmap(getRoundedCornerBitmap(image,20));
                         }
 
                     }
@@ -89,5 +96,21 @@ public class DownloadImage{
             protected void onPostExecute() {
             }
         }.execute();
+    }
+    public static Bitmap getRoundedCornerBitmap(Bitmap src, int radius) {
+        int width = src.getWidth();
+        int height = src.getHeight();
+        Bitmap result = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(result);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+        RectF rect = new RectF(0, 0, width, height);
+        paint.setColor(Color.BLACK);
+        canvas.drawRoundRect(rect, radius, radius, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(src, 0, 0, paint);
+        paint.setXfermode(null);
+
+        return result;
     }
 }

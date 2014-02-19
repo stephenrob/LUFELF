@@ -32,10 +32,10 @@ public class FriendsSubFragment extends BaseFragment{
         showActivitySpinner();
 
 
-                ImageView imageView=(ImageView)rootView.findViewById(R.id.image_friend);
-                DownloadImage downloadImage = new DownloadImage(imageView,getActivity());
+        ImageView imageView=(ImageView)rootView.findViewById(R.id.image_friend);
+        DownloadImage downloadImage = new DownloadImage(imageView,getActivity(),"http://148.88.32.47/avatars/215.jpg");
 
-                downloadImage.downloadFromServer();
+         downloadImage.downloadFromServer();
 //stuff that updates ui
 
 

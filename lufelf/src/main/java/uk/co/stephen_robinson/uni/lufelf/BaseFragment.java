@@ -7,9 +7,13 @@ import android.app.FragmentManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.RectF;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationManager;
@@ -17,7 +21,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -26,6 +32,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.File;
 import java.lang.reflect.Field;
 
 /**
@@ -39,7 +46,7 @@ public class BaseFragment  extends Fragment{
 
     protected View rootView;
     private Uri imageURI;
-
+    private Uri tempDir;
     //set fragmentManager
     public void setFragmentManager(FragmentManager fragmentManager){
         this.fragmentManager=fragmentManager;
@@ -154,7 +161,7 @@ public class BaseFragment  extends Fragment{
     //MUST HAVE R.id.profile_image implemented in the layout.
     public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-        ImageView imageView=(ImageView)rootView.findViewById(R.id.profile_image);
+
         switch(requestCode) {
             case 0:
                 //check if the user hasn't cancelled input
@@ -166,24 +173,13 @@ public class BaseFragment  extends Fragment{
 
                             //get the uri data
                             Uri selectedImage = imageReturnedIntent.getData();
-                            //set the imageview
-                            if(selectedImage!=null){
-                                imageURI=selectedImage;
-                                imageView.setImageURI(imageURI);
-                            }
-                            UploadImage imageUploader = new UploadImage("214",getRealPathFromURI(selectedImage),UploadImage.AVATAR);
-                            imageUploader.uploadToServer();
+                            startCropIntent(selectedImage);
+
                         }else{
                             //handle the bug on certain devices where the image isn't returned normally.
-                            Bitmap bitmap;
-                            try{
-                                bitmap=MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageURI);
-                                imageView.setImageBitmap(bitmap);
-                            }catch (Exception e){
-
-                            }
-                            UploadImage imageUploader = new UploadImage("214",getRealPathFromURI(imageURI),UploadImage.PLACE);
-                            imageUploader.uploadToServer();
+                            startCropIntent(imageURI);
+                            //UploadImage imageUploader = new UploadImage("214",getRealPathFromURI(imageURI),UploadImage.PLACE);
+                            //imageUploader.uploadToServer();
                         }
                     }
                 }
@@ -193,9 +189,14 @@ public class BaseFragment  extends Fragment{
                     //user has selected from gallery
                     //set the imageview
                     Uri selectedImage = imageReturnedIntent.getData();
-                    imageView.setImageURI(null);
-                    imageView.setImageURI(selectedImage);
-                    UploadImage imageUploader = new UploadImage("214",getRealPathFromURI(selectedImage),UploadImage.AVATAR);
+
+                    startCropIntent(selectedImage);
+                }
+                break;
+            case 2:
+                if(resultCode != getActivity().RESULT_CANCELED){
+                    setImage();
+                    UploadImage imageUploader = new UploadImage("215",tempDir.getPath(),UploadImage.AVATAR);
                     imageUploader.uploadToServer();
                 }
                 break;
@@ -224,18 +225,49 @@ public class BaseFragment  extends Fragment{
     public void hideActivitySpinner(){
         dialog.dismiss();
     }
-    public String getRealPathFromURI(Uri contentUri) {
-        Cursor cursor = null;
-        try {
-            String[] proj = { MediaStore.Images.Media.DATA };
-            cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            return cursor.getString(column_index);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
+    public void setImage(){
+        ImageView imageView=(ImageView)rootView.findViewById(R.id.profile_image);
+        Bitmap temp=null;
+        try{
+            temp=MediaStore.Images.Media.getBitmap(context.getContentResolver(), tempDir);
+        }catch (Exception e){
+            Log.e("crap", e.toString());
         }
+        /*if(temp == null)
+
+        else*/
+        //imageView.setImageURI(tempDir);
+        imageView.setImageBitmap(getRoundedCornerBitmap(temp,20));
+    }
+    public void startCropIntent(Uri data){
+        tempDir=Uri.fromFile(new File(Environment.getExternalStorageDirectory(),
+                "tmp_file_store.jpg"));
+        final Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setData(data);
+        intent.putExtra("outputX", 400);
+        intent.putExtra("outputY", 400);
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("scale", true);
+        intent.putExtra("noFaceDetection", true);
+        intent.putExtra("output", tempDir);
+        startActivityForResult(intent, 2);
+    }
+
+    public static Bitmap getRoundedCornerBitmap(Bitmap src, int radius) {
+        int width = src.getWidth();
+        int height = src.getHeight();
+        Bitmap result = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(result);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+        RectF rect = new RectF(0, 0, width, height);
+        paint.setColor(Color.BLACK);
+        canvas.drawRoundRect(rect, radius, radius, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(src, 0, 0, paint);
+        paint.setXfermode(null);
+
+        return result;
     }
 }

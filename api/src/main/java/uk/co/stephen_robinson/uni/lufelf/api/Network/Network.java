@@ -1,4 +1,4 @@
-package uk.co.stephen_robinson.uni.lufelf.api;
+package uk.co.stephen_robinson.uni.lufelf.api.Network;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -12,6 +12,8 @@ import org.apache.http.impl.client.BasicResponseHandler;
 
 import java.util.Hashtable;
 import java.util.List;
+
+import uk.co.stephen_robinson.uni.lufelf.api.NetworkCallback;
 
 /**
  * Created by Stephen on 19/02/14.

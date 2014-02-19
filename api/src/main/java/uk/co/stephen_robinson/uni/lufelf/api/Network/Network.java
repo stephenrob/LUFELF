@@ -14,6 +14,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import uk.co.stephen_robinson.uni.lufelf.api.NetworkCallback;
+import uk.co.stephen_robinson.uni.lufelf.api.xml.Parser;
 
 /**
  * Created by Stephen on 19/02/14.
@@ -117,10 +118,13 @@ public class Network extends AsyncTask<List<NameValuePair>, Integer, Hashtable>{
 
             switch (this.serverScript){
                 case CREATE_USER:
+                    result = Formatter.message(Parser.parseUserDetails(responseText));
                     break;
                 case LOGIN_USER:
+                    result = Formatter.message(Parser.parseUserDetails(responseText));
                     break;
                 case QUERY_USER_DETAILS:
+                    result = Formatter.message(Parser.parseUserDetails(responseText));
                     break;
                 case GET_FRIEND_REQUESTS:
                     break;
@@ -139,6 +143,7 @@ public class Network extends AsyncTask<List<NameValuePair>, Integer, Hashtable>{
                 case RECEIVED_MESSAGES:
                     break;
                 default:
+                    result = Formatter.message(Parser.parseGenericResult(responseText));
                     break;
             }
 

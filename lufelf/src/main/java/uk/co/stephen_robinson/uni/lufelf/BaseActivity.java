@@ -7,7 +7,8 @@ import android.app.FragmentManager;
 import android.view.MenuItem;
 
 /**
- * Created by James on 30/01/2014.
+ * @author James
+ * the base activity that holds the parent methods for any activity in the app
  */
 public class BaseActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks{
 

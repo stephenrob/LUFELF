@@ -12,7 +12,8 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 
 /**
- * Created by James on 30/01/2014.
+ * @author James
+ * Displays a list of events in a fragment.
  */
 public class EventsFragment extends BaseFragment{
 

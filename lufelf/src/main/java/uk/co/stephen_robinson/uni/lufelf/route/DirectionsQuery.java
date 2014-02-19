@@ -18,19 +18,31 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.util.List;
 
+
 /**
- * Created by James on 24/01/2014.
+ * @author James
+ * This class queries the google directions server and draws the route onto the map
  */
+
 public class DirectionsQuery {
 
     private HttpClient client;
     private DirectionsParser directions;
 
+    /**
+     * instantiates the directions and client variables.
+     */
     public DirectionsQuery(){
         directions=new DirectionsParser();
         client= new DefaultHttpClient();
     }
 
+    /**
+     * queries google directions and draws the returned route on the map
+     * @param start start point
+     * @param finish end point
+     * @param m the map to draw the route on
+     */
     public void getRoute(LatLng start, LatLng finish, GoogleMap m){
         final LatLng startLoc=start;
         final LatLng finishLoc=finish;

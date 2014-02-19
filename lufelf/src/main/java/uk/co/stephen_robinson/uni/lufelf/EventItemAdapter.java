@@ -12,7 +12,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by James on 31/01/2014.
+ * @author James
+ * adapts an event item to make it compatible with the listview
  */
 public class EventItemAdapter extends BaseAdapter {
     private Context context;

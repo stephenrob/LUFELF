@@ -11,7 +11,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by James on 09/02/2014.
+ * @author James
+ * adapts nav drawer groups to make it compatible with the ExpandableList
  */
 public class ExpandableListNavAdapter extends BaseExpandableListAdapter{
 

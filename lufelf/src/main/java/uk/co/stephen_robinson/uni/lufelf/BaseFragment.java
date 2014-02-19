@@ -36,7 +36,8 @@ import java.io.File;
 import java.lang.reflect.Field;
 
 /**
- * Created by James on 30/01/2014.
+ * @author James
+ * the fragment that all fragments extend from. Implements the methods that are used by all fragments
  */
 public class BaseFragment  extends Fragment{
     //init global vars

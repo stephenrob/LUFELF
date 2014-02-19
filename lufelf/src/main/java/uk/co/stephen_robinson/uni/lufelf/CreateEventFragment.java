@@ -18,7 +18,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * Created by James on 30/01/2014.
+ * @author James
+ * Displays the createEvent fragment and all of the methods.
  */
 public class CreateEventFragment extends BaseFragment{
 

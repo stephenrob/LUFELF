@@ -7,7 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 /**
- * Created by James on 30/01/2014.
+ * @author James
+ * Creates a fragment of a friends profile.
  */
 public class FriendsSubFragment extends BaseFragment{
 

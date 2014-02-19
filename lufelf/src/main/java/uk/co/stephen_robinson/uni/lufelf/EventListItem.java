@@ -3,8 +3,8 @@ package uk.co.stephen_robinson.uni.lufelf;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
- *@author James
- * @date 11/02/2014
+ * @author James
+ *This models an event item in memory
  */
 
 public class EventListItem {

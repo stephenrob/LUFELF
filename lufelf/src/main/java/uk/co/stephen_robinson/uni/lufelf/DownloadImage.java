@@ -19,7 +19,8 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * Created by James on 18/02/2014.
+ * @author James
+ * This class downloads an image and updates an image view
  */
 public class DownloadImage{
     //global variables

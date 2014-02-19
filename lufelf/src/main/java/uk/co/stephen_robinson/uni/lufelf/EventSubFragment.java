@@ -7,7 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
- * Created by James on 30/01/2014.
+ * @author James
+ * Displays the 'profile' of an event
  */
 public class EventSubFragment extends BaseFragment{
 

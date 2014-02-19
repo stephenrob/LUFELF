@@ -18,26 +18,52 @@ public class EventItemAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<EventListItem> eventListItems;
 
+    /**
+     *
+     * @param context
+     * @param eventListItems
+     */
     public EventItemAdapter(Context context, ArrayList<EventListItem> eventListItems){
         this.context = context;
         this.eventListItems = eventListItems;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getCount() {
         return eventListItems.size();
     }
 
+    /**
+     *
+     * @param position
+     * @return
+     */
     @Override
     public Object getItem(int position) {
         return eventListItems.get(position);
     }
 
+    /**
+     *
+     * @param position
+     * @return
+     */
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {

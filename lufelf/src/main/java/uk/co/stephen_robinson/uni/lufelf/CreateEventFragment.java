@@ -69,6 +69,11 @@ public class CreateEventFragment extends BaseFragment{
 
         return rootView;
     }
+
+    /**
+     *
+     * @param editText
+     */
     public void showDateTime(final EditText editText){
 
         //get current time and date

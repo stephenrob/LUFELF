@@ -157,6 +157,12 @@ public class BaseFragment  extends Fragment{
         showMessage.show();
     }
 
+    /**
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param imageReturnedIntent
+     */
     //when the user has selected the image or taken a picture, the resulting action occurs here.
     //MUST HAVE R.id.profile_image implemented in the layout.
     public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
@@ -239,6 +245,11 @@ public class BaseFragment  extends Fragment{
         //imageView.setImageURI(tempDir);
         imageView.setImageBitmap(getRoundedCornerBitmap(temp,20));
     }
+
+    /**
+     *
+     * @param data
+     */
     public void startCropIntent(Uri data){
         tempDir=Uri.fromFile(new File(Environment.getExternalStorageDirectory(),
                 "tmp_file_store.jpg"));
@@ -254,6 +265,12 @@ public class BaseFragment  extends Fragment{
         startActivityForResult(intent, 2);
     }
 
+    /**
+     *
+     * @param src
+     * @param radius
+     * @return
+     */
     public static Bitmap getRoundedCornerBitmap(Bitmap src, int radius) {
         int width = src.getWidth();
         int height = src.getHeight();

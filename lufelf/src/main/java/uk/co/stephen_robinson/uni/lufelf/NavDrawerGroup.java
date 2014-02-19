@@ -10,6 +10,12 @@ public class NavDrawerGroup {
     private int icon;
     private ArrayList<NavDrawerItem> items;
 
+    /**
+     *
+     * @param name
+     * @param icon
+     * @param items
+     */
     public NavDrawerGroup(String name, int icon,ArrayList<NavDrawerItem> items){
         this.name=name;
         this.icon=icon;

@@ -34,6 +34,11 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
             {"Register"},
             {"Search"}};
 
+    /**
+     *
+     * @param groupPos
+     * @param position
+     */
     //Handle on navigationdrawer item selected (swap fragments)
     @Override
     public void onNavigationDrawerItemSelected(int groupPos,int position) {
@@ -63,6 +68,10 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
         super.onResume();
     }
 
+    /**
+     *
+     * @param item
+     */
     //if an action bar button is clicked - this is where it is handled
     public void handleButton(MenuItem item){
         //get item title
@@ -97,6 +106,11 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
             finish();
     }
 
+    /**
+     *
+     * @param groupPos
+     * @param position
+     */
     //method to update the currently held positions of the navigationdrawer options
     public void updateCurrentPositions(int groupPos,int position){
         currentGroupPosition=groupPos;

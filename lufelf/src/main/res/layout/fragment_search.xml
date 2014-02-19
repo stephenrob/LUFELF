@@ -29,7 +29,6 @@
         android:paddingBottom="7dp"
         android:paddingRight="7dp"
         android:paddingLeft="10dp"
-        android:textColorHint="#000000"
         android:inputType="text"
         android:layout_marginTop="10dp"
         android:layout_below="@id/friend_title"/>

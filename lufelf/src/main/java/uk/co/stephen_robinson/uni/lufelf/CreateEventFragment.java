@@ -71,8 +71,8 @@ public class CreateEventFragment extends BaseFragment{
     }
 
     /**
-     *
-     * @param editText
+     * Presents date and time dialog to the user.
+     * @param editText The text field that acts as a button
      */
     public void showDateTime(final EditText editText){
 

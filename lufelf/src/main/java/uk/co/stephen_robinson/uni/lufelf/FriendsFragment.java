@@ -10,10 +10,6 @@ import android.view.ViewGroup;
  */
 public class FriendsFragment extends BaseFragment{
 
-    /**
-     * Returns a new instance of this fragment for the given section
-     * number.
-     */
     public static FriendsFragment newInstance() {
         return new FriendsFragment();
     }

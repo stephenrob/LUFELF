@@ -19,9 +19,9 @@ public class EventItemAdapter extends BaseAdapter {
     private ArrayList<EventListItem> eventListItems;
 
     /**
-     *
-     * @param context
-     * @param eventListItems
+     *Constructor for the event item adapter
+     * @param context the context of the view
+     * @param eventListItems the list of event items.
      */
     public EventItemAdapter(Context context, ArrayList<EventListItem> eventListItems){
         this.context = context;
@@ -29,8 +29,8 @@ public class EventItemAdapter extends BaseAdapter {
     }
 
     /**
-     *
-     * @return
+     *get the size of the list
+     * @return the size of the list
      */
     @Override
     public int getCount() {
@@ -38,9 +38,9 @@ public class EventItemAdapter extends BaseAdapter {
     }
 
     /**
-     *
-     * @param position
-     * @return
+     * get item at
+     * @param position the position of the item
+     * @return returns the object
      */
     @Override
     public Object getItem(int position) {
@@ -48,9 +48,9 @@ public class EventItemAdapter extends BaseAdapter {
     }
 
     /**
-     *
-     * @param position
-     * @return
+     * get the id of an item
+     * @param position the position of the item
+     * @return the position of the item
      */
     @Override
     public long getItemId(int position) {
@@ -58,11 +58,11 @@ public class EventItemAdapter extends BaseAdapter {
     }
 
     /**
-     *
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return
+     *gets the view of the item for the list
+     * @param position the position of the item
+     * @param convertView the view to convert
+     * @param parent the parent of the item
+     * @return view of the list item
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

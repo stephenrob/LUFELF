@@ -55,6 +55,13 @@ public class EventsFragment extends BaseFragment{
 
         return rootView;
     }
+
+    /**
+     * add the events to the view
+     * @param inflater the inflater for the layout
+     * @param container the view group container
+     * @param rootView the rootview of the fragment
+     */
     public void addEvents(LayoutInflater inflater, ViewGroup container,View rootView){
 
         //make arraylist navdraweritems

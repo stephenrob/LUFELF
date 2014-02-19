@@ -30,13 +30,23 @@ public class DownloadImage{
     private Bitmap image;
     private String imageUrl;
 
+    /**
+     * Constructor to set default values
+     * @param imageView the imageview you want to update
+     * @param activity the activity the app uses
+     * @param imageUrl the url of the image
+     */
     public DownloadImage(ImageView imageView, Activity activity, String imageUrl){
         //set the global variables
         this.imageView=imageView;
         this.activity=activity;
         this.imageUrl=imageUrl;
     }
-    //downloads image from server and places it in the desired image view
+
+    /**
+     * downloads image from server and places it in the desired image view
+     */
+    //
     public void downloadFromServer(){
         new AsyncTask<Void,Void,Void>(){
 
@@ -97,6 +107,13 @@ public class DownloadImage{
             }
         }.execute();
     }
+
+    /**
+     * Rounds the corners of a bitmap
+     * @param src the source image
+     * @param radius the radius to round the corners
+     * @return a bitmap with rounded corners
+     */
     public static Bitmap getRoundedCornerBitmap(Bitmap src, int radius) {
         int width = src.getWidth();
         int height = src.getHeight();

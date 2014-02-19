@@ -12,9 +12,11 @@ import android.widget.TextView;
 public class EventSubFragment extends BaseFragment{
 
     /**
-     * Returns a new instance of this fragment for the given section
-     * number.
+     * create a fragment with a specific item
+     * @param item the event to base the fragment on.
+     * @return new instance of the EventSubFragment
      */
+
     public static EventSubFragment newInstance(EventListItem item) {
 
         //create fragment

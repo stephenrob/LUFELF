@@ -152,7 +152,10 @@ public class NavigationDrawerFragment extends Fragment {
         return mDrawerListView;
     }
 
-    //this method checks if the drawer is open
+    /**
+     * this method checks if the drawer is open
+     * @return boolean if the drawer is open
+     */
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
     }
@@ -231,6 +234,11 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
+    /**
+     *
+     * @param groupPos
+     * @param position
+     */
     private void selectItem(int groupPos,int position) {
         int previousGroup=mCurrentSelectedGroupPosition;
         int previousPos=mCurrentSelectedChildPosition;

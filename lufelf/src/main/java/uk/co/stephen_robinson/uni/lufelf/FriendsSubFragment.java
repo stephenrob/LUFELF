@@ -35,10 +35,7 @@ public class FriendsSubFragment extends BaseFragment{
         ImageView imageView=(ImageView)rootView.findViewById(R.id.image_friend);
         DownloadImage downloadImage = new DownloadImage(imageView,getActivity(),"http://148.88.32.47/avatars/215.jpg");
 
-         downloadImage.downloadFromServer();
-//stuff that updates ui
-
-
+        downloadImage.downloadFromServer();
 
         return rootView;
     }

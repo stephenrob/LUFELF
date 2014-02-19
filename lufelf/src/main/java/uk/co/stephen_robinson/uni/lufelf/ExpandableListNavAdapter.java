@@ -18,10 +18,21 @@ public class ExpandableListNavAdapter extends BaseExpandableListAdapter{
     private Context context;
     private ArrayList<NavDrawerGroup> groups;
 
+    /**
+     * create the list adapter
+     * @param c the context of the fragment
+     * @param group the group of navdrawer items
+     */
     public ExpandableListNavAdapter(Context c, ArrayList<NavDrawerGroup> group){
         this.context=c;
         this.groups=group;
     }
+
+    /**
+     * add an item to the listview
+     * @param item the nav drawer item
+     * @param group the group of the nav drawer item
+     */
     public void addItem(NavDrawerItem item,NavDrawerGroup group){
         if(!groups.contains(group))
             groups.add(group);
@@ -34,13 +45,37 @@ public class ExpandableListNavAdapter extends BaseExpandableListAdapter{
         groups.get(index).setItems(child);
 
     }
+
+    /**
+     * get the child of the group
+     * @param groupPosition group position
+     * @param childPosition child position
+     * @return returns the child
+     */
     public Object getChild(int groupPosition,int childPosition){
         ArrayList<NavDrawerItem> childList=groups.get(groupPosition).getItems();
         return childList.get(childPosition);
     }
+
+    /**
+     * get the id of the child
+     * @param groupPosition group position
+     * @param childPosition child position
+     * @return the id of the child
+     */
     public long getChildId(int groupPosition,int childPosition){
         return childPosition;
     }
+
+    /**
+     * get the view of the child
+     * @param groupPosition group position
+     * @param childPosition child position
+     * @param last is the last?
+     * @param view the view to change
+     * @param parent the parent of the view
+     * @return the modified view
+     */
     public View getChildView(int groupPosition,int childPosition,boolean last,View view,ViewGroup parent){
         NavDrawerItem item = (NavDrawerItem)getChild(groupPosition,childPosition);
 
@@ -56,9 +91,21 @@ public class ExpandableListNavAdapter extends BaseExpandableListAdapter{
 
         return view;
     }
+
+    /**
+     * get the number of children
+     * @param groupPosition group position
+     * @return the number of items
+     */
     public int getChildrenCount(int groupPosition){
         return groups.get(groupPosition).getItems().size();
     }
+
+    /**
+     * get the group
+     * @param groupPosition
+     * @return
+     */
     public Object getGroup(int groupPosition){
         return groups.get(groupPosition);
     }

@@ -35,11 +35,11 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
             {"Search"}};
 
     /**
+     *Handles on navigationdrawer item selected (swap fragments)
      *
-     * @param groupPos
-     * @param position
+     * @param groupPos the group position of the fragment
+     * @param position the list position inside the group
      */
-    //Handle on navigationdrawer item selected (swap fragments)
     @Override
     public void onNavigationDrawerItemSelected(int groupPos,int position) {
 
@@ -69,10 +69,10 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
     }
 
     /**
-     *
-     * @param item
+     *if an action bar button is clicked - this is where it is handled
+     * @param item The menu item clicked
      */
-    //if an action bar button is clicked - this is where it is handled
+    //
     public void handleButton(MenuItem item){
         //get item title
         String title=String.valueOf(item.getTitle());
@@ -107,11 +107,11 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
     }
 
     /**
-     *
-     * @param groupPos
-     * @param position
+     *  method to update the currently held positions of the navigationdrawer options
+     * @param groupPos the group position of the fragment
+     * @param position the list position inside the group
      */
-    //method to update the currently held positions of the navigationdrawer options
+
     public void updateCurrentPositions(int groupPos,int position){
         currentGroupPosition=groupPos;
         currentChildPosition=position;

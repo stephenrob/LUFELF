@@ -6,6 +6,7 @@ import com.google.android.gms.maps.model.LatLng;
  *@author James
  * @date 11/02/2014
  */
+
 public class EventListItem {
 
         private String title;
@@ -18,7 +19,7 @@ public class EventListItem {
         private String description;
 
         /**
-         *
+         *Constructor for the eventlistitem
          * @param title Title of the event
          * @param icon  drawable resource of event
          * @param id    event id
@@ -40,64 +41,64 @@ public class EventListItem {
         }
 
         /**
-         *
-         * @return
+         * get title of the event
+         * @return title of the EventListItem
          */
         public String getTitle(){
             return this.title;
         }
 
         /**
-         *
-         * @return
+         * get the icon of the event
+         * @return icon resource id of the event
          */
         public int getIcon(){
             return this.icon;
         }
 
         /**
-         *
-         * @return
+         *get the id of the event
+         * @return the id of the event
          */
         public String getId(){
             return this.id;
         }
 
         /**
-         *
-         * @return
+         * get the location of the event
+         * @return the location of the event
          */
         public LatLng getLocation() {
             return location;
         }
 
         /**
-         *
-         * @return
+         * get the creator of the event
+         * @return id of the creator
          */
         public String getCreator() {
             return creator;
         }
 
         /**
-         *
-         * @return
+         * get the date and time of event
+         * @return the date and time of event
          */
         public String getDateTime() {
             return dateTime;
         }
 
         /**
-         *
-         * @return
+         * get the description of the event
+         * @return the description
          */
         public String getDescription() {
             return description;
         }
 
         /**
-         *
-         * @return
+         * get the event name
+         * @return event name
          */
         public String getEventName() {
             return eventName;

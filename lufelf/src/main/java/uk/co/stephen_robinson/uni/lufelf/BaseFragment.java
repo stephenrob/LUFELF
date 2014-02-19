@@ -47,11 +47,20 @@ public class BaseFragment  extends Fragment{
     protected View rootView;
     private Uri imageURI;
     private Uri tempDir;
+
+    /**
+     * Set the fragment manager
+     * @param fragmentManager the chosen fragment manager
+     */
     //set fragmentManager
     public void setFragmentManager(FragmentManager fragmentManager){
         this.fragmentManager=fragmentManager;
     }
 
+    /**
+     * Set the context
+     * @param context the chosen context
+     */
     //set the context
     public void setContext(Context context){
         this.context=context;
@@ -80,7 +89,11 @@ public class BaseFragment  extends Fragment{
         }
     }
 
-    //method used to check if the network is currently available.
+    /**
+     * method used to check if the network is currently available.
+     * @return Boolean that indicates if a data connection is available.
+     */
+
     public boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -88,14 +101,21 @@ public class BaseFragment  extends Fragment{
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    //reset the indexes of the navigation drawer fragment
+    /**
+     * reset the indexes of the navigation drawer fragment
+     */
+    //
     public void resetIndexes(){
         MainActivity mainActivity=(MainActivity)getActivity();
         mainActivity.mNavigationDrawerFragment.updateChildGroup(-1,-1);
         mainActivity.updateCurrentPositions(-1,-1);
     }
 
-    //get the current location of the device
+    /**
+     * get the current location of the device
+     * @return A LatLng of the current location of the device
+     */
+    //
     public LatLng getLocation(){
         //get the app location manager via context
         LocationManager locationManager=(LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
@@ -117,8 +137,10 @@ public class BaseFragment  extends Fragment{
         return new LatLng(latitude,longitude);
     }
 
-    //present a custom dialog to the user in order to obtain the resultingimage
-    //MUST HAVE R.id.profile_image implemented in the layout.
+    /**
+     * present a custom dialog to the user in order to obtain the resultingimage. MUST HAVE R.id.profile_image implemented in the layout.
+     */
+    //
     public void showCameraDialog(){
         final Dialog showMessage = new Dialog(context);
         showMessage.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -158,13 +180,12 @@ public class BaseFragment  extends Fragment{
     }
 
     /**
-     *
-     * @param requestCode
-     * @param resultCode
-     * @param imageReturnedIntent
+     *when the user has selected the image or taken a picture, the resulting action occurs here. MUST HAVE R.id.profile_image implemented in the layout.
+     * @param requestCode the code returned from the intent
+     * @param resultCode success/fail code returned from the intent
+     * @param imageReturnedIntent the data returned from the intent
      */
-    //when the user has selected the image or taken a picture, the resulting action occurs here.
-    //MUST HAVE R.id.profile_image implemented in the layout.
+    //
     public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
 
@@ -247,8 +268,8 @@ public class BaseFragment  extends Fragment{
     }
 
     /**
-     *
-     * @param data
+     * Begins a crop intent of the selected image
+     * @param data the URI of the selected image
      */
     public void startCropIntent(Uri data){
         tempDir=Uri.fromFile(new File(Environment.getExternalStorageDirectory(),
@@ -266,10 +287,10 @@ public class BaseFragment  extends Fragment{
     }
 
     /**
-     *
-     * @param src
-     * @param radius
-     * @return
+     * Rounds an image
+     * @param src the source bitmap
+     * @param radius the radius of the corner
+     * @return  new bitmap with rounded corners
      */
     public static Bitmap getRoundedCornerBitmap(Bitmap src, int radius) {
         int width = src.getWidth();

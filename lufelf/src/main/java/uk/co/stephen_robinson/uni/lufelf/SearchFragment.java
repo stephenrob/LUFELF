@@ -35,7 +35,7 @@ public class SearchFragment extends BaseFragment{
         setFragmentManager(getFragmentManager());
         rootView = inflater.inflate(R.layout.fragment_search, container, false);
         setContext(rootView.getContext());
-        showActivitySpinner();
+        //showActivitySpinner();
 
         return rootView;
     }

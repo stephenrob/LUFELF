@@ -30,7 +30,7 @@ public class FriendsSubFragment extends BaseFragment{
         setFragmentManager(getFragmentManager());
         rootView = inflater.inflate(R.layout.fragment_friend_profile, container, false);
         setContext(rootView.getContext());
-        showActivitySpinner();
+        //showActivitySpinner();
 
 
         ImageView imageView=(ImageView)rootView.findViewById(R.id.image_friend);

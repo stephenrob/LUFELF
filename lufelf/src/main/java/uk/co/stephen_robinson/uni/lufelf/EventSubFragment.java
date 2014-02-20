@@ -51,7 +51,7 @@ public class EventSubFragment extends BaseFragment{
         Bundle args=getArguments();
         rootView = inflater.inflate(R.layout.fragment_event_profile, container, false);
         setContext(rootView.getContext());
-        showActivitySpinner();
+        //showActivitySpinner();
 
         //get the various textview from the layout
         TextView eventName=(TextView)rootView.findViewById(R.id.event_name);

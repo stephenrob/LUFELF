@@ -29,7 +29,7 @@ public class SettingsFragment extends BaseFragment{
         setFragmentManager(getFragmentManager());
         rootView = inflater.inflate(R.layout.fragment_settings, container, false);
         setContext(rootView.getContext());
-        showActivitySpinner();
+        //showActivitySpinner();
 
         return rootView;
     }

@@ -28,7 +28,7 @@ public class PlaceSubFragment extends BaseFragment{
         setFragmentManager(getFragmentManager());
         rootView = inflater.inflate(R.layout.fragment_place_profile, container, false);
         setContext(rootView.getContext());
-        showActivitySpinner();
+        //showActivitySpinner();
 
         return rootView;
     }

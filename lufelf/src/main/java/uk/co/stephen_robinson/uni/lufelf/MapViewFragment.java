@@ -58,7 +58,7 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
         setFragmentManager(getFragmentManager());
         rootView = inflater.inflate(R.layout.fragment_map, container, false);
         setContext(rootView.getContext());
-        showActivitySpinner();
+        //showActivitySpinner();
 
         //get the location manager
         this.locationManager=(LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
@@ -125,6 +125,7 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
      */
     public void populateWithPlaces(){
         LatLng loc=getLocation();
+
 
         PlaceItem p=new PlaceItem("1","Test PLACE","123 fakestreet","other","this is a test PLACE","asdasd",loc.latitude,loc.longitude);
 

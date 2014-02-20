@@ -34,6 +34,10 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.io.File;
 import java.lang.reflect.Field;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import uk.co.stephen_robinson.uni.lufelf.api.V1;
 
 /**
  * @author James
@@ -44,7 +48,8 @@ public class BaseFragment  extends Fragment{
     private Dialog dialog;
     protected FragmentManager fragmentManager;
     protected Context context;
-
+    public V1 api = new V1();
+    public ToastMaker toastMaker;
     protected View rootView;
     private Uri imageURI;
     private Uri tempDir;
@@ -65,6 +70,7 @@ public class BaseFragment  extends Fragment{
     //set the context
     public void setContext(Context context){
         this.context=context;
+        this.toastMaker=new ToastMaker(context);
     }
 
     //onAttach override - does nothing
@@ -236,8 +242,6 @@ public class BaseFragment  extends Fragment{
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(dialog!=null)
-            hideActivitySpinner();
     }
 
     //a method to build the activity spinner dialog
@@ -308,5 +312,35 @@ public class BaseFragment  extends Fragment{
         paint.setXfermode(null);
 
         return result;
+    }
+
+    /**
+     * hash a string using md5
+     * @param s the string to hash
+     * @return a hashed string or a blank string
+     */
+    public static final String md5(final String s) {
+        final String MD5 = "MD5";
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest
+                    .getInstance(MD5);
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuilder hexString = new StringBuilder();
+            for (byte aMessageDigest : messageDigest) {
+                String h = Integer.toHexString(0xFF & aMessageDigest);
+                while (h.length() < 2)
+                    h = "0" + h;
+                hexString.append(h);
+            }
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

@@ -41,7 +41,7 @@ public class CreateEventFragment extends BaseFragment{
         setFragmentManager(getFragmentManager());
         rootView = inflater.inflate(R.layout.fragment_create_event, container, false);
         setContext(rootView.getContext());
-        showActivitySpinner();
+        //showActivitySpinner();
 
         //get the datetime textedit and set the onlcik listener
         final EditText dateTime=(EditText)rootView.findViewById(R.id.setTimeDate);

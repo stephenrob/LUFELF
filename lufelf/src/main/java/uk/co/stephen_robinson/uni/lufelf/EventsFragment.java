@@ -1,6 +1,7 @@
 package uk.co.stephen_robinson.uni.lufelf;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,9 @@ import android.widget.ListView;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
+
+import uk.co.stephen_robinson.uni.lufelf.api.NetworkCallback;
 
 /**
  * @author James
@@ -64,7 +68,15 @@ public class EventsFragment extends BaseFragment{
      * @param rootView the rootview of the fragment
      */
     public void addEvents(LayoutInflater inflater, ViewGroup container,View rootView){
-
+        NetworkCallback nc=new NetworkCallback() {
+            @Override
+            public void results(Hashtable result) {
+                //result.get()
+                Log.e("CRaP","HERE");
+                hideActivitySpinner();
+            }
+        };
+        api.getAllEvents(nc);
         //make arraylist navdraweritems
         ArrayList navigationItems=new ArrayList<NavDrawerItem>();
 

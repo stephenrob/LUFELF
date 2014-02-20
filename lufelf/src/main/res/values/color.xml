@@ -10,6 +10,8 @@
     <color name="titletxt">#cb2026</color>
     <color name="event_description">#f0f0f0</color>
 
+    <color name="text_field_error">#FF9494</color>
+
     <color name="expandable_list_div">#333535</color>
     <color name="expandable_List_child">#4c4b4b</color>
 

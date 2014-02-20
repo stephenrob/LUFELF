@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -342,5 +343,8 @@ public class BaseFragment  extends Fragment{
             e.printStackTrace();
         }
         return "";
+    }
+    public void resetEditText(EditText editText){
+        editText.setError(null);
     }
 }

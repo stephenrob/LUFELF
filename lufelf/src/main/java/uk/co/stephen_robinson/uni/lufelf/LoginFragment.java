@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -41,46 +42,57 @@ public class LoginFragment extends BaseFragment{
             rootView = inflater.inflate(R.layout.fragment_login, container, false);
             setContext(rootView.getContext());
 
+            //get the textview for the register text
+            TextView registerText=(TextView)rootView.findViewById(R.id.login_register_text);
+            registerText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                  LoginActivity activity = (LoginActivity)getActivity();
+                  activity.setLayout(R.layout.fragment_register);
+                }
+            });
+
+            //get the login button and set the on click listener
             Button loginButton =(Button)rootView.findViewById(R.id.login_button);
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-
-
-                    //create the call back for the api
-                    NetworkCallback networkCallback= new NetworkCallback() {
-                        @Override
-                        public void results(Hashtable result) {
-                            Enumeration keys = result.keys();
-                            while(keys.hasMoreElements())
-                                Log.e("Crap",keys.nextElement().toString());
-                            if(result==null){
-                                Intent swapToApp=new Intent(rootView.getContext(),MainActivity.class);
-                                hideActivitySpinner();
-                                startActivity(swapToApp);
-                            }
-
-                            boolean error=toastMaker.isError(result.get("status_code").toString(),result.get("message").toString());
-                            if(error)
-                                hideActivitySpinner();
-                        }
-                    };
                     //get the username and password fields
                     EditText username = (EditText) rootView.findViewById(R.id.login_username_text);
                     EditText password = (EditText) rootView.findViewById(R.id.login_password_text);
 
-                    EditText[] array={username,password};
+                    EditText[] editTexts ={username,password};
                     boolean allOk=false;
-                    for(int i=0;i<array.length;i++){
-                        allOk=ValidationChecker.checkIfEmpty(array[i]);
-                        allOk=ValidationChecker.checkSize(array[i],3);
+                    for(int i=0;i< editTexts.length;i++){
+                        resetEditText(editTexts[i]);
+                        allOk=ValidationChecker.checkIfEmpty(editTexts[i]);
+                        allOk=ValidationChecker.checkSize(editTexts[i],3);
                     }
                     allOk=ValidationChecker.isEmailValid(username);
 
                     //get the text values of both the username and password
                     //hash the password and attach the network callback
                     if(allOk){
+                        //create the call back for the api
+                        NetworkCallback networkCallback= new NetworkCallback() {
+                            @Override
+                            public void results(Hashtable result) {
+                                Enumeration keys = result.keys();
+                                while(keys.hasMoreElements())
+                                    Log.e("Crap",keys.nextElement().toString());
+                                if(result==null){
+                                    Intent swapToApp=new Intent(rootView.getContext(),MainActivity.class);
+                                    hideActivitySpinner();
+                                    startActivity(swapToApp);
+                                }
+
+                                boolean error=toastMaker.isError(result.get("status_code").toString(),result.get("message").toString());
+                                if(error)
+                                    hideActivitySpinner();
+                            }
+                        };
+
                         api.loginUser(username.getText().toString(),md5(password.getText().toString()),networkCallback);
                         //we will be waiting for the ui to update - begin spinner
                         showActivitySpinner();

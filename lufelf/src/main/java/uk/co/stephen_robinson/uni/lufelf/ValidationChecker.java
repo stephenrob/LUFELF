@@ -43,7 +43,7 @@ public class ValidationChecker {
         Matcher matcher = pattern.matcher(editText.getText().toString());
         boolean result=!matcher.find();
         if(!result)
-            editText.setError("This field can only contain the values a-z and 0-9");
+            editText.setError("Your "+editText.getHint()+" can only use the characters a-z and 0-9");
         return result;
     }
 
@@ -67,7 +67,7 @@ public class ValidationChecker {
     public static boolean checkSize(EditText text,int size){
         boolean result=text.getText().toString().length()>=size;
         if(!result)
-            text.setError("This size of this text field should be greater than "+size);
+            text.setError("Your "+text.getHint()+" should be longer than "+size+" characters.");
         return result;
     }
     /**
@@ -118,5 +118,23 @@ public class ValidationChecker {
             isValid = true;
         }
         return isValid;
+    }
+
+    /**
+     * This method is used to compare two text fields' value.
+     * Should be primarily used on password fields.
+     * @param field1 the first field to check
+     * @param field2 the second field to check
+     * @return true if both fields are the same
+     */
+    public static boolean fieldsHaveSameValue(EditText field1, EditText field2){
+
+        boolean isSame =field1.getText().toString().equals(field2.getText().toString());
+        if(!isSame){
+            field1.setError(field1.getHint()+" needs to be the same as "+field2.getHint());
+            field2.setError(field2.getHint()+" needs to be the same as "+field1.getHint());
+            return isSame;
+        }
+        return isSame;
     }
 }

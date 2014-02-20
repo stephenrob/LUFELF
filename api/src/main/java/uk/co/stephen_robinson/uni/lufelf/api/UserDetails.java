@@ -7,18 +7,18 @@ import uk.co.stephen_robinson.uni.lufelf.api.xml.User;
  */
 public class UserDetails {
 
-    int user_id = 0;
-    String name = null;
-    String lib_no = null;
-    String username = null;
-    String password = null;
-    String dob = null;
-    String type = null;
-    String description = null;
-    String avatar_url = null;
-    int location_status = 0;
-    int access_level = 0;
-    Boolean is_new = null;
+    public int user_id = 0;
+    public String name = null;
+    public String lib_no = null;
+    public String username = null;
+    public String password = null;
+    public String dob = null;
+    public String type = null;
+    public String description = null;
+    public String avatar_url = null;
+    public int location_status = 0;
+    public int access_level = 0;
+    public Boolean is_new = null;
 
     public static final String USER_ID = User.USER_ID;
     public static final String NAME = User.NAME;

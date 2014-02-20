@@ -85,6 +85,17 @@
 
 
             </LinearLayout>
+            <TextView
+                android:id="@+id/login_register_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="New user? Click here register! "
+                android:textSize="@dimen/text"
+                android:textColor="@color/titletxt"
+                android:textStyle="bold"
+                android:padding="10dp"
+                />
             <Button
                 android:id="@+id/login_button"
                 android:layout_width="200dp"

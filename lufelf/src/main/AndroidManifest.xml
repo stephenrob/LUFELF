@@ -30,18 +30,18 @@
             android:screenOrientation="portrait"
             android:name=".MainActivity"
             android:label="@string/title_activity_news_feed" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:screenOrientation="portrait"
             android:name=".LoginActivity"
             android:theme="@style/NoActionBar"
             android:label="LUFELF" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

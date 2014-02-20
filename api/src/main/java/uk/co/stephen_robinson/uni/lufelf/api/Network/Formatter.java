@@ -32,7 +32,7 @@ public class Formatter {
                     results.put(User.NAME, userDetails.name);
                     results.put(User.LIBRARY_NUMBER, userDetails.lib_no);
                 }
-                else if (userDetails.status.equals("false")){
+                else if (userDetails.status.equals("fail")){
                     results.put(Network.STATUS, Network.FAILURE);
                     results.put(Network.STATUS_CODE, userDetails.statusCode);
                     results.put(Network.MESSAGE, userDetails.message);
@@ -42,9 +42,10 @@ public class Formatter {
             case LOGIN_USER:
                 if (userDetails.status.equals("ok")){
                     results.put(Network.STATUS, Network.SUCCESS);
+                    results.put(Network.STATUS_CODE, userDetails.statusCode);
                     results.put(User.USER_ID, userDetails.user_id);
                 }
-                else if (userDetails.status.equals("false")){
+                else if (userDetails.status.equals("fail")){
                     results.put(Network.STATUS, Network.FAILURE);
                     results.put(Network.STATUS_CODE, userDetails.statusCode);
                     results.put(Network.MESSAGE, userDetails.message);
@@ -62,7 +63,7 @@ public class Formatter {
                     results.put(User.TYPE, userDetails.type);
                     results.put(User.DESCRIPTION, userDetails.description);
                 }
-                else if (userDetails.status.equals("false")){
+                else if (userDetails.status.equals("fail")){
                     results.put(Network.STATUS, Network.FAILURE);
                     results.put(Network.STATUS_CODE, userDetails.statusCode);
                     results.put(Network.MESSAGE, userDetails.message);

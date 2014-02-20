@@ -87,13 +87,15 @@ public class Parser {
                             // Only status=fail produce return code
                             if(parser.getAttributeValue(null, User.CODE) != null) {
                                 userDetails.statusCode = Integer.parseInt(parser.getAttributeValue(null, User.CODE));
+                            } else {
+                                userDetails.statusCode = 200;
                             }
                         }
                         else if(tagName.equalsIgnoreCase(User.MESSAGE)) {
                             userDetails.message = parser.nextText();
                         }
                         else if(tagName.equalsIgnoreCase(User.USER_ID)){
-                            userDetails.user_id = Integer.parseInt(parser.getAttributeValue(null, User.USER_ID));
+                            userDetails.user_id = Integer.parseInt(parser.nextText());
                         }
                         else if(tagName.equalsIgnoreCase(User.NAME)){
                             userDetails.name = parser.nextText();

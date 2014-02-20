@@ -63,13 +63,13 @@ public class LoginFragment extends BaseFragment{
                     EditText password = (EditText) rootView.findViewById(R.id.login_password_text);
 
                     EditText[] editTexts ={username,password};
-                    boolean allOk=false;
-                    for(int i=0;i< editTexts.length;i++){
-                        resetEditText(editTexts[i]);
-                        allOk=ValidationChecker.checkIfEmpty(editTexts[i]);
-                        allOk=ValidationChecker.checkSize(editTexts[i],3);
-                    }
-                    allOk=ValidationChecker.isEmailValid(username);
+                    boolean allOk=ValidationChecker.standardValidationCheck(editTexts);
+
+                    //validate email address
+                    if(allOk)
+                        allOk=ValidationChecker.isEmailValid(editTexts[0]);
+                    else
+                        ValidationChecker.isEmailValid(editTexts[0]);
 
                     //get the text values of both the username and password
                     //hash the password and attach the network callback

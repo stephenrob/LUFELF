@@ -42,7 +42,7 @@ public class ValidationChecker {
         Pattern pattern = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(editText.getText().toString());
         boolean result=!matcher.find();
-        if(!result)
+        if(result)
             editText.setError("Your "+editText.getHint()+" can only use the characters a-z and 0-9");
         return result;
     }
@@ -136,5 +136,30 @@ public class ValidationChecker {
             return isSame;
         }
         return isSame;
+    }
+    public static boolean standardValidationCheck(EditText[] editTexts){
+        //validate entries
+        boolean allOk=false;
+        for(int i=0;i<editTexts.length;i++){
+            resetEditText(editTexts[i]);
+            if(allOk)
+                allOk=ValidationChecker.checkIfEmpty(editTexts[i]);
+            else
+                ValidationChecker.checkIfEmpty(editTexts[i]);
+
+            if(allOk)
+                allOk=ValidationChecker.checkSize(editTexts[i], 3);
+            else
+                ValidationChecker.checkSize(editTexts[i], 3);
+
+            if(allOk)
+                allOk=ValidationChecker.checkIfEmpty(editTexts[i]);
+            else
+                ValidationChecker.checkIfEmpty(editTexts[i]);
+        }
+        return allOk;
+    }
+    public static void resetEditText(EditText editText){
+        editText.setError(null);
     }
 }

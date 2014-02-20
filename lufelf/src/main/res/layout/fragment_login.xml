@@ -61,6 +61,7 @@
                       android:layout_height="wrap_content"
                       android:gravity="left"
                       android:lines="1"
+                      android:hint="User Name"
                       android:background="@drawable/text_field"
                       android:singleLine="true"/>
                     <TextView
@@ -76,6 +77,7 @@
                         android:id="@+id/login_password_text"
                         android:layout_width="fill_parent"
                         android:lines="1"
+                        android:hint="Password"
                         android:singleLine="true"
                         android:layout_height="wrap_content"
                         android:gravity="left"

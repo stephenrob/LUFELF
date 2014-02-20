@@ -57,18 +57,19 @@ public class RegisterFragment extends BaseFragment{
                         (EditText)rootView.findViewById(R.id.register_confirm_password),
                         (EditText)rootView.findViewById(R.id.register_dob)};
 
-                //validate entries
-                boolean allOk=false;
-                for(int i=0;i<editTexts.length;i++){
-                    resetEditText(editTexts[i]);
-                    allOk=ValidationChecker.checkIfEmpty(editTexts[i]);
-                    allOk=ValidationChecker.checkSize(editTexts[i],3);
-                }
+                boolean allOk=ValidationChecker.standardValidationCheck(editTexts);
+
                 //validate email address
-                allOk=ValidationChecker.isEmailValid(editTexts[2]);
+                if(allOk)
+                    allOk=ValidationChecker.isEmailValid(editTexts[2]);
+                else
+                    ValidationChecker.isEmailValid(editTexts[2]);
 
                 //validate passwords
-                allOk=ValidationChecker.fieldsHaveSameValue(editTexts[3],editTexts[4]);
+                if(allOk)
+                    allOk=ValidationChecker.fieldsHaveSameValue(editTexts[3], editTexts[4]);
+                else
+                    ValidationChecker.fieldsHaveSameValue(editTexts[3], editTexts[4]);
 
                 if(allOk){
                     //if there are no errors in user input

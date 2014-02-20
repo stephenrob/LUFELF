@@ -9,6 +9,6 @@
     android:dividerHeight="2dp"
     android:background="@color/list_bg"
     android:groupIndicator="@null"
-    tools:context="uk.co.stephen_robinson.uni.lufelf.NavigationDrawerFragment">
+    tools:context="uk.co.stephen_robinson.uni.lufelf.fragments.NavigationDrawerFragment">
 
 </ExpandableListView>

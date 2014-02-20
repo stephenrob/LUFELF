@@ -28,7 +28,7 @@ public class LoginActivity extends BaseActivity {
         //init
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        this.overridePendingTransition(0,R.anim.fade_in);
         View v=findViewById(R.id.container);
         setLayout(R.layout.fragment_login);
     }

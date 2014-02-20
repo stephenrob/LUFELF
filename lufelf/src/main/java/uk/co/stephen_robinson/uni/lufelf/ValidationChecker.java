@@ -39,10 +39,11 @@ public class ValidationChecker {
      * @return if there are other characters than a-z and 0-9 - will return false
      */
     public static boolean noOddCharacters(EditText editText){
+        resetEditText(editText);
         Pattern pattern = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(editText.getText().toString());
-        boolean result=matcher.find();
-        if(result)
+        boolean result=!matcher.find();
+        if(!result)
             editText.setError("Your "+editText.getHint()+" can only use the characters a-z and 0-9");
         return result;
     }
@@ -86,6 +87,7 @@ public class ValidationChecker {
      * @return boolean true for valid false for invalid
      */
     public static boolean isEmailValid(EditText email) {
+        resetEditText(email);
         boolean isValid = false;
 
         String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
@@ -139,23 +141,17 @@ public class ValidationChecker {
     }
     public static boolean standardValidationCheck(EditText[] editTexts){
         //validate entries
-        boolean allOk=false;
+        boolean allOk=true;
         for(int i=0;i<editTexts.length;i++){
             resetEditText(editTexts[i]);
             if(allOk)
-                allOk=ValidationChecker.checkIfEmpty(editTexts[i]);
+                allOk=!ValidationChecker.checkIfEmpty(editTexts[i]);
             else
                 ValidationChecker.checkIfEmpty(editTexts[i]);
-
             if(allOk)
                 allOk=ValidationChecker.checkSize(editTexts[i], 3);
             else
                 ValidationChecker.checkSize(editTexts[i], 3);
-
-            if(allOk)
-                allOk=ValidationChecker.checkIfEmpty(editTexts[i]);
-            else
-                ValidationChecker.checkIfEmpty(editTexts[i]);
         }
         return allOk;
     }

@@ -2,7 +2,6 @@ package uk.co.stephen_robinson.uni.lufelf;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+import uk.co.stephen_robinson.uni.lufelf.api.Network.Network;
 import uk.co.stephen_robinson.uni.lufelf.api.NetworkCallback;
 
 /**
@@ -44,6 +44,8 @@ public class LoginFragment extends BaseFragment{
 
             //get the textview for the register text
             TextView registerText=(TextView)rootView.findViewById(R.id.login_register_text);
+
+            //when register is clicked swap to the register fragment.
             registerText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -52,31 +54,33 @@ public class LoginFragment extends BaseFragment{
                 }
             });
 
+            //get the text view for use as guest
+            TextView guestText=(TextView)rootView.findViewById(R.id.login_use_as_guest);
+
+            //when use as guest is clicked swap to main
+            guestText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showActivitySpinner();
+                    swapToMain(0);
+                }
+            });
             //get the login button and set the on click listener
             Button loginButton =(Button)rootView.findViewById(R.id.login_button);
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     //get the username and password fields
                     EditText username = (EditText) rootView.findViewById(R.id.login_username_text);
                     EditText password = (EditText) rootView.findViewById(R.id.login_password_text);
 
                     EditText[] editTexts ={username,password};
                     boolean allOk=ValidationChecker.standardValidationCheck(editTexts);
-
                     //validate email address
                     if(allOk)
                         allOk=ValidationChecker.isEmailValid(editTexts[0]);
                     else
                         ValidationChecker.isEmailValid(editTexts[0]);
-                    
-                    //check for weird characters
-                    if(allOk)
-                        allOk=ValidationChecker.noOddCharacters(editTexts[0]);
-                    else
-                        ValidationChecker.noOddCharacters(editTexts[0]);
-
                     //get the text values of both the username and password
                     //hash the password and attach the network callback
                     if(allOk){
@@ -85,17 +89,13 @@ public class LoginFragment extends BaseFragment{
                             @Override
                             public void results(Hashtable result) {
                                 Enumeration keys = result.keys();
-                                while(keys.hasMoreElements())
-                                    Log.e("Crap",keys.nextElement().toString());
-                                if(result==null){
-                                    Intent swapToApp=new Intent(rootView.getContext(),MainActivity.class);
-                                    hideActivitySpinner();
-                                    startActivity(swapToApp);
-                                }
 
-                                boolean error=toastMaker.isError(result.get("status_code").toString(),result.get("message").toString());
+                                boolean error=toastMaker.isError(result.get(Network.STATUS_CODE).toString(),result.get(Network.MESSAGE).toString());
                                 if(error)
                                     hideActivitySpinner();
+                                else if(!error){
+                                    swapToMain(1);
+                                }
                             }
                         };
 
@@ -107,4 +107,17 @@ public class LoginFragment extends BaseFragment{
             });
             return rootView;
         }
+
+    /**
+     * swaps to the app
+     * @param priority the user level. 0 for guest, 1 for student
+     */
+    public void swapToMain(int priority){
+        Intent swapToApp=new Intent(rootView.getContext(),MainActivity.class);
+        Bundle args = new Bundle();
+        args.putInt("priority",priority);
+        swapToApp.putExtras(args);
+        hideActivitySpinner();
+        startActivity(swapToApp);
+    }
 }

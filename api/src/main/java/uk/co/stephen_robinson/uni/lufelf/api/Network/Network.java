@@ -153,7 +153,7 @@ public class Network extends AsyncTask<List<NameValuePair>, Integer, Hashtable>{
             }
 
         } catch(Exception e) {
-            Log.e("LUFELF balls", e.toString());
+            Log.e("LUFELF balls", Log.getStackTraceString(e));
         }
 
         return result;

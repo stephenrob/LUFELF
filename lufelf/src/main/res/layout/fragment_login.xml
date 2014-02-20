@@ -98,6 +98,16 @@
                 android:textStyle="bold"
                 android:padding="10dp"
                 />
+            <TextView
+                android:id="@+id/login_use_as_guest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Don't want to create an account? Click here!"
+                android:textSize="@dimen/text"
+                android:textColor="@color/titletxt"
+                android:padding="10dp"
+                />
             <Button
                 android:id="@+id/login_button"
                 android:layout_width="200dp"

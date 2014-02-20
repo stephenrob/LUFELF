@@ -5,9 +5,9 @@ package uk.co.stephen_robinson.uni.lufelf.api.xml;
  */
 public class Message {
 
-    public String message = null;
+    public String message = "";
     public int statusCode = 0;
-    public String status = null;
+    public String status = "";
 
     public static final String RESPONSE = "rsp";
     public static final String STATUS = "status";

@@ -3,7 +3,6 @@ package uk.co.stephen_robinson.uni.lufelf;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import android.widget.EditText;
 import java.util.Calendar;
 import java.util.Hashtable;
 
+import uk.co.stephen_robinson.uni.lufelf.api.Network.Network;
 import uk.co.stephen_robinson.uni.lufelf.api.NetworkCallback;
 import uk.co.stephen_robinson.uni.lufelf.api.UserDetails;
 
@@ -59,7 +59,7 @@ public class RegisterFragment extends BaseFragment{
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("CRAP","CLICKED");
+
                 //get all of the edittexts
                 EditText[] editTexts={(EditText)rootView.findViewById(R.id.register_name),
                         (EditText)rootView.findViewById(R.id.register_lib_no),
@@ -95,9 +95,13 @@ public class RegisterFragment extends BaseFragment{
                         @Override
                         public void results(Hashtable result) {
                             hideActivitySpinner();
-                            boolean error = toastMaker.isError(result.get("status_code").toString(),result.get("message").toString());
+                            boolean error = toastMaker.isError(result.get(Network.STATUS_CODE).toString(),result.get(Network.MESSAGE).toString());
                             if(!error){
+                                toastMaker.makeToast("Successfully Registered.");
                                 Intent swapToApp=new Intent(rootView.getContext(),MainActivity.class);
+                                Bundle args= new Bundle();
+                                args.putInt("priority",1);
+                                swapToApp.putExtras(args);
                                 startActivity(swapToApp);
                             }
                         }

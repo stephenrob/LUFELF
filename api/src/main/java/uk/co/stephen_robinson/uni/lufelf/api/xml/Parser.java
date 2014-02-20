@@ -1,5 +1,7 @@
 package uk.co.stephen_robinson.uni.lufelf.api.xml;
 
+import android.util.Log;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -77,6 +79,7 @@ public class Parser {
 
                     case XmlPullParser.START_TAG:
                         String tagName = parser.getName();
+                        Log.e("LUFELF API", tagName);
 
                         if(userDetails == null){
                             break;
@@ -84,16 +87,21 @@ public class Parser {
 
                         if(tagName.equalsIgnoreCase(User.RESPONSE)) {
                             userDetails.status = parser.getAttributeValue(null, User.STATUS);
+                            Log.e("LUFELF API", userDetails.status);
                             // Only status=fail produce return code
                             if(parser.getAttributeValue(null, User.CODE) != null) {
                                 userDetails.statusCode = Integer.parseInt(parser.getAttributeValue(null, User.CODE));
+                            } else {
+                                userDetails.statusCode = 200;
                             }
                         }
                         else if(tagName.equalsIgnoreCase(User.MESSAGE)) {
                             userDetails.message = parser.nextText();
                         }
                         else if(tagName.equalsIgnoreCase(User.USER_ID)){
-                            userDetails.user_id = Integer.parseInt(parser.getAttributeValue(null, User.USER_ID));
+                            Log.e("LUFELF API", "entered user_id");
+                            userDetails.user_id = Integer.parseInt(parser.nextText());
+                            Log.e("LUFELF API", Integer.toString(userDetails.user_id));
                         }
                         else if(tagName.equalsIgnoreCase(User.NAME)){
                             userDetails.name = parser.nextText();

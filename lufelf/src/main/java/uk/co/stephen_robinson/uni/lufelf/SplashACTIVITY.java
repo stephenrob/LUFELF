@@ -44,7 +44,7 @@ public class SplashActivity extends BaseActivity {
                 }
                 Intent swapToLogin=new Intent(getBaseContext(),LoginActivity.class);
                 startActivity(swapToLogin);
-                overridePendingTransition(R.anim.fade_out,R.anim.fade_in );
+                overridePendingTransition(R.anim.fade_out,0);
             }
         };
 

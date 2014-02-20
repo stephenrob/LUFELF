@@ -4,6 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.Hashtable;
+
+import uk.co.stephen_robinson.uni.lufelf.api.NetworkCallback;
+
 /**
  * @author James
  * Place profile
@@ -30,6 +35,21 @@ public class MessagesFragment extends BaseFragment{
         setContext(rootView.getContext());
         //showActivitySpinner();
 
+        loadMessages();
+
         return rootView;
+    }
+
+    public void loadMessages(){
+        showActivitySpinner();
+        NetworkCallback nc = new NetworkCallback() {
+            @Override
+            public void results(Hashtable result) {
+                hideActivitySpinner();
+
+            }
+        };
+        Hashtable params = new Hashtable();
+        api.getReceivedMessages(params,nc);
     }
 }

@@ -168,14 +168,6 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
     public void onProviderDisabled(String provider) { }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        MapFragment f = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
-        if (f != null)
-            fragmentManager.beginTransaction().remove(f).commit();
-    }
-
-    @Override
     public View getInfoWindow(Marker m){
         return null;
     }

@@ -1,0 +1,96 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@color/app_bg">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/message_title"
+        android:layout_height="wrap_content"
+        android:textColor="@color/titletxt"
+        android:textSize="@dimen/title"
+        android:text="Message"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/message_horizontal_linear_layout"
+        android:layout_below="@id/message_title"
+        >
+
+        <ImageView
+            android:layout_width="75dp"
+            android:padding="5dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/image_friend_message"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_question_mark"
+            android:background="@drawable/image_background"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"/>
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="left"
+            android:lines="1"
+            android:background="@drawable/listview_background"
+            android:singleLine="true"
+            android:inputType="text"
+            android:text="From"
+            android:textSize="@dimen/subtitle"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="5dp"
+            android:id="@+id/message_from"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="25dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/login_background"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:id="@+id/message_linear_layout"
+        android:layout_below="@id/message_horizontal_linear_layout"
+        >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:lines="11"
+            android:textSize="@dimen/text"
+            android:gravity="left"
+            android:background="@drawable/text_field"
+            android:text="Message goes here..."    />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:padding="11dp"
+        android:background="@drawable/button"
+        android:textColor="@color/stdtxt"
+        android:text="Reply"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/message_linear_layout"
+        android:layout_centerHorizontal="true"
+        />
+</RelativeLayout>

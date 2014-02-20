@@ -23,7 +23,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Bundle args=getIntent().getExtras();
         if(args==null)
-            priority=0;
+            priority=1;
         else
             this.priority=args.getInt("priority");
         //init

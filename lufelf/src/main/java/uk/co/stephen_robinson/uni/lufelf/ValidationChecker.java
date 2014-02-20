@@ -41,7 +41,7 @@ public class ValidationChecker {
     public static boolean noOddCharacters(EditText editText){
         Pattern pattern = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(editText.getText().toString());
-        boolean result=!matcher.find();
+        boolean result=matcher.find();
         if(result)
             editText.setError("Your "+editText.getHint()+" can only use the characters a-z and 0-9");
         return result;

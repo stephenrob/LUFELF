@@ -115,6 +115,7 @@
                     android:singleLine="true"
                     android:layout_height="wrap_content"
                     android:gravity="left"
+                    android:focusable="false"
                     android:background="@drawable/text_field"
                     android:hint="@string/register_dob"
                     android:inputType="date"

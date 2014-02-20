@@ -1,5 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
+import java.util.Calendar;
 import java.util.Hashtable;
 
 import uk.co.stephen_robinson.uni.lufelf.api.NetworkCallback;
@@ -41,6 +44,14 @@ public class RegisterFragment extends BaseFragment{
         rootView = inflater.inflate(R.layout.fragment_register, container, false);
         setContext(rootView.getContext());
 
+        final EditText dobSelection = (EditText)rootView.findViewById(R.id.register_dob);
+        dobSelection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDate(dobSelection);
+            }
+        });
+
         //get the submit button
         Button submit = (Button)rootView.findViewById(R.id.register_confim_button);
 
@@ -58,6 +69,12 @@ public class RegisterFragment extends BaseFragment{
                         (EditText)rootView.findViewById(R.id.register_dob)};
 
                 boolean allOk=ValidationChecker.standardValidationCheck(editTexts);
+
+                //check for weird characters
+                if(allOk)
+                    allOk=ValidationChecker.noOddCharacters(editTexts[0]);
+                else
+                    ValidationChecker.noOddCharacters(editTexts[0]);
 
                 //validate email address
                 if(allOk)
@@ -106,5 +123,28 @@ public class RegisterFragment extends BaseFragment{
 
 
         return rootView;
+    }
+    public void showDate(final EditText editText){
+
+        //get current time and date
+        Calendar currentDate=Calendar.getInstance();
+
+        //set current variables
+        int currentyear=currentDate.get(Calendar.YEAR);
+        int currentMonth=currentDate.get(Calendar.MONTH);
+        int currentDay=currentDate.get(Calendar.DAY_OF_MONTH);
+
+
+        //create datepicker and time dialogs dialogs
+        DatePickerDialog datePicker=new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+            //set the callback method when the user sets the date
+            public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
+                //create the date string
+                final String dateString=String.valueOf(selectedday)+"/"+String.valueOf(selectedmonth)+"/"+String.valueOf(selectedyear);
+                editText.setText(dateString);
+            }
+        },currentyear, currentMonth, currentDay);
+        datePicker.setTitle("Select Date");
+        datePicker.show();
     }
 }

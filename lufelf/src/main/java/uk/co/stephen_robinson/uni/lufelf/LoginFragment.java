@@ -70,6 +70,12 @@ public class LoginFragment extends BaseFragment{
                         allOk=ValidationChecker.isEmailValid(editTexts[0]);
                     else
                         ValidationChecker.isEmailValid(editTexts[0]);
+                    
+                    //check for weird characters
+                    if(allOk)
+                        allOk=ValidationChecker.noOddCharacters(editTexts[0]);
+                    else
+                        ValidationChecker.noOddCharacters(editTexts[0]);
 
                     //get the text values of both the username and password
                     //hash the password and attach the network callback

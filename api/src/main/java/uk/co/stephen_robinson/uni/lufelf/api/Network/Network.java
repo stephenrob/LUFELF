@@ -1,4 +1,4 @@
-package uk.co.stephen_robinson.uni.lufelf.api.Network;
+package uk.co.stephen_robinson.uni.lufelf.api.network;
 
 import android.os.AsyncTask;
 import android.util.Log;

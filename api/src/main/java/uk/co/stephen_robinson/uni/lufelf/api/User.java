@@ -6,7 +6,7 @@ import org.apache.http.message.BasicNameValuePair;
 import java.util.ArrayList;
 import java.util.List;
 
-import uk.co.stephen_robinson.uni.lufelf.api.Network.Network;
+import uk.co.stephen_robinson.uni.lufelf.api.network.Network;
 
 /**
  * Created by Stephen on 18/02/14.

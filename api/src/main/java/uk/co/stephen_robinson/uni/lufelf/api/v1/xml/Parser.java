@@ -63,6 +63,7 @@ public class Parser {
     public static User parseUserDetails(String data){
         User userDetails = null;
         XmlPullParser parser;
+        String tagName;
 
         try {
             parser = XmlPullParserFactory.newInstance().newPullParser();
@@ -74,11 +75,14 @@ public class Parser {
                 switch(eventType){
 
                     case XmlPullParser.START_DOCUMENT:
-                        userDetails = new User();
                         break;
 
                     case XmlPullParser.START_TAG:
-                        String tagName = parser.getName();
+                        tagName = parser.getName();
+
+                        if(tagName.equalsIgnoreCase("user")){
+                            userDetails = new User();
+                        }
 
                         if(userDetails == null){
                             break;
@@ -120,6 +124,13 @@ public class Parser {
                         else if(tagName.equalsIgnoreCase(User.IS_NEW)){
                             userDetails.is_new = parser.nextText();
                         }
+                        break;
+
+                    case XmlPullParser.END_TAG:
+                        tagName = parser.getName();
+
+                        if(tagName.equalsIgnoreCase("user") && userDetails != null)
+
                         break;
                 }
                 eventType = parser.next();

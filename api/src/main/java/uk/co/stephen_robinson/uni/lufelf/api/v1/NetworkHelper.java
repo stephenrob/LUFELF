@@ -14,16 +14,18 @@ public class NetworkHelper {
 
     public static Hashtable formatResult(Script serverScript, String serverResponse){
 
+        Hashtable result = new Hashtable();
+
         switch(Name.valueOf(serverScript.name)){
 
             case CREATE_USER:
-                Formatter.userDetails(Parser.parseUserDetails(serverResponse), serverScript);
+                result = Formatter.userDetails(Parser.parseUserDetails(serverResponse), serverScript);
                 break;
             case LOGIN_USER:
-                Formatter.userDetails(Parser.parseUserDetails(serverResponse), serverScript);
+                result = Formatter.userDetails(Parser.parseUserDetails(serverResponse), serverScript);
                 break;
             case QUERY_USER_DETAILS:
-                Formatter.userDetails(Parser.parseUserDetails(serverResponse), serverScript);
+                result = Formatter.userDetails(Parser.parseUserDetails(serverResponse), serverScript);
                 break;
             case GET_FRIEND_REQUESTS:
                 break;
@@ -42,10 +44,10 @@ public class NetworkHelper {
             case RECEIVED_MESSAGES:
                 break;
             default:
-                Formatter.message(Parser.parseGenericResult(serverResponse));
+                result = Formatter.message(Parser.parseGenericResult(serverResponse));
                 break;
         }
-        return null;
+        return result;
     }
 
 }

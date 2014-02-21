@@ -8,7 +8,7 @@ import java.util.HashMap;
 /**
  * Created by Stephen on 18/02/14.
  */
-class SessionManager {
+public class SessionManager {
 
     SharedPreferences sharedPreferences;
 
@@ -44,11 +44,11 @@ class SessionManager {
         editor.commit();
     }
 
-    protected String getPassword(){
+    public String getPassword(){
         return sharedPreferences.getString(KEY_PASSWORD, null);
     }
 
-    protected HashMap <String, String> getUserDetails(){
+    public HashMap <String, String> getUserDetails(){
         HashMap<String, String> userDetails = new HashMap<String, String>();
 
         userDetails.put(KEY_USERNAME, sharedPreferences.getString(KEY_USERNAME, null));

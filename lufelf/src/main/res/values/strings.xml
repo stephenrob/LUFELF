@@ -62,10 +62,10 @@
     <string name="event_description">Description</string>
 
     <!-- Create Place fragment -->
-    <string name="place_text">Create Location</string>
-    <string name="place_name">Location Name</string>
+    <string name="place_text">Create Place</string>
+    <string name="place_name">Place Name</string>
     <string name="place_address">Address</string>
-    <string name="place_type">Location Type</string>
+    <string name="place_type">Place Type</string>
     <string name="place_description">Description</string>
 
 

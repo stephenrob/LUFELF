@@ -16,7 +16,7 @@ import uk.co.stephen_robinson.uni.lufelf.activities.LoginActivity;
 import uk.co.stephen_robinson.uni.lufelf.activities.MainActivity;
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.utilities.ValidationChecker;
-import uk.co.stephen_robinson.uni.lufelf.api.Network.Network;
+import uk.co.stephen_robinson.uni.lufelf.api.network.Network;
 import uk.co.stephen_robinson.uni.lufelf.api.NetworkCallback;
 
 /**

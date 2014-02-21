@@ -12,12 +12,12 @@ import android.widget.TextView;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.activities.LoginActivity;
 import uk.co.stephen_robinson.uni.lufelf.activities.MainActivity;
-import uk.co.stephen_robinson.uni.lufelf.R;
+import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 import uk.co.stephen_robinson.uni.lufelf.utilities.ValidationChecker;
-import uk.co.stephen_robinson.uni.lufelf.api.network.Network;
-import uk.co.stephen_robinson.uni.lufelf.api.NetworkCallback;
 
 /**
  * @author James
@@ -101,12 +101,12 @@ public class LoginFragment extends BaseFragment{
                     //hash the password and attach the network callback
                     if(allOk){
                         //create the call back for the api
-                        NetworkCallback networkCallback= new NetworkCallback() {
+                        Single networkCallback= new Single() {
                             @Override
                             public void results(Hashtable result) {
                                 Enumeration keys = result.keys();
 
-                                boolean error=toastMaker.isError(result.get(Network.STATUS_CODE).toString(),result.get(Network.MESSAGE).toString());
+                                boolean error=toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
                                 if(error)
                                     hideActivitySpinner();
                                 else if(!error){
@@ -115,7 +115,7 @@ public class LoginFragment extends BaseFragment{
                             }
                         };
 
-                        api.loginUser(username.getText().toString(),md5(password.getText().toString()),networkCallback);
+                        api.v1.loginUser(username.getText().toString(), md5(password.getText().toString()), networkCallback);
                         //we will be waiting for the ui to update - begin spinner
                         showActivitySpinner();
                     }

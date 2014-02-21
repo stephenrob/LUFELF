@@ -40,7 +40,7 @@ import java.security.NoSuchAlgorithmException;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.activities.MainActivity;
-import uk.co.stephen_robinson.uni.lufelf.api.V1;
+import uk.co.stephen_robinson.uni.lufelf.api.Api;
 import uk.co.stephen_robinson.uni.lufelf.utilities.ToastMaker;
 import uk.co.stephen_robinson.uni.lufelf.utilities.UploadImage;
 
@@ -53,7 +53,7 @@ public class BaseFragment  extends Fragment{
     private Dialog dialog;
     protected FragmentManager fragmentManager;
     protected Context context;
-    public V1 api = new V1();
+    public Api api = new Api(getActivity().getApplicationContext(), Api.Version.V1);
     public ToastMaker toastMaker;
     protected View rootView;
     private Uri imageURI;

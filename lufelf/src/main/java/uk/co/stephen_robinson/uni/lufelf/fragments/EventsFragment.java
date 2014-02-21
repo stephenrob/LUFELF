@@ -17,7 +17,8 @@ import uk.co.stephen_robinson.uni.lufelf.adapters.EventItemAdapter;
 import uk.co.stephen_robinson.uni.lufelf.adapters.EventListItem;
 import uk.co.stephen_robinson.uni.lufelf.adapters.NavDrawerItem;
 import uk.co.stephen_robinson.uni.lufelf.R;
-import uk.co.stephen_robinson.uni.lufelf.api.NetworkCallback;
+import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
+
 
 /**
  * @author James
@@ -72,7 +73,7 @@ public class EventsFragment extends BaseFragment{
      * @param rootView the rootview of the fragment
      */
     public void addEvents(LayoutInflater inflater, ViewGroup container,View rootView){
-        NetworkCallback nc=new NetworkCallback() {
+        Single nc=new Single() {
             @Override
             public void results(Hashtable result) {
                 //result.get()
@@ -80,7 +81,7 @@ public class EventsFragment extends BaseFragment{
                 hideActivitySpinner();
             }
         };
-        api.getAllEvents(nc);
+        //api.v1.get(nc);
         //make arraylist navdraweritems
         ArrayList navigationItems=new ArrayList<NavDrawerItem>();
 

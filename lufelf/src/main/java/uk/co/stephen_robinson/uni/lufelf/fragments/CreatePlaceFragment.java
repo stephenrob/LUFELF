@@ -13,8 +13,8 @@ import java.util.Calendar;
 import java.util.Hashtable;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
-import uk.co.stephen_robinson.uni.lufelf.api.network.Network;
-import uk.co.stephen_robinson.uni.lufelf.api.NetworkCallback;
+import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 import uk.co.stephen_robinson.uni.lufelf.utilities.ValidationChecker;
 
 /**
@@ -82,11 +82,11 @@ public class CreatePlaceFragment extends BaseFragment{
                     toastMaker.makeToast("All ok");
                     //if there are no errors in user input
                     //create a new network call back to handle the returned data.
-                    NetworkCallback nc= new NetworkCallback() {
+                    Single nc= new Single() {
                         @Override
                         public void results(Hashtable result) {
                             hideActivitySpinner();
-                            boolean error = toastMaker.isError(result.get(Network.STATUS_CODE).toString(),result.get(Network.MESSAGE).toString());
+                            boolean error = toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
                             if(!error){
 
                             }

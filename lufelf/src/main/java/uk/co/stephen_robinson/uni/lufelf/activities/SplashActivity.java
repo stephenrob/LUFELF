@@ -7,10 +7,8 @@ import android.os.Bundle;
 import java.util.Hashtable;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
-import uk.co.stephen_robinson.uni.lufelf.activities.BaseActivity;
-import uk.co.stephen_robinson.uni.lufelf.activities.LoginActivity;
-import uk.co.stephen_robinson.uni.lufelf.api.NetworkCallback;
-import uk.co.stephen_robinson.uni.lufelf.api.V1;
+import uk.co.stephen_robinson.uni.lufelf.api.Api;
+import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.fragments.NavigationDrawerFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.SplashFragment;
 
@@ -39,7 +37,7 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
 
         setLayout();
-        NetworkCallback nc = new NetworkCallback() {
+        Single nc = new Single() {
             @Override
             public void results(Hashtable result) {
                 try{
@@ -53,8 +51,8 @@ public class SplashActivity extends BaseActivity {
             }
         };
 
-        V1 api = new V1();
-        api.loginUser("test","test", nc);
+        Api api = new Api(getApplicationContext(), Api.Version.V1);
+        api.v1.loginUser("test","test", nc);
 
     }
 

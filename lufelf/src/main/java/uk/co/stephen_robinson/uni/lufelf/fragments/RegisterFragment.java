@@ -13,12 +13,12 @@ import android.widget.EditText;
 import java.util.Calendar;
 import java.util.Hashtable;
 
-import uk.co.stephen_robinson.uni.lufelf.activities.MainActivity;
 import uk.co.stephen_robinson.uni.lufelf.R;
+import uk.co.stephen_robinson.uni.lufelf.activities.MainActivity;
+import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.User;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 import uk.co.stephen_robinson.uni.lufelf.utilities.ValidationChecker;
-import uk.co.stephen_robinson.uni.lufelf.api.network.Network;
-import uk.co.stephen_robinson.uni.lufelf.api.NetworkCallback;
-import uk.co.stephen_robinson.uni.lufelf.api.UserDetails;
 
 /**
  * @author James
@@ -94,11 +94,11 @@ public class RegisterFragment extends BaseFragment{
                 if(allOk){
                     //if there are no errors in user input
                     //create a new network call back to handle the returned data.
-                    NetworkCallback nc= new NetworkCallback() {
+                    Single nc= new Single() {
                         @Override
                         public void results(Hashtable result) {
                             hideActivitySpinner();
-                            boolean error = toastMaker.isError(result.get(Network.STATUS_CODE).toString(),result.get(Network.MESSAGE).toString());
+                            boolean error = toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
                             if(!error){
                                 toastMaker.makeToast("Successfully Registered.");
                                 Intent swapToApp=new Intent(rootView.getContext(),MainActivity.class);
@@ -113,16 +113,8 @@ public class RegisterFragment extends BaseFragment{
                     //tell the user the app is working
                     showActivitySpinner();
 
-                    //create a new userdetails class for the api
-                    UserDetails userDetails=new UserDetails();
-                    userDetails.name=editTexts[0].getText().toString();
-                    userDetails.lib_no=editTexts[1].getText().toString();
-                    userDetails.username=editTexts[2].getText().toString();
-                    userDetails.password=editTexts[3].getText().toString();
-                    userDetails.dob=editTexts[5].getText().toString();
-
                     //call api
-                    api.registerUser(userDetails,nc);
+                    api.v1.registerUser(editTexts[0].getText().toString(), editTexts[1].getText().toString(), editTexts[2].getText().toString(), editTexts[3].getText().toString(), editTexts[5].getText().toString(), User.Type.STUDENT.toString(), "", User.LOCATION_PUBLIC,User.ACCESS_NORMAL,nc);
                 }
             }
         });

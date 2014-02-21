@@ -14,7 +14,7 @@ import java.util.Hashtable;
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.adapters.MessageItem;
 import uk.co.stephen_robinson.uni.lufelf.adapters.MessageItemAdapter;
-import uk.co.stephen_robinson.uni.lufelf.api.NetworkCallback;
+import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
 
 /**
  * @author James
@@ -73,7 +73,7 @@ public class MessagesFragment extends BaseFragment{
 
     public void loadMessages(){
         //showActivitySpinner();
-        NetworkCallback nc = new NetworkCallback() {
+        Single nc = new Single() {
             @Override
             public void results(Hashtable result) {
                 hideActivitySpinner();
@@ -91,6 +91,6 @@ public class MessagesFragment extends BaseFragment{
         list.setAdapter(new MessageItemAdapter(rootView.getContext(), messageItems));
 
         Hashtable params = new Hashtable();
-        api.getReceivedMessages(params,nc);
+        //api.getReceivedMessages(params,nc);
     }
 }

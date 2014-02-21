@@ -16,13 +16,13 @@ public class Place extends Message {
     protected int user_id;
 
     public static final String PLACE_ID ="place_id";
-    public static final String NAME ="name";
-    public static final String ADDRESS ="address";
-    public static final String LATTITUDE ="lat";
-    public static final String LONGDITUDE ="lon";
-    public static final String TYPE = "type";
-    public static final String DESCRIPTION = "desc";
-    public static final String IMAGE_URL = "image_url";
+    public static final String NAME ="place_name";
+    public static final String ADDRESS ="place_address";
+    public static final String LATTITUDE ="place_lat";
+    public static final String LONGDITUDE ="place_lon";
+    public static final String TYPE = "place_type";
+    public static final String DESCRIPTION = "place_desc";
+    public static final String IMAGE_URL = "place_image_url";
     public static final String USER_ID = "user_id";
 
 }

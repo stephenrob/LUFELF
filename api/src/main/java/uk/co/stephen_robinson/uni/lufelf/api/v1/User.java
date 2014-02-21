@@ -79,6 +79,8 @@ public class User {
         params.add(new BasicNameValuePair(User.USERNAME, user.username));
         params.add(new BasicNameValuePair(User.PASSWORD, user.password));
 
+        Api.getSessionManager().createLoginSession(user.username, user.password, Integer.toString(0));
+
         SinglePost networkTask = new SinglePost(sc, Scripts.LOGIN_USER);
         networkTask.execute(params);
 

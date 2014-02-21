@@ -38,11 +38,11 @@ import java.lang.reflect.Field;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import uk.co.stephen_robinson.uni.lufelf.activities.MainActivity;
 import uk.co.stephen_robinson.uni.lufelf.R;
+import uk.co.stephen_robinson.uni.lufelf.activities.MainActivity;
+import uk.co.stephen_robinson.uni.lufelf.api.V1;
 import uk.co.stephen_robinson.uni.lufelf.utilities.ToastMaker;
 import uk.co.stephen_robinson.uni.lufelf.utilities.UploadImage;
-import uk.co.stephen_robinson.uni.lufelf.api.V1;
 
 /**
  * @author James
@@ -100,7 +100,14 @@ public class BaseFragment  extends Fragment{
             throw new RuntimeException(e);
         }
     }
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Fragment f = (Fragment) getFragmentManager()
+                .findFragmentById(R.id.map);
+        if (f != null)
+            getFragmentManager().beginTransaction().remove(f).commit();
+    }
     /**
      * method used to check if the network is currently available.
      * @return Boolean that indicates if a data connection is available.

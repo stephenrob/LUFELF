@@ -17,26 +17,27 @@
         android:textSize="@dimen/title"
         android:layout_alignParentTop="true"
         android:gravity="center_horizontal" />
-
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_marginTop="30dp"
-        android:padding="5dp"
+    <LinearLayout
+        android:id="@+id/message_new_message_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/ic_tick"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-        android:id="@+id/image_new_message"
-        />
+        android:layout_below="@id/message_title"
+        android:gravity="right">
+        <ImageView
+            android:id="@+id/message_new_message_icon"
+            android:layout_below="@id/message_title"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_message_new"/>
+    </LinearLayout>
 
     <ListView
+        android:padding="2dp"
         android:layout_marginTop="10dp"
         android:id="@+id/message_listview"
         android:background="@drawable/listview_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/image_new_message"/>
+        android:layout_below="@id/message_new_message_layout"/>
 
 </RelativeLayout>

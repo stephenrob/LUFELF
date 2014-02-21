@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -41,15 +43,36 @@ public class MessagesFragment extends BaseFragment{
         setContext(rootView.getContext());
         //showActivitySpinner();
 
+
+        //get the new message icon
+        ImageView icon = (ImageView)rootView.findViewById(R.id.message_new_message_icon);
+        icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetIndexes();
+                fragmentManager.beginTransaction().replace(R.id.container, SendMessageFragment.newInstance(null), "SendMessage").addToBackStack(null).commit();
+            }
+        });
+
         //get the events listview
         list = (ListView)rootView.findViewById(R.id.message_listview);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                resetIndexes();
+                MessageItem item = (MessageItem) list.getItemAtPosition(i);
+                fragmentManager.beginTransaction().replace(R.id.container, ReceiveMessageFragment.newInstance(item), "ViewMessage").addToBackStack(null).commit();
+
+            }
+        });
         loadMessages();
 
         return rootView;
     }
 
     public void loadMessages(){
-        showActivitySpinner();
+        //showActivitySpinner();
         NetworkCallback nc = new NetworkCallback() {
             @Override
             public void results(Hashtable result) {
@@ -62,7 +85,7 @@ public class MessagesFragment extends BaseFragment{
 
         //add fake items
         for(int i=0;i<30;i++)
-            messageItems.add(new MessageItem("Test Subject "+i,"Test message that goes on for the length of 40 characters to test the elipses thing"));
+            messageItems.add(new MessageItem("Test From "+i,"Test message that goes on for the length of 40 characters to test the elipses thing","215"));
 
         //set the adapter
         list.setAdapter(new MessageItemAdapter(rootView.getContext(), messageItems));

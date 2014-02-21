@@ -24,9 +24,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import uk.co.stephen_robinson.uni.lufelf.utilities.PlaceItem;
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.route.DirectionsQuery;
+import uk.co.stephen_robinson.uni.lufelf.utilities.PlaceItem;
 /**
  * @author James
  * Fragment that displays the map with location or the navigation view
@@ -226,5 +226,12 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
         String[] returnArr={idOnly,id.substring(idOnly.length())};
 
         return returnArr;
+    }
+    @Override
+    public void onDestroyView()
+    {
+        super.onDestroyView();
+        MapFragment fragment = (MapFragment)(getFragmentManager().findFragmentById(R.id.map));
+        fragmentManager.beginTransaction().remove(fragment).commit();
     }
 }

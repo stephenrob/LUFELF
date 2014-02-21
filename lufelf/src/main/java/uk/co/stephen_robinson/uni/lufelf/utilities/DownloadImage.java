@@ -23,6 +23,7 @@ import java.net.URLConnection;
  * This class downloads an image and updates an image view
  */
 public class DownloadImage{
+
     //global variables
     private ImageView imageView;
     private Activity activity;

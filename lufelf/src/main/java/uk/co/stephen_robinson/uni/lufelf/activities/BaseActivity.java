@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.view.MenuItem;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.fragments.CreateEventFragment;
+import uk.co.stephen_robinson.uni.lufelf.fragments.CreatePlaceFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.EventsFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.FriendsFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.FriendsSubFragment;
@@ -31,7 +33,7 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
     private Dialog dialog;
 
     // array to hold the various fragments used in the navigation drawer.
-    Fragment[][] fragments={{MapViewFragment.newInstance(null)},
+    Fragment[][] fragments={{MapViewFragment.newInstance(null), CreatePlaceFragment.newInstance()},
             {FriendsFragment.newInstance(), FriendsSubFragment.newInstance()},
             {EventsFragment.newInstance(), CreateEventFragment.newInstance(),EventsFragment.newInstance()},
             {MessagesFragment.newInstance()},
@@ -41,7 +43,7 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
             {SearchFragment.newInstance(SearchFragment.friendsSearch)}};
 
 
-    String[][] tags={{"Locations"},
+    String[][] tags={{"Locations","Create Location"},
             {"Friends","Add Friends"},
             {"Events","Create Event","Remove Event"},
             {"Messages"},
@@ -118,8 +120,10 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
         //otherwise close the app
         if(size>1)
             this.getFragmentManager().popBackStack();
-        else
-            finish();
+        else{
+            Intent swapToLogin=new Intent(getBaseContext(),LoginActivity.class);
+            startActivity(swapToLogin);
+        }
     }
 
     /**

@@ -6,15 +6,16 @@ package uk.co.stephen_robinson.uni.lufelf.adapters;
 public class MessageItem {
     private String messageFrom;
     private String messageContent;
-
+    private String id;
     /**
      * set the message from and content of a message item
      * @param messageFrom who the message is from
      * @param messageContent the message
      */
-    public MessageItem(String messageFrom,String messageContent){
+    public MessageItem(String messageFrom,String messageContent, String id){
         this.messageFrom=messageFrom;
         this.messageContent=messageContent;
+        this.id = id;
     }
 
     /**
@@ -31,5 +32,13 @@ public class MessageItem {
      */
     public String getMessageFrom() {
         return messageFrom;
+    }
+
+    /**
+     * returns the id of the message sender
+     * @return id of the person who sent the message
+     */
+    public String getId() {
+        return id;
     }
 }

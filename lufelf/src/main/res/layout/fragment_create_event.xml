@@ -54,6 +54,7 @@
 
 
         <EditText
+            android:id="@+id/create_event_name"
             android:layout_marginTop="10dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -65,21 +66,21 @@
             android:hint="@string/event_name"/>
 
         <Spinner
-            android:id="@+id/event_type_spinner"
+            android:id="@+id/create_event_type_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/event_types"
             android:prompt="@string/event_type"/>
 
         <Spinner
-            android:id="@+id/event_place_spinner"
+            android:id="@+id/create_event_place_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:prompt="@string/event_place"
             android:layout_marginTop="5dp"/>
 
         <EditText
-            android:id="@+id/setTimeDate"
+            android:id="@+id/create_event_setTimeDate"
             android:layout_width="fill_parent"
             android:lines="1"
             android:singleLine="true"
@@ -91,7 +92,7 @@
             android:layout_marginTop="5dp"  />
 
         <EditText
-
+            android:id="@+id/create_event_description"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:lines="4"
@@ -104,6 +105,7 @@
 
     </LinearLayout>
         <Button
+            android:id="@+id/create_event_submit"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:padding="10dp"

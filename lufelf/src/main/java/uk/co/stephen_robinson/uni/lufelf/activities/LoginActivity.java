@@ -1,5 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.activities;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +10,7 @@ import uk.co.stephen_robinson.uni.lufelf.fragments.LoginFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.NavigationDrawerFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.RegisterFragment;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends Activity {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -37,5 +38,19 @@ public class LoginActivity extends BaseActivity {
         View v=findViewById(R.id.container);
         setLayout(R.layout.fragment_login);
     }
+    @Override
+    public void onBackPressed() {
+        //get the fragment manager
+        FragmentManager fm=getFragmentManager();
 
+        //get the size of the backstack
+        int size=fm.getBackStackEntryCount();
+
+        //if the size is greater than one pop
+        //otherwise close the app
+        if(size>1)
+            this.getFragmentManager().popBackStack();
+        else
+            finish();
+    }
 }

@@ -46,7 +46,7 @@ public class CreateEventFragment extends BaseFragment{
         //showActivitySpinner();
 
         //get the datetime textedit and set the onlcik listener
-        final EditText dateTime=(EditText)rootView.findViewById(R.id.setTimeDate);
+        final EditText dateTime=(EditText)rootView.findViewById(R.id.create_event_setTimeDate);
         dateTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +67,7 @@ public class CreateEventFragment extends BaseFragment{
         ArrayList<String> places = new ArrayList<String>();
         places.add("Current Location");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,R.layout.spinner_item,places);
-        Spinner placeSpinner=(Spinner)rootView.findViewById(R.id.event_place_spinner);
+        Spinner placeSpinner=(Spinner)rootView.findViewById(R.id.create_event_place_spinner);
         placeSpinner.setAdapter(adapter);
 
         return rootView;

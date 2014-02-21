@@ -176,7 +176,11 @@ public class NavigationDrawerFragment extends Fragment {
         eventItems.add(new NavDrawerItem(getString(R.string.create_event_text), 0));
         eventItems.add(new NavDrawerItem(getString(R.string.remove_event_text), 0));
 
-        navigationGroups.add(new NavDrawerGroup(getString(R.string.locations_activity),R.drawable.ic_location_place,new ArrayList<NavDrawerItem>()));
+        ArrayList placeItems=new ArrayList<NavDrawerItem>();
+        placeItems.add(new NavDrawerItem("View Locations",0));
+        placeItems.add(new NavDrawerItem("Create Location",0));
+
+        navigationGroups.add(new NavDrawerGroup(getString(R.string.locations_activity),R.drawable.ic_location_place,placeItems));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.friends_activity),R.drawable.ic_friends,friendsItems));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.events_activity),R.drawable.ic_events,eventItems));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.messages_activity),R.drawable.ic_message,new ArrayList<NavDrawerItem>()));

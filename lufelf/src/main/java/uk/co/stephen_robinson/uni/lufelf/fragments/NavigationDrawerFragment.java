@@ -69,6 +69,13 @@ public class NavigationDrawerFragment extends Fragment {
 
     private int priority;
 
+    public static NavigationDrawerFragment instanceOf(int priority){
+        NavigationDrawerFragment f = new NavigationDrawerFragment();
+        Bundle args = new Bundle();
+        args.putInt("priority",priority);
+        f.setArguments(args);
+        return f;
+    }
     public NavigationDrawerFragment() {
     }
 
@@ -101,7 +108,8 @@ public class NavigationDrawerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        Bundle args = getArguments();
+        Log.e("CRAP", String.valueOf(getActivity().getIntent().getExtras().getInt("priority")));
+        priority = getActivity().getIntent().getExtras().getInt("priority");
         mDrawerListView = (ExpandableListView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
 
         //set group click handler
@@ -131,6 +139,7 @@ public class NavigationDrawerFragment extends Fragment {
 
 
         ArrayList navigationGroups=null;
+        Log.e("CRAP","priority "+String.valueOf(priority));
         if(priority==1)
             navigationGroups=setUpForUser();
         else
@@ -170,11 +179,11 @@ public class NavigationDrawerFragment extends Fragment {
         navigationGroups.add(new NavDrawerGroup(getString(R.string.locations_activity),R.drawable.ic_location_place,new ArrayList<NavDrawerItem>()));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.friends_activity),R.drawable.ic_friends,friendsItems));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.events_activity),R.drawable.ic_events,eventItems));
-        navigationGroups.add(new NavDrawerGroup("Messages",R.drawable.ic_message,new ArrayList<NavDrawerItem>()));
+        navigationGroups.add(new NavDrawerGroup(getString(R.string.messages_activity),R.drawable.ic_message,new ArrayList<NavDrawerItem>()));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.settings_activity),R.drawable.ic_settings,new ArrayList<NavDrawerItem>()));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.login_text),0,new ArrayList<NavDrawerItem>()));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.register_text),0,new ArrayList<NavDrawerItem>()));
-        navigationGroups.add(new NavDrawerGroup("Search",0,new ArrayList<NavDrawerItem>()));
+        navigationGroups.add(new NavDrawerGroup(getString(R.string.search_activity),0,new ArrayList<NavDrawerItem>()));
         return navigationGroups;
     }
     /**
@@ -191,8 +200,7 @@ public class NavigationDrawerFragment extends Fragment {
      * @param fragmentId   The android:id of this fragment in its activity's layout.
      * @param drawerLayout The DrawerLayout containing this fragment's UI.
      */
-    public void setUp(int fragmentId, DrawerLayout drawerLayout, int priority) {
-        this.priority=priority;
+    public void setUp(int fragmentId, DrawerLayout drawerLayout) {
         mFragmentContainerView = getActivity().findViewById(fragmentId);
         mDrawerLayout = drawerLayout;
 

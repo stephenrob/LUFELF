@@ -3,6 +3,7 @@ package uk.co.stephen_robinson.uni.lufelf.activities;
 import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
@@ -34,6 +35,10 @@ public class MainActivity extends BaseActivity {
         ActionBar actionBar=getActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
 
+        //mNavigationDrawerFragment=NavigationDrawerFragment.instanceOf(0);
+
+
+
         //get the navigationdrawer
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -41,7 +46,7 @@ public class MainActivity extends BaseActivity {
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout),priority);
+                (DrawerLayout) findViewById(R.id.drawer_layout));
 
         // Set the default index
         onNavigationDrawerItemSelected(0,0);
@@ -62,6 +67,7 @@ public class MainActivity extends BaseActivity {
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
+            Log.e("crap",String.valueOf(priority));
             if(priority==1)
                 getMenuInflater().inflate(R.menu.news_feed, menu);
             else

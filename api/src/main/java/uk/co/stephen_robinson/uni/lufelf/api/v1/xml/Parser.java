@@ -1,4 +1,4 @@
-package uk.co.stephen_robinson.uni.lufelf.api.xml;
+package uk.co.stephen_robinson.uni.lufelf.api.v1.xml;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.StringReader;
 
 /**
- * Created by Stephen on 19/02/14.
+ * Created by Stephen on 21/02/14.
  */
 public class Parser {
 
@@ -130,5 +130,5 @@ public class Parser {
 
         return userDetails;
     }
-    
+
 }

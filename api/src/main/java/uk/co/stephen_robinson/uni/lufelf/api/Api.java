@@ -7,15 +7,31 @@ import android.content.Context;
  */
 public class Api {
 
-    private static SessionManager sessionManager;
-    public final V1 v1;
+    public enum Version{
+        V1(1);
 
-    public Api(Context context){
+        private final int value;
+
+        private Version(final int newValue){
+            value = newValue;
+        }
+
+        public Integer getValue(){ return value; }
+    }
+
+    private static SessionManager sessionManager;
+    private static Integer version;
+
+    public Api(Context context, Version v){
         sessionManager = new SessionManager(context);
-        v1 = new V1();
+        version = v.getValue();
     }
 
     public static SessionManager getSessionManager() {
         return sessionManager;
+    }
+
+    public static Integer getVersion() {
+        return version;
     }
 }

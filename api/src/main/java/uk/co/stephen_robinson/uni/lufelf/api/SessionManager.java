@@ -8,7 +8,7 @@ import java.util.HashMap;
 /**
  * Created by Stephen on 18/02/14.
  */
-public class SessionManager {
+class SessionManager {
 
     SharedPreferences sharedPreferences;
 

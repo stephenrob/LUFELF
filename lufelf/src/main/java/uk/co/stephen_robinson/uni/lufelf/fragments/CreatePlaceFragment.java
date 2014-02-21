@@ -13,7 +13,7 @@ import java.util.Calendar;
 import java.util.Hashtable;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
-import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 import uk.co.stephen_robinson.uni.lufelf.utilities.ValidationChecker;
 
@@ -55,8 +55,7 @@ public class CreatePlaceFragment extends BaseFragment{
                 //get all of the edittexts
                 EditText[] editTexts={(EditText)rootView.findViewById(R.id.create_place_name),
                         (EditText)rootView.findViewById(R.id.create_place_address),
-                        (EditText)rootView.findViewById(R.id.create_place_description),
-                        (EditText)rootView.findViewById(R.id.register_password)};
+                        (EditText)rootView.findViewById(R.id.create_place_description)};
 
                 boolean allOk= ValidationChecker.standardValidationCheck(editTexts);
 
@@ -66,17 +65,6 @@ public class CreatePlaceFragment extends BaseFragment{
                 else
                     ValidationChecker.noOddCharacters(editTexts[0]);
 
-                //validate email address
-                if(allOk)
-                    allOk=ValidationChecker.isEmailValid(editTexts[2]);
-                else
-                    ValidationChecker.isEmailValid(editTexts[2]);
-
-                //validate passwords
-                if(allOk)
-                    allOk=ValidationChecker.fieldsHaveSameValue(editTexts[3], editTexts[4]);
-                else
-                    ValidationChecker.fieldsHaveSameValue(editTexts[3], editTexts[4]);
 
                 if(allOk){
                     toastMaker.makeToast("All ok");
@@ -88,19 +76,16 @@ public class CreatePlaceFragment extends BaseFragment{
                             hideActivitySpinner();
                             boolean error = toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
                             if(!error){
-
+                                toastMaker.makeToast("ADDED!");
                             }
                         }
                     };
 
                     //tell the user the app is working
-                    //showActivitySpinner();
-
+                    showActivitySpinner();
                     //create a new userdetails class for the api
-
-
                     //call api
-                    //api.registerUser(userDetails,nc);
+                    api.v1.addPlace(editTexts[0].getText().toString(),editTexts[1].getText().toString(),getLocation().latitude,getLocation().longitude, "other",editTexts[2].getText().toString(),nc);
                 }
             }
         });

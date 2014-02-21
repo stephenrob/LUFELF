@@ -1,4 +1,4 @@
-package uk.co.stephen_robinson.uni.lufelf.api.network;
+package uk.co.stephen_robinson.uni.lufelf.api.Network;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -15,7 +15,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
-import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.NetworkHelper;
 
 /**
@@ -38,7 +38,7 @@ public class SinglePost extends AsyncTask<List<NameValuePair>, Integer, Hashtabl
 
         Hashtable result = new Hashtable();
 
-        HttpPost postData = new HttpPost(serverScript.protocol + Helper.SERVER_IP_ADDRESSS + serverScript.path);
+        HttpPost postData = new HttpPost(serverScript.protocol.getProtocol() + Helper.SERVER_IP_ADDRESSS + serverScript.path);
 
         try {
             postData.setEntity(new UrlEncodedFormEntity(params[0]));

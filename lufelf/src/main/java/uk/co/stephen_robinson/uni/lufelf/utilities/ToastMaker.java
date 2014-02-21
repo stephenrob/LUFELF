@@ -1,6 +1,7 @@
 package uk.co.stephen_robinson.uni.lufelf.utilities;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -28,7 +29,7 @@ public class ToastMaker {
      */
     public boolean isError(String code,String message){
         int numberCode=Integer.valueOf(code);
-
+        Log.e("CRAP toast",code+" "+message);
         switch(numberCode){
             case 400:
                 makeToast(message);

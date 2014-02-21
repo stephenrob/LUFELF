@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.view.MenuItem;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
@@ -26,6 +25,7 @@ import uk.co.stephen_robinson.uni.lufelf.fragments.SettingsFragment;
  * the base activity that holds the parent methods for any activity in the app
  */
 public class BaseActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks{
+
 
     int currentChildPosition=-1;
     int currentGroupPosition=-1;
@@ -118,11 +118,10 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
 
         //if the size is greater than one pop
         //otherwise close the app
-        if(size>1)
+        if(size>0)
             this.getFragmentManager().popBackStack();
         else{
-            Intent swapToLogin=new Intent(getBaseContext(),LoginActivity.class);
-            startActivity(swapToLogin);
+            finish();
         }
     }
 

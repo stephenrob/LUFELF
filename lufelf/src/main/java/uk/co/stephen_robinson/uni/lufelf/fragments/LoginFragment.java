@@ -2,6 +2,7 @@ package uk.co.stephen_robinson.uni.lufelf.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import java.util.Hashtable;
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.activities.LoginActivity;
 import uk.co.stephen_robinson.uni.lufelf.activities.MainActivity;
-import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 import uk.co.stephen_robinson.uni.lufelf.utilities.ValidationChecker;
 
@@ -105,7 +106,9 @@ public class LoginFragment extends BaseFragment{
                             @Override
                             public void results(Hashtable result) {
                                 Enumeration keys = result.keys();
-
+                                while(keys.hasMoreElements()){
+                                    Log.e("CRAP",keys.nextElement().toString());
+                                }
                                 boolean error=toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
                                 if(error)
                                     hideActivitySpinner();

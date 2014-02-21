@@ -2,7 +2,7 @@ package uk.co.stephen_robinson.uni.lufelf.api.v1.xml;
 
 import java.util.Hashtable;
 
-import uk.co.stephen_robinson.uni.lufelf.api.network.Script;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.Script;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.Scripts;
 
 /**
@@ -31,6 +31,8 @@ public class Formatter {
                     results.put(User.USER_ID, userDetails.user_id);
                     results.put(User.NAME, userDetails.name);
                     results.put(User.LIBRARY_NUMBER, userDetails.lib_no);
+                    results.put(Message.CODE, userDetails.statusCode);
+                    results.put(Message.MESSAGE, userDetails.message);
                 }
                 else if (userDetails.status.equals("fail")){
                     results.put(Message.STATUS, Message.FAILURE);
@@ -44,6 +46,7 @@ public class Formatter {
                     results.put(Message.STATUS, Message.SUCCESS);
                     results.put(Message.CODE, userDetails.statusCode);
                     results.put(User.USER_ID, userDetails.user_id);
+                    results.put(Message.MESSAGE, userDetails.message);
                 }
                 else if (userDetails.status.equals("fail")){
                     results.put(Message.STATUS, Message.FAILURE);

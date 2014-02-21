@@ -8,7 +8,7 @@ import java.util.Hashtable;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
-import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.fragments.NavigationDrawerFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.SplashFragment;
 
@@ -52,7 +52,7 @@ public class SplashActivity extends BaseActivity {
         };
 
         Api api = new Api(getApplicationContext(), Api.Version.V1);
-        api.v1.loginUser("test","test", nc);
+        api.v1.loginUser("test", "test", nc);
 
     }
 

@@ -1,4 +1,4 @@
-package uk.co.stephen_robinson.uni.lufelf.api.network.callbacks;
+package uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks;
 
 import java.util.Hashtable;
 

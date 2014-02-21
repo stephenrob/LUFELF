@@ -2,9 +2,11 @@ package uk.co.stephen_robinson.uni.lufelf.api.v1;
 
 import java.util.Hashtable;
 
-import uk.co.stephen_robinson.uni.lufelf.api.network.Script;
+import uk.co.stephen_robinson.uni.lufelf.api.Api;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.Script;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.Scripts.Name;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Formatter;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Parser;
 
 /**
@@ -23,6 +25,11 @@ public class NetworkHelper {
                 break;
             case LOGIN_USER:
                 result = Formatter.userDetails(Parser.parseUserDetails(serverResponse), serverScript);
+                if( result.get(Message.STATUS).equals(Message.FAILURE)){
+                    Api.getSessionManager().logoutUser();
+                }else {
+                    Api.getSessionManager().updateUserId(result.get(User.USER_ID).toString());
+                }
                 break;
             case QUERY_USER_DETAILS:
                 result = Formatter.userDetails(Parser.parseUserDetails(serverResponse), serverScript);

@@ -53,7 +53,7 @@ public class BaseFragment  extends Fragment{
     private Dialog dialog;
     protected FragmentManager fragmentManager;
     protected Context context;
-    public Api api = new Api(getActivity().getApplicationContext(), Api.Version.V1);
+    public Api api;
     public ToastMaker toastMaker;
     protected View rootView;
     private Uri imageURI;
@@ -76,12 +76,14 @@ public class BaseFragment  extends Fragment{
     public void setContext(Context context){
         this.context=context;
         this.toastMaker=new ToastMaker(context);
+        this.api=new Api(getActivity().getApplicationContext(), Api.Version.V1);
     }
 
     //onAttach override - does nothing
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
     }
 
     //handle onDetach from activity
@@ -184,7 +186,7 @@ public class BaseFragment  extends Fragment{
                 imageURI = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,new ContentValues(0));
                 takePicture.putExtra(MediaStore.EXTRA_OUTPUT, imageURI);
                 startActivityForResult(takePicture, 0);
-                showMessage.hide();
+                showMessage.dismiss();
             }
         });
         buttonOption2.setOnClickListener(new View.OnClickListener() {
@@ -192,7 +194,7 @@ public class BaseFragment  extends Fragment{
             public void onClick(View view) {
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(pickPhoto , 1);
-                showMessage.hide();
+                showMessage.dismiss();
             }
         });
         showMessage.show();

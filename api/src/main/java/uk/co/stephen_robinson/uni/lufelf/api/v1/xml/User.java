@@ -1,18 +1,18 @@
-package uk.co.stephen_robinson.uni.lufelf.api.xml;
+package uk.co.stephen_robinson.uni.lufelf.api.v1.xml;
 
 /**
- * Created by Stephen on 19/02/14.
+ * Created by Stephen on 20/02/14.
  */
 public class User extends Message {
 
-    public int user_id = 0;
-    public String name = null;
-    public String username = null;
-    public String lib_no = null;
-    public String dob = null;
-    public String type = null;
-    public String description = null;
-    public String is_new = null;
+    protected int user_id = 0;
+    protected String name = null;
+    protected String username = null;
+    protected String lib_no = null;
+    protected String dob = null;
+    protected String type = null;
+    protected String description = null;
+    protected String is_new = null;
 
     public static final String USER_ID = "user_id";
     public static final String NAME = "name";
@@ -22,5 +22,6 @@ public class User extends Message {
     public static final String TYPE = "type";
     public static final String DESCRIPTION = "description";
     public static final String IS_NEW = "is_new";
+
 
 }

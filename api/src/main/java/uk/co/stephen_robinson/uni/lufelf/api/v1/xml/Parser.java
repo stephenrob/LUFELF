@@ -1,4 +1,4 @@
-package uk.co.stephen_robinson.uni.lufelf.api.xml;
+package uk.co.stephen_robinson.uni.lufelf.api.v1.xml;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.StringReader;
 
 /**
- * Created by Stephen on 19/02/14.
+ * Created by Stephen on 21/02/14.
  */
 public class Parser {
 
@@ -40,6 +40,8 @@ public class Parser {
                             message.status = parser.getAttributeValue(null, Message.STATUS);
                             if(parser.getAttributeValue(null, Message.CODE) != null) {
                                 message.statusCode = Integer.parseInt(parser.getAttributeValue(null, Message.CODE));
+                            } else {
+                                message.statusCode = 200;
                             }
                         }
                         else if(tagName.equalsIgnoreCase(Message.MESSAGE)) {
@@ -87,13 +89,15 @@ public class Parser {
                             // Only status=fail produce return code
                             if(parser.getAttributeValue(null, User.CODE) != null) {
                                 userDetails.statusCode = Integer.parseInt(parser.getAttributeValue(null, User.CODE));
+                            } else {
+                                userDetails.statusCode = 200;
                             }
                         }
                         else if(tagName.equalsIgnoreCase(User.MESSAGE)) {
                             userDetails.message = parser.nextText();
                         }
                         else if(tagName.equalsIgnoreCase(User.USER_ID)){
-                            userDetails.user_id = Integer.parseInt(parser.getAttributeValue(null, User.USER_ID));
+                            userDetails.user_id = Integer.parseInt(parser.nextText());
                         }
                         else if(tagName.equalsIgnoreCase(User.NAME)){
                             userDetails.name = parser.nextText();
@@ -128,5 +132,5 @@ public class Parser {
 
         return userDetails;
     }
-    
+
 }

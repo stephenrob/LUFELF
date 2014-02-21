@@ -52,7 +52,7 @@ public class V1 {
         User.delete(sc);
     }
 
-    public void addPlace(String name, String address, Long lat, Long lon, String type, String description, Single sc){
+    public void addPlace(String name, String address, Double lat, Double lon, String type, String description, Single sc){
         Place place = new Place();
 
         place.name = name;

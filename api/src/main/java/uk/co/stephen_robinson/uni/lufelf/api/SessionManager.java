@@ -35,10 +35,16 @@ public class SessionManager {
         editor.commit();
     }
 
-    protected void createLoginSession(String username, String password, String user_id){
+    public void createLoginSession(String username, String password, String user_id){
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_USERNAME, username);
         editor.putString(KEY_PASSWORD, password);
+        editor.putString(KEY_USERID, user_id);
+
+        editor.commit();
+    }
+
+    public void updateUserId(String user_id){
         editor.putString(KEY_USERID, user_id);
 
         editor.commit();
@@ -58,11 +64,11 @@ public class SessionManager {
         return userDetails;
     }
 
-    protected boolean checkLogin(){
+    public boolean checkLogin(){
         return sharedPreferences.getBoolean(IS_LOGIN, false);
     }
 
-    protected void logoutUser(){
+    public void logoutUser(){
         editor.clear();
         editor.commit();
     }

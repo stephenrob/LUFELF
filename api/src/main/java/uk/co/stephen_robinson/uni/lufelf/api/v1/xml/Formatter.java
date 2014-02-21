@@ -31,6 +31,8 @@ public class Formatter {
                     results.put(User.USER_ID, userDetails.user_id);
                     results.put(User.NAME, userDetails.name);
                     results.put(User.LIBRARY_NUMBER, userDetails.lib_no);
+                    results.put(Message.CODE, userDetails.statusCode);
+                    results.put(Message.MESSAGE, userDetails.message);
                 }
                 else if (userDetails.status.equals("fail")){
                     results.put(Message.STATUS, Message.FAILURE);
@@ -44,6 +46,7 @@ public class Formatter {
                     results.put(Message.STATUS, Message.SUCCESS);
                     results.put(Message.CODE, userDetails.statusCode);
                     results.put(User.USER_ID, userDetails.user_id);
+                    results.put(Message.MESSAGE, userDetails.message);
                 }
                 else if (userDetails.status.equals("fail")){
                     results.put(Message.STATUS, Message.FAILURE);
@@ -55,6 +58,8 @@ public class Formatter {
             case QUERY_USER_DETAILS:
                 if (userDetails.status.equals("ok")){
                     results.put(Message.STATUS, Message.SUCCESS);
+                    results.put(Message.CODE, userDetails.statusCode);
+                    results.put(Message.MESSAGE, userDetails.message);
                     results.put(User.USER_ID, userDetails.user_id);
                     results.put(User.NAME, userDetails.name);
                     results.put(User.LIBRARY_NUMBER, userDetails.lib_no);

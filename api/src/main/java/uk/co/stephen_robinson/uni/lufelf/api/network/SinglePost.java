@@ -38,7 +38,7 @@ public class SinglePost extends AsyncTask<List<NameValuePair>, Integer, Hashtabl
 
         Hashtable result = new Hashtable();
 
-        HttpPost postData = new HttpPost(serverScript.protocol + Helper.SERVER_IP_ADDRESSS + serverScript.path);
+        HttpPost postData = new HttpPost(serverScript.protocol.getProtocol() + Helper.SERVER_IP_ADDRESSS + serverScript.path);
 
         try {
             postData.setEntity(new UrlEncodedFormEntity(params[0]));

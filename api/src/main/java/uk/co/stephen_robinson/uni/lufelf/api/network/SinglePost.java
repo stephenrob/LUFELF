@@ -47,7 +47,7 @@ public class SinglePost extends AsyncTask<List<NameValuePair>, Integer, Hashtabl
 
             switch(Api.getVersion()){
                 case 1:
-                   result =  NetworkHelper.formatResult(this.serverScript, responseText);
+                    result =  NetworkHelper.formatResult(this.serverScript, responseText);
                     break;
 
                 default:

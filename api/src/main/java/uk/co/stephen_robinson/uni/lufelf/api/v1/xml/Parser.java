@@ -40,6 +40,8 @@ public class Parser {
                             message.status = parser.getAttributeValue(null, Message.STATUS);
                             if(parser.getAttributeValue(null, Message.CODE) != null) {
                                 message.statusCode = Integer.parseInt(parser.getAttributeValue(null, Message.CODE));
+                            } else {
+                                message.statusCode = 200;
                             }
                         }
                         else if(tagName.equalsIgnoreCase(Message.MESSAGE)) {

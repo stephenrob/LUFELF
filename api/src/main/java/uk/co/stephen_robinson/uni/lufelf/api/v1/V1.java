@@ -7,12 +7,29 @@ import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
  */
 public class V1 {
 
-    public void registerUser(Single sc){
-        User.register(new User(), sc);
+    public void registerUser(String name, String lib_no, String username, String password, String dob, String type, String description, int location_status, int access_level, Single sc){
+        User user = new User();
+
+        user.name = name;
+        user.lib_no = lib_no;
+        user.username = username;
+        user.password = password;
+        user.dob = dob;
+        user.type = type;
+        user.description = description;
+        user.location_status = location_status;
+        user.access_level = access_level;
+
+        User.register(user, sc);
     }
 
     public void loginUser(String username, String password, Single sc){
-        User.login(new User(), sc);
+        User user = new User();
+
+        user.username = username;
+        user.password = password;
+
+        User.login(user, sc);
     }
 
     public void getUserByUsername(String param, Single sc){

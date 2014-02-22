@@ -6,8 +6,12 @@ import org.apache.http.message.BasicNameValuePair;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.stephen_robinson.uni.lufelf.api.Api;
+import uk.co.stephen_robinson.uni.lufelf.api.SessionManager;
 import uk.co.stephen_robinson.uni.lufelf.api.network.MultipleGet;
+import uk.co.stephen_robinson.uni.lufelf.api.network.SinglePost;
 import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Multiple;
+import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
 
 /**
  * Created by Stephen on 22/02/2014.
@@ -31,6 +35,26 @@ public class Event {
     public static final String IMAGE_URL = "event_image_url";
     public static final String PLACE_ID = "place_id";
     public static final String USER_ID = "user_id";
+
+    static void create(Event e, Single sc){
+
+        int userId = Integer.parseInt(Api.getSessionManager().getUserDetails().get(SessionManager.KEY_USERID));
+        String password = Api.getSessionManager().getUserDetails().get(SessionManager.KEY_PASSWORD);
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>(7);
+
+        params.add(new BasicNameValuePair(Event.NAME, e.name));
+        params.add(new BasicNameValuePair(Event.DATE, e.date));
+        params.add(new BasicNameValuePair(Event.TYPE, e.type));
+        params.add(new BasicNameValuePair(Event.DESCRIPTION, e.description));
+        params.add(new BasicNameValuePair(Event.PLACE_ID, Integer.toString(e.place_id)));
+        params.add(new BasicNameValuePair(User.USER_ID, Integer.toString(userId)));
+        params.add(new BasicNameValuePair(User.PASSWORD, password));
+
+        SinglePost networkTask = new SinglePost(sc, Scripts.CREATE_EVENT);
+        networkTask.execute(params);
+
+    }
 
     static void listAll(Multiple mc){
         MultipleGet networkTask = new MultipleGet(mc, Scripts.EVENT_LIST);

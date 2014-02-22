@@ -1,5 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1;
 
+import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
 
 /**
@@ -63,5 +64,9 @@ public class V1 {
         place.description = description;
 
         Place.create(place, sc);
+    }
+
+    public void getAllPlaces(Multiple mc){
+        Place.listAll(mc);
     }
 }

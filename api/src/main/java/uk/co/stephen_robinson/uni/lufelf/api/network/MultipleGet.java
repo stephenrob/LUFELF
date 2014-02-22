@@ -7,6 +7,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -22,30 +23,29 @@ import uk.co.stephen_robinson.uni.lufelf.api.v1.NetworkHelper;
 /**
  * Created by Stephen on 22/02/2014.
  */
-public class MultiplePost extends AsyncTask<List<NameValuePair>, Integer, List> {
+public class MultipleGet extends AsyncTask<Void, Integer, List> {
 
     private Script serverScript = null;
     private HttpClient serverClient;
     private Multiple multipleCallback;
 
 
-    public MultiplePost(Multiple mc, Script script) {
+    public MultipleGet(Multiple mc, Script script) {
         this.multipleCallback = mc;
         this.serverScript = script;
         serverClient = new DefaultHttpClient();
     }
 
     @Override
-    protected List doInBackground(List<NameValuePair>... params) {
+    protected List doInBackground(Void... voids) {
 
         List result = new ArrayList();
 
-        HttpPost postData = new HttpPost(serverScript.protocol.getProtocol() + Helper.SERVER_IP_ADDRESSS + serverScript.path);
+        HttpGet getData = new HttpGet(serverScript.protocol.getProtocol() + Helper.SERVER_IP_ADDRESSS + serverScript.path);
 
         try {
-            postData.setEntity(new UrlEncodedFormEntity(params[0]));
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
-            String responseText = serverClient.execute(postData, responseHandler);
+            String responseText = serverClient.execute(getData, responseHandler);
 
             switch(Api.getVersion()){
                 case 1:

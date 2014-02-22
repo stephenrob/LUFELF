@@ -8,7 +8,10 @@ import java.util.List;
 
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
 import uk.co.stephen_robinson.uni.lufelf.api.SessionManager;
+import uk.co.stephen_robinson.uni.lufelf.api.network.MultipleGet;
+import uk.co.stephen_robinson.uni.lufelf.api.network.Script;
 import uk.co.stephen_robinson.uni.lufelf.api.network.SinglePost;
+import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
 
 /**
@@ -55,6 +58,11 @@ public class Place {
         SinglePost networkTask = new SinglePost(sc, Scripts.CREATE_PLACE);
         networkTask.execute(params);
 
+    }
+
+    static void listAll(Multiple mc){
+        MultipleGet networkTask = new MultipleGet(mc, Scripts.PLACE_LIST);
+        networkTask.execute();
     }
 
 }

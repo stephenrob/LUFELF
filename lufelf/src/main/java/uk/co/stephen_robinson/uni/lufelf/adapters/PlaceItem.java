@@ -1,4 +1,4 @@
-package uk.co.stephen_robinson.uni.lufelf.utilities;
+package uk.co.stephen_robinson.uni.lufelf.adapters;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -28,7 +28,7 @@ public class PlaceItem {
     private String type;
     private String description;
     private String imageUrl;
-
+    private String createdByID;
     private int icon;
 
     private LatLng loc;
@@ -44,11 +44,12 @@ public class PlaceItem {
      * @param lat place latitude
      * @param longit place longitude
      */
-    public PlaceItem(String id, String name,String address,String type,String description, String imageUrl, double lat, double longit){
+    public PlaceItem(String id, String name,String address,String type,String description, String createdByID, String imageUrl, double lat, double longit){
         this.id=id;
         this.name=name;
         this.address=address;
         this.description=description;
+        this.createdByID=createdByID;
         this.imageUrl=imageUrl;
         this.loc=new LatLng(lat,longit);
         this.type=type;
@@ -109,6 +110,10 @@ public class PlaceItem {
      */
     public int getIcon() {
         return icon;
+    }
+
+    public String getCreatedByID() {
+        return createdByID;
     }
 
     /**

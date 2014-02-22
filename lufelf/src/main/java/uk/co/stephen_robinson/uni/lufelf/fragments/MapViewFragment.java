@@ -24,9 +24,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 import uk.co.stephen_robinson.uni.lufelf.R;
+import uk.co.stephen_robinson.uni.lufelf.adapters.PlaceItem;
 import uk.co.stephen_robinson.uni.lufelf.route.DirectionsQuery;
-import uk.co.stephen_robinson.uni.lufelf.utilities.PlaceItem;
 /**
  * @author James
  * Fragment that displays the map with location or the navigation view
@@ -34,6 +36,7 @@ import uk.co.stephen_robinson.uni.lufelf.utilities.PlaceItem;
 public class MapViewFragment extends BaseFragment implements LocationListener,GoogleMap.InfoWindowAdapter,GoogleMap.OnInfoWindowClickListener{
     private GoogleMap map;
     private LocationManager locationManager;
+    private ArrayList placeItems;
     /**
      * Returns a new instance of this fragment for the given section
      * number.
@@ -128,23 +131,30 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
     public void populateWithPlaces(){
         LatLng loc=getLocation();
 
+        placeItems=new ArrayList<PlaceItem>();
 
-        PlaceItem p=new PlaceItem("1","Test PLACE","123 fakestreet","other","this is a test PLACE","asdasd",loc.latitude,loc.longitude);
+        stripID("123456,asdbvvb");
+
+        for(int i=0;i<30;i++)
+            placeItems.add(new PlaceItem("1",i+",Test PLACE","123 fakestreet","other","this is a test PLACE",null,String.valueOf(i),loc.latitude+i,loc.longitude));
 
         MarkerOptions mOptions1=new MarkerOptions();
+        for(int count=0;count<placeItems.size();count++){
 
-        //create bitmap
-        Bitmap bm = BitmapFactory.decodeResource(getResources(), p.getIcon());
+            PlaceItem p=(PlaceItem)placeItems.get(count);
 
-        //set the title, description, position
-        mOptions1.title(p.getName());
-        mOptions1.snippet(p.getDescription());
-        mOptions1.position(p.getLocation());
-        mOptions1.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bm, 70, 70, false)));
+            //create bitmap
+            Bitmap bm = BitmapFactory.decodeResource(getResources(), p.getIcon());
 
-        //add marker
-        map.addMarker(mOptions1);
+            //set the title, description, position
+            mOptions1.title(p.getName());
+            mOptions1.snippet(p.getDescription());
+            mOptions1.position(p.getLocation());
+            mOptions1.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bm, 70, 70, false)));
 
+            //add marker
+            map.addMarker(mOptions1);
+        }
         //set the window adapter handler
         map.setInfoWindowAdapter(this);
 
@@ -192,8 +202,14 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
         // Getting reference to the TextView to set longitude
         TextView description = (TextView) v.findViewById(R.id.place_description);
 
+
+        String[] idTitle=stripID(m.getTitle());
+
+
+
+
         // Setting the latitude
-        title.setText(m.getTitle());
+        title.setText(idTitle[1]);
 
         // Setting the longitude
         description.setText(m.getSnippet());
@@ -208,7 +224,8 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
      */
     public void onInfoWindowClick(Marker m){
         resetIndexes();
-        fragmentManager.beginTransaction().replace(R.id.container, PlaceSubFragment.newInstance(), "PlaceSubView").addToBackStack(null).commit();
+        String[] idTitle=stripID(m.getTitle());
+        fragmentManager.beginTransaction().replace(R.id.container, PlaceSubFragment.newInstance((PlaceItem)placeItems.get(Integer.valueOf(idTitle[0]))), "PlaceSubView").addToBackStack(null).commit();
        // m.getPosition().latitude;
     }
 
@@ -218,15 +235,9 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
      * @return an array of the id and marker name
      */
     public String[] stripID(String id){
-        char[] identifier=id.toCharArray();
-        String idOnly="";
-        int i=0;
-        while(Character.isDigit(identifier[i]))
-            idOnly=idOnly+identifier[i];
-        String[] returnArr={idOnly,id.substring(idOnly.length())};
-
-        return returnArr;
+        return id.split(",");
     }
+
     @Override
     public void onDestroyView()
     {

@@ -1,6 +1,8 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1.xml;
 
 
+import java.util.ArrayList;
+
 /**
  * Created by Stephen on 22/02/2014.
  */
@@ -12,8 +14,13 @@ public class Event extends Message {
     protected String type = "";
     protected String description = "";
     protected String image_url = "";
+    protected String location_name = "";
+    protected String location_address = "";
+    protected String location = "";
     protected int place_id;
     protected int user_id;
+    protected User owner = new User();
+    protected ArrayList<EventUser> attendees;
 
     public static final String ID = "event_id";
     public static final String NAME = "event_name";
@@ -23,6 +30,9 @@ public class Event extends Message {
     public static final String IMAGE_URL = "event_image_url";
     public static final String PLACE_ID = "place_id";
     public static final String USER_ID = "user_id";
+    public static final String LOCATION_NAME = "location_name";
+    public static final String LOCATION_ADDRESS = "location_address";
+    public static final String LOCATION_GPS = "location";
 
     public int getId() {
         return id;
@@ -54,5 +64,9 @@ public class Event extends Message {
 
     public int getUser_id() {
         return user_id;
+    }
+
+    public ArrayList<EventUser> getAttendees() {
+        return attendees;
     }
 }

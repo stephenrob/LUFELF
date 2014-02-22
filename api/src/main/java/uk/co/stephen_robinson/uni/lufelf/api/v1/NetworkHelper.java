@@ -52,8 +52,6 @@ public class NetworkHelper {
                 break;
             case FRIEND_LIST:
                 break;
-            case EVENT_DETAILS:
-                break;
             case EVENT_LIST:
                 break;
             case SENT_MESSAGES:
@@ -79,6 +77,10 @@ public class NetworkHelper {
                 break;
 
             case EVENT_LIST:
+                results = Parser.parseEvents(serverResponse);
+                break;
+
+            case EVENT_DETAILS:
                 results = Parser.parseEvents(serverResponse);
                 break;
 

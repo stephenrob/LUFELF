@@ -1,7 +1,13 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1;
 
-import uk.co.stephen_robinson.uni.lufelf.api.Network.MultipleGet;
-import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import uk.co.stephen_robinson.uni.lufelf.api.network.MultipleGet;
+import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Multiple;
 
 /**
  * Created by Stephen on 22/02/2014.
@@ -29,6 +35,14 @@ public class Event {
     static void listAll(Multiple mc){
         MultipleGet networkTask = new MultipleGet(mc, Scripts.EVENT_LIST);
         networkTask.execute();
+    }
+
+    static void single(Integer id, Multiple mc){
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>(1);
+
+        params.add(new BasicNameValuePair(Event.ID, id.toString()));
+
     }
 
 }

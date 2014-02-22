@@ -73,4 +73,8 @@ public class V1 {
     public void getAllEvents(Multiple mc){
         Event.listAll(mc);
     }
+
+    public void getEvent(Integer id, Multiple mc){
+        Event.single(id, mc);
+    }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.fragments.NavigationDrawerFragment;
@@ -77,5 +78,8 @@ public class MainActivity extends BaseActivity {
         }
         return super.onCreateOptionsMenu(menu);
     }
-
+    public void logout(MenuItem item){
+        while(getFragmentManager().getBackStackEntryCount()!=0)
+            getFragmentManager().popBackStack();
+    }
 }

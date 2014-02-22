@@ -9,6 +9,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,12 +26,14 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.adapters.PlaceItem;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Place;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 import uk.co.stephen_robinson.uni.lufelf.route.DirectionsQuery;
+
 /**
  * @author James
  * Fragment that displays the map with location or the navigation view
@@ -131,39 +134,44 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
      * Adds a marker to the map
      */
     public void populateWithPlaces(){
-        LatLng loc=getLocation();
+
+        showActivitySpinner();
 
         placeItems=new ArrayList<PlaceItem>();
 
         Multiple multipleCallback = new Multiple() {
             @Override
-            public void results(List result) {
+            public void results(ArrayList result) {
+                Log.e("multiple callback",result.toString());
+                Message m = (Message)result.get(result.size()-1);
+                if(!toastMaker.isError(String.valueOf(m.statusCode),m.message)){
+                    for(int i=0;i<result.size()-1;i++){
+                        Place p =(Place)result.get(i);
+                        Log.e("crap",p.id+" "+p.name+" "+p.address+" "+p.type+" "+p.description+" "+p.user_id+" "+p.image_url);
+                        placeItems.add(new PlaceItem(p.id,p.name,p.address,p.type,p.description,p.user_id,p.image_url,p.lattitude,p.longditude));
+                    }
 
+                    MarkerOptions mOptions1=new MarkerOptions();
+                    for(int count=0;count<placeItems.size();count++){
 
-                for(int i=0;i<result.size();i++){
-                    result.
-                    //placeItems.add(new PlaceItem("1",i+",Test PLACE","123 fakestreet","other","this is a test PLACE",null,String.valueOf(i),loc.latitude+i,loc.longitude));
+                        PlaceItem p=(PlaceItem)placeItems.get(count);
+
+                        //create bitmap
+                        Bitmap bm = BitmapFactory.decodeResource(getResources(), p.getIcon());
+
+                        //set the title, description, position
+                        mOptions1.title(count+","+p.getName());
+                        mOptions1.snippet(p.getDescription());
+                        mOptions1.position(p.getLocation());
+                        mOptions1.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bm, 70, 70, false)));
+
+                        //add marker
+                        map.addMarker(mOptions1);
+                    }
                 }
-
-                MarkerOptions mOptions1=new MarkerOptions();
-                for(int count=0;count<placeItems.size();count++){
-
-                    PlaceItem p=(PlaceItem)placeItems.get(count);
-
-                    //create bitmap
-                    Bitmap bm = BitmapFactory.decodeResource(getResources(), p.getIcon());
-
-                    //set the title, description, position
-                    mOptions1.title(p.getName());
-                    mOptions1.snippet(p.getDescription());
-                    mOptions1.position(p.getLocation());
-                    mOptions1.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bm, 70, 70, false)));
-
-                    //add marker
-                    map.addMarker(mOptions1);
-                }
-
+                hideActivitySpinner();
             }
+
         };
 
         api.v1.getAllPlaces(multipleCallback);

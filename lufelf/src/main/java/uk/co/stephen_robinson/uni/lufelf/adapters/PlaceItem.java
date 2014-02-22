@@ -22,13 +22,13 @@ public class PlaceItem {
     private static int shop=R.drawable.shop;
     private static int library=R.drawable.library;
 
-    private String id;
+    private int id;
     private String name;
     private String address;
     private String type;
     private String description;
     private String imageUrl;
-    private String createdByID;
+    private int createdByID;
     private int icon;
 
     private LatLng loc;
@@ -44,7 +44,7 @@ public class PlaceItem {
      * @param lat place latitude
      * @param longit place longitude
      */
-    public PlaceItem(String id, String name,String address,String type,String description, String createdByID, String imageUrl, double lat, double longit){
+    public PlaceItem(int id, String name,String address,String type,String description, int createdByID, String imageUrl, double lat, double longit){
         this.id=id;
         this.name=name;
         this.address=address;
@@ -60,7 +60,7 @@ public class PlaceItem {
      * Gets the place id
      * @return place id
      */
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -112,7 +112,7 @@ public class PlaceItem {
         return icon;
     }
 
-    public String getCreatedByID() {
+    public int getCreatedByID() {
         return createdByID;
     }
 
@@ -151,6 +151,8 @@ public class PlaceItem {
             icon=shop;
         if(type.equals("library"))
             icon=library;
+        if(type.equals(""))
+            icon=other;
     }
 
 }

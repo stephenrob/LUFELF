@@ -18,15 +18,15 @@ import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
  */
 public class Place {
 
-    int id = 0;
-    String name = null;
-    String address = null;
-    Double lattitude;
-    Double longditude;
-    String type;
-    String description;
-    String image_url;
-    int user_id;
+    public int id = 0;
+    public String name = null;
+    public String address = null;
+    public Double lattitude;
+    public Double longditude;
+    public String type;
+    public String description;
+    public String image_url;
+    public int user_id;
 
     public static final String PLACE_ID ="place_id";
     public static final String NAME ="place_name";

@@ -25,11 +25,11 @@ public class PlaceSubFragment extends BaseFragment{
         PlaceSubFragment f=new PlaceSubFragment();
         Bundle args =new Bundle();
 
-        args.putString("id",p.getId());
+        args.putInt("id",p.getId());
         args.putString("name",p.getName());
         args.putString("address",p.getAddress());
         args.putString("imageurl",p.getImageUrl());
-        args.putString("creatorid",p.getCreatedByID());
+        args.putInt("creatorid",p.getCreatedByID());
         args.putString("type",p.getType());
 
         f.setArguments(args);

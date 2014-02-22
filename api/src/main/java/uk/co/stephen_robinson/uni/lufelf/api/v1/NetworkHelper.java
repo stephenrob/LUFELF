@@ -1,8 +1,9 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.Script;
@@ -67,6 +68,7 @@ public class NetworkHelper {
 
             case PLACE_LIST:
                 results = Parser.parsePlaces(serverResponse);
+                Log.e("results ",results.toString());
                 break;
 
             default:

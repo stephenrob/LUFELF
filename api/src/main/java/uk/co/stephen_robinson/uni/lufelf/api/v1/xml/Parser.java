@@ -1,5 +1,7 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1.xml;
 
+import android.util.Log;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -7,7 +9,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Stephen on 21/02/14.
@@ -188,9 +189,9 @@ public class Parser {
                             } else if(tagName.equalsIgnoreCase(Place.NAME)){
                                 place.name = parser.nextText();
                             } else if(tagName.equalsIgnoreCase(Place.LATTITUDE)){
-                                place.lattitude = Long.valueOf(parser.nextText());
+                                place.lattitude = Double.valueOf(parser.nextText());
                             } else if(tagName.equalsIgnoreCase(Place.LONGDITUDE)){
-                                place.longditude = Long.valueOf(parser.nextText());
+                                place.longditude = Double.valueOf(parser.nextText());
                             } else if(tagName.equalsIgnoreCase(Place.DESCRIPTION)){
                                 place.description = parser.nextText();
                             } else if(tagName.equalsIgnoreCase(Place.USER_ID)){
@@ -212,11 +213,14 @@ public class Parser {
                         break;
 
                 }
+                eventType = parser.next();
             }
 
         } catch (XmlPullParserException e){
+            Log.e("pull parser exception ",e.toString());
             places = null;
         } catch (IOException e){
+            Log.e("ioexception ",e.toString());
             places = null;
         }
 

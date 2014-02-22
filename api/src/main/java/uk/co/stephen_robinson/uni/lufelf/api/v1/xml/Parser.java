@@ -1,5 +1,7 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1.xml;
 
+import android.content.UriMatcher;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -7,6 +9,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Stephen on 21/02/14.
@@ -77,14 +80,11 @@ public class Parser {
                 switch(eventType){
 
                     case XmlPullParser.START_DOCUMENT:
+                        userDetails = new User();
                         break;
 
                     case XmlPullParser.START_TAG:
                         tagName = parser.getName();
-
-                        if(tagName.equalsIgnoreCase("user")){
-                            userDetails = new User();
-                        }
 
                         if(userDetails == null){
                             break;
@@ -100,7 +100,7 @@ public class Parser {
                             }
                         }
                         else if(tagName.equalsIgnoreCase(User.MESSAGE)) {
-                            userDetails.message = parser.nextText();
+                            message.message = parser.nextText();
                         }
                         else if(tagName.equalsIgnoreCase(User.USER_ID)){
                             userDetails.user_id = Integer.parseInt(parser.nextText());
@@ -137,6 +137,8 @@ public class Parser {
                 }
                 eventType = parser.next();
             }
+
+            userDetails.message = message.message;
             userDetails.status = message.status;
             userDetails.statusCode = message.statusCode;
 

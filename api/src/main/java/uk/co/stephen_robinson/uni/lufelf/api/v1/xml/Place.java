@@ -8,8 +8,8 @@ public class Place extends Message {
     protected int id = 0;
     protected String name = null;
     protected String address = null;
-    protected Long lattitude;
-    protected Long longditude;
+    protected Double lattitude;
+    protected Double longditude;
     protected String type;
     protected String description;
     protected String image_url;
@@ -20,6 +20,10 @@ public class Place extends Message {
     public static final String ADDRESS ="place_address";
     public static final String LATTITUDE ="place_lat";
     public static final String LONGDITUDE ="place_lon";
+    public static final String TYPE = "place_type";
+    public static final String DESCRIPTION = "place_description";
+    public static final String IMAGE_URL = "place_image_url";
+    public static final String USER_ID = "user_id";
 
     public int getUser_id() {
         return user_id;
@@ -37,11 +41,11 @@ public class Place extends Message {
         return address;
     }
 
-    public Long getLattitude() {
+    public Double getLattitude() {
         return lattitude;
     }
 
-    public Long getLongditude() {
+    public Double getLongditude() {
         return longditude;
     }
 
@@ -56,10 +60,5 @@ public class Place extends Message {
     public String getImage_url() {
         return image_url;
     }
-
-    public static final String TYPE = "place_type";
-    public static final String DESCRIPTION = "place_description";
-    public static final String IMAGE_URL = "place_image_url";
-    public static final String USER_ID = "user_id";
 
 }

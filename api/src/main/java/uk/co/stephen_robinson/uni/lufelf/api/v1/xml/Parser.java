@@ -188,9 +188,9 @@ public class Parser {
                             } else if(tagName.equalsIgnoreCase(Place.NAME)){
                                 place.name = parser.nextText();
                             } else if(tagName.equalsIgnoreCase(Place.LATTITUDE)){
-                                place.lattitude = Long.valueOf(parser.nextText());
+                                place.lattitude = Double.valueOf(parser.nextText());
                             } else if(tagName.equalsIgnoreCase(Place.LONGDITUDE)){
-                                place.longditude = Long.valueOf(parser.nextText());
+                                place.longditude = Double.valueOf(parser.nextText());
                             } else if(tagName.equalsIgnoreCase(Place.DESCRIPTION)){
                                 place.description = parser.nextText();
                             } else if(tagName.equalsIgnoreCase(Place.TYPE)){

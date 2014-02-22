@@ -69,4 +69,8 @@ public class V1 {
     public void getAllPlaces(Multiple mc){
         Place.listAll(mc);
     }
+
+    public void getAllEvents(Multiple mc){
+        Event.listAll(mc);
+    }
 }

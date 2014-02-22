@@ -78,6 +78,10 @@ public class NetworkHelper {
                 Log.e("results ",results.toString());
                 break;
 
+            case EVENT_LIST:
+                results = Parser.parseEvents(serverResponse);
+                break;
+
             default:
                 results = null;
                 break;

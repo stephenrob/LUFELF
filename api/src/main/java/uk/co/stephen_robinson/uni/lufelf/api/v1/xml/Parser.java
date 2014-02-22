@@ -238,4 +238,89 @@ public class Parser {
 
     }
 
+    public static ArrayList parseEvents(String data){
+        ArrayList events = new ArrayList();
+        Message status = new Message();
+        Event event = null;
+        XmlPullParser parser;
+        String tagName;
+
+        try {
+            parser = XmlPullParserFactory.newInstance().newPullParser();
+            parser.setInput(new StringReader(data));
+
+            int eventType = parser.getEventType();
+
+            while(eventType != XmlPullParser.END_DOCUMENT){
+                switch (eventType){
+
+                    case XmlPullParser.START_DOCUMENT:
+                        break;
+
+                    case XmlPullParser.START_TAG:
+                        tagName = parser.getName();
+
+                        if(tagName.equalsIgnoreCase(Message.RESPONSE)){
+                            status.status = parser.getAttributeValue(null, Message.STATUS);
+
+                            if(parser.getAttributeValue(null, Message.CODE) != null){
+                                status.statusCode = Integer.parseInt(parser.getAttributeValue(null, Message.CODE));
+                            } else {
+                                status.statusCode = 200;
+                            }
+                        } else if(tagName.equalsIgnoreCase(Message.MESSAGE)){
+                            status.message = parser.nextText();
+                        }
+
+                        if(tagName.equalsIgnoreCase("place")){
+                            event = new Event();
+                        } else if(event != null){
+                            if(tagName.equalsIgnoreCase(Event.ID)){
+                                event.id = Integer.valueOf(parser.nextText());
+                            } else if(tagName.equalsIgnoreCase(Event.NAME)){
+                                event.name = parser.nextText();
+                            } else if(tagName.equalsIgnoreCase(Event.DESCRIPTION)){
+                                event.description = parser.nextText();
+                            } else if(tagName.equalsIgnoreCase(Event.TYPE)){
+                                event.type = parser.nextText();
+                            } else if(tagName.equalsIgnoreCase(Event.DATE)) {
+                                event.date = parser.nextText();
+                            } else if(tagName.equalsIgnoreCase(Place.USER_ID)){
+                                event.user_id = Integer.valueOf(parser.nextText());
+                            } else if(tagName.equalsIgnoreCase(Place.PLACE_ID)){
+                                event.place_id = Integer.valueOf(parser.nextText());
+                            } else if(tagName.equalsIgnoreCase(Place.IMAGE_URL)){
+                                event.image_url = parser.nextText();
+                            }
+                        }
+
+                        break;
+
+                    case XmlPullParser.END_TAG:
+                        tagName = parser.getName();
+
+                        if(tagName.equalsIgnoreCase("event") && event != null){
+                            events.add(event);
+                        }
+
+                        break;
+
+                }
+
+                eventType = parser.next();
+
+            }
+
+        } catch (XmlPullParserException e){
+            events = null;
+        } catch (IOException e){
+            events = null;
+        }
+
+        events.add(status);
+
+        return events;
+
+    }
+
 }

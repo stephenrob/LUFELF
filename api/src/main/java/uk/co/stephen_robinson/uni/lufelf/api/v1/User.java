@@ -8,8 +8,8 @@ import java.util.List;
 
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
 import uk.co.stephen_robinson.uni.lufelf.api.SessionManager;
-import uk.co.stephen_robinson.uni.lufelf.api.network.SinglePost;
-import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.SinglePost;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 
 /**
  * Created by Stephen on 21/02/14.

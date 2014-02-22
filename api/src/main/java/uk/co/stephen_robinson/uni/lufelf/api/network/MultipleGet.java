@@ -1,23 +1,19 @@
-package uk.co.stephen_robinson.uni.lufelf.api.network;
+package uk.co.stephen_robinson.uni.lufelf.api.Network;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
-import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Multiple;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.NetworkHelper;
 
 /**

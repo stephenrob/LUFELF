@@ -29,7 +29,7 @@ import java.util.List;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.adapters.PlaceItem;
-import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Multiple;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.route.DirectionsQuery;
 /**
  * @author James
@@ -141,6 +141,7 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
 
 
                 for(int i=0;i<result.size();i++){
+                    result.
                     //placeItems.add(new PlaceItem("1",i+",Test PLACE","123 fakestreet","other","this is a test PLACE",null,String.valueOf(i),loc.latitude+i,loc.longitude));
                 }
 
@@ -164,6 +165,8 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
 
             }
         };
+
+        api.v1.getAllPlaces(multipleCallback);
 
         //set the window adapter handler
         map.setInfoWindowAdapter(this);

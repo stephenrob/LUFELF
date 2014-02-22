@@ -4,7 +4,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
-import uk.co.stephen_robinson.uni.lufelf.api.network.Script;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.Script;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.Scripts.Name;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Formatter;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;

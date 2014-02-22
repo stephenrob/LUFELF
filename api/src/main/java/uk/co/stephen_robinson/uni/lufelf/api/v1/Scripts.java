@@ -1,6 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1;
 
-import uk.co.stephen_robinson.uni.lufelf.api.network.Script;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.Script;
 
 /**
  * Created by Stephen on 20/02/14.

@@ -1,6 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1.xml;
 
-import android.util.Log;
+import android.content.UriMatcher;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -9,6 +9,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Stephen on 21/02/14.
@@ -65,6 +66,7 @@ public class Parser {
 
     public static User parseUserDetails(String data){
         User userDetails = null;
+        Message message = new Message();
         XmlPullParser parser;
         String tagName;
 
@@ -92,12 +94,12 @@ public class Parser {
                         }
 
                         if(tagName.equalsIgnoreCase(User.RESPONSE)) {
-                            userDetails.status = parser.getAttributeValue(null, User.STATUS);
+                            message.status = parser.getAttributeValue(null, User.STATUS);
                             // Only status=fail produce return code
                             if(parser.getAttributeValue(null, User.CODE) != null) {
-                                userDetails.statusCode = Integer.parseInt(parser.getAttributeValue(null, User.CODE));
+                                message.statusCode = Integer.parseInt(parser.getAttributeValue(null, User.CODE));
                             } else {
-                                userDetails.statusCode = 200;
+                                message.statusCode = 200;
                             }
                         }
                         else if(tagName.equalsIgnoreCase(User.MESSAGE)) {
@@ -143,6 +145,10 @@ public class Parser {
         } catch (IOException e){
             userDetails = null;
         }
+
+        userDetails.message = message.message;
+        userDetails.status = message.status;
+        userDetails.statusCode = message.statusCode;
 
         return userDetails;
     }
@@ -215,14 +221,11 @@ public class Parser {
                         break;
 
                 }
-                eventType = parser.next();
             }
 
         } catch (XmlPullParserException e){
-            Log.e("pull parser exception ",e.toString());
             places = null;
         } catch (IOException e){
-            Log.e("ioexception ",e.toString());
             places = null;
         }
 

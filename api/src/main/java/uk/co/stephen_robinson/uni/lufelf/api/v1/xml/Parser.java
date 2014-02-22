@@ -6,6 +6,8 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Stephen on 21/02/14.
@@ -63,6 +65,7 @@ public class Parser {
     public static User parseUserDetails(String data){
         User userDetails = null;
         XmlPullParser parser;
+        String tagName;
 
         try {
             parser = XmlPullParserFactory.newInstance().newPullParser();
@@ -74,11 +77,14 @@ public class Parser {
                 switch(eventType){
 
                     case XmlPullParser.START_DOCUMENT:
-                        userDetails = new User();
                         break;
 
                     case XmlPullParser.START_TAG:
-                        String tagName = parser.getName();
+                        tagName = parser.getName();
+
+                        if(tagName.equalsIgnoreCase("user")){
+                            userDetails = new User();
+                        }
 
                         if(userDetails == null){
                             break;
@@ -121,6 +127,13 @@ public class Parser {
                             userDetails.is_new = parser.nextText();
                         }
                         break;
+
+                    case XmlPullParser.END_TAG:
+                        tagName = parser.getName();
+
+                        if(tagName.equalsIgnoreCase("user") && userDetails != null)
+
+                        break;
                 }
                 eventType = parser.next();
             }
@@ -131,6 +144,86 @@ public class Parser {
         }
 
         return userDetails;
+    }
+
+    public static List parsePlaces(String data){
+        List places = new ArrayList();
+        Message status = new Message();
+        Place place = null;
+        XmlPullParser parser;
+        String tagName;
+
+        try {
+            parser = XmlPullParserFactory.newInstance().newPullParser();
+            parser.setInput(new StringReader(data));
+
+            int eventType = parser.getEventType();
+
+            while(eventType != XmlPullParser.END_DOCUMENT){
+                switch (eventType){
+
+                    case XmlPullParser.START_DOCUMENT:
+                        break;
+
+                    case XmlPullParser.START_TAG:
+                        tagName = parser.getName();
+
+                        if(tagName.equalsIgnoreCase(Message.RESPONSE)){
+                            status.status = parser.getAttributeValue(null, Message.STATUS);
+
+                            if(parser.getAttributeValue(null, Message.CODE) != null){
+                                status.statusCode = Integer.parseInt(parser.getAttributeValue(null, Message.CODE));
+                            } else {
+                                status.statusCode = 200;
+                            }
+                        } else if(tagName.equalsIgnoreCase(Message.MESSAGE)){
+                            status.message = parser.nextText();
+                        }
+
+                        if(tagName.equalsIgnoreCase("place")){
+                            place = new Place();
+                        } else if(place != null){
+                            if(tagName.equalsIgnoreCase(Place.PLACE_ID)){
+                                place.id = Integer.valueOf(parser.nextText());
+                            } else if(tagName.equalsIgnoreCase(Place.NAME)){
+                                place.name = parser.nextText();
+                            } else if(tagName.equalsIgnoreCase(Place.LATTITUDE)){
+                                place.lattitude = Long.valueOf(parser.nextText());
+                            } else if(tagName.equalsIgnoreCase(Place.LONGDITUDE)){
+                                place.longditude = Long.valueOf(parser.nextText());
+                            } else if(tagName.equalsIgnoreCase(Place.DESCRIPTION)){
+                                place.description = parser.nextText();
+                            } else if(tagName.equalsIgnoreCase(Place.USER_ID)){
+                                place.user_id = Integer.valueOf(parser.nextText());
+                            } else if(tagName.equalsIgnoreCase(Place.ADDRESS)){
+                                place.address = parser.nextText();
+                            }
+                        }
+
+                        break;
+
+                    case XmlPullParser.END_TAG:
+                        tagName = parser.getName();
+
+                        if(tagName.equalsIgnoreCase("place") && place != null){
+                            places.add(place);
+                        }
+
+                        break;
+
+                }
+            }
+
+        } catch (XmlPullParserException e){
+            places = null;
+        } catch (IOException e){
+            places = null;
+        }
+
+        places.add(status);
+
+        return places;
+
     }
 
 }

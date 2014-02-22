@@ -1,6 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1;
 
-import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
+import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
 
 /**
  * Created by Stephen on 21/02/14.
@@ -52,7 +52,7 @@ public class V1 {
         User.delete(sc);
     }
 
-    public void addPlace(String name, String address, double lat, double lon, String type, String description, Single sc){
+    public void addPlace(String name, String address, Double lat, Double lon, String type, String description, Single sc){
         Place place = new Place();
 
         place.name = name;

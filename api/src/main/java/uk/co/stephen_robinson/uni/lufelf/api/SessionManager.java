@@ -64,7 +64,7 @@ public class SessionManager {
         return userDetails;
     }
 
-    protected boolean checkLogin(){
+    public boolean checkLogin(){
         return sharedPreferences.getBoolean(IS_LOGIN, false);
     }
 

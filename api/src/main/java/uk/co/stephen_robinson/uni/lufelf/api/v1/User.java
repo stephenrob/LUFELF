@@ -8,8 +8,8 @@ import java.util.List;
 
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
 import uk.co.stephen_robinson.uni.lufelf.api.SessionManager;
-import uk.co.stephen_robinson.uni.lufelf.api.Network.SinglePost;
-import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
+import uk.co.stephen_robinson.uni.lufelf.api.network.SinglePost;
+import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
 
 /**
  * Created by Stephen on 21/02/14.
@@ -65,6 +65,8 @@ public class User {
         params.add(new BasicNameValuePair(User.LOCATION_STATUS, Integer.toString(user.location_status)));
         params.add(new BasicNameValuePair(User.ACCESS_LEVEL, Integer.toString(user.access_level)));
 
+        Api.getSessionManager().createLoginSession(user.username, user.password, Integer.toString(user.user_id));
+
         SinglePost networkTask = new SinglePost(sc, Scripts.CREATE_USER);
         networkTask.execute(params);
 
@@ -77,7 +79,7 @@ public class User {
         params.add(new BasicNameValuePair(User.USERNAME, user.username));
         params.add(new BasicNameValuePair(User.PASSWORD, user.password));
 
-        Api.getSessionManager().createLoginSession(user.username, user.password, Integer.toString(user.user_id));
+        Api.getSessionManager().createLoginSession(user.username, user.password, Integer.toString(0));
 
         SinglePost networkTask = new SinglePost(sc, Scripts.LOGIN_USER);
         networkTask.execute(params);

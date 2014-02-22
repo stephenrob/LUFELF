@@ -19,7 +19,7 @@ import uk.co.stephen_robinson.uni.lufelf.api.v1.NetworkHelper;
 /**
  * Created by Stephen on 22/02/2014.
  */
-public class MultipleGet extends AsyncTask<Void, Integer, List> {
+public class MultipleGet extends AsyncTask<Void, Integer, ArrayList> {
 
     private Script serverScript = null;
     private HttpClient serverClient;
@@ -33,9 +33,9 @@ public class MultipleGet extends AsyncTask<Void, Integer, List> {
     }
 
     @Override
-    protected List doInBackground(Void... voids) {
+    protected ArrayList doInBackground(Void... voids) {
 
-        List result = new ArrayList();
+        ArrayList result = new ArrayList();
 
         HttpGet getData = new HttpGet(serverScript.protocol.getProtocol() + Helper.SERVER_IP_ADDRESSS + serverScript.path);
 
@@ -61,7 +61,7 @@ public class MultipleGet extends AsyncTask<Void, Integer, List> {
     }
 
     @Override
-    protected void onPostExecute(List list) {
+    protected void onPostExecute(ArrayList list) {
         multipleCallback.results(list);
     }
 }

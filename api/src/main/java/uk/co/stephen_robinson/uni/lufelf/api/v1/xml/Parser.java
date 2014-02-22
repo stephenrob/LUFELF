@@ -146,8 +146,8 @@ public class Parser {
         return userDetails;
     }
 
-    public static List parsePlaces(String data){
-        List places = new ArrayList();
+    public static ArrayList parsePlaces(String data){
+        ArrayList places = new ArrayList();
         Message status = new Message();
         Place place = null;
         XmlPullParser parser;

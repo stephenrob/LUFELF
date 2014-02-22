@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:lines="1"
-                    android:background="@drawable/text_field"
+                    android:background="@drawable/text_box_selector"
                     android:singleLine="true"
                     android:inputType="text"
                     android:hint="@string/event_name"/>
@@ -71,7 +71,7 @@
                     android:layout_height="80dp"
                     android:gravity="left"
                     android:lines="4"
-                    android:background="@drawable/text_field"
+                    android:background="@drawable/text_box_selector"
                     android:inputType="text"
                     android:hint="@string/place_address"/>
 
@@ -90,7 +90,7 @@
                     android:layout_height="80dp"
                     android:gravity="left"
                     android:lines="4"
-                    android:background="@drawable/text_field"
+                    android:background="@drawable/text_box_selector"
                     android:inputType="text"
                     android:hint="@string/place_description"/>
             </LinearLayout>

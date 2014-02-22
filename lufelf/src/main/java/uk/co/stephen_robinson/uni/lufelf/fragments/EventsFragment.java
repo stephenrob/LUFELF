@@ -1,7 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,13 @@ import android.widget.ListView;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 
+import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.adapters.EventItemAdapter;
 import uk.co.stephen_robinson.uni.lufelf.adapters.EventListItem;
 import uk.co.stephen_robinson.uni.lufelf.adapters.NavDrawerItem;
-import uk.co.stephen_robinson.uni.lufelf.R;
-import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 
 
 /**
@@ -27,6 +26,7 @@ import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 public class EventsFragment extends BaseFragment{
 
     ListView list;
+
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -73,23 +73,21 @@ public class EventsFragment extends BaseFragment{
      * @param rootView the rootview of the fragment
      */
     public void addEvents(LayoutInflater inflater, ViewGroup container,View rootView){
-        Single nc=new Single() {
+
+        Multiple multipleCallback=new Multiple() {
             @Override
-            public void results(Hashtable result) {
-                //result.get()
-                Log.e("CRaP","HERE");
-                hideActivitySpinner();
+            public void results(ArrayList result) {
+                ArrayList navigationItems=new ArrayList<NavDrawerItem>();
+                Message m = (Message)result.get(result.size()-1);
+                if(!toastMaker.isError(String.valueOf(m.statusCode),m.message)){
+                    for(int i=0;i<result.size()-1;i++){
+                        navigationItems.add(new EventListItem("item "+i,R.drawable.ic_location,String.valueOf(i),"Event Name "+i,"Creator "+i,new LatLng(i,i),i+":"+i,"This is a description for EVENT "+i));
+                    }
+                    list.setAdapter(new EventItemAdapter(context, navigationItems));
+                }
             }
         };
-        //api.v1.get(nc);
-        //make arraylist navdraweritems
-        ArrayList navigationItems=new ArrayList<NavDrawerItem>();
-
-        //add fake items
-        for(int i=0;i<30;i++)
-            navigationItems.add(new EventListItem("item "+i,R.drawable.ic_location,String.valueOf(i),"Event Name "+i,"Creator "+i,new LatLng(i,i),i+":"+i,"This is a description for EVENT "+i));
-
-        //set the adapter
-        list.setAdapter(new EventItemAdapter(rootView.getContext(), navigationItems));
+        //get the events
+        //api.v1.getAllEvents(multipleCallback);
     }
 }

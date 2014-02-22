@@ -23,7 +23,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="left"
-        android:background="@drawable/search_box"
+        android:background="@drawable/text_box_selector"
         android:hint="Search"
         android:paddingTop="7dp"
         android:paddingBottom="7dp"

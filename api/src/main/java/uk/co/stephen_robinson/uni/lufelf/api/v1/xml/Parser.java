@@ -193,6 +193,8 @@ public class Parser {
                                 place.longditude = Long.valueOf(parser.nextText());
                             } else if(tagName.equalsIgnoreCase(Place.DESCRIPTION)){
                                 place.description = parser.nextText();
+                            } else if(tagName.equalsIgnoreCase(Place.TYPE)){
+                                place.type = parser.nextText();
                             } else if(tagName.equalsIgnoreCase(Place.USER_ID)){
                                 place.user_id = Integer.valueOf(parser.nextText());
                             } else if(tagName.equalsIgnoreCase(Place.ADDRESS)){

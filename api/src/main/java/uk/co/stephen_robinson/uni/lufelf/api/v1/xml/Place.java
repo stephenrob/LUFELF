@@ -5,19 +5,19 @@ package uk.co.stephen_robinson.uni.lufelf.api.v1.xml;
  */
 public class Place extends Message {
 
-    public int id = 0;
-    public String name = "";
-    public String address = "";
-    public double lattitude;
-    public double longditude;
-    public String type="";
-    public String description="";
-    public String image_url="";
-    public int user_id;
+    protected int id = 0;
+    protected String name = "";
+    protected String address = "";
+    protected double lattitude;
+    protected double longditude;
+    protected String type="";
+    protected String description="";
+    protected String image_url="";
+    protected int user_id;
 
     public static final String PLACE_ID ="place_id";
     public static final String NAME ="place_name";
-    public static final String ADDRESS ="place_address";
+    public static final String ADDRESS ="place_adress";
     public static final String LATTITUDE ="place_lat";
     public static final String LONGDITUDE ="place_lon";
 
@@ -37,11 +37,11 @@ public class Place extends Message {
         return address;
     }
 
-    public Long getLattitude() {
+    public double getLattitude() {
         return lattitude;
     }
 
-    public Long getLongditude() {
+    public double getLongditude() {
         return longditude;
     }
 

@@ -147,8 +147,8 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
                 if(!toastMaker.isError(String.valueOf(m.statusCode),m.message)){
                     for(int i=0;i<result.size()-1;i++){
                         Place p =(Place)result.get(i);
-                        Log.e("crap",p.id+" "+p.name+" "+p.address+" "+p.type+" "+p.description+" "+p.user_id+" "+p.image_url);
-                        placeItems.add(new PlaceItem(p.id,p.name,p.address,p.type,p.description,p.user_id,p.image_url,p.lattitude,p.longditude));
+                        Log.e("crap",p.getDescription());
+                        placeItems.add(new PlaceItem(p.getId(),p.getName(),p.getAddress(),p.getType(),p.getDescription(),p.getUser_id(),p.getImage_url(),p.getLattitude(),p.getLongditude()));
                     }
 
                     MarkerOptions mOptions1=new MarkerOptions();

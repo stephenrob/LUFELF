@@ -27,6 +27,7 @@ public class PlaceSubFragment extends BaseFragment{
 
         args.putInt("id",p.getId());
         args.putString("name",p.getName());
+        args.putString("description",p.getDescription());
         args.putString("address",p.getAddress());
         args.putString("imageurl",p.getImageUrl());
         args.putInt("creatorid",p.getCreatedByID());
@@ -57,7 +58,7 @@ public class PlaceSubFragment extends BaseFragment{
         //get the textfields
         TextView name = (TextView)rootView.findViewById(R.id.location_name);
         TextView address = (TextView)rootView.findViewById(R.id.location_address);
-        TextView description = (TextView)rootView.findViewById(R.id.location_description);
+        TextView description = (TextView)rootView.findViewById(R.id.location_description_box);
         TextView type = (TextView)rootView.findViewById(R.id.location_type);
 
         name.setText(args.getString("name"));

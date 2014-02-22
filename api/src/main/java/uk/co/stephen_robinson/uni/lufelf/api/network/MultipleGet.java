@@ -10,7 +10,6 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
@@ -45,7 +44,9 @@ public class MultipleGet extends AsyncTask<Void, Integer, ArrayList> {
 
             switch(Api.getVersion()){
                 case 1:
+
                     result =  NetworkHelper.formatMultipleResults(this.serverScript, responseText);
+                    Log.e("on post",result.toString());
                     break;
 
                 default:
@@ -62,6 +63,7 @@ public class MultipleGet extends AsyncTask<Void, Integer, ArrayList> {
 
     @Override
     protected void onPostExecute(ArrayList list) {
+
         multipleCallback.results(list);
     }
 }

@@ -118,9 +118,10 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
 
         //if the size is greater than one pop
         //otherwise close the app
-        if(size>0)
+        if(size>1)
             this.getFragmentManager().popBackStack();
         else{
+            this.getFragmentManager().popBackStack();
             finish();
         }
     }

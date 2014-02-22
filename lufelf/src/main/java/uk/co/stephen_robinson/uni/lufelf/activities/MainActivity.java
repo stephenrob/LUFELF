@@ -79,7 +79,9 @@ public class MainActivity extends BaseActivity {
         return super.onCreateOptionsMenu(menu);
     }
     public void logout(MenuItem item){
-        while(getFragmentManager().getBackStackEntryCount()!=0)
+        while(getFragmentManager().getBackStackEntryCount()>1)
             getFragmentManager().popBackStack();
+        getFragmentManager().popBackStack();
+        finish();
     }
 }

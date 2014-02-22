@@ -67,7 +67,7 @@ public class User {
         params.add(new BasicNameValuePair(User.LOCATION_STATUS, Integer.toString(user.location_status)));
         params.add(new BasicNameValuePair(User.ACCESS_LEVEL, Integer.toString(user.access_level)));
 
-        Api.getSessionManager().createLoginSession(user.username, user.password, Integer.toString(0));
+        Api.getSessionManager().createLoginSession(user.username, md5(user.password), Integer.toString(0));
 
         SinglePost networkTask = new SinglePost(sc, Scripts.CREATE_USER);
         networkTask.execute(params);
@@ -81,7 +81,7 @@ public class User {
         params.add(new BasicNameValuePair(User.USERNAME, user.username));
         params.add(new BasicNameValuePair(User.PASSWORD, user.password));
 
-        Api.getSessionManager().createLoginSession(user.username, md5(user.password), Integer.toString(0));
+        Api.getSessionManager().createLoginSession(user.username, user.password, Integer.toString(0));
 
         SinglePost networkTask = new SinglePost(sc, Scripts.LOGIN_USER);
         networkTask.execute(params);

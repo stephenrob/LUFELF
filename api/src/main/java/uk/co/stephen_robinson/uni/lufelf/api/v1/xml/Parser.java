@@ -241,7 +241,9 @@ public class Parser {
     public static ArrayList parseEvents(String data){
         ArrayList events = new ArrayList();
         Message status = new Message();
+        ArrayList<EventUser> users = null;
         Event event = null;
+        EventUser user = null;
         XmlPullParser parser;
         String tagName;
 
@@ -272,7 +274,7 @@ public class Parser {
                             status.message = parser.nextText();
                         }
 
-                        if(tagName.equalsIgnoreCase("place")){
+                        if(tagName.equalsIgnoreCase("event")){
                             event = new Event();
                         } else if(event != null){
                             if(tagName.equalsIgnoreCase(Event.ID)){
@@ -285,12 +287,36 @@ public class Parser {
                                 event.type = parser.nextText();
                             } else if(tagName.equalsIgnoreCase(Event.DATE)) {
                                 event.date = parser.nextText();
-                            } else if(tagName.equalsIgnoreCase(Place.USER_ID)){
+                            } else if(tagName.equalsIgnoreCase(Event.USER_ID)){
                                 event.user_id = Integer.valueOf(parser.nextText());
                             } else if(tagName.equalsIgnoreCase(Place.PLACE_ID)){
                                 event.place_id = Integer.valueOf(parser.nextText());
                             } else if(tagName.equalsIgnoreCase(Place.IMAGE_URL)){
                                 event.image_url = parser.nextText();
+                            } else if(tagName.equalsIgnoreCase(Event.LOCATION_NAME)){
+                                event.location_name = parser.nextText();
+                            } else if(tagName.equalsIgnoreCase(Event.LOCATION_ADDRESS)){
+                                event.location_address = parser.nextText();
+                            } else if(tagName.equalsIgnoreCase(Event.LOCATION_GPS)){
+                                event.location = parser.nextText();
+                            } else if(tagName.equalsIgnoreCase(User.USERNAME)){
+                                event.owner.name = parser.nextText();
+                            } else if(tagName.equalsIgnoreCase("email")){
+                                event.owner.username = parser.nextText();
+                            }
+                        }
+
+                        if(tagName.equalsIgnoreCase("users")){
+                            users = new ArrayList<EventUser>();
+                        }
+
+                        if(tagName.equalsIgnoreCase("user")){
+                            user = new EventUser();
+                        } else if(user != null){
+                            if(tagName.equalsIgnoreCase(EventUser.NAME)){
+                                user.name = parser.nextText();
+                            } else if(tagName.equalsIgnoreCase(EventUser.DATE_ACCEPTED)){
+                                user.date_accepted = parser.nextText();
                             }
                         }
 
@@ -298,9 +324,15 @@ public class Parser {
 
                     case XmlPullParser.END_TAG:
                         tagName = parser.getName();
-
                         if(tagName.equalsIgnoreCase("event") && event != null){
+                            event.attendees = users;
                             events.add(event);
+                        }
+
+                        if(users != null){
+                            if(tagName.equalsIgnoreCase("user") && user != null){
+                                users.add(user);
+                            }
                         }
 
                         break;

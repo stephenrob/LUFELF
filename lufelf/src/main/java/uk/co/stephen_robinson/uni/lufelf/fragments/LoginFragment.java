@@ -16,7 +16,7 @@ import java.util.Hashtable;
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.activities.LoginActivity;
 import uk.co.stephen_robinson.uni.lufelf.activities.MainActivity;
-import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
+import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 import uk.co.stephen_robinson.uni.lufelf.utilities.ValidationChecker;
 

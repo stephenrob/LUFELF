@@ -14,7 +14,7 @@ import java.util.Hashtable;
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.adapters.MessageItem;
 import uk.co.stephen_robinson.uni.lufelf.adapters.MessageItemAdapter;
-import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
+import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
 
 /**
  * @author James

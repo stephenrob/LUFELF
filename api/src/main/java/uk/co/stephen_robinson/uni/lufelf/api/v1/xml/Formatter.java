@@ -2,7 +2,7 @@ package uk.co.stephen_robinson.uni.lufelf.api.v1.xml;
 
 import java.util.Hashtable;
 
-import uk.co.stephen_robinson.uni.lufelf.api.Network.Script;
+import uk.co.stephen_robinson.uni.lufelf.api.network.Script;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.Scripts;
 
 /**

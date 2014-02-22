@@ -25,9 +25,11 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.adapters.PlaceItem;
+import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.route.DirectionsQuery;
 /**
  * @author James
@@ -133,33 +135,42 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
 
         placeItems=new ArrayList<PlaceItem>();
 
-        stripID("123456,asdbvvb");
+        Multiple multipleCallback = new Multiple() {
+            @Override
+            public void results(List result) {
 
-        for(int i=0;i<30;i++)
-            placeItems.add(new PlaceItem("1",i+",Test PLACE","123 fakestreet","other","this is a test PLACE",null,String.valueOf(i),loc.latitude+i,loc.longitude));
 
-        MarkerOptions mOptions1=new MarkerOptions();
-        for(int count=0;count<placeItems.size();count++){
+                for(int i=0;i<result.size();i++){
+                    //placeItems.add(new PlaceItem("1",i+",Test PLACE","123 fakestreet","other","this is a test PLACE",null,String.valueOf(i),loc.latitude+i,loc.longitude));
+                }
 
-            PlaceItem p=(PlaceItem)placeItems.get(count);
+                MarkerOptions mOptions1=new MarkerOptions();
+                for(int count=0;count<placeItems.size();count++){
 
-            //create bitmap
-            Bitmap bm = BitmapFactory.decodeResource(getResources(), p.getIcon());
+                    PlaceItem p=(PlaceItem)placeItems.get(count);
 
-            //set the title, description, position
-            mOptions1.title(p.getName());
-            mOptions1.snippet(p.getDescription());
-            mOptions1.position(p.getLocation());
-            mOptions1.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bm, 70, 70, false)));
+                    //create bitmap
+                    Bitmap bm = BitmapFactory.decodeResource(getResources(), p.getIcon());
 
-            //add marker
-            map.addMarker(mOptions1);
-        }
+                    //set the title, description, position
+                    mOptions1.title(p.getName());
+                    mOptions1.snippet(p.getDescription());
+                    mOptions1.position(p.getLocation());
+                    mOptions1.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bm, 70, 70, false)));
+
+                    //add marker
+                    map.addMarker(mOptions1);
+                }
+
+            }
+        };
+
         //set the window adapter handler
         map.setInfoWindowAdapter(this);
 
         //set the infowindow click listener
         map.setOnInfoWindowClickListener(this);
+
     }
 
     @Override

@@ -17,7 +17,7 @@ import uk.co.stephen_robinson.uni.lufelf.adapters.EventItemAdapter;
 import uk.co.stephen_robinson.uni.lufelf.adapters.EventListItem;
 import uk.co.stephen_robinson.uni.lufelf.adapters.NavDrawerItem;
 import uk.co.stephen_robinson.uni.lufelf.R;
-import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
+import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
 
 
 /**

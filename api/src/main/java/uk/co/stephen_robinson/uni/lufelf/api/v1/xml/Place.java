@@ -6,18 +6,18 @@ package uk.co.stephen_robinson.uni.lufelf.api.v1.xml;
 public class Place extends Message {
 
     protected int id = 0;
-    protected String name = null;
-    protected String address = null;
+    protected String name = "";
+    protected String address = "";
     protected Double lattitude;
     protected Double longditude;
-    protected String type;
-    protected String description;
-    protected String image_url;
-    protected int user_id;
+    protected String type ="";
+    protected String description = "";
+    protected String image_url = "";
+    protected int user_id = 0;
 
     public static final String PLACE_ID ="place_id";
     public static final String NAME ="place_name";
-    public static final String ADDRESS ="place_address";
+    public static final String ADDRESS ="place_adress";
     public static final String LATTITUDE ="place_lat";
     public static final String LONGDITUDE ="place_lon";
     public static final String TYPE = "place_type";

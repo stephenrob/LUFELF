@@ -1,6 +1,7 @@
 package uk.co.stephen_robinson.uni.lufelf.activities;
 
 import android.app.ActionBar;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -79,9 +80,9 @@ public class MainActivity extends BaseActivity {
         return super.onCreateOptionsMenu(menu);
     }
     public void logout(MenuItem item){
-        while(getFragmentManager().getBackStackEntryCount()>1)
-            getFragmentManager().popBackStack();
-        getFragmentManager().popBackStack();
+        FragmentManager manager = getFragmentManager();
+        FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
+        manager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         finish();
     }
 }

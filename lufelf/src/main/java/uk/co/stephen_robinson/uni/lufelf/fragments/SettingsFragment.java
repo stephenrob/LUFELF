@@ -41,8 +41,10 @@ public class SettingsFragment extends BaseFragment{
 
         Button deleteAccount = (Button) rootView.findViewById(R.id.setting_delete_user);
         deleteAccount.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+                showActivitySpinner();
                 Single sc = new Single() {
                     @Override
                     public void results(Hashtable result) {
@@ -51,6 +53,7 @@ public class SettingsFragment extends BaseFragment{
                             MainActivity b = (MainActivity)getActivity();
                             b.logout(null);
                         }
+                        hideActivitySpinner();
                     }
                 };
                 api.v1.deleteUser(sc);

@@ -1,6 +1,5 @@
 package uk.co.stephen_robinson.uni.lufelf.activities;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +9,7 @@ import uk.co.stephen_robinson.uni.lufelf.fragments.LoginFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.NavigationDrawerFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.RegisterFragment;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends BaseActivity {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.

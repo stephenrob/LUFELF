@@ -1,6 +1,7 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1;
 
 import java.util.Hashtable;
+import java.util.List;
 
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
 import uk.co.stephen_robinson.uni.lufelf.api.network.Script;
@@ -46,8 +47,6 @@ public class NetworkHelper {
                 break;
             case EVENT_LIST:
                 break;
-            case PLACE_LIST:
-                break;
             case SENT_MESSAGES:
                 break;
             case RECEIVED_MESSAGES:
@@ -57,6 +56,24 @@ public class NetworkHelper {
                 break;
         }
         return result;
+    }
+
+    public static List formatMultipleResults(Script serverScript, String serverResponse){
+
+        List results;
+
+        switch(Name.valueOf(serverScript.name)){
+
+            case PLACE_LIST:
+                results = Parser.parsePlaces(serverResponse);
+                break;
+
+            default:
+                results = null;
+                break;
+        }
+
+        return results;
     }
 
 }

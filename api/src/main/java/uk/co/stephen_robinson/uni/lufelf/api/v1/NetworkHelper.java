@@ -1,5 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -58,9 +59,9 @@ public class NetworkHelper {
         return result;
     }
 
-    public static List formatMultipleResults(Script serverScript, String serverResponse){
+    public static ArrayList formatMultipleResults(Script serverScript, String serverResponse){
 
-        List results;
+        ArrayList results;
 
         switch(Name.valueOf(serverScript.name)){
 

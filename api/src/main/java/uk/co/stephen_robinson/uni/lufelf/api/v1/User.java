@@ -11,6 +11,8 @@ import uk.co.stephen_robinson.uni.lufelf.api.SessionManager;
 import uk.co.stephen_robinson.uni.lufelf.api.network.SinglePost;
 import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
 
+import static uk.co.stephen_robinson.uni.lufelf.api.Helper.md5;
+
 /**
  * Created by Stephen on 21/02/14.
  */
@@ -79,7 +81,7 @@ public class User {
         params.add(new BasicNameValuePair(User.USERNAME, user.username));
         params.add(new BasicNameValuePair(User.PASSWORD, user.password));
 
-        Api.getSessionManager().createLoginSession(user.username, user.password, Integer.toString(0));
+        Api.getSessionManager().createLoginSession(user.username, md5(user.password), Integer.toString(0));
 
         SinglePost networkTask = new SinglePost(sc, Scripts.LOGIN_USER);
         networkTask.execute(params);

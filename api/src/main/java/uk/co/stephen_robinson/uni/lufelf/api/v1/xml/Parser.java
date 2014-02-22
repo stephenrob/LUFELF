@@ -221,6 +221,9 @@ public class Parser {
                         break;
 
                 }
+
+                eventType = parser.next();
+
             }
 
         } catch (XmlPullParserException e){

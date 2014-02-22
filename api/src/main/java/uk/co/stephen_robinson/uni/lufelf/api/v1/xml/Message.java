@@ -17,4 +17,15 @@ public class Message {
     public static final String SUCCESS = "ok";
     public static final String FAILURE = "fail";
 
+    public String getMessage() {
+        return message;
+    }
+
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public String getStatus() {
+        return status;
+    }
 }

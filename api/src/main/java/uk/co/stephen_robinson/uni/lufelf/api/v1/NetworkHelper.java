@@ -76,6 +76,10 @@ public class NetworkHelper {
                 results = Parser.parsePlaces(serverResponse);
                 break;
 
+            case EVENT_LIST:
+                results = Parser.parseEvents(serverResponse);
+                break;
+
             default:
                 results = null;
                 break;

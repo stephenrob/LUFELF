@@ -19,6 +19,12 @@
         android:showAsAction="always"
         android:onClick="handleButton"
         />
+    <item android:id="@+id/action_messages"
+        android:title="@string/action_messages"
+        android:icon="@drawable/ic_message"
+        android:showAsAction="always"
+        android:onClick="handleButton"
+        />
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"

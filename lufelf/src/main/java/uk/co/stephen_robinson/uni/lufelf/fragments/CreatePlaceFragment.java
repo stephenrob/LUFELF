@@ -67,7 +67,6 @@ public class CreatePlaceFragment extends BaseFragment{
 
 
                 if(allOk){
-                    toastMaker.makeToast("All ok");
                     //if there are no errors in user input
                     //create a new network call back to handle the returned data.
                     Single nc= new Single() {
@@ -76,7 +75,7 @@ public class CreatePlaceFragment extends BaseFragment{
                             hideActivitySpinner();
                             boolean error = toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
                             if(!error){
-                                toastMaker.makeToast("ADDED!");
+                                toastMaker.makeToast(result.get(Message.MESSAGE).toString());
                             }
                         }
                     };

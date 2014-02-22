@@ -46,7 +46,6 @@ public class MultipleGet extends AsyncTask<Void, Integer, ArrayList> {
                 case 1:
 
                     result =  NetworkHelper.formatMultipleResults(this.serverScript, responseText);
-                    Log.e("on post",result.toString());
                     break;
 
                 default:
@@ -63,7 +62,6 @@ public class MultipleGet extends AsyncTask<Void, Integer, ArrayList> {
 
     @Override
     protected void onPostExecute(ArrayList list) {
-
         multipleCallback.results(list);
     }
 }

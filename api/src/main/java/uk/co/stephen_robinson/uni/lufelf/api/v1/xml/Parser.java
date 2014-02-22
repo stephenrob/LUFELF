@@ -1,7 +1,5 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1.xml;
 
-import android.content.UriMatcher;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -9,7 +7,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Stephen on 21/02/14.
@@ -272,7 +269,7 @@ public class Parser {
                             status.message = parser.nextText();
                         }
 
-                        if(tagName.equalsIgnoreCase("place")){
+                        if(tagName.equalsIgnoreCase("event")){
                             event = new Event();
                         } else if(event != null){
                             if(tagName.equalsIgnoreCase(Event.ID)){

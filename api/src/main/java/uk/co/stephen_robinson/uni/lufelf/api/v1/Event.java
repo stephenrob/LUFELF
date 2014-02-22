@@ -1,7 +1,7 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1;
 
-import uk.co.stephen_robinson.uni.lufelf.api.network.MultipleGet;
-import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Multiple;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.MultipleGet;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
 
 /**
  * Created by Stephen on 22/02/2014.

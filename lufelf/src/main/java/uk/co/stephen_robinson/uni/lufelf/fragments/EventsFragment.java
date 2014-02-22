@@ -1,6 +1,7 @@
 package uk.co.stephen_robinson.uni.lufelf.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import uk.co.stephen_robinson.uni.lufelf.adapters.EventItemAdapter;
 import uk.co.stephen_robinson.uni.lufelf.adapters.EventListItem;
 import uk.co.stephen_robinson.uni.lufelf.adapters.NavDrawerItem;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Event;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 
 
@@ -46,7 +48,6 @@ public class EventsFragment extends BaseFragment{
         setFragmentManager(getFragmentManager());
         rootView = inflater.inflate(R.layout.fragment_events, container, false);
         setContext(rootView.getContext());
-        showActivitySpinner();
 
         //get the events listview
         list = (ListView)rootView.findViewById(R.id.events_listview);
@@ -73,21 +74,24 @@ public class EventsFragment extends BaseFragment{
      * @param rootView the rootview of the fragment
      */
     public void addEvents(LayoutInflater inflater, ViewGroup container,View rootView){
-
+        showActivitySpinner();
         Multiple multipleCallback=new Multiple() {
             @Override
             public void results(ArrayList result) {
+                Log.e("callback ",result.toString());
                 ArrayList navigationItems=new ArrayList<NavDrawerItem>();
                 Message m = (Message)result.get(result.size()-1);
                 if(!toastMaker.isError(String.valueOf(m.statusCode),m.message)){
                     for(int i=0;i<result.size()-1;i++){
-                        navigationItems.add(new EventListItem("item "+i,R.drawable.ic_location,String.valueOf(i),"Event Name "+i,"Creator "+i,new LatLng(i,i),i+":"+i,"This is a description for EVENT "+i));
+                        Event e=(Event)result.get(i);
+                        navigationItems.add(new EventListItem(e.getName(),R.drawable.ic_location,String.valueOf(i),e.getName(),"Creator "+i,new LatLng(i,i),e.getDate(),"This is a description for EVENT "+i));
                     }
                     list.setAdapter(new EventItemAdapter(context, navigationItems));
                 }
+                hideActivitySpinner();
             }
         };
         //get the events
-        //api.v1.getAllEvents(multipleCallback);
+        api.v1.getAllEvents(multipleCallback);
     }
 }

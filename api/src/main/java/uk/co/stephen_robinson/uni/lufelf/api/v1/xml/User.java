@@ -6,13 +6,13 @@ package uk.co.stephen_robinson.uni.lufelf.api.v1.xml;
 public class User extends Message {
 
     protected int user_id = 0;
-    protected String name = null;
-    protected String username = null;
-    protected String lib_no = null;
-    protected String dob = null;
-    protected String type = null;
-    protected String description = null;
-    protected String is_new = null;
+    protected String name = "";
+    protected String username = "";
+    protected String lib_no = "";
+    protected String dob = "";
+    protected String type = "";
+    protected String description = "";
+    protected String is_new = "";
 
     public static final String USER_ID = "user_id";
     public static final String NAME = "name";
@@ -23,5 +23,35 @@ public class User extends Message {
     public static final String DESCRIPTION = "description";
     public static final String IS_NEW = "is_new";
 
+    public int getUser_id() {
+        return user_id;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getLib_no() {
+        return lib_no;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getIs_new() {
+        return is_new;
+    }
 }

@@ -25,6 +25,13 @@ public class NetworkHelper {
 
             case CREATE_USER:
                 result = Formatter.userDetails(Parser.parseUserDetails(serverResponse), serverScript);
+
+                if (result.get(Message.STATUS).equals(Message.FAILURE)){
+                    Api.getSessionManager().logoutUser();
+                } else {
+                    Api.getSessionManager().updateUserId(result.get(User.USER_ID).toString());
+                }
+
                 break;
             case LOGIN_USER:
                 result = Formatter.userDetails(Parser.parseUserDetails(serverResponse), serverScript);

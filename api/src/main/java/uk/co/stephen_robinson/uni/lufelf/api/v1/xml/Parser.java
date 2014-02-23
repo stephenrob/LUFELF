@@ -287,6 +287,14 @@ public class Parser {
                                 event.type = parser.nextText();
                             } else if(tagName.equalsIgnoreCase(Event.DATE)) {
                                 event.date = parser.nextText();
+                            } else if(tagName.equalsIgnoreCase(Event.SINGLE_NAME)){
+                                event.name = parser.nextText();
+                            } else if(tagName.equalsIgnoreCase(Event.SINGLE_DESCRIPTION)){
+                                event.description = parser.nextText();
+                            } else if(tagName.equalsIgnoreCase(Event.SINGLE_TYPE)){
+                                event.type = parser.nextText();
+                            } else if(tagName.equalsIgnoreCase(Event.SINGLE_DATE)) {
+                                event.date = parser.nextText();
                             } else if(tagName.equalsIgnoreCase(Event.USER_ID)){
                                 event.user_id = Integer.valueOf(parser.nextText());
                             } else if(tagName.equalsIgnoreCase(Place.PLACE_ID)){

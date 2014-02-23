@@ -77,4 +77,16 @@ public class V1 {
     public void getEvent(Integer id, Multiple mc){
         Event.single(id, mc);
     }
+
+    public void addEvent(String name, String date, String type, String description, Integer place_id, Single sc){
+        Event event = new Event();
+
+        event.name = name;
+        event.date = date;
+        event.type = type;
+        event.description = description;
+        event.place_id = place_id;
+
+        Event.create(event, sc);
+    }
 }

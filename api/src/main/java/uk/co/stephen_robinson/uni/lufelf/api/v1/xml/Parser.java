@@ -246,6 +246,8 @@ public class Parser {
         XmlPullParser parser;
         String tagName;
 
+        Boolean inUser = false;
+
         try {
             parser = XmlPullParserFactory.newInstance().newPullParser();
             parser.setInput(new StringReader(data));
@@ -319,7 +321,8 @@ public class Parser {
 
                         if(tagName.equalsIgnoreCase("user")){
                             user = new EventUser();
-                        } else if(user != null){
+                            inUser = true;
+                        } else if(user != null && inUser){
                             if(tagName.equalsIgnoreCase(EventUser.NAME)){
                                 user.name = parser.nextText();
                             } else if(tagName.equalsIgnoreCase(EventUser.DATE_ACCEPTED)){
@@ -340,6 +343,10 @@ public class Parser {
                             if(tagName.equalsIgnoreCase("user") && user != null){
                                 users.add(user);
                             }
+                        }
+
+                        if(tagName.equalsIgnoreCase("user")){
+                            inUser = false;
                         }
 
                         break;

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import uk.co.stephen_robinson.uni.lufelf.adapters.UserItem;
 import uk.co.stephen_robinson.uni.lufelf.utilities.DownloadImage;
 import uk.co.stephen_robinson.uni.lufelf.R;
 
@@ -19,7 +20,13 @@ public class FriendsSubFragment extends BaseFragment{
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static FriendsSubFragment newInstance() {
+    public static FriendsSubFragment newInstance(UserItem user) {
+        Bundle args = new Bundle();
+        args.putString("name",user.getName());
+        args.putString("username",user.getEmailAdd());
+        args.putString("lib_no",user.getLibraryNo());
+        args.putInt("user_id",user.getId());
+        args.putString("description",user.getDescription());
         return new FriendsSubFragment();
     }
 

@@ -247,7 +247,7 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
     public void onInfoWindowClick(Marker m){
         resetIndexes();
         String[] idTitle=stripID(m.getTitle());
-        fragmentManager.beginTransaction().replace(R.id.container, PlaceSubFragment.newInstance((PlaceItem)placeItems.get(Integer.valueOf(idTitle[0]))), "PlaceSubView").addToBackStack(null).commit();
+        fragmentManager.beginTransaction().add(R.id.container, PlaceSubFragment.newInstance((PlaceItem)placeItems.get(Integer.valueOf(idTitle[0]))), "PlaceSubView").addToBackStack(null).commit();
        // m.getPosition().latitude;
     }
 

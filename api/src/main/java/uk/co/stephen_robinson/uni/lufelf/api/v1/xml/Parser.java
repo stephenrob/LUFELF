@@ -319,7 +319,7 @@ public class Parser {
                             users = new ArrayList<EventUser>();
                         }
 
-                        if(tagName.equalsIgnoreCase("user")){
+                        /*if(tagName.equalsIgnoreCase("user")){
                             user = new EventUser();
                             inUser = true;
                         } else if(user != null && inUser){
@@ -329,7 +329,7 @@ public class Parser {
                                 user.date_accepted = parser.nextText();
                             }
                         }
-
+*/
                         break;
 
                     case XmlPullParser.END_TAG:

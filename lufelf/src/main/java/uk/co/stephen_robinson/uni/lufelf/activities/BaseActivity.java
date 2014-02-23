@@ -1,7 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.activities;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.view.MenuItem;
@@ -30,7 +29,6 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
     int currentChildPosition=-1;
     int currentGroupPosition=-1;
 
-    private Dialog dialog;
 
     // array to hold the various fragments used in the navigation drawer.
     Fragment[][] fragments={{MapViewFragment.newInstance(null), CreatePlaceFragment.newInstance()},
@@ -66,6 +64,7 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
 
         //check if either the child or group position differs
         //if it does swap frgments
+
         if(currentChildPosition!=position||currentGroupPosition!=groupPos)
             fragmentManager.beginTransaction().replace(R.id.container, fragments[groupPos][position],tags[groupPos][position]).addToBackStack(null).commit();
 
@@ -92,21 +91,28 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
      */
     //
     public void handleButton(MenuItem item){
-        //get item title
-        String title=String.valueOf(item.getTitle());
+        findTagPosition(item.getTitle().toString());
+        onNavigationDrawerItemSelected(currentGroupPosition,currentChildPosition);
+    }
 
-        //go through tags array until there is a match, then switch
+    /**
+     * Find the position of a fragment by using it's tag and updates the current group and child positions
+     * @param tag the fragments' tag
+     */
+    public void findTagPosition(String tag){
         for(int outer=0;outer<tags.length;outer++){
             for(int inner=0;inner<tags[outer].length;inner++){
-                if(tags[outer][inner].equals(title)){
-                    onNavigationDrawerItemSelected(outer,inner);
-                    break;
+                if(tags[outer][inner].equals(tag)){
+                    currentGroupPosition=outer;
+                    currentChildPosition=inner;
+                    return;
                 }
             }
         }
+        currentGroupPosition=0;
+        currentChildPosition=0;
 
     }
-
     //custom onBackPressed action to allow backward navigation
     @Override
     public void onBackPressed() {
@@ -118,12 +124,15 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
 
         //if the size is greater than one pop
         //otherwise close the app
-        if(size>1)
-            this.getFragmentManager().popBackStack();
-        else{
+        if(size>1){
+            this.getFragmentManager().popBackStackImmediate();
+            Fragment f = getFragmentManager().findFragmentById(R.id.container);
+            findTagPosition(f.getTag());
+        }else{
             this.getFragmentManager().popBackStack();
             finish();
         }
+
     }
 
     /**

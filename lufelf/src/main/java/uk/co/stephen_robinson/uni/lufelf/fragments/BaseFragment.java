@@ -102,14 +102,7 @@ public class BaseFragment  extends Fragment{
             throw new RuntimeException(e);
         }
     }
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Fragment f = (Fragment) getFragmentManager()
-                .findFragmentById(R.id.map);
-        if (f != null)
-            getFragmentManager().beginTransaction().remove(f).commit();
-    }
+
     /**
      * method used to check if the network is currently available.
      * @return Boolean that indicates if a data connection is available.

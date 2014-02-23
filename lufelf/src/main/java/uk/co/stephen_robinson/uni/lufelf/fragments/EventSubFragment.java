@@ -103,5 +103,9 @@ public class EventSubFragment extends BaseFragment{
 
         return rootView;
     }
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        getFragmentManager().beginTransaction().remove(this).commit();
+    }
 }

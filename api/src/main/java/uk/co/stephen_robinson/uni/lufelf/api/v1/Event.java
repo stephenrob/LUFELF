@@ -6,8 +6,9 @@ import org.apache.http.message.BasicNameValuePair;
 import java.util.ArrayList;
 import java.util.List;
 
-import uk.co.stephen_robinson.uni.lufelf.api.network.MultipleGet;
-import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Multiple;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.MultipleGet;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.MultiplePost;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
 
 /**
  * Created by Stephen on 22/02/2014.
@@ -42,7 +43,8 @@ public class Event {
         List<NameValuePair> params = new ArrayList<NameValuePair>(1);
 
         params.add(new BasicNameValuePair(Event.ID, id.toString()));
-
+        MultiplePost networkTask = new MultiplePost(mc, Scripts.EVENT_DETAILS);
+        networkTask.execute(params);
     }
 
 }

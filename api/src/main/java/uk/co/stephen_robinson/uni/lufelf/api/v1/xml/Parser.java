@@ -1,5 +1,7 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1.xml;
 
+import android.util.Log;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -341,8 +343,10 @@ public class Parser {
             }
 
         } catch (XmlPullParserException e){
+            Log.e("PULL PARSE EXCEPTION", Log.getStackTraceString(e));
             events = null;
         } catch (IOException e){
+            Log.e("IO EXCEPTION", Log.getStackTraceString(e));
             events = null;
         }
 

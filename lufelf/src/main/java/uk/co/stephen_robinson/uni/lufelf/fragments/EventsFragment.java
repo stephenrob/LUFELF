@@ -1,7 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,15 +77,14 @@ public class EventsFragment extends BaseFragment{
         Multiple multipleCallback=new Multiple() {
             @Override
             public void results(ArrayList result) {
-                Log.e("callback ",result.toString());
-                ArrayList navigationItems=new ArrayList<NavDrawerItem>();
+                ArrayList eventItems=new ArrayList<NavDrawerItem>();
                 Message m = (Message)result.get(result.size()-1);
                 if(!toastMaker.isError(String.valueOf(m.statusCode),m.message)){
                     for(int i=0;i<result.size()-1;i++){
                         Event e=(Event)result.get(i);
-                        navigationItems.add(new EventListItem(e.getName(),R.drawable.ic_location,String.valueOf(i),e.getName(),"Creator "+i,new LatLng(i,i),e.getDate(),"This is a description for EVENT "+i));
+                        eventItems.add(new EventListItem(String.valueOf(e.getId()),e.getName(),R.drawable.ic_location,"Creator "+i,new LatLng(i,i),e.getDate(),"This is a description for EVENT "+i));
                     }
-                    list.setAdapter(new EventItemAdapter(context, navigationItems));
+                    list.setAdapter(new EventItemAdapter(context, eventItems));
                 }
                 hideActivitySpinner();
             }

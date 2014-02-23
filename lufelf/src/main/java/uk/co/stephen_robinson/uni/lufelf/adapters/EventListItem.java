@@ -11,10 +11,9 @@ import uk.co.stephen_robinson.uni.lufelf.R;
 
 public class EventListItem {
 
-    private String title;
+    private String eventName;
     private int icon;
     private String id;
-    private String eventName;
     private String creator;
     private LatLng location;
     private String dateTime;
@@ -32,20 +31,18 @@ public class EventListItem {
     /**
      * Constructor for the eventlistitem
      *
-     * @param title       Title of the event
+     * @param eventName   event name
      * @param iconID        drawable resource of event
      * @param id          event id
-     * @param eventName   event name
      * @param creator     the id of the person who created the event
      * @param loc         LatLng of the event.
      * @param dateTime    The date time of the event
      * @param description The description of the event.
      */
-    public EventListItem(String title, int iconID, String id, String eventName, String creator, LatLng loc, String dateTime, String description) {
-        this.title = title;
+    public EventListItem(String id,String eventName, int iconID, String creator, LatLng loc, String dateTime, String description) {
+        this.eventName = eventName;
         this.icon = iconID;
         this.id = id;
-        this.eventName = eventName;
         this.creator = creator;
         this.location = loc;
         this.dateTime = dateTime;
@@ -57,9 +54,7 @@ public class EventListItem {
      *
      * @return title of the EventListItem
      */
-    public String getTitle() {
-        return this.title;
-    }
+
 
     /**
      * get the icon of the event

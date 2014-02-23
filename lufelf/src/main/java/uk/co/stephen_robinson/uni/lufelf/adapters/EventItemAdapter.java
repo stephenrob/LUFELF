@@ -80,7 +80,7 @@ public class EventItemAdapter extends BaseAdapter {
 
 
         imgIcon.setImageResource(eventListItems.get(position).getIcon());
-        txtTitle.setText(eventListItems.get(position).getTitle());
+        txtTitle.setText(eventListItems.get(position).getEventName());
 
         return convertView;
     }

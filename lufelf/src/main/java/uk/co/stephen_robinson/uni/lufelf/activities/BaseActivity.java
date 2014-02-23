@@ -10,7 +10,6 @@ import uk.co.stephen_robinson.uni.lufelf.fragments.CreateEventFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.CreatePlaceFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.EventsFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.FriendsFragment;
-import uk.co.stephen_robinson.uni.lufelf.fragments.FriendsSubFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.LoginFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.MapViewFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.MessagesFragment;
@@ -32,7 +31,7 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
 
     // array to hold the various fragments used in the navigation drawer.
     Fragment[][] fragments={{MapViewFragment.newInstance(null), CreatePlaceFragment.newInstance()},
-            {FriendsFragment.newInstance(), FriendsSubFragment.newInstance()},
+            {FriendsFragment.newInstance(),SearchFragment.newInstance(SearchFragment.friendsSearch)},
             {EventsFragment.newInstance(), CreateEventFragment.newInstance(),EventsFragment.newInstance()},
             {MessagesFragment.newInstance()},
             {SettingsFragment.newInstance()},

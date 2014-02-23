@@ -106,12 +106,18 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
 
         }
 
-        populateWithPlaces();
+
         DirectionsQuery query = new DirectionsQuery();
-        /*if(isNetworkAvailable())
-            query.getRoute(getLocation(), new LatLng(54.0078566, -2.7856414),map);
-        else
-            Toast.makeText(context,"No Active Internet Connection Found",Toast.LENGTH_LONG).show();*/
+
+        Bundle args = getArguments();
+        if(args!=null){
+            if(isNetworkAvailable())
+                query.getRoute(getLocation(), new LatLng(54.0078566, -2.7856414),map);
+            else
+                Toast.makeText(context,"No Active Internet Connection Found",Toast.LENGTH_LONG).show();
+        }else{
+            populateWithPlaces();
+        }
         //query.loginUser(new LatLng(54.0097969,-2.7862154),new LatLng(54.0078566,-2.7856414));
         //navigateTo(new LatLng(54.0103,2.7856));
         //hideBusy();

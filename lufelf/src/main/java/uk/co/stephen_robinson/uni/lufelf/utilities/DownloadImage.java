@@ -94,7 +94,7 @@ public class DownloadImage{
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (resp != -1){
+                        if (resp != -1&&image!=null){
 
                             //set the image bitmap to the downloaded image
                             imageView.setImageBitmap(getRoundedCornerBitmap(image,20));

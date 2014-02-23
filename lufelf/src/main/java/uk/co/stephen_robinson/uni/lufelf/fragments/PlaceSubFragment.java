@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.adapters.PlaceItem;
 import uk.co.stephen_robinson.uni.lufelf.utilities.DownloadImage;
@@ -16,7 +18,7 @@ import uk.co.stephen_robinson.uni.lufelf.utilities.DownloadImage;
  * Place profile
  */
 public class PlaceSubFragment extends BaseFragment{
-
+    private LatLng finish;
     /**
      * Returns a new instance of this fragment for the given section
      * number.
@@ -26,12 +28,14 @@ public class PlaceSubFragment extends BaseFragment{
         Bundle args =new Bundle();
 
         args.putInt("id",p.getId());
-        args.putString("name",p.getName());
+        args.putString("name", p.getName());
         args.putString("description",p.getDescription());
         args.putString("address",p.getAddress());
         args.putString("imageurl",p.getImageUrl());
-        args.putInt("creatorid",p.getCreatedByID());
-        args.putString("type",p.getType());
+        args.putInt("creatorid", p.getCreatedByID());
+        args.putDouble("lat",p.getLocation().latitude);
+        args.putDouble("long",p.getLocation().longitude);
+        args.putInt("icon",p.getIcon());
 
         f.setArguments(args);
         return f;
@@ -59,12 +63,22 @@ public class PlaceSubFragment extends BaseFragment{
         TextView name = (TextView)rootView.findViewById(R.id.location_name);
         TextView address = (TextView)rootView.findViewById(R.id.location_address);
         TextView description = (TextView)rootView.findViewById(R.id.location_description_box);
-        TextView type = (TextView)rootView.findViewById(R.id.location_type);
+        ImageView type = (ImageView)rootView.findViewById(R.id.location_type);
+        TextView locationText = (TextView)rootView.findViewById(R.id.place_location);
 
         name.setText(args.getString("name"));
         address.setText(args.getString("address"));
         description.setText(args.getString("description"));
-        type.setText(args.getString("type"));
+        type.setImageDrawable(getResources().getDrawable(args.getInt("icon")));
+
+        finish=new LatLng(args.getDouble("lat"),args.getDouble("long"));
+
+        locationText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentManager.beginTransaction().replace(R.id.container, MapViewFragment.newInstance(finish), "NavigateToPlace").addToBackStack(null).commit();
+            }
+        });
 
         if(args.getString("imageurl")!=null){
             DownloadImage downloadImage=new DownloadImage(profile,getActivity(), args.getString("imageurl"));

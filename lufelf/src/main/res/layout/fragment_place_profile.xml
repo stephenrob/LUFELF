@@ -28,19 +28,71 @@
                 android:background="@drawable/image_background"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/image_location"
+                android:id="@+id/title_layout">
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/location_type"
+                    android:textSize="@dimen/subtitle"
+                    android:textColor="@color/stdtxt"
+                    android:text="Type:"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"/>
+                <TextView
+                    android:id="@+id/location_name"
+                    android:textColor="@color/titletxt"
+                    android:text="Location Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/name"
+                    android:gravity="left"
+                    android:layout_below="@id/image_location"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title_layout"
+                android:id="@+id/event_below_image_linear"
+                android:layout_marginTop="10dp">
 
+                <ImageView
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/ic_profile_location"/>
+                <TextView
+                    android:id="@+id/place_location"
+                    android:textSize="@dimen/subtitle"
+                    android:text="@string/event_subfragment_location"
+                    android:textColor="@color/stdtxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginRight="20dp"
+                    android:layout_toRightOf="@id/event_host"/>
+
+            </LinearLayout>
             <TextView
-                android:id="@+id/location_name"
-                android:textColor="@color/titletxt"
-                android:text="Location Name"
+                android:id="@+id/location_address_text"
+                android:textSize="20dp"
+                android:textColor="@color/stdtxt"
+                android:text="Address:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/name"
+                android:layout_below="@id/event_below_image_linear"
                 android:gravity="left"
-                android:layout_below="@id/image_location"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"/>
-
+                android:layout_marginLeft="20dp"
+                />
             <TextView
                 android:id="@+id/location_address"
                 android:textSize="@dimen/text"
@@ -48,23 +100,14 @@
                 android:lines="3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/location_name"
+                android:layout_below="@+id/location_address_text"
                 android:gravity="left"
                 android:background="@drawable/event_text_field"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"/>
 
-            <TextView
-                android:id="@+id/location_type"
-                android:textSize="@dimen/subtitle"
-                android:textColor="@color/stdtxt"
-                android:text="Type:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_below="@id/location_address"/>
+
 
             <TextView
                 android:id="@+id/location_description"
@@ -73,7 +116,7 @@
                 android:text="Description:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/location_type"
+                android:layout_below="@id/location_address"
                 android:gravity="left"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"

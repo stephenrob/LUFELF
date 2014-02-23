@@ -1,6 +1,7 @@
 package uk.co.stephen_robinson.uni.lufelf.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +83,7 @@ public class EventsFragment extends BaseFragment{
                 if(!toastMaker.isError(String.valueOf(m.statusCode),m.message)){
                     for(int i=0;i<result.size()-1;i++){
                         Event e=(Event)result.get(i);
+                        Log.e("EVENT DATES",e.getDate());
                         eventItems.add(new EventListItem(String.valueOf(e.getId()),e.getName(),R.drawable.ic_location,"Creator "+i,new LatLng(i,i),e.getDate(),"This is a description for EVENT "+i));
                     }
                     list.setAdapter(new EventItemAdapter(context, eventItems));

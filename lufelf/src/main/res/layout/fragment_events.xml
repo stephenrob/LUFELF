@@ -17,6 +17,7 @@
         android:textSize="@dimen/title"
         android:layout_alignParentTop="true"
         android:gravity="center_horizontal" />
+
     <TextView
         android:id="@+id/events_subtitle"
         android:textSize="@dimen/subtitle"

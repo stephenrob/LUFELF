@@ -33,7 +33,6 @@
             <TextView
                 android:id="@+id/event_name"
                 android:textColor="@color/titletxt"
-                android:text="Event Name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/name"
@@ -45,7 +44,6 @@
                 android:id="@+id/event_host"
                 android:textSize="@dimen/text"
                 android:textColor="@color/stdtxt"
-                android:text="By:"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/event_name"
@@ -68,12 +66,11 @@
                 <TextView
                     android:id="@+id/event_location"
                     android:textSize="@dimen/subtitle"
+                    android:text="@string/event_subfragment_location"
                     android:textColor="@color/stdtxt"
-                    android:text="Location:"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_toRightOf="@id/event_host"/>
                 <ImageView
@@ -84,7 +81,6 @@
                     android:id="@+id/event_date_time"
                     android:textSize="20dp"
                     android:textColor="@color/stdtxt"
-                    android:text="Date/Time:"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="left"

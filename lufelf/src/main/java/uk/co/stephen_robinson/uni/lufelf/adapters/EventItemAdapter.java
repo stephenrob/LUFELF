@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -75,11 +74,11 @@ public class EventItemAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.event_listview_layout, null);
         }
 
-        ImageView imgIcon = (ImageView) convertView.findViewById(R.id.event_item_icon);
+
         TextView txtTitle = (TextView) convertView.findViewById(R.id.event_item_text);
+        TextView dateTime = (TextView) convertView.findViewById(R.id.event_item_time);
 
-
-        imgIcon.setImageResource(eventListItems.get(position).getIcon());
+        dateTime.setText(eventListItems.get(position).getDateTime());
         txtTitle.setText(eventListItems.get(position).getEventName());
 
         return convertView;

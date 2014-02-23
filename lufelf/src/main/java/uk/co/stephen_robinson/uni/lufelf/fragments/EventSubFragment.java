@@ -1,5 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,7 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.adapters.EventListItem;
@@ -21,6 +25,7 @@ import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
  */
 public class EventSubFragment extends BaseFragment{
 
+    private LatLng finish;
     /**
      * create a fragment with a specific item
      * @param item the event to base the fragment on.
@@ -64,6 +69,26 @@ public class EventSubFragment extends BaseFragment{
         final TextView datetime=(TextView)rootView.findViewById(R.id.event_date_time);
         final TextView description=(TextView)rootView.findViewById(R.id.event_description_box);
 
+        location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentManager.beginTransaction().add(R.id.container, MapViewFragment.newInstance(finish), "NavigateToEvent").addToBackStack(null).commit();
+            }
+        });
+
+        datetime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                Intent intent = new Intent(Intent.ACTION_EDIT);
+                intent.setType("vnd.android.cursor.item/event");
+                intent.putExtra("beginTime", cal.getTimeInMillis());
+                intent.putExtra("allDay", true);
+                intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
+                intent.putExtra("title", eventName.getText().toString());
+                startActivity(intent);
+            }
+        });
 
         Multiple m =new Multiple() {
             @Override
@@ -79,6 +104,8 @@ public class EventSubFragment extends BaseFragment{
 
                     datetime.setText(event.getDate());
                     description.setText(event.getDescription());
+                    finish=new LatLng(54.0470,2.8010);
+
                     //location.setText(String.valueOf(args.getDouble("lat"))+","+String.valueOf(args.getDouble("long")));
                     /*Single single = new Single() {
                         @Override

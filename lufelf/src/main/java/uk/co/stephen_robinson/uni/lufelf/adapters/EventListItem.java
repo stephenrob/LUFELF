@@ -11,13 +11,13 @@ import uk.co.stephen_robinson.uni.lufelf.R;
 
 public class EventListItem {
 
-    private String eventName;
+    private String eventName="";
     private int icon;
-    private String id;
-    private String creator;
+    private String id="";
+    private String creator="";
     private LatLng location;
-    private String dateTime;
-    private String description;
+    private String dateTime="";
+    private String description="";
 
     private static int social= R.drawable.seminar;
     private static int university=R.drawable.university;
@@ -45,7 +45,8 @@ public class EventListItem {
         this.id = id;
         this.creator = creator;
         this.location = loc;
-        this.dateTime = dateTime;
+
+        this.dateTime =dateTime;
         this.description = description;
     }
 

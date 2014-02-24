@@ -68,6 +68,7 @@ public class User {
         params.add(new BasicNameValuePair(User.ACCESS_LEVEL, Integer.toString(user.access_level)));
 
         Api.getSessionManager().createLoginSession(user.username, md5(user.password), Integer.toString(0));
+        Api.getSessionManager().setPrivacy(Integer.toString(user.location_status));
 
         SinglePost networkTask = new SinglePost(sc, Scripts.CREATE_USER);
         networkTask.execute(params);

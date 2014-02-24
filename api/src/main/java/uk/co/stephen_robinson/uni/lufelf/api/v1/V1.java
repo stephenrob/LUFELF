@@ -1,7 +1,8 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1;
 
-import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
-import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
+import uk.co.stephen_robinson.uni.lufelf.api.Api;
+import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Multiple;
+import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
 
 /**
  * Created by Stephen on 21/02/14.
@@ -104,6 +105,10 @@ public class V1 {
 
     public void updatePrivacy(Integer privacy, Single sc){
         Status.updatePrivacy(privacy, sc);
+    }
+
+    public String currentPrivacy(){
+        return Api.getSessionManager().getPrivacy();
     }
 
     public void updateLocation(Double lat, Double lon, Single sc){

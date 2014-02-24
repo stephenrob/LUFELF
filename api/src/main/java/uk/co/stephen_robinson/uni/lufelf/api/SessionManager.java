@@ -28,6 +28,8 @@ public class SessionManager {
 
     public static final String KEY_PASSWORD = "password";
 
+    public static final String KEY_PRIVACY = "privacy";
+
     public SessionManager(Context context){
         this._context = context;
         sharedPreferences = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
@@ -66,6 +68,16 @@ public class SessionManager {
 
     public boolean checkLogin(){
         return sharedPreferences.getBoolean(IS_LOGIN, false);
+    }
+
+    public void setPrivacy(String privacy){
+        editor.putString(KEY_PRIVACY, privacy);
+
+        editor.commit();
+    }
+
+    public String getPrivacy(){
+        return sharedPreferences.getString(KEY_PRIVACY, null);
     }
 
     public void logoutUser(){

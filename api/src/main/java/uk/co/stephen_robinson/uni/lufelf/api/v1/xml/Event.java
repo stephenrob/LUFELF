@@ -73,4 +73,20 @@ public class Event extends Message {
     public ArrayList<EventUser> getAttendees() {
         return attendees;
     }
+
+    public String getLocation_name() {
+        return location_name;
+    }
+
+    public String getLocation_address() {
+        return location_address;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
 }

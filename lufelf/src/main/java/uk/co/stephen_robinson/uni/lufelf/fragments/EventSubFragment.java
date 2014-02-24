@@ -72,8 +72,7 @@ public class EventSubFragment extends BaseFragment{
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentManager.beginTransaction().add(R.id.container, MapViewFragment.newInstance(finish), "NavigateToEvent").addToBackStack(null).commit();
-            }
+                swapToNavigateTo(finish);            }
         });
 
         datetime.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +100,6 @@ public class EventSubFragment extends BaseFragment{
                     Log.e("OUTPUT",event.toString());
                     Log.e("OUTPUT",event.getDate());
                     eventName.setText(event.getName());
-
                     datetime.setText(event.getDate());
                     description.setText(event.getDescription());
                     finish=new LatLng(54.0470,2.8010);

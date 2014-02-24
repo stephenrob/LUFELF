@@ -107,12 +107,13 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
         }
 
 
-        DirectionsQuery query = new DirectionsQuery();
+        DirectionsQuery query = new DirectionsQuery(context);
 
         Bundle args = getArguments();
         if(args!=null){
+            Log.e("LATLNG",args.getDouble("lat")+" "+args.getDouble("long"));
             if(isNetworkAvailable())
-                query.getRoute(getLocation(), new LatLng(54.0078566, -2.7856414),map);
+                query.getRoute(getLocation(), new LatLng(args.getDouble("lat"),args.getDouble("long") ),map);
             else
                 Toast.makeText(context,"No Active Internet Connection Found",Toast.LENGTH_LONG).show();
         }else{
@@ -153,7 +154,7 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
                 if(!toastMaker.isError(String.valueOf(m.statusCode),m.message)){
                     for(int i=0;i<result.size()-1;i++){
                         Place p =(Place)result.get(i);
-                        Log.e("crap",p.getDescription());
+                        Log.e("LATLONG",p.getLattitude()+" "+p.getLongditude());
                         placeItems.add(new PlaceItem(p.getId(),p.getName(),p.getAddress(),p.getType(),p.getDescription(),p.getUser_id(),p.getImage_url(),p.getLattitude(),p.getLongditude()));
                     }
 
@@ -267,10 +268,11 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
     }
 
     @Override
-    public void onDestroyView()
-    {
+    public void onDestroyView() {
         super.onDestroyView();
-        MapFragment fragment = (MapFragment)(getFragmentManager().findFragmentById(R.id.map));
-        fragmentManager.beginTransaction().remove(fragment).commit();
+        MapFragment f = (MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map);
+        if (f != null)
+            getFragmentManager().beginTransaction().remove(f).commit();
     }
 }

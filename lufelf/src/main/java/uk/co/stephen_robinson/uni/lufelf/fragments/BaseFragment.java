@@ -40,6 +40,7 @@ import java.security.NoSuchAlgorithmException;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.activities.MainActivity;
+import uk.co.stephen_robinson.uni.lufelf.activities.NavigateToActivity;
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
 import uk.co.stephen_robinson.uni.lufelf.utilities.ToastMaker;
 import uk.co.stephen_robinson.uni.lufelf.utilities.UploadImage;
@@ -320,7 +321,14 @@ public class BaseFragment  extends Fragment{
 
         return result;
     }
-
+    public void swapToNavigateTo(LatLng finish){
+        Intent swapToApp=new Intent(rootView.getContext(),NavigateToActivity.class);
+        Bundle args = new Bundle();
+        args.putDouble("lat", finish.latitude);
+        args.putDouble("lat",finish.longitude);
+        swapToApp.putExtras(args);
+        startActivity(swapToApp);
+    }
     /**
      * hash a string using md5
      * @param s the string to hash

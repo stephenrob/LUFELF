@@ -1,6 +1,7 @@
 package uk.co.stephen_robinson.uni.lufelf.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,11 +73,11 @@ public class PlaceSubFragment extends BaseFragment{
         type.setImageDrawable(getResources().getDrawable(args.getInt("icon")));
 
         finish=new LatLng(args.getDouble("lat"),args.getDouble("long"));
-
+        Log.e("INSTANCEOF", finish.latitude + " " + finish.longitude);
         locationText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentManager.beginTransaction().replace(R.id.container, MapViewFragment.newInstance(finish), "NavigateToPlace").addToBackStack(null).commit();
+                swapToNavigateTo(finish);
             }
         });
 

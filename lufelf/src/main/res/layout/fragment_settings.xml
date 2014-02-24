@@ -22,28 +22,54 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="10dp" />
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/settings_title"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:id="@+id/settings_layout" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/setting_delete_user"
+            android:text="Change Profile Image"
+            android:textSize="18dp"
+            android:layout_weight="1"
+            />
+
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:id="@+id/change_profile_image"
+            android:src="@drawable/ic_question_mark"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"/>
+
+       </LinearLayout>
+
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/settings_show_hide_location"
-        android:textSize="@dimen/subtitle"
+        android:textSize="18dp"
         android:id="@+id/settings_location"
-        android:layout_marginTop="30dp"
-        android:layout_below="@id/settings_title"
+        android:layout_below="@id/settings_layout"
         android:thumb="@drawable/apptheme_switch_inner_holo_light"
         android:track="@drawable/apptheme_switch_track_holo_light"/>
 
-    <Button
-        android:id="@+id/setting_delete_user"
-        android:background="@drawable/button"
-        android:textSize="@dimen/subtitle"
-        android:textColor="@color/stdtxt"
-        android:text="@string/settings_delete_user"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/setting_delete_user1"
         android:layout_below="@id/settings_location"
-        android:gravity="center"
-        android:layout_marginTop="10dp"/>
+        android:text="Delete Account"
+        android:textSize="18dp"
+        android:textColor="@color/titletxt"
+        android:gravity="left"
+        android:layout_marginTop="10dp" />
 
     <Button
         android:layout_width="200dp"

@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.Hashtable;
 
@@ -39,7 +39,7 @@ public class SettingsFragment extends BaseFragment{
         setContext(rootView.getContext());
         //showActivitySpinner();
 
-        Button deleteAccount = (Button) rootView.findViewById(R.id.setting_delete_user);
+        TextView deleteAccount = (TextView) rootView.findViewById(R.id.setting_delete_user);
         deleteAccount.setOnClickListener(new View.OnClickListener() {
 
             @Override

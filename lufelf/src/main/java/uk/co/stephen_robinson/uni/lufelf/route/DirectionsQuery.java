@@ -1,8 +1,10 @@
 package uk.co.stephen_robinson.uni.lufelf.route;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
@@ -28,13 +30,14 @@ public class DirectionsQuery {
 
     private HttpClient client;
     private DirectionsParser directions;
-
+    private Context context;
     /**
      * instantiates the directions and client variables.
      */
-    public DirectionsQuery(){
+    public DirectionsQuery(Context context){
         directions=new DirectionsParser();
         client= new DefaultHttpClient();
+        this.context=context;
     }
 
     /**
@@ -76,9 +79,8 @@ public class DirectionsQuery {
             }
             @Override
             protected void onPostExecute(Route r) {
-                DirectionsQuery query = new DirectionsQuery();
                 List<Point> point=r.getRoute();
-                if(point!=null){
+                if(point.size()>0){
                     PolylineOptions line = new PolylineOptions();
                     line.width(5);
                     line.color(Color.RED);
@@ -99,6 +101,8 @@ public class DirectionsQuery {
                 }
 
                 map.addPolyline(line);
+                }else{
+                    Toast.makeText(context,"No Route Found",Toast.LENGTH_LONG);
                 }
             }
         }.execute();

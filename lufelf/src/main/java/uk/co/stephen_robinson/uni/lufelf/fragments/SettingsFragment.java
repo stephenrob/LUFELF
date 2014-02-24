@@ -42,6 +42,9 @@ public class SettingsFragment extends BaseFragment{
         //showActivitySpinner();
 
         Switch showLocation=(Switch)rootView.findViewById(R.id.settings_location);
+        
+        boolean currentPrivacy=api.v1.currentPrivacy().equals("1")?true:false;
+        showLocation.setChecked(currentPrivacy);
 
         showLocation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

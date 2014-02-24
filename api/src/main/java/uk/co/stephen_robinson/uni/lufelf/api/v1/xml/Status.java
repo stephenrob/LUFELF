@@ -17,4 +17,24 @@ public class Status extends Message {
     public static final String LONGITUDE = "lon";
     public static final String IS_NEW = "is_new";
 
+
+    public Integer getId() {
+        return id;
+    }
+
+    public Integer getLocation() {
+        return location;
+    }
+
+    public Double getLattitude() {
+        return lattitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public Boolean getIs_new() {
+        return is_new;
+    }
 }

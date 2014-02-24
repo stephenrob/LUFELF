@@ -90,6 +90,10 @@ public class V1 {
         Event.create(event, sc);
     }
 
+    public void deleteEvent(Integer eventId, Single sc){
+        Event.delete(eventId, sc);
+    }
+
     public void addFriend(Integer friendId, Single sc){
         Friend.add(friendId, sc);
     }

@@ -8,7 +8,7 @@ public class Friend extends Message {
     protected int request_id;
     protected int friend_id;
     protected int user_id;
-    protected int status;
+    protected int friend_status;
     protected String name;
     protected String username;
     protected int location_status;
@@ -28,4 +28,39 @@ public class Friend extends Message {
     public static final String USER = "user";
     public static final String USERS = "users";
 
+    public int getRequest_id() {
+        return request_id;
+    }
+
+    public int getFriend_id() {
+        return friend_id;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public int getFriend_status() {
+        return friend_status;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public int getLocation_status() {
+        return location_status;
+    }
+
+    public Double getLattitude() {
+        return lattitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
 }

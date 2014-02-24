@@ -73,4 +73,20 @@ public class Event {
 
     }
 
+    static void delete(Integer eventId, Single sc){
+
+        int userId = Integer.parseInt(Api.getSessionManager().getUserDetails().get(SessionManager.KEY_USERID));
+        String password = Api.getSessionManager().getUserDetails().get(SessionManager.KEY_PASSWORD);
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>(3);
+
+        params.add(new BasicNameValuePair(User.USER_ID, Integer.toString(userId)));
+        params.add(new BasicNameValuePair(Event.ID, Integer.toString(eventId)));
+        params.add(new BasicNameValuePair(User.PASSWORD, password));
+
+        SinglePost networkTask =  new SinglePost(sc, Scripts.DELETE_EVENT);
+        networkTask.execute(params);
+
+    }
+
 }

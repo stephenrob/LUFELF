@@ -323,7 +323,7 @@ public class Parser {
                         if(tagName.equalsIgnoreCase("user")){
                             user = new EventUser();
                             inUser = true;
-                        } else if(user != null && inUser){
+                        } else if(inUser && user != null){
                             if(tagName.equalsIgnoreCase(EventUser.NAME)){
                                 user.name = parser.nextText();
                             } else if(tagName.equalsIgnoreCase(EventUser.DATE_ACCEPTED)){

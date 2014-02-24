@@ -56,6 +56,8 @@ public class Status {
 
         List<NameValuePair> params = new ArrayList<NameValuePair>(3);
 
+        Api.getSessionManager().setPrivacy(Integer.toString(status));
+
         params.add(new BasicNameValuePair(Status.USER_ID, Integer.toString(userId)));
         params.add(new BasicNameValuePair(Status.LOCATION, Integer.toString(status)));
         params.add(new BasicNameValuePair(User.PASSWORD, password));

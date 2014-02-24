@@ -79,4 +79,11 @@ public class Formatter {
         return results;
     }
 
+    public static Hashtable updateLocation(Status status){
+        Hashtable results = new Hashtable();
+
+        return results;
+
+    }
+
 }

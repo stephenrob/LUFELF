@@ -89,4 +89,24 @@ public class V1 {
 
         Event.create(event, sc);
     }
+
+    public void deleteEvent(Integer eventId, Single sc){
+        Event.delete(eventId, sc);
+    }
+
+    public void addFriend(Integer friendId, Single sc){
+        Friend.add(friendId, sc);
+    }
+
+    public void deleteFriend(Integer friendId, Single sc){
+        Friend.delete(friendId, sc);
+    }
+
+    public void updatePrivacy(Integer privacy, Single sc){
+        Status.updatePrivacy(privacy, sc);
+    }
+
+    public void updateLocation(Double lat, Double lon, Single sc){
+        Status.updateLocation(lat, lon, sc);
+    }
 }

@@ -58,6 +58,9 @@ public class NetworkHelper {
                 break;
             case RECEIVED_MESSAGES:
                 break;
+            case UPDATE_USER_LOCATION:
+                result = Formatter.updateLocation(Parser.parseUpdateLocation(serverResponse));
+                break;
             default:
                 result = Formatter.message(Parser.parseGenericResult(serverResponse));
                 break;

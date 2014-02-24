@@ -89,4 +89,12 @@ public class V1 {
 
         Event.create(event, sc);
     }
+
+    public void addFriend(Integer friendId, Single sc){
+        Friend.add(friendId, sc);
+    }
+
+    public void deleteFriend(Integer friendId, Single sc){
+        Friend.delete(friendId, sc);
+    }
 }

@@ -1,7 +1,5 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1;
 
-import android.webkit.DownloadListener;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -10,8 +8,8 @@ import java.util.List;
 
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
 import uk.co.stephen_robinson.uni.lufelf.api.SessionManager;
-import uk.co.stephen_robinson.uni.lufelf.api.network.SinglePost;
-import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.SinglePost;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 
 /**
  * Created by Stephen on 24/02/2014.

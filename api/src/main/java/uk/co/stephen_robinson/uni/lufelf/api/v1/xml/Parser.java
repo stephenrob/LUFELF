@@ -329,7 +329,7 @@ public class Parser {
                             } else if(tagName.equalsIgnoreCase(EventUser.DATE_ACCEPTED)){
                                 user.date_accepted = parser.nextText();
                             }
-                            */
+
                         }
 */
                         break;

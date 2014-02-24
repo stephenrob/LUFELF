@@ -26,10 +26,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.adapters.PlaceItem;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Place;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 import uk.co.stephen_robinson.uni.lufelf.route.DirectionsQuery;
@@ -91,7 +93,7 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
         }else{
 
             //set the call back request for every 400 milliseconds or every 5 metres
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 400, 5, this);
+            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 20000, 5, this);
 
             //set the locationenabled boolean
             map.setMyLocationEnabled(true);
@@ -193,10 +195,21 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
 
     @Override
     public void onLocationChanged(Location location) {
+        Log.e("location","updating");
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10);
         map.animateCamera(cameraUpdate);
         locationManager.removeUpdates(this);
+
+        Single single = new Single() {
+            @Override
+            public void results(Hashtable result) {
+                Log.e("location","LOCATIONUPDATE");
+                boolean error=toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
+            }
+        };
+
+        api.v1.updateLocation(latLng.latitude,latLng.longitude,single);
     }
 
     @Override

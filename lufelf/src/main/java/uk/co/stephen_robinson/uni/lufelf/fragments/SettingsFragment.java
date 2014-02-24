@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.Hashtable;
@@ -38,6 +40,23 @@ public class SettingsFragment extends BaseFragment{
         rootView = inflater.inflate(R.layout.fragment_settings, container, false);
         setContext(rootView.getContext());
         //showActivitySpinner();
+
+        Switch showLocation=(Switch)rootView.findViewById(R.id.settings_location);
+
+        showLocation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                int privacy=b?1:0;
+                Single single=new Single() {
+                    @Override
+                    public void results(Hashtable result) {
+                        boolean error=toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
+                    }
+                };
+
+                api.v1.updatePrivacy(privacy,single);
+            }
+        });
 
         TextView deleteAccount = (TextView) rootView.findViewById(R.id.setting_delete_user);
         deleteAccount.setOnClickListener(new View.OnClickListener() {

@@ -372,4 +372,55 @@ public class Parser {
 
     }
 
+    public static Status parseUpdateLocation(String data){
+        Status status = null;
+        XmlPullParser parser;
+
+        try {
+            parser = XmlPullParserFactory.newInstance().newPullParser();
+            parser.setInput(new StringReader(data));
+
+            int eventType = parser.getEventType();
+
+            while(eventType != XmlPullParser.END_DOCUMENT){
+                switch(eventType){
+
+                    case XmlPullParser.START_DOCUMENT:
+                        status = new Status();
+                        break;
+
+                    case XmlPullParser.START_TAG:
+                        String tagName = parser.getName();
+
+                        if(status == null){
+                            break;
+                        }
+
+                        if(tagName.equalsIgnoreCase(Status.RESPONSE)) {
+                            status.status = parser.getAttributeValue(null, Status.STATUS);
+                            if(parser.getAttributeValue(null, Status.CODE) != null) {
+                                status.statusCode = Integer.parseInt(parser.getAttributeValue(null, Status.CODE));
+                            } else {
+                                status.statusCode = 200;
+                            }
+                        }
+                        else if(tagName.equalsIgnoreCase(Message.MESSAGE)) {
+                            status.message = parser.nextText();
+                        }
+                        else if(tagName.equalsIgnoreCase(Status.IS_NEW)) {
+                            status.is_new = true;
+                        }
+                        break;
+                }
+                eventType = parser.next();
+            }
+        } catch (XmlPullParserException e){
+            status = null;
+        } catch (IOException e){
+            status = null;
+        }
+
+        return status;
+    }
+
 }

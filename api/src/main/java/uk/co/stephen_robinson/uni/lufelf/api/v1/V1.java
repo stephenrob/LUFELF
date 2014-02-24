@@ -97,4 +97,12 @@ public class V1 {
     public void deleteFriend(Integer friendId, Single sc){
         Friend.delete(friendId, sc);
     }
+
+    public void updatePrivacy(Integer privacy, Single sc){
+        Status.updatePrivacy(privacy, sc);
+    }
+
+    public void updateLocation(Double lat, Double lon, Single sc){
+        Status.updateLocation(lat, lon, sc);
+    }
 }

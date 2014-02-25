@@ -35,7 +35,7 @@ public class Place {
     public static final String LATTITUDE ="place_lat";
     public static final String LONGDITUDE ="place_lon";
     public static final String TYPE = "place_type";
-    public static final String DESCRIPTION = "place_desc";
+    public static final String DESCRIPTION = "place_description";
     public static final String IMAGE_URL = "place_image_url";
     public static final String USER_ID = "user_id";
 

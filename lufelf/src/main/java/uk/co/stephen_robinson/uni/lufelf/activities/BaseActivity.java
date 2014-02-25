@@ -110,7 +110,6 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
         }
         currentGroupPosition=0;
         currentChildPosition=0;
-
     }
     //custom onBackPressed action to allow backward navigation
     @Override

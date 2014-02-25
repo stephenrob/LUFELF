@@ -11,7 +11,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,10 +22,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.adapters.ExpandableListNavAdapter;
 import uk.co.stephen_robinson.uni.lufelf.adapters.NavDrawerGroup;
 import uk.co.stephen_robinson.uni.lufelf.adapters.NavDrawerItem;
-import uk.co.stephen_robinson.uni.lufelf.R;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -93,7 +92,6 @@ public class NavigationDrawerFragment extends Fragment {
             mCurrentSelectedChildPosition = savedInstanceState.getInt(STATE_CHILD_SELECTED_POSITION);
             mFromSavedInstanceState = true;
         }
-        Log.e("CRAP","SHOULD BE OPENING"+mCurrentSelectedGroupPosition+" "+mCurrentSelectedChildPosition);
 
     }
 
@@ -108,7 +106,6 @@ public class NavigationDrawerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        Log.e("CRAP", String.valueOf(getActivity().getIntent().getExtras().getInt("priority")));
         priority = getActivity().getIntent().getExtras().getInt("priority");
         mDrawerListView = (ExpandableListView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
 
@@ -116,7 +113,6 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int pos, long l) {
-
                 int index=expandableListView.getFlatListPosition(ExpandableListView.getPackedPositionForGroup(pos));
                 NavDrawerGroup group=(NavDrawerGroup)mDrawerListView.getItemAtPosition(index);
                 if(group.countItems()==0){
@@ -129,7 +125,6 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPos, int childPos, long id) {
-                Log.e("Crap",groupPos+" "+childPos);
                 int index=expandableListView.getFlatListPosition(ExpandableListView.getPackedPositionForChild(groupPos, childPos));
                 mDrawerListView.setItemChecked(index, true);
                 selectItem(groupPos, childPos);
@@ -138,8 +133,9 @@ public class NavigationDrawerFragment extends Fragment {
         });
 
 
-        ArrayList navigationGroups=null;
-        Log.e("CRAP","priority "+String.valueOf(priority));
+        //choose which set of options to display
+        ArrayList navigationGroups;
+
         if(priority==1)
             navigationGroups=setUpForUser();
         else
@@ -278,6 +274,9 @@ public class NavigationDrawerFragment extends Fragment {
      * @param position
      */
     private void selectItem(int groupPos,int position) {
+
+
+
         int previousGroup=mCurrentSelectedGroupPosition;
         int previousPos=mCurrentSelectedChildPosition;
 

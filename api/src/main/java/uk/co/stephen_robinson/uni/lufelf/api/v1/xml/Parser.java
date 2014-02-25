@@ -314,7 +314,7 @@ public class Parser {
                                 event.owner.username = parser.nextText();
                             }
                         }
-
+                        /*
                         if(tagName.equalsIgnoreCase("users")){
                             users = new ArrayList<EventUser>();
                         }

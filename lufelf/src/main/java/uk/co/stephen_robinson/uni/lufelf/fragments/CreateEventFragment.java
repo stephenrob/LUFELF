@@ -4,10 +4,12 @@ import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,14 +18,25 @@ import android.widget.TimePicker;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Hashtable;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
+import uk.co.stephen_robinson.uni.lufelf.adapters.EventListItem;
+import uk.co.stephen_robinson.uni.lufelf.adapters.PlaceItem;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Place;
+import uk.co.stephen_robinson.uni.lufelf.utilities.ValidationChecker;
 
 /**
  * @author James
  * Displays the createEvent fragment and all of the methods.
  */
 public class CreateEventFragment extends BaseFragment{
+
+
+    private ArrayList<PlaceItem> places;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -63,12 +76,54 @@ public class CreateEventFragment extends BaseFragment{
             }
         });
 
+        final EditText name = (EditText)rootView.findViewById(R.id.create_event_name);
+
         //populate places spinner
-        ArrayList<String> places = new ArrayList<String>();
-        places.add("Current Location");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,R.layout.spinner_item,places);
-        Spinner placeSpinner=(Spinner)rootView.findViewById(R.id.create_event_place_spinner);
-        placeSpinner.setAdapter(adapter);
+        final Spinner placeSpinner=(Spinner)rootView.findViewById(R.id.create_event_place_spinner);
+        loadPlacesIntoSpinner(placeSpinner);
+
+        final Spinner eventType=(Spinner)rootView.findViewById(R.id.create_event_type_spinner);
+        //Spinner eventPlace=(EditText)rootView.findViewById(R.id.create_event_name);
+        final EditText description= (EditText)rootView.findViewById(R.id.create_event_name);
+
+        Button submit = (Button)rootView.findViewById(R.id.create_event_submit);
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                EditText[] editTexts={name,description};
+
+
+                boolean allOk= ValidationChecker.standardValidationCheck(editTexts);
+
+                //check for weird characters
+                if(allOk)
+                    allOk=ValidationChecker.noOddCharacters(editTexts[0]);
+                else
+                    ValidationChecker.noOddCharacters(editTexts[0]);
+
+                if(allOk){
+                    Single single= new Single() {
+                        @Override
+                        public void results(Hashtable result) {
+                            hideActivitySpinner();
+                            //get all of the edittexts
+                            boolean error=toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
+                            if(!error){
+                                toastMaker.makeToast(result.get(Message.MESSAGE).toString());
+                                removeFragment();
+                            }
+                        }
+                    };
+                    showActivitySpinner();
+                    api.v1.addEvent(name.getText().toString(),dateTime.getText().toString(), EventListItem.convertTypeIntoCompatibleString(eventType.getSelectedItemPosition()),description.getText().toString(),places.get(placeSpinner.getSelectedItemPosition()).getId(),single);
+                }
+            }
+        });
+
+
+
 
         return rootView;
     }
@@ -110,5 +165,30 @@ public class CreateEventFragment extends BaseFragment{
         },currentyear, currentMonth, currentDay);
         datePicker.setTitle("Select Date");
         datePicker.show();
+    }
+
+    public void loadPlacesIntoSpinner(final Spinner placeSpinner){
+        showActivitySpinner();
+        Multiple multipleCallback = new Multiple() {
+            @Override
+            public void results(ArrayList result) {
+                Log.e("multiple callback", result.toString());
+                Message m = (Message)result.get(result.size()-1);
+                if(!toastMaker.isError(String.valueOf(m.statusCode),m.message)){
+                    places=new ArrayList<PlaceItem>();
+                    ArrayList<String> placesStrings = new ArrayList<String>();
+                    for(int i=0;i<result.size()-1;i++){
+                        Place p =(Place)result.get(i);
+                        Log.e("place",p.toString());
+                        places.add(new PlaceItem(p.getId(), p.getName(), p.getAddress(), p.getType(), p.getDescription(), p.getUser_id(), p.getImage_url(), 0, 0));
+                        placesStrings.add(p.getName());
+                    }
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,R.layout.spinner_item,placesStrings);
+                    placeSpinner.setAdapter(adapter);
+                    hideActivitySpinner();
+                }
+            }
+        };
+        api.v1.getAllPlaces(multipleCallback);
     }
 }

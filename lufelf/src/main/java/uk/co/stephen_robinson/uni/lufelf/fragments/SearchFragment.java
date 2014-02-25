@@ -21,6 +21,7 @@ import uk.co.stephen_robinson.uni.lufelf.adapters.UserItem;
 import uk.co.stephen_robinson.uni.lufelf.adapters.UserItemAdapter;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
+import uk.co.stephen_robinson.uni.lufelf.utilities.ValidationChecker;
 
 /**
  * @author James
@@ -87,7 +88,7 @@ public class SearchFragment extends BaseFragment{
 
     }
     public void setUpForFriendSearch(){
-        searchBox.setHint("Enter username (Email Address).");
+        searchBox.setHint("Enter username, lib no or name");
 
         searchBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -104,10 +105,10 @@ public class SearchFragment extends BaseFragment{
                                 ArrayList<UserItem> userItems= new ArrayList<UserItem>();
 
                                 String name = result.get("name")==null?"":String.valueOf(result.get("name"));
-                                String description = result.get("description")==null?"":String.valueOf(result.get("description"));
+                                String description = result.get("description")==null?"My description...":String.valueOf(result.get("description"));
                                 String libno = result.get("lib_no")==null?"":String.valueOf(result.get("lib_no"));
                                 String username = result.get("username")==null?"":String.valueOf(result.get("username"));
-                                int id = result.get("id")==null?0:Integer.valueOf(String.valueOf(result.get("name")));
+                                int id = result.get("user_id")==null?0:Integer.valueOf(String.valueOf(result.get("user_id")));
 
                                 userItems.add(new UserItem(name, description, libno, username, id));
                                 list.setAdapter(new UserItemAdapter(context,userItems));
@@ -124,9 +125,20 @@ public class SearchFragment extends BaseFragment{
                             hideActivitySpinner();
                         }
                     };
-
-                    api.v1.getUserByUsername(searchBox.getText().toString(), single);
-
+                    String searchBoxValue=searchBox.getText().toString();
+                    boolean ok = ValidationChecker.checkIfEmpty(searchBoxValue);
+                    if(!ok){
+                        if(ValidationChecker.isEmailValid(searchBoxValue)){
+                            Log.e("CRAP","email");
+                            api.v1.getUserByUsername(searchBoxValue, single);
+                        }else if(ValidationChecker.isAllNumbers(searchBoxValue)){
+                            Log.e("CRAP","lib_no");
+                            api.v1.getUserByLibraryNumber(searchBoxValue, single);
+                        }else{
+                            Log.e("CRAP","username");
+                            api.v1.getUserByUsername(searchBoxValue, single);
+                        }
+                    }
                     return true;
                 }
                 return false;

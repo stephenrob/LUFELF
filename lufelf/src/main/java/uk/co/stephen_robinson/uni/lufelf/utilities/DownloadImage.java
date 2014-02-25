@@ -24,6 +24,14 @@ import java.net.URLConnection;
  */
 public class DownloadImage{
 
+    //initialise ip constant
+    private static final String ipAddress="http://148.88.32.47";
+
+    //initalise the submission type constants (determines what php file to use)
+    public static final String AVATAR ="/avatars/";
+    public static final String PLACE ="/place_images/";
+    public static final String EVENT ="/event_images/";
+
     //global variables
     private ImageView imageView;
     private Activity activity;
@@ -32,6 +40,19 @@ public class DownloadImage{
     private Bitmap image;
     private String imageUrl;
 
+    /**
+     * Constructor to set default values
+     * @param imageView the imageview you want to update
+     * @param activity the activity the app uses
+     * @param type the request type
+     * @param id the id of the event, user or place
+     */
+    public DownloadImage(ImageView imageView, Activity activity, String type,int id){
+        //set the global variables
+        this.imageView=imageView;
+        this.activity=activity;
+        this.imageUrl=ipAddress+type+id+".jpg";
+    }
     /**
      * Constructor to set default values
      * @param imageView the imageview you want to update
@@ -64,7 +85,7 @@ public class DownloadImage{
                 try {
                     //init new url based on imageURl
                     URL url = new URL(imageUrl);
-
+                    Log.e("URL",imageUrl);
                     //open connection
                     URLConnection conn = url.openConnection();
 
@@ -83,10 +104,13 @@ public class DownloadImage{
                     }
                     //decode that input stream and place it in the image global var
                     image=BitmapFactory.decodeStream(inputStream);
-                    inputStream.close();
+
+                    //close the stream
+                    if(inputStream!=null)
+                        inputStream.close();
 
                 } catch (Exception e) {
-                    Log.e("Crap", e.toString());
+                    Log.e("Crap", Log.getStackTraceString(e));
                 }
 
                 //we can't update ui stuff from the background thread

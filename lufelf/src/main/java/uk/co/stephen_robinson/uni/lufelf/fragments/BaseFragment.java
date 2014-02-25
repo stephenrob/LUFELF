@@ -39,6 +39,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
+import uk.co.stephen_robinson.uni.lufelf.activities.BaseActivity;
 import uk.co.stephen_robinson.uni.lufelf.activities.MainActivity;
 import uk.co.stephen_robinson.uni.lufelf.activities.NavigateToActivity;
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
@@ -325,7 +326,7 @@ public class BaseFragment  extends Fragment{
         Intent swapToApp=new Intent(rootView.getContext(),NavigateToActivity.class);
         Bundle args = new Bundle();
         args.putDouble("lat", finish.latitude);
-        args.putDouble("lat",finish.longitude);
+        args.putDouble("long",finish.longitude);
         swapToApp.putExtras(args);
         startActivity(swapToApp);
     }
@@ -361,4 +362,10 @@ public class BaseFragment  extends Fragment{
     public void resetEditText(EditText editText){
         editText.setError(null);
     }
+    public void removeFragment(){
+        BaseActivity b = (BaseActivity)getActivity();
+        b.onBackPressed();
+    }
+
+
 }

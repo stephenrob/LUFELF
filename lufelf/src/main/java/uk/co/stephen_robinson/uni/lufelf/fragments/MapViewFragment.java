@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -32,8 +33,8 @@ import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.adapters.PlaceItem;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
-import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Place;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Place;
 import uk.co.stephen_robinson.uni.lufelf.route.DirectionsQuery;
 
 /**
@@ -74,7 +75,12 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
 
         //get the location manager
         this.locationManager=(LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 400, 5, this);
+        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 400, 5, this);
+        Criteria crit = new Criteria();
+        crit.setAccuracy(Criteria.ACCURACY_FINE);
+
+        //set the call back request for every 400 milliseconds or every 5 metres
+        locationManager.requestLocationUpdates(locationManager.getBestProvider(crit, false), 400, 5, this);
 
         //get the mapfragment
         map = ((MapFragment) fragmentManager.findFragmentById(R.id.map)).getMap();
@@ -91,9 +97,11 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
             map.moveCamera(center);
             map.animateCamera(zoom);
         }else{
+            //Criteria crit = new Criteria();
+            //crit.setAccuracy(Criteria.ACCURACY_FINE);
 
             //set the call back request for every 400 milliseconds or every 5 metres
-            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 20000, 5, this);
+            //locationManager.requestLocationUpdates(locationManager.getBestProvider(crit, false), 400, 5, this);
 
             //set the locationenabled boolean
             map.setMyLocationEnabled(true);
@@ -151,18 +159,17 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
         Multiple multipleCallback = new Multiple() {
             @Override
             public void results(ArrayList result) {
-                Log.e("multiple callback",result.toString());
                 Message m = (Message)result.get(result.size()-1);
                 if(!toastMaker.isError(String.valueOf(m.statusCode),m.message)){
                     for(int i=0;i<result.size()-1;i++){
                         Place p =(Place)result.get(i);
-                        Log.e("LATLONG",p.getLattitude()+" "+p.getLongditude());
                         placeItems.add(new PlaceItem(p.getId(),p.getName(),p.getAddress(),p.getType(),p.getDescription(),p.getUser_id(),p.getImage_url(),p.getLattitude(),p.getLongditude()));
                     }
 
                     MarkerOptions mOptions1=new MarkerOptions();
                     for(int count=0;count<placeItems.size();count++){
 
+                        //get the current place item
                         PlaceItem p=(PlaceItem)placeItems.get(count);
 
                         //create bitmap

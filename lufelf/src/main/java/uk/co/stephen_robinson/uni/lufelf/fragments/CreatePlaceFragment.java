@@ -2,12 +2,14 @@ package uk.co.stephen_robinson.uni.lufelf.fragments;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import java.util.Calendar;
 import java.util.Hashtable;
@@ -57,6 +59,8 @@ public class CreatePlaceFragment extends BaseFragment{
                         (EditText)rootView.findViewById(R.id.create_place_address),
                         (EditText)rootView.findViewById(R.id.create_place_description)};
 
+                Spinner placeType=(Spinner)rootView.findViewById(R.id.create_place_type_spinner);
+
                 boolean allOk= ValidationChecker.standardValidationCheck(editTexts);
 
                 //check for weird characters
@@ -76,15 +80,18 @@ public class CreatePlaceFragment extends BaseFragment{
                             boolean error = toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
                             if(!error){
                                 toastMaker.makeToast(result.get(Message.MESSAGE).toString());
+                                removeFragment();
                             }
+
                         }
                     };
+                    Log.e("EDITTEXT",editTexts[2].getText().toString());
 
                     //tell the user the app is working
-                    showActivitySpinner();
+                    //showActivitySpinner();
                     //create a new userdetails class for the api
                     //call api
-                    api.v1.addPlace(editTexts[0].getText().toString(),editTexts[1].getText().toString(),getLocation().latitude,getLocation().longitude, "other",editTexts[2].getText().toString(),nc);
+                    //api.v1.addPlace(editTexts[0].getText().toString(),editTexts[1].getText().toString(),getLocation().latitude,getLocation().longitude, PlaceItem.convertTypeIntoCompatibleString(placeType.getSelectedItemPosition()),editTexts[2].getText().toString(),nc);
                 }
             }
         });

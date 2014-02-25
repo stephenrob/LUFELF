@@ -39,7 +39,6 @@ public class ValidationChecker {
      * @return if there are other characters than a-z and 0-9 - will return false
      */
     public static boolean noOddCharacters(EditText editText){
-        resetEditText(editText);
         Pattern pattern = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(editText.getText().toString());
         boolean result=!matcher.find();
@@ -157,5 +156,14 @@ public class ValidationChecker {
     }
     public static void resetEditText(EditText editText){
         editText.setError(null);
+    }
+    public static boolean isAllNumbers(String text){
+        try{
+            Integer.parseInt(text);
+            return true;
+        }
+        catch( Exception e){
+            return false;
+        }
     }
 }

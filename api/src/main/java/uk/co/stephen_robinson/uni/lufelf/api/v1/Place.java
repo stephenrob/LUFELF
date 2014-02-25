@@ -23,8 +23,8 @@ public class Place {
     public String address = null;
     public Double lattitude;
     public Double longditude;
-    public String type;
-    public String description;
+    public String type="";
+    public String description="";
     public String image_url;
     public int user_id;
 

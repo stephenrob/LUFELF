@@ -9,7 +9,7 @@ import uk.co.stephen_robinson.uni.lufelf.R;
  *         This models an event item in memory
  */
 
-public class EventListItem {
+public class EventListItem{
 
     private String eventName="";
     private int icon;
@@ -119,4 +119,30 @@ public class EventListItem {
     public String getEventName() {
         return eventName;
     }
+
+    /**
+     * Converts an index from a switch into a compatible string for the database
+     * @param selectedIndex the index which the user has selected
+     * @return the database compatible string
+     */
+    public static String convertTypeIntoCompatibleString(int selectedIndex){
+        switch (selectedIndex){
+            case 0:
+                return "social";
+            case 1:
+                return "university";
+            case 2:
+                return "open_day";
+            case 3:
+                return "private";
+            case 4:
+                return "public";
+            case 5:
+                return "party";
+            case 6:
+                return "study";
+        }
+        return "";
+    }
+
 }

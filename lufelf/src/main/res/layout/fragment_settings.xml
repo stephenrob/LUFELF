@@ -43,14 +43,15 @@
         <ImageView
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:id="@+id/change_profile_image"
-            android:src="@drawable/ic_question_mark"
+            android:id="@+id/profile_image"
+            android:src="@drawable/ic_camera"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"/>
 
        </LinearLayout>
 
     <Switch
+        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/settings_show_hide_location"
@@ -61,6 +62,7 @@
         android:track="@drawable/apptheme_switch_track_holo_light"/>
 
     <TextView
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/setting_delete_user1"
@@ -69,7 +71,7 @@
         android:textSize="18dp"
         android:textColor="@color/titletxt"
         android:gravity="left"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="30dp" />
 
     <Button
         android:layout_width="200dp"

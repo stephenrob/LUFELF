@@ -11,8 +11,10 @@ import android.widget.ListView;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
+import uk.co.stephen_robinson.uni.lufelf.adapters.EventDateComparator;
 import uk.co.stephen_robinson.uni.lufelf.adapters.EventItemAdapter;
 import uk.co.stephen_robinson.uni.lufelf.adapters.EventListItem;
 import uk.co.stephen_robinson.uni.lufelf.adapters.NavDrawerItem;
@@ -86,6 +88,7 @@ public class EventsFragment extends BaseFragment{
                         Log.e("EVENT DATES",e.getDate());
                         eventItems.add(new EventListItem(String.valueOf(e.getId()),e.getName(),R.drawable.ic_location,"Creator "+i,new LatLng(i,i),e.getDate(),"This is a description for EVENT "+i));
                     }
+                    Collections.sort(eventItems,new EventDateComparator());
                     list.setAdapter(new EventItemAdapter(context, eventItems));
                 }
                 hideActivitySpinner();

@@ -23,11 +23,11 @@ public class PlaceItem {
     private static int library=R.drawable.library;
 
     private int id;
-    private String name;
-    private String address;
-    private String type;
-    private String description;
-    private String imageUrl;
+    private String name="";
+    private String address="";
+    private String type="";
+    private String description="";
+    private String imageUrl="";
     private int createdByID;
     private int icon;
 
@@ -155,4 +155,36 @@ public class PlaceItem {
             icon=other;
     }
 
+    /**
+     * Converts an index from a switch into a compatible string for the database
+     * @param selectedIndex the index which the user has selected
+     * @return the database compatible string
+     */
+    public static String convertTypeIntoCompatibleString(int selectedIndex){
+        switch (selectedIndex){
+            case 0:
+                return "pub";
+            case 1:
+                return "restaurant";
+            case 2:
+                return "lecture_theatre";
+            case 3:
+                return "seminar_room";
+            case 4:
+                return "cafe";
+            case 5:
+                return "takeaway";
+            case 6:
+                return "cinema";
+            case 7:
+                return "hall";
+            case 8:
+                return "shop";
+            case 9:
+                return "library";
+            case 10:
+                return "other";
+        }
+        return "";
+    }
 }

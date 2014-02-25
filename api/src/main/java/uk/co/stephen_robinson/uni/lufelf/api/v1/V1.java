@@ -119,4 +119,8 @@ public class V1 {
     public String currentUserId(){
         return Api.getSessionManager().getUserDetails().get(SessionManager.KEY_USERID);
     }
+
+    public String currentPasswordHash(){
+        return Api.getSessionManager().getUserDetails().get(SessionManager.KEY_PASSWORD);
+    }
 }

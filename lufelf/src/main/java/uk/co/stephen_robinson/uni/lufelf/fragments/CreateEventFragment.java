@@ -16,17 +16,24 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Hashtable;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.adapters.EventListItem;
+import uk.co.stephen_robinson.uni.lufelf.adapters.EventNameComparator;
+import uk.co.stephen_robinson.uni.lufelf.adapters.NavDrawerItem;
 import uk.co.stephen_robinson.uni.lufelf.adapters.PlaceItem;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Event;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Place;
+import uk.co.stephen_robinson.uni.lufelf.utilities.UploadImage;
 import uk.co.stephen_robinson.uni.lufelf.utilities.ValidationChecker;
 
 /**
@@ -107,12 +114,13 @@ public class CreateEventFragment extends BaseFragment{
                     Single single= new Single() {
                         @Override
                         public void results(Hashtable result) {
-                            hideActivitySpinner();
+
                             //get all of the edittexts
                             boolean error=toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
                             if(!error){
                                 toastMaker.makeToast(result.get(Message.MESSAGE).toString());
-                                removeFragment();
+                                uploadImage(name.getText().toString());
+
                             }
                         }
                     };
@@ -190,5 +198,32 @@ public class CreateEventFragment extends BaseFragment{
             }
         };
         api.v1.getAllPlaces(multipleCallback);
+    }
+    public void uploadImage(final String eventName){
+
+
+
+        Multiple m = new Multiple() {
+            @Override
+            public void results(ArrayList result) {
+                ArrayList eventItems=new ArrayList<NavDrawerItem>();
+                Message m = (Message)result.get(result.size()-1);
+                if(!toastMaker.isError(String.valueOf(m.statusCode),m.message)){
+                    for(int i=0;i<result.size()-1;i++){
+                        Event e=(Event)result.get(i);
+                        Log.e("EVENT DATES",e.getDate());
+                        eventItems.add(new EventListItem(String.valueOf(e.getId()),e.getName(),R.drawable.ic_location,"Creator "+i,new LatLng(i,i),e.getDate(),"This is a description for EVENT "+i));
+                    }
+                    int index =Collections.binarySearch(eventItems,new EventListItem("",eventName,0,"",new LatLng(0,0),"",""), new EventNameComparator());
+
+                    UploadImage uploadImage = new UploadImage()
+                }
+                hideActivitySpinner();
+                removeFragment();
+            }
+        };
+
+        api.v1.getAllEvents(m);
+
     }
 }

@@ -136,7 +136,7 @@ public class SearchFragment extends BaseFragment{
                             api.v1.getUserByLibraryNumber(searchBoxValue, single);
                         }else{
                             Log.e("CRAP","username");
-                            api.v1.getUserByUsername(searchBoxValue, single);
+                            api.v1.getUserByName(searchBoxValue, single);
                         }
                     }
                     return true;

@@ -143,7 +143,7 @@ public class EventSubFragment extends BaseFragment{
                     finish=new LatLng(Double.valueOf(location[0]),Double.valueOf(location[1]));
 
                     //get the creator id.
-                    final int eventCreator = event.getUser_id();
+                    final String eventCreator = event.getOwner().getUsername();
                     Single single = new Single() {
                         @Override
                         public void results(Hashtable result) {
@@ -155,7 +155,7 @@ public class EventSubFragment extends BaseFragment{
                                 String description = result.get("description")==null?"":String.valueOf(result.get("description"));
                                 String libno = result.get("lib_no")==null?"":String.valueOf(result.get("lib_no"));
                                 String username = result.get("username")==null?"":String.valueOf(result.get("username"));
-                                int id = result.get("id")==null?0:Integer.valueOf(String.valueOf(result.get("name")));
+                                int id = result.get("user_id")==null?0:Integer.valueOf(String.valueOf(result.get("user_id")));
 
                                 //set this fragments owner object
                                 owner=new UserItem(name, description, libno, username, id);
@@ -176,7 +176,7 @@ public class EventSubFragment extends BaseFragment{
                         }
                     };
                     //call to the api to get user details
-                    api.v1.getUserByID(String.valueOf(eventCreator),single);
+                    api.v1.getUserByUsername(eventCreator,single);
                 }
 
             }

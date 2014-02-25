@@ -1,5 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.utilities;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -20,12 +21,15 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.stephen_robinson.uni.lufelf.api.Api;
+
 /**
  * @author James
  * Uploads an image to server depending on type choosen
  */
 public class UploadImage{
 
+    Api api;
     //initialise ip constant
     private static final String ipAddress="148.88.32.47";
 
@@ -46,7 +50,8 @@ public class UploadImage{
      * @param path path of the image
      * @param type determines the type of upload
      */
-    public UploadImage(String user_id, String path, String type){
+    public UploadImage(String path, String type, Context context){
+        this.api = new Api(context, Api.Version.V1);
         this.user_id=user_id;
         this.path=path;
         this.type=type;
@@ -54,12 +59,12 @@ public class UploadImage{
 
     /**
      * Constructor for uploading a place or event
-     * @param user_id user id
      * @param path path of the image
      * @param type determines the type of upload
      * @param query_id id of place or event
      */
-    public UploadImage(String user_id,String path, String type,String query_id){
+    public UploadImage(String path, String type,String query_id, Context context){
+        this.api = new Api(context, Api.Version.V1);
         this.user_id=user_id;
         this.path=path;
         this.query_id=query_id;
@@ -98,8 +103,8 @@ public class UploadImage{
                     List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 
                     //add the parameters
-                    pairs.add(new BasicNameValuePair("user_id",user_id));
-                    pairs.add(new BasicNameValuePair("password","5f4dcc3b5aa765d61d8327deb882cf99"));
+                    pairs.add(new BasicNameValuePair("user_id",api.v1.getCurrentId()));
+                    pairs.add(new BasicNameValuePair("password",api.v1.getCurrentPassword()));
                     pairs.add(new BasicNameValuePair("image", encodeImage()));
 
                     //if the type is an event upload, then attach the event id

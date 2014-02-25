@@ -498,4 +498,55 @@ public class Parser {
 
     }
 
+    public static Message parseFriendHandshake(String data){
+        Message message = null;
+        XmlPullParser parser;
+
+        try {
+            parser = XmlPullParserFactory.newInstance().newPullParser();
+            parser.setInput(new StringReader(data));
+
+            int eventType = parser.getEventType();
+
+            while(eventType != XmlPullParser.END_DOCUMENT){
+                switch(eventType){
+
+                    case XmlPullParser.START_DOCUMENT:
+                        message = new Message();
+                        break;
+
+                    case XmlPullParser.START_TAG:
+                        String tagName = parser.getName();
+
+                        if(message == null){
+                            break;
+                        }
+
+                        if(tagName.equalsIgnoreCase(Message.RESPONSE)) {
+                            message.status = parser.getAttributeValue(null, Message.STATUS);
+                            if(parser.getAttributeValue(null, Message.CODE) != null) {
+                                message.statusCode = Integer.parseInt(parser.getAttributeValue(null, Message.CODE));
+                            } else {
+                                message.statusCode = 200;
+                            }
+                        }
+                        else if(tagName.equalsIgnoreCase(Message.MESSAGE)) {
+                            message.message = parser.nextText();
+                        }
+                        else if(tagName.equalsIgnoreCase("friendship")) {
+                            message.message = parser.nextText();
+                        }
+                        break;
+                }
+                eventType = parser.next();
+            }
+        } catch (XmlPullParserException e){
+            message = null;
+        } catch (IOException e){
+            message = null;
+        }
+
+        return message;
+    }
+
 }

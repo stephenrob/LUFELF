@@ -1,5 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -45,13 +46,11 @@ public class NetworkHelper {
             case QUERY_USER_DETAILS:
                 result = Formatter.userDetails(Parser.parseUserDetails(serverResponse), serverScript);
                 break;
-            case GET_FRIEND_REQUESTS:
-                break;
+
             case FRIEND_HANDSHAKE:
+                result = Formatter.message(Parser.parseFriendHandshake(serverResponse));
                 break;
             case FRIEND_LIST:
-                break;
-            case EVENT_LIST:
                 break;
             case SENT_MESSAGES:
                 break;
@@ -83,6 +82,10 @@ public class NetworkHelper {
 
             case EVENT_DETAILS:
                 results = Parser.parseEvents(serverResponse);
+                break;
+
+            case GET_FRIEND_REQUESTS:
+                results = Parser.parseFriendRequests(serverResponse);
                 break;
 
             default:

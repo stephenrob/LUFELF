@@ -121,4 +121,22 @@ public class Friend {
         networkTask.execute(params);
 
     }
+
+    static void updateRequest(Integer request_id, Integer friend_id, Integer status, Single sc){
+
+        int userId = Integer.parseInt(Api.getSessionManager().getUserDetails().get(SessionManager.KEY_USERID));
+        String password = Api.getSessionManager().getUserDetails().get(SessionManager.KEY_PASSWORD);
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>(3);
+
+        params.add(new BasicNameValuePair("user_id1", Integer.toString(userId)));
+        params.add(new BasicNameValuePair("user_id2", Integer.toString(friend_id)));
+        params.add(new BasicNameValuePair("request_id", Integer.toString(request_id)));
+        params.add(new BasicNameValuePair("Status", Integer.toString(status)));
+        params.add(new BasicNameValuePair(User.PASSWORD, password));
+
+        SinglePost networkTask =  new SinglePost(sc, Scripts.FRIEND_HANDSHAKE);
+        networkTask.execute(params);
+
+    }
 }

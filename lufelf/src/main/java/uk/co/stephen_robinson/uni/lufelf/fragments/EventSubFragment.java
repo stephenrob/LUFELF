@@ -23,6 +23,7 @@ import uk.co.stephen_robinson.uni.lufelf.adapters.UserItem;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Event;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.EventUser;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 
 /**
@@ -75,6 +76,7 @@ public class EventSubFragment extends BaseFragment{
         final TextView location=(TextView)rootView.findViewById(R.id.event_location);
         final TextView datetime=(TextView)rootView.findViewById(R.id.event_date_time);
         final TextView description=(TextView)rootView.findViewById(R.id.event_description_box);
+        final TextView attendees_list =(TextView)rootView.findViewById(R.id.event_attendees_text);
 
         location.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,7 +139,10 @@ public class EventSubFragment extends BaseFragment{
                     datetime.setText(event.getDate());
                     description.setText(event.getDescription());
                     address.setText(event.getLocation_address());
+                    ArrayList<EventUser> attendees = event.getAttendees();
 
+                    for(EventUser eventUser:attendees)
+                        attendees_list.setText(attendees_list.getText().toString()+"\n"+eventUser.getName());
                     //get the lat long of the event for navigate to
                     String[] location=event.getLocation().split(",");
                     finish=new LatLng(Double.valueOf(location[0]),Double.valueOf(location[1]));

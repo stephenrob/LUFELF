@@ -2,7 +2,10 @@ package uk.co.stephen_robinson.uni.lufelf.adapters;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
+
 import uk.co.stephen_robinson.uni.lufelf.R;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.EventUser;
 
 /**
  * @author James
@@ -18,6 +21,8 @@ public class EventListItem{
     private LatLng location;
     private String dateTime="";
     private String description="";
+
+    private ArrayList<EventUser> attendees;
 
     private static int social= R.drawable.seminar;
     private static int university=R.drawable.university;
@@ -39,7 +44,7 @@ public class EventListItem{
      * @param dateTime    The date time of the event
      * @param description The description of the event.
      */
-    public EventListItem(String id,String eventName, int iconID, String creator, LatLng loc, String dateTime, String description) {
+    public EventListItem(String id,String eventName, int iconID, String creator, LatLng loc, String dateTime, String description, ArrayList<EventUser>attendees) {
         this.eventName = eventName;
         this.icon = iconID;
         this.id = id;
@@ -48,6 +53,7 @@ public class EventListItem{
 
         this.dateTime =dateTime;
         this.description = description;
+        this.attendees=attendees;
     }
 
     /**

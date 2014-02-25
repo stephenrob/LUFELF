@@ -31,9 +31,9 @@ import uk.co.stephen_robinson.uni.lufelf.adapters.PlaceItem;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Event;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.EventUser;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Place;
-import uk.co.stephen_robinson.uni.lufelf.utilities.UploadImage;
 import uk.co.stephen_robinson.uni.lufelf.utilities.ValidationChecker;
 
 /**
@@ -212,11 +212,11 @@ public class CreateEventFragment extends BaseFragment{
                     for(int i=0;i<result.size()-1;i++){
                         Event e=(Event)result.get(i);
                         Log.e("EVENT DATES",e.getDate());
-                        eventItems.add(new EventListItem(String.valueOf(e.getId()),e.getName(),R.drawable.ic_location,"Creator "+i,new LatLng(i,i),e.getDate(),"This is a description for EVENT "+i));
+                        eventItems.add(new EventListItem(String.valueOf(e.getId()),e.getName(),R.drawable.ic_location,"Creator "+i,new LatLng(i,i),e.getDate(),"This is a description for EVENT "+i,new ArrayList<EventUser>()));
                     }
-                    int index =Collections.binarySearch(eventItems,new EventListItem("",eventName,0,"",new LatLng(0,0),"",""), new EventNameComparator());
-
-                    UploadImage uploadImage = new UploadImage()
+                    int index =Collections.binarySearch(eventItems,new EventListItem("",eventName,0,"",new LatLng(0,0),"","", new ArrayList<EventUser>()), new EventNameComparator());
+                    Log.e("index",String.valueOf(index));
+                    //UploadImage imageUploader = new UploadImage("214",getRealPathFromURI(imageURI),UploadImage.PLACE);
                 }
                 hideActivitySpinner();
                 removeFragment();

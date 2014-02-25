@@ -20,6 +20,7 @@ import uk.co.stephen_robinson.uni.lufelf.adapters.EventListItem;
 import uk.co.stephen_robinson.uni.lufelf.adapters.NavDrawerItem;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Event;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.EventUser;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 
 
@@ -86,7 +87,7 @@ public class EventsFragment extends BaseFragment{
                     for(int i=0;i<result.size()-1;i++){
                         Event e=(Event)result.get(i);
                         Log.e("EVENT DATES",e.getDate());
-                        eventItems.add(new EventListItem(String.valueOf(e.getId()),e.getName(),R.drawable.ic_location,"Creator "+i,new LatLng(i,i),e.getDate(),"This is a description for EVENT "+i));
+                        eventItems.add(new EventListItem(String.valueOf(e.getId()),e.getName(),R.drawable.ic_location,"Creator "+i,new LatLng(i,i),e.getDate(),"This is a description for EVENT "+i,new ArrayList<EventUser>()));
                     }
                     Collections.sort(eventItems,new EventDateComparator());
                     list.setAdapter(new EventItemAdapter(context, eventItems));

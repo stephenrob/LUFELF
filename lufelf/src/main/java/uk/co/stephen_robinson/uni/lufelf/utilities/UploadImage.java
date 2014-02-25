@@ -103,8 +103,8 @@ public class UploadImage{
                     List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 
                     //add the parameters
-                    pairs.add(new BasicNameValuePair("user_id",api.v1.getCurrentId()));
-                    pairs.add(new BasicNameValuePair("password",api.v1.getCurrentPassword()));
+                    pairs.add(new BasicNameValuePair("user_id",api.v1.currentUserId()));
+                    //pairs.add(new BasicNameValuePair("password",api.v1.()));
                     pairs.add(new BasicNameValuePair("image", encodeImage()));
 
                     //if the type is an event upload, then attach the event id

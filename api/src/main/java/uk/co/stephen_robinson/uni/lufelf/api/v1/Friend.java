@@ -8,7 +8,9 @@ import java.util.List;
 
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
 import uk.co.stephen_robinson.uni.lufelf.api.SessionManager;
+import uk.co.stephen_robinson.uni.lufelf.api.network.MultiplePost;
 import uk.co.stephen_robinson.uni.lufelf.api.network.SinglePost;
+import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
 
 /**
@@ -101,6 +103,21 @@ public class Friend {
         params.add(new BasicNameValuePair(User.PASSWORD, password));
 
         SinglePost networkTask =  new SinglePost(sc, Scripts.DELETE_FRIEND);
+        networkTask.execute(params);
+
+    }
+
+    static void requests(Multiple mc){
+
+        int userId = Integer.parseInt(Api.getSessionManager().getUserDetails().get(SessionManager.KEY_USERID));
+        String password = Api.getSessionManager().getUserDetails().get(SessionManager.KEY_PASSWORD);
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+
+        params.add(new BasicNameValuePair(User.USER_ID, Integer.toString(userId)));
+        params.add(new BasicNameValuePair(User.PASSWORD, password));
+
+        MultiplePost networkTask =  new MultiplePost(mc, Scripts.GET_FRIEND_REQUESTS);
         networkTask.execute(params);
 
     }

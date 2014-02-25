@@ -123,4 +123,8 @@ public class V1 {
     public String currentPasswordHash(){
         return Api.getSessionManager().getUserDetails().get(SessionManager.KEY_PASSWORD);
     }
+
+    public void getFriendRequests(Multiple mc){
+        Friend.requests(mc);
+    }
 }

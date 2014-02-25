@@ -27,6 +27,8 @@ public class Friend extends Message {
     public static final String LONGITUDE = "lon";
     public static final String USER = "user";
     public static final String USERS = "users";
+    public static final String FRIEND = "friend";
+    public static final String FRIENDS = "friends";
 
     public int getRequest_id() {
         return request_id;

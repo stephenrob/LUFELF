@@ -1,6 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1.xml;
 
-import android.util.Log;
+import android.content.UriMatcher;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -9,6 +9,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Stephen on 21/02/14.
@@ -242,11 +243,8 @@ public class Parser {
         Message status = new Message();
         ArrayList<EventUser> users = null;
         Event event = null;
-        EventUser user = null;
         XmlPullParser parser;
         String tagName;
-
-        Boolean inUser = false;
 
         try {
             parser = XmlPullParserFactory.newInstance().newPullParser();
@@ -314,24 +312,15 @@ public class Parser {
                                 event.owner.username = parser.nextText();
                             }
                         }
-                        /*
+
                         if(tagName.equalsIgnoreCase("users")){
                             users = new ArrayList<EventUser>();
                         }
 
-                        /*if(tagName.equalsIgnoreCase("user")){
-                            user = new EventUser();
-                            inUser = true;
-                        } else if(inUser && user != null){
-                            /*
-                            if(tagName.equalsIgnoreCase(EventUser.NAME)){
-                                user.name = parser.nextText();
-                            } else if(tagName.equalsIgnoreCase(EventUser.DATE_ACCEPTED)){
-                                user.date_accepted = parser.nextText();
-                            }
-
+                        if(tagName.equalsIgnoreCase("user")){
+                            users.add(parseEventUser(parser));
                         }
-*/
+
                         break;
 
                     case XmlPullParser.END_TAG:
@@ -339,16 +328,6 @@ public class Parser {
                         if(tagName.equalsIgnoreCase("event") && event != null){
                             event.attendees = users;
                             events.add(event);
-                        }
-
-                        if(users != null){
-                            if(tagName.equalsIgnoreCase("user") && user != null){
-                                users.add(user);
-                            }
-                        }
-
-                        if(tagName.equalsIgnoreCase("user")){
-                            inUser = false;
                         }
 
                         break;
@@ -360,16 +339,35 @@ public class Parser {
             }
 
         } catch (XmlPullParserException e){
-            Log.e("PULL PARSE EXCEPTION", Log.getStackTraceString(e));
             events = null;
         } catch (IOException e){
-            Log.e("IO EXCEPTION", Log.getStackTraceString(e));
             events = null;
         }
 
         events.add(status);
 
         return events;
+
+    }
+
+    private static EventUser parseEventUser(XmlPullParser parser) throws XmlPullParserException, IOException {
+
+        EventUser eventUser = new EventUser();
+
+        parser.require(XmlPullParser.START_TAG, null, "user");
+
+        while (parser.next() != XmlPullParser.END_TAG) {
+            if (parser.getEventType() != XmlPullParser.START_TAG) {
+                continue;
+            }
+            String tagName = parser.getName();
+            if(tagName.equalsIgnoreCase(EventUser.NAME)){
+                eventUser.name = parser.nextText();
+            } else if(tagName.equalsIgnoreCase(EventUser.DATE_ACCEPTED)){
+                eventUser.date_accepted = parser.nextText();
+            }
+        }
+        return eventUser;
 
     }
 

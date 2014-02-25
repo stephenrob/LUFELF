@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -25,6 +26,7 @@ import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Event;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.EventUser;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
+import uk.co.stephen_robinson.uni.lufelf.utilities.DownloadImage;
 
 /**
  * @author James
@@ -64,7 +66,7 @@ public class EventSubFragment extends BaseFragment{
                              Bundle savedInstanceState) {
         //init
         setFragmentManager(getFragmentManager());
-        Bundle args=getArguments();
+        final Bundle args=getArguments();
         rootView = inflater.inflate(R.layout.fragment_event_profile, container, false);
         setContext(rootView.getContext());
         showActivitySpinner();
@@ -77,6 +79,7 @@ public class EventSubFragment extends BaseFragment{
         final TextView datetime=(TextView)rootView.findViewById(R.id.event_date_time);
         final TextView description=(TextView)rootView.findViewById(R.id.event_description_box);
         final TextView attendees_list =(TextView)rootView.findViewById(R.id.event_attendees_text);
+        final ImageView event_pic =(ImageView)rootView.findViewById(R.id.image_event);
 
         location.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,8 +144,14 @@ public class EventSubFragment extends BaseFragment{
                     address.setText(event.getLocation_address());
                     ArrayList<EventUser> attendees = event.getAttendees();
 
-                    for(EventUser eventUser:attendees)
-                        attendees_list.setText(attendees_list.getText().toString()+"\n"+eventUser.getName());
+                    for(int i=0;i<attendees.size();i++){
+                        if(attendees.size()==0)
+                            attendees_list.setText("None.");
+                        if(i==0)
+                            attendees_list.setText(attendees_list.getText().toString() + attendees.get(i).getName());
+                        else
+                            attendees_list.setText(attendees_list.getText().toString()+", "+attendees.get(i).getName());
+                    }
                     //get the lat long of the event for navigate to
                     String[] location=event.getLocation().split(",");
                     finish=new LatLng(Double.valueOf(location[0]),Double.valueOf(location[1]));
@@ -176,6 +185,9 @@ public class EventSubFragment extends BaseFragment{
                                         fragmentManager.beginTransaction().add(R.id.container, FriendsSubFragment.newInstance(owner), "UserProfileSubView").addToBackStack(null).commit();
                                     }
                                 });
+
+                                DownloadImage downloadImage = new DownloadImage(event_pic,getActivity(),DownloadImage.EVENT,Integer.valueOf(args.getString("id")));
+                                downloadImage.downloadFromServer();
                             }
                             hideActivitySpinner();
                         }

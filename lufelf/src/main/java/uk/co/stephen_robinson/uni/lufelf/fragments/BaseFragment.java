@@ -7,6 +7,7 @@ import android.app.FragmentManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -57,8 +58,8 @@ public class BaseFragment  extends Fragment{
     public Api api;
     public ToastMaker toastMaker;
     protected View rootView;
-    private Uri imageURI;
-    private Uri tempDir;
+    public Uri imageURI;
+    public Uri tempDir;
 
     /**
      * Set the fragment manager
@@ -366,5 +367,17 @@ public class BaseFragment  extends Fragment{
         b.onBackPressed();
     }
 
-
+    public String getRealPathFromURI(Uri contentURI) {
+        String result;
+        Cursor cursor = getActivity().getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
+    }
 }

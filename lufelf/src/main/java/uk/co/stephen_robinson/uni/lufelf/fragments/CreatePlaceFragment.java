@@ -2,21 +2,26 @@ package uk.co.stephen_robinson.uni.lufelf.fragments;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Hashtable;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
+import uk.co.stephen_robinson.uni.lufelf.adapters.PlaceItem;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Place;
+import uk.co.stephen_robinson.uni.lufelf.utilities.UploadImage;
 import uk.co.stephen_robinson.uni.lufelf.utilities.ValidationChecker;
 
 /**
@@ -49,13 +54,21 @@ public class CreatePlaceFragment extends BaseFragment{
         //get the submit button
         Button submit = (Button)rootView.findViewById(R.id.create_place_submit);
 
+        //get the image view
+        ImageView place_pic = (ImageView)rootView.findViewById(R.id.profile_image);
+        place_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showCameraDialog();
+            }
+        });
         //set the on click listener
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 //get all of the edittexts
-                EditText[] editTexts={(EditText)rootView.findViewById(R.id.create_place_name),
+                final EditText[] editTexts={(EditText)rootView.findViewById(R.id.create_place_name),
                         (EditText)rootView.findViewById(R.id.create_place_address),
                         (EditText)rootView.findViewById(R.id.create_place_description)};
 
@@ -79,19 +92,19 @@ public class CreatePlaceFragment extends BaseFragment{
                             hideActivitySpinner();
                             boolean error = toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
                             if(!error){
+                                uploadImage(editTexts[0].getText().toString());
                                 toastMaker.makeToast(result.get(Message.MESSAGE).toString());
                                 removeFragment();
                             }
 
                         }
                     };
-                    Log.e("EDITTEXT",editTexts[2].getText().toString());
 
                     //tell the user the app is working
                     //showActivitySpinner();
                     //create a new userdetails class for the api
                     //call api
-                    //api.v1.addPlace(editTexts[0].getText().toString(),editTexts[1].getText().toString(),getLocation().latitude,getLocation().longitude, PlaceItem.convertTypeIntoCompatibleString(placeType.getSelectedItemPosition()),editTexts[2].getText().toString(),nc);
+                    api.v1.addPlace(editTexts[0].getText().toString(),editTexts[1].getText().toString(),getLocation().latitude,getLocation().longitude, PlaceItem.convertTypeIntoCompatibleString(placeType.getSelectedItemPosition()),editTexts[2].getText().toString(),nc);
                 }
             }
         });
@@ -122,5 +135,36 @@ public class CreatePlaceFragment extends BaseFragment{
         },currentyear, currentMonth, currentDay);
         datePicker.setTitle("Select Date");
         datePicker.show();
+    }
+    public void uploadImage(final String placeName){
+
+
+
+        Multiple m = new Multiple() {
+            @Override
+            public void results(ArrayList result) {
+                ArrayList<PlaceItem> placeItems=new ArrayList<PlaceItem>();
+                Message m = (Message)result.get(result.size()-1);
+                if(!toastMaker.isError(String.valueOf(m.statusCode),m.message)){
+                    for(int i=0;i<result.size()-1;i++){
+                        Place p =(Place)result.get(i);
+                        placeItems.add(new PlaceItem(p.getId(),p.getName(),p.getAddress(),p.getType(),p.getDescription(),p.getUser_id(),p.getImage_url(),p.getLattitude(),p.getLongditude()));
+                    }
+                    for(PlaceItem p:placeItems){
+                        if(p.getName().equals(placeName)){
+                            if(tempDir!=null){
+                                UploadImage imageUploader = new UploadImage(getRealPathFromURI(tempDir),UploadImage.EVENT,String.valueOf(p.getId()),context);
+                                imageUploader.uploadToServer();
+                            }
+                        }
+                    }
+                }
+                hideActivitySpinner();
+                removeFragment();
+            }
+        };
+
+        api.v1.getAllPlaces(m);
+
     }
 }

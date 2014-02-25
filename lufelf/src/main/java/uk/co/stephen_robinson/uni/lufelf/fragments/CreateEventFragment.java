@@ -20,13 +20,10 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Hashtable;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.adapters.EventListItem;
-import uk.co.stephen_robinson.uni.lufelf.adapters.EventNameComparator;
-import uk.co.stephen_robinson.uni.lufelf.adapters.NavDrawerItem;
 import uk.co.stephen_robinson.uni.lufelf.adapters.PlaceItem;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
@@ -34,6 +31,7 @@ import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Event;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.EventUser;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Place;
+import uk.co.stephen_robinson.uni.lufelf.utilities.UploadImage;
 import uk.co.stephen_robinson.uni.lufelf.utilities.ValidationChecker;
 
 /**
@@ -206,17 +204,19 @@ public class CreateEventFragment extends BaseFragment{
         Multiple m = new Multiple() {
             @Override
             public void results(ArrayList result) {
-                ArrayList eventItems=new ArrayList<NavDrawerItem>();
+                ArrayList<EventListItem> eventItems=new ArrayList<EventListItem>();
                 Message m = (Message)result.get(result.size()-1);
                 if(!toastMaker.isError(String.valueOf(m.statusCode),m.message)){
                     for(int i=0;i<result.size()-1;i++){
                         Event e=(Event)result.get(i);
-                        Log.e("EVENT DATES",e.getDate());
                         eventItems.add(new EventListItem(String.valueOf(e.getId()),e.getName(),R.drawable.ic_location,"Creator "+i,new LatLng(i,i),e.getDate(),"This is a description for EVENT "+i,new ArrayList<EventUser>()));
                     }
-                    int index =Collections.binarySearch(eventItems,new EventListItem("",eventName,0,"",new LatLng(0,0),"","", new ArrayList<EventUser>()), new EventNameComparator());
-                    Log.e("index",String.valueOf(index));
-                    //UploadImage imageUploader = new UploadImage("214",getRealPathFromURI(imageURI),UploadImage.PLACE);
+                    for(EventListItem e:eventItems){
+                        if(e.getEventName().equals(eventName)){
+                            UploadImage imageUploader = new UploadImage(getRealPathFromURI(tempDir),UploadImage.EVENT,e.getId(),context);
+                            imageUploader.uploadToServer();
+                        }
+                    }
                 }
                 hideActivitySpinner();
                 removeFragment();

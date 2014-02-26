@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.TimePicker;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Hashtable;
@@ -213,7 +215,8 @@ public class CreateEventFragment extends BaseFragment{
                     }
                     for(EventListItem e:eventItems){
                         if(e.getEventName().equals(eventName)){
-                            UploadImage imageUploader = new UploadImage(getRealPathFromURI(tempDir),UploadImage.EVENT,e.getId(),context);
+                            File f = new File(Environment.getExternalStorageDirectory(),"tmp_file_store.jpg");
+                            UploadImage imageUploader = new UploadImage(f.getPath(),UploadImage.EVENT,e.getId(),context);
                             imageUploader.uploadToServer();
                         }
                     }

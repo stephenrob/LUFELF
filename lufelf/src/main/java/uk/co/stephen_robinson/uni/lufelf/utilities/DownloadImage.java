@@ -83,9 +83,10 @@ public class DownloadImage{
                 resp = -1;
 
                 try {
+                    Log.e("URL",imageUrl);
                     //init new url based on imageURl
                     URL url = new URL(imageUrl);
-                    Log.e("URL",imageUrl);
+
                     //open connection
                     URLConnection conn = url.openConnection();
 

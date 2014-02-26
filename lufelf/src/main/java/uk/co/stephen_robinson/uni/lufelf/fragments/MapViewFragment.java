@@ -121,7 +121,6 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
 
         Bundle args = getArguments();
         if(args!=null){
-            Log.e("LATLNG",args.getDouble("lat")+" "+args.getDouble("long"));
             if(isNetworkAvailable())
                 query.getRoute(getLocation(), new LatLng(args.getDouble("lat"),args.getDouble("long") ),map);
             else

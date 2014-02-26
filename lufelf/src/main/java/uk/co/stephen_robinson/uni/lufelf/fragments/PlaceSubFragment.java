@@ -82,7 +82,7 @@ public class PlaceSubFragment extends BaseFragment{
         });
 
         if(args.getString("imageurl")!=null){
-            DownloadImage downloadImage=new DownloadImage(profile,getActivity(), args.getString("imageurl"));
+            DownloadImage downloadImage=new DownloadImage(profile,getActivity(),DownloadImage.PLACE,args.getInt("id"));
             downloadImage.downloadFromServer();
         }
 

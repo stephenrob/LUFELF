@@ -46,7 +46,6 @@ public class UploadImage{
 
     /**
      * Standard constructor for avatar upload
-     * @param user_id user id
      * @param path path of the image
      * @param type determines the type of upload
      */

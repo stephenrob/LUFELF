@@ -2,6 +2,7 @@ package uk.co.stephen_robinson.uni.lufelf.fragments;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Hashtable;
@@ -56,6 +58,7 @@ public class CreatePlaceFragment extends BaseFragment{
 
         //get the image view
         ImageView place_pic = (ImageView)rootView.findViewById(R.id.profile_image);
+
         place_pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,6 +69,7 @@ public class CreatePlaceFragment extends BaseFragment{
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 
                 //get all of the edittexts
                 final EditText[] editTexts={(EditText)rootView.findViewById(R.id.create_place_name),
@@ -89,7 +93,7 @@ public class CreatePlaceFragment extends BaseFragment{
                     Single nc= new Single() {
                         @Override
                         public void results(Hashtable result) {
-                            hideActivitySpinner();
+
                             boolean error = toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
                             if(!error){
                                 uploadImage(editTexts[0].getText().toString());
@@ -101,10 +105,11 @@ public class CreatePlaceFragment extends BaseFragment{
                     };
 
                     //tell the user the app is working
-                    //showActivitySpinner();
+                    showActivitySpinner();
                     //create a new userdetails class for the api
                     //call api
                     api.v1.addPlace(editTexts[0].getText().toString(),editTexts[1].getText().toString(),getLocation().latitude,getLocation().longitude, PlaceItem.convertTypeIntoCompatibleString(placeType.getSelectedItemPosition()),editTexts[2].getText().toString(),nc);
+
                 }
             }
         });
@@ -153,7 +158,9 @@ public class CreatePlaceFragment extends BaseFragment{
                     for(PlaceItem p:placeItems){
                         if(p.getName().equals(placeName)){
                             if(tempDir!=null){
-                                UploadImage imageUploader = new UploadImage(getRealPathFromURI(tempDir),UploadImage.EVENT,String.valueOf(p.getId()),context);
+                                File f = new File(Environment.getExternalStorageDirectory(),"tmp_file_store.jpg");
+
+                                UploadImage imageUploader = new UploadImage(f.getPath(), UploadImage.PLACE, String.valueOf(p.getId()), context);
                                 imageUploader.uploadToServer();
                             }
                         }

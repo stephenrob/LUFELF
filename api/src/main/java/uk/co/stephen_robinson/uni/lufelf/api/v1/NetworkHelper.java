@@ -1,12 +1,12 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1;
 
-import android.util.Log;
-
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
-import uk.co.stephen_robinson.uni.lufelf.api.Network.Script;
+import uk.co.stephen_robinson.uni.lufelf.api.network.Script;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.Scripts.Name;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Formatter;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
@@ -46,18 +46,11 @@ public class NetworkHelper {
             case QUERY_USER_DETAILS:
                 result = Formatter.userDetails(Parser.parseUserDetails(serverResponse), serverScript);
                 break;
-            case GET_FRIEND_REQUESTS:
-                break;
+
             case FRIEND_HANDSHAKE:
+                result = Formatter.message(Parser.parseFriendHandshake(serverResponse));
                 break;
-            case FRIEND_LIST:
-                break;
-            case EVENT_LIST:
-                break;
-            case SENT_MESSAGES:
-                break;
-            case RECEIVED_MESSAGES:
-                break;
+
             case UPDATE_USER_LOCATION:
                 result = Formatter.updateLocation(Parser.parseUpdateLocation(serverResponse));
                 break;
@@ -76,7 +69,6 @@ public class NetworkHelper {
 
             case PLACE_LIST:
                 results = Parser.parsePlaces(serverResponse);
-                Log.e("results ",results.toString());
                 break;
 
             case EVENT_LIST:
@@ -85,6 +77,22 @@ public class NetworkHelper {
 
             case EVENT_DETAILS:
                 results = Parser.parseEvents(serverResponse);
+                break;
+
+            case GET_FRIEND_REQUESTS:
+                results = Parser.parseFriendRequests(serverResponse);
+                break;
+
+            case FRIEND_LIST:
+                results = Parser.parseFriendsList(serverResponse);
+                break;
+
+            case SENT_MESSAGES:
+                results = null;
+                break;
+
+            case RECEIVED_MESSAGES:
+                results = null;
                 break;
 
             default:

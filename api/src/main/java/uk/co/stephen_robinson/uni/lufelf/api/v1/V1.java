@@ -127,4 +127,20 @@ public class V1 {
     public void getFriendRequests(Multiple mc){
         Friend.requests(mc);
     }
+
+    public void acceptFriendRequest(Integer request_id, Integer friend_id, Single sc){
+        Friend.updateRequest(request_id, friend_id, 1 , sc);
+    }
+
+    public void hideFriendRequest(Integer request_id, Integer friend_id, Single sc){
+        Friend.updateRequest(request_id, friend_id, 2 , sc);
+    }
+
+    public void getFriendsList(Multiple mc){
+        Friend.list(mc);
+    }
+
+    public void attendEvent(Integer event_id, Single sc){
+        Event.attend(event_id, sc);
+    }
 }

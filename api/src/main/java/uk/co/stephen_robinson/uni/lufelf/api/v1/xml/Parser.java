@@ -8,6 +8,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -547,6 +548,89 @@ public class Parser {
         }
 
         return message;
+    }
+
+    public static ArrayList parseFriendsList(String data){
+        ArrayList friends = new ArrayList();
+        Message status = new Message();
+        Friend currentFriend = null;
+        XmlPullParser parser;
+        String tagName;
+
+        try {
+            parser = XmlPullParserFactory.newInstance().newPullParser();
+            parser.setInput(new StringReader(data));
+
+            int eventType = parser.getEventType();
+
+            while(eventType != XmlPullParser.END_DOCUMENT){
+                switch (eventType){
+
+                    case XmlPullParser.START_DOCUMENT:
+                        break;
+
+                    case XmlPullParser.START_TAG:
+                        tagName = parser.getName();
+
+                        if(tagName.equalsIgnoreCase(Message.RESPONSE)){
+                            status.status = parser.getAttributeValue(null, Message.STATUS);
+
+                            if(parser.getAttributeValue(null, Message.CODE) != null){
+                                status.statusCode = Integer.parseInt(parser.getAttributeValue(null, Message.CODE));
+                            } else {
+                                status.statusCode = 200;
+                            }
+                        } else if(tagName.equalsIgnoreCase(Message.MESSAGE)){
+                            status.message = parser.nextText();
+                        }
+
+                        if(tagName.equalsIgnoreCase(Friend.USER)){
+                            currentFriend = new Friend();
+                        } else if(currentFriend != null){
+                            if(tagName.equalsIgnoreCase(Friend.USER_ID)){
+                                currentFriend.user_id = Integer.valueOf(parser.nextText());
+                            } else if(tagName.equalsIgnoreCase(Friend.FRIEND_ID)){
+                                currentFriend.friend_id = Integer.valueOf(parser.nextText());
+                            } else if(tagName.equalsIgnoreCase(Friend.FRIEND_NAME)){
+                                currentFriend.name = parser.nextText();
+                            } else if(tagName.equalsIgnoreCase(Friend.USERNAME)){
+                                currentFriend.username = parser.nextText();
+                            } else if(tagName.equalsIgnoreCase(Friend.LOCATION_STATUS)){
+                                currentFriend.location_status = Integer.valueOf(parser.nextText());
+                            } else if(tagName.equalsIgnoreCase(Friend.LATTITUDE)){
+                                currentFriend.lattitude = Double.valueOf(parser.nextText());
+                            } else if(tagName.equalsIgnoreCase(Friend.LONGITUDE)){
+                                currentFriend.longitude = Double.valueOf(parser.nextText());
+                            }
+
+                        }
+
+                        break;
+
+                    case XmlPullParser.END_TAG:
+                        tagName = parser.getName();
+
+                        if(tagName.equalsIgnoreCase(Friend.USER) && currentFriend != null){
+                            friends.add(currentFriend);
+                        }
+
+                        break;
+
+                }
+
+                eventType = parser.next();
+
+            }
+
+        } catch (XmlPullParserException e){
+            friends = null;
+        } catch (IOException e){
+            friends = null;
+        }
+
+        friends.add(status);
+
+        return friends;
     }
 
 }

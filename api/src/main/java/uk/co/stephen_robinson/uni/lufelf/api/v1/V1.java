@@ -135,4 +135,8 @@ public class V1 {
     public void hideFriendRequest(Integer request_id, Integer friend_id, Single sc){
         Friend.updateRequest(request_id, friend_id, 2 , sc);
     }
+
+    public void getFriendsList(Multiple mc){
+        Friend.list(mc);
+    }
 }

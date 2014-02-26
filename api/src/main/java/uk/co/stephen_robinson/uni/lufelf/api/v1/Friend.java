@@ -139,4 +139,19 @@ public class Friend {
         networkTask.execute(params);
 
     }
+
+    static void list(Multiple mc){
+
+        int userId = Integer.parseInt(Api.getSessionManager().getUserDetails().get(SessionManager.KEY_USERID));
+        String password = Api.getSessionManager().getUserDetails().get(SessionManager.KEY_PASSWORD);
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+
+        params.add(new BasicNameValuePair(User.USER_ID, Integer.toString(userId)));
+        params.add(new BasicNameValuePair(User.PASSWORD, password));
+
+        MultiplePost networkTask =  new MultiplePost(mc, Scripts.FRIEND_LIST);
+        networkTask.execute(params);
+
+    }
 }

@@ -50,12 +50,7 @@ public class NetworkHelper {
             case FRIEND_HANDSHAKE:
                 result = Formatter.message(Parser.parseFriendHandshake(serverResponse));
                 break;
-            case FRIEND_LIST:
-                break;
-            case SENT_MESSAGES:
-                break;
-            case RECEIVED_MESSAGES:
-                break;
+
             case UPDATE_USER_LOCATION:
                 result = Formatter.updateLocation(Parser.parseUpdateLocation(serverResponse));
                 break;
@@ -86,6 +81,18 @@ public class NetworkHelper {
 
             case GET_FRIEND_REQUESTS:
                 results = Parser.parseFriendRequests(serverResponse);
+                break;
+
+            case FRIEND_LIST:
+                results = Parser.parseFriendsList(serverResponse);
+                break;
+
+            case SENT_MESSAGES:
+                results = null;
+                break;
+
+            case RECEIVED_MESSAGES:
+                results = null;
                 break;
 
             default:

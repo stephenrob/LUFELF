@@ -139,4 +139,8 @@ public class V1 {
     public void getFriendsList(Multiple mc){
         Friend.list(mc);
     }
+
+    public void attendEvent(Integer event_id, Single sc){
+        Event.attend(event_id, sc);
+    }
 }

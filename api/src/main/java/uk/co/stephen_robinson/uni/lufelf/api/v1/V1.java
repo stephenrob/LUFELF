@@ -151,4 +151,8 @@ public class V1 {
     public void getReceivedMessages(Multiple mc){
         Message.received(mc);
     }
+
+    public void sendMessage(Integer to, String message, Single sc){
+        Message.send(to, message, sc);
+    }
 }

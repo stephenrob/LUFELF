@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Hashtable;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
@@ -45,6 +46,8 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
     private GoogleMap map;
     private LocationManager locationManager;
     private ArrayList placeItems;
+    private Criteria crit = new Criteria();
+
     /**
      * Returns a new instance of this fragment for the given section
      * number.
@@ -63,7 +66,17 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
 
     public MapViewFragment() {
     }
-
+    @Override
+    public void onResume(){
+        super.onResume();
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0, 0, this);
+        //locationManager.requestLocationUpdates(locationManager.getBestProvider(crit,false),10000, 5, this);
+    }
+    @Override
+    public void onPause(){
+        super.onResume();
+        locationManager.removeUpdates(this);
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
@@ -76,11 +89,11 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
         //get the location manager
         this.locationManager=(LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
         //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 400, 5, this);
-        Criteria crit = new Criteria();
+
         crit.setAccuracy(Criteria.ACCURACY_FINE);
 
-        //set the call back request for every 400 milliseconds or every 5 metres
-        locationManager.requestLocationUpdates(locationManager.getBestProvider(crit, false), 400, 5, this);
+        //set the call back request for every 10000 milliseconds or every 5 metres
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0, 0, this);
 
         //get the mapfragment
         map = ((MapFragment) fragmentManager.findFragmentById(R.id.map)).getMap();
@@ -210,7 +223,12 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
         Single single = new Single() {
             @Override
             public void results(Hashtable result) {
-                Log.e("location","LOCATIONUPDATE");
+                Enumeration keys = result.keys();
+                while(keys.hasMoreElements()){
+                    Log.e("CRAP",keys.nextElement().toString());
+                }
+
+                Log.e("location", "LOCATIONUPDATE");
                 boolean error=toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
             }
         };
@@ -219,7 +237,9 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
     }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) { }
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        Log.e("STATUS CHANGED",provider+" "+status);
+    }
 
     @Override
     public void onProviderEnabled(String provider) { }

@@ -42,4 +42,8 @@ public class UserItem {
     public boolean isFriend(){
         return friend;
     }
+
+    public static UserItem getBlankResult(){
+        return new UserItem("","None","","",0,false);
+    }
 }

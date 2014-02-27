@@ -102,7 +102,7 @@ public class FriendProfileFragment extends BaseFragment{
                         }
                     };
 
-                    api.v1.deleteFriend(id,single);
+                    api.v1.deleteFriend(id, single);
                 }
             });
         }

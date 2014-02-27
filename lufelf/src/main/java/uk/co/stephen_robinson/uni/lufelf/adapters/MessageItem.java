@@ -41,4 +41,8 @@ public class MessageItem {
     public String getId() {
         return id;
     }
+
+    public static MessageItem getBlankResult(){
+        return new MessageItem("","None","0");
+    }
 }

@@ -47,6 +47,31 @@
                 android:layout_below="@+id/friend_name"
                 android:gravity="center_horizontal"
                 android:layout_marginTop="10dp"/>
+            <LinearLayout
+                android:id="@+id/navigate_to_friend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/friend_email">
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/ic_profile_location"/>
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/friend_location"
+                    android:textSize="@dimen/text"
+                    android:text="@string/event_subfragment_location"
+                    android:textColor="@color/stdtxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginRight="20dp"
+                    android:layout_toRightOf="@id/event_host"/>
+
+                </LinearLayout>
 
             <TextView
                 android:text="My description."
@@ -56,7 +81,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/friend_email"
+                android:layout_below="@id/navigate_to_friend"
                 android:gravity="center_horizontal"
                 android:lines="4"
                 android:textSize="@dimen/text"

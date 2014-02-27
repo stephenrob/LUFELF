@@ -129,7 +129,7 @@ public class V1 {
     }
 
     public void acceptFriendRequest(Integer request_id, Integer friend_id, Single sc){
-        Friend.updateRequest(request_id, friend_id, 1 , sc);
+        Friend.updateRequest(request_id, friend_id, 1, sc);
     }
 
     public void hideFriendRequest(Integer request_id, Integer friend_id, Single sc){

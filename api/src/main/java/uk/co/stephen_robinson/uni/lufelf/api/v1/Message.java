@@ -8,11 +8,10 @@ import java.util.List;
 
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
 import uk.co.stephen_robinson.uni.lufelf.api.SessionManager;
-import uk.co.stephen_robinson.uni.lufelf.api.network.MultiplePost;
-import uk.co.stephen_robinson.uni.lufelf.api.network.SinglePost;
-import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Multiple;
-import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
-import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.UserMessage;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.MultiplePost;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.SinglePost;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 
 /**
  * Created by Stephen on 26/02/2014.

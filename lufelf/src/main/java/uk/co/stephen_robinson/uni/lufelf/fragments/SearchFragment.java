@@ -141,7 +141,7 @@ public class SearchFragment extends BaseFragment{
 
 
                                         }else{
-                                            userItems.add(new UserItem("No Results","","","",0,false));
+                                            userItems.add(UserItem.getBlankResult());
                                         }
                                         list.setAdapter(new UserItemAdapter(context,userItems));
                                     }

@@ -6,7 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Hashtable;
 
@@ -59,6 +62,7 @@ public class RequestProfileFragment extends BaseFragment{
         TextView name = (TextView)rootView.findViewById(R.id.friend_name);
         TextView username = (TextView)rootView.findViewById(R.id.friend_email);
         TextView description = (TextView)rootView.findViewById(R.id.friend_profile_description);
+        LinearLayout navigateToLayout = (LinearLayout)rootView.findViewById(R.id.navigate_to_friend);
 
         name.setText(args.getString("name"));
         username.setText("("+args.getString("username")+")");
@@ -66,6 +70,17 @@ public class RequestProfileFragment extends BaseFragment{
         id=args.getInt("user_id");
 
         loadUser(description);
+
+        if(args.getInt("loc_status")==1&&args.getDouble("lat")!=0||args.getDouble("long")!=0){
+            navigateToLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    swapToNavigateTo(new LatLng(args.getDouble("lat"),args.getDouble("long")));
+                }
+            });
+        }else{
+            toastMaker.makeToast(args.getString("name") + " is not sharing their location right now!");
+        }
 
         ImageView imageView=(ImageView)rootView.findViewById(R.id.image_friend);
         DownloadImage downloadImage = new DownloadImage(imageView,getActivity(),DownloadImage.AVATAR,id);
@@ -108,7 +123,7 @@ public class RequestProfileFragment extends BaseFragment{
                             hideActivitySpinner();
                         }
                     };
-                    api.v1.acceptFriendRequest(args.getInt("request_id"),args.getInt("user_id"), single);
+                    api.v1.acceptFriendRequest(args.getInt("request_id"), args.getInt("user_id"), single);
                 }
             });
             remove.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +139,7 @@ public class RequestProfileFragment extends BaseFragment{
                             hideActivitySpinner();
                         }
                     };
-                    api.v1.hideFriendRequest(args.getInt("request_id"),args.getInt("user_id"), single);
+                    api.v1.hideFriendRequest(args.getInt("request_id"), args.getInt("user_id"), single);
                 }
             });
         }

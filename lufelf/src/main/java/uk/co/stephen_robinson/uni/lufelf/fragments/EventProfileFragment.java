@@ -32,19 +32,19 @@ import uk.co.stephen_robinson.uni.lufelf.utilities.DownloadImage;
  * @author James
  * Displays the 'profile' of an event
  */
-public class EventSubFragment extends BaseFragment{
+public class EventProfileFragment extends BaseFragment{
     private UserItem owner;
     private LatLng finish;
     /**
      * create a fragment with a specific item
      * @param item the event to base the fragment on.
-     * @return new instance of the EventSubFragment
+     * @return new instance of the EventProfileFragment
      */
 
-    public static EventSubFragment newInstance(EventListItem item) {
+    public static EventProfileFragment newInstance(EventListItem item) {
 
         //create fragment
-        EventSubFragment fragment=new EventSubFragment();
+        EventProfileFragment fragment=new EventProfileFragment();
 
         //create args
         Bundle args = new Bundle();
@@ -58,7 +58,7 @@ public class EventSubFragment extends BaseFragment{
         return fragment;
     }
 
-    public EventSubFragment() {
+    public EventProfileFragment() {
     }
 
     @Override
@@ -172,7 +172,7 @@ public class EventSubFragment extends BaseFragment{
                                 int id = result.get("user_id")==null?0:Integer.valueOf(String.valueOf(result.get("user_id")));
 
                                 //set this fragments owner object
-                                owner=new UserItem(name, description, libno, username, id);
+                                owner=new UserItem(name, description, libno, username, id,false);
 
                                 //set the creator text
                                 creator.setText("Created By: "+owner.getName());
@@ -182,7 +182,7 @@ public class EventSubFragment extends BaseFragment{
                                     @Override
                                     public void onClick(View view) {
                                         //swap fragments to the user profile when clicked.
-                                        fragmentManager.beginTransaction().add(R.id.container, FriendsSubFragment.newInstance(owner), "UserProfileSubView").addToBackStack(null).commit();
+                                        fragmentManager.beginTransaction().add(R.id.container, FriendProfileFragment.newInstance(owner), "UserProfileSubView").addToBackStack(null).commit();
                                     }
                                 });
 

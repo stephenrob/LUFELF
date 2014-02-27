@@ -9,14 +9,16 @@ public class UserItem {
     private String libraryNo="";
     private String emailAdd="";
     private int id;
+    private boolean friend=false;
 
 
-    public UserItem(String name, String description, String libraryNo, String emailAdd, int id) {
+    public UserItem(String name, String description, String libraryNo, String emailAdd, int id,boolean friend) {
         this.id=id;
         this.name = name;
         this.description = description;
         this.libraryNo = libraryNo;
         this.emailAdd = emailAdd;
+        this.friend=friend;
     }
 
     public int getId() {
@@ -36,5 +38,8 @@ public class UserItem {
     }
     public String getEmailAdd() {
         return emailAdd;
+    }
+    public boolean isFriend(){
+        return friend;
     }
 }

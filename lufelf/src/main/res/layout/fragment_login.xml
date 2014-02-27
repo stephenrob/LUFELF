@@ -45,7 +45,6 @@
                 android:id="@+id/login_liner_layout"
                 >
 
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -53,9 +52,12 @@
                     android:text="User Name: "
                     android:textSize="@dimen/subtitle"
                     android:textColor="@color/stdtxt"
-                    android:padding="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     />
                   <EditText
+                      android:inputType="textEmailAddress"
                       android:id="@+id/login_username_text"
                       android:layout_width="fill_parent"
                       android:layout_height="wrap_content"

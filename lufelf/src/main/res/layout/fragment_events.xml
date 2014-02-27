@@ -11,7 +11,7 @@
     <TextView
         android:id="@+id/events_title"
         android:textColor="@color/titletxt"
-        android:text="Events"
+        android:text="My Events"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/title"

@@ -51,7 +51,6 @@ public class UploadImage{
      */
     public UploadImage(String path, String type, Context context){
         this.api = new Api(context, Api.Version.V1);
-        this.user_id=user_id;
         this.path=path;
         this.type=type;
     }
@@ -64,7 +63,6 @@ public class UploadImage{
      */
     public UploadImage(String path, String type,String query_id, Context context){
         this.api = new Api(context, Api.Version.V1);
-        this.user_id=user_id;
         this.path=path;
         this.query_id=query_id;
         this.type=type;

@@ -9,12 +9,11 @@ import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.fragments.CreateEventFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.CreatePlaceFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.EventsFragment;
+import uk.co.stephen_robinson.uni.lufelf.fragments.FragmentFriendRequests;
 import uk.co.stephen_robinson.uni.lufelf.fragments.FriendsFragment;
-import uk.co.stephen_robinson.uni.lufelf.fragments.LoginFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.MapViewFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.MessagesFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.NavigationDrawerFragment;
-import uk.co.stephen_robinson.uni.lufelf.fragments.RegisterFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.SearchFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.SettingsFragment;
 
@@ -30,24 +29,18 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
 
 
     // array to hold the various fragments used in the navigation drawer.
-    Fragment[][] fragments={{MapViewFragment.newInstance(null), CreatePlaceFragment.newInstance()},
-            {FriendsFragment.newInstance(),SearchFragment.newInstance(SearchFragment.friendsSearch)},
-            {EventsFragment.newInstance(), CreateEventFragment.newInstance(),EventsFragment.newInstance()},
+    Fragment[][] fragments={{MapViewFragment.newInstance(null), CreatePlaceFragment.newInstance(),SearchFragment.newInstance(SearchFragment.placeSearch)},
+            {FriendsFragment.newInstance(), FragmentFriendRequests.newInstance(),SearchFragment.newInstance(SearchFragment.friendsSearch)},
+            {EventsFragment.newInstance(), CreateEventFragment.newInstance(),SearchFragment.newInstance(SearchFragment.eventSearch)},
             {MessagesFragment.newInstance()},
-            {SettingsFragment.newInstance()},
-            {LoginFragment.newInstance()},
-            {RegisterFragment.newInstance()},
-            {SearchFragment.newInstance(SearchFragment.friendsSearch)}};
+            {SettingsFragment.newInstance()}};
 
 
     String[][] tags={{"Locations","Create Location"},
-            {"Friends","Add Friends"},
+            {"Friends","View Requests","Add Friend"},
             {"Events","Create Event","Remove Event"},
             {"Messages"},
-            {"Settings"},
-            {"Login"},
-            {"Register"},
-            {"Search"}};
+            {"Settings"}};
 
     /**
      *Handles on navigationdrawer item selected (swap fragments)
@@ -90,8 +83,13 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
      */
     //
     public void handleButton(MenuItem item){
-        findTagPosition(item.getTitle().toString());
-        onNavigationDrawerItemSelected(currentGroupPosition,currentChildPosition);
+        for(int outer=0;outer<tags.length;outer++){
+            for(int inner=0;inner<tags[outer].length;inner++){
+                if(tags[outer][inner].equals(item.getTitle())){
+                    onNavigationDrawerItemSelected(outer,inner);
+                }
+            }
+        }
     }
 
     /**

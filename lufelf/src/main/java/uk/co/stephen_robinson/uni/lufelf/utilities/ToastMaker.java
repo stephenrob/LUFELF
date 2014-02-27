@@ -27,13 +27,21 @@ public class ToastMaker {
      * @return if true there is an error, otherwise it is false
      */
     public boolean isError(String code,String message){
-        int numberCode=Integer.valueOf(code);
+        int numberCode=-1;
+        try{
+            numberCode=Integer.valueOf(code);
+        }catch(Exception e){
+
+        }
         switch(numberCode){
             case 400:
                 makeToast(message);
                 return true;
             case 500:
                 makeToast(message);
+                return true;
+            case -1:
+                makeToast("An unknown error occurred.");
                 return true;
             default:
                 return false;

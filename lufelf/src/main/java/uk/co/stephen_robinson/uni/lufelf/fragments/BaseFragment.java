@@ -43,6 +43,7 @@ import uk.co.stephen_robinson.uni.lufelf.activities.MainActivity;
 import uk.co.stephen_robinson.uni.lufelf.activities.NavigateToActivity;
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
 import uk.co.stephen_robinson.uni.lufelf.utilities.ToastMaker;
+import uk.co.stephen_robinson.uni.lufelf.utilities.UploadImage;
 
 /**
  * @author James
@@ -58,6 +59,8 @@ public class BaseFragment  extends Fragment{
     protected View rootView;
     public Uri imageURI;
     public Uri tempDir;
+
+    public boolean userUpload=false;
 
     /**
      * Set the fragment manager
@@ -237,8 +240,11 @@ public class BaseFragment  extends Fragment{
             case 2:
                 if(resultCode != getActivity().RESULT_CANCELED){
                     setImage();
-                    //UploadImage imageUploader = new UploadImage("215",tempDir.getPath(),UploadImage.AVATAR);
-                    //imageUploader.uploadToServer();
+                    if(userUpload){
+                        File f = new File(Environment.getExternalStorageDirectory(),"tmp_file_store.jpg");
+                        UploadImage imageUploader = new UploadImage(f.getPath(),UploadImage.AVATAR,context);
+                        imageUploader.uploadToServer();
+                    }
                 }
                 break;
         }

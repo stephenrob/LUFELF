@@ -93,6 +93,7 @@ public class SettingsFragment extends BaseFragment{
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                userUpload=true;
                 showCameraDialog();
             }
         });

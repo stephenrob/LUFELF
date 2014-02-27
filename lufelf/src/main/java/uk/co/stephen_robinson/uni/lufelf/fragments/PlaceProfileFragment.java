@@ -18,14 +18,14 @@ import uk.co.stephen_robinson.uni.lufelf.utilities.DownloadImage;
  * @author James
  * Place profile
  */
-public class PlaceSubFragment extends BaseFragment{
+public class PlaceProfileFragment extends BaseFragment{
     private LatLng finish;
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static PlaceSubFragment newInstance(PlaceItem p) {
-        PlaceSubFragment f=new PlaceSubFragment();
+    public static PlaceProfileFragment newInstance(PlaceItem p) {
+        PlaceProfileFragment f=new PlaceProfileFragment();
         Bundle args =new Bundle();
 
         args.putInt("id",p.getId());
@@ -42,7 +42,7 @@ public class PlaceSubFragment extends BaseFragment{
         return f;
     }
 
-    public PlaceSubFragment() {
+    public PlaceProfileFragment() {
     }
 
     @Override

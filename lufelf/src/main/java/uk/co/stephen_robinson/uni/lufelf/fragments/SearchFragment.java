@@ -19,8 +19,10 @@ import java.util.Hashtable;
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.adapters.UserItem;
 import uk.co.stephen_robinson.uni.lufelf.adapters.UserItemAdapter;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.User;
 import uk.co.stephen_robinson.uni.lufelf.utilities.ValidationChecker;
 
 /**
@@ -102,24 +104,54 @@ public class SearchFragment extends BaseFragment{
                             while(keys.hasMoreElements())
                                 Log.e("Key", keys.nextElement().toString());
                             if(!toastMaker.isError(String.valueOf(result.get(Message.CODE)),(String)result.get(Message.MESSAGE))){
-                                ArrayList<UserItem> userItems= new ArrayList<UserItem>();
 
-                                String name = result.get("name")==null?"":String.valueOf(result.get("name"));
-                                String description = result.get("description")==null?"My description...":String.valueOf(result.get("description"));
-                                String libno = result.get("lib_no")==null?"":String.valueOf(result.get("lib_no"));
-                                String username = result.get("username")==null?"":String.valueOf(result.get("username"));
-                                int id = result.get("user_id")==null?0:Integer.valueOf(String.valueOf(result.get("user_id")));
 
-                                userItems.add(new UserItem(name, description, libno, username, id));
-                                list.setAdapter(new UserItemAdapter(context,userItems));
+                                final String name = result.get("name")==null?"":String.valueOf(result.get("name"));
+                                final String description = result.get("description")==null?"My description...":String.valueOf(result.get("description"));
+                                final String libno = result.get("lib_no")==null?"":String.valueOf(result.get("lib_no"));
+                                final String username = result.get("username")==null?"":String.valueOf(result.get("username"));
+                                final int id = result.get("user_id")==null?0:Integer.valueOf(String.valueOf(result.get("user_id")));
 
-                                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+                                Multiple m = new Multiple() {
                                     @Override
-                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                        UserItem user =(UserItem) list.getItemAtPosition(i);
-                                        fragmentManager.beginTransaction().add(R.id.container, FriendsSubFragment.newInstance(user), "UserProfileSubView").addToBackStack(null).commit();
+                                    public void results(ArrayList result) {
+                                        ArrayList<UserItem> userItems= new ArrayList<UserItem>();
+                                        ArrayList<UserItem>users=new ArrayList<UserItem>();
+
+                                        Message m =(Message)result.get(result.size()-1);
+
+                                        if(result.size()>0){
+
+                                            for(int i=0;i<result.size()-1;i++){
+                                                User u =(User)result.get(i);
+                                                users.add(new UserItem(u.getName(),u.getDescription(),u.getLib_no(),"",u.getUser_id(),true));
+                                            }
+                                            UserItem u =new UserItem(name, description, libno, username, id,false);
+                                            Log.e("USER",crossReference(u,users).getName());
+                                            userItems.add(crossReference(u,users));
+                                            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                                @Override
+                                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                                    UserItem user =(UserItem) list.getItemAtPosition(i);
+                                                    fragmentManager.beginTransaction().add(R.id.container, FriendProfileFragment.newInstance(user), "UserProfileSubView").addToBackStack(null).commit();
+                                                }
+                                            });
+
+
+                                        }else{
+                                            userItems.add(new UserItem("No Results","","","",0,false));
+                                        }
+                                        list.setAdapter(new UserItemAdapter(context,userItems));
                                     }
-                                });
+                                };
+
+                                api.v1.getFriendsList(m);
+
+
+
+
                             }
 
                             hideActivitySpinner();
@@ -147,5 +179,20 @@ public class SearchFragment extends BaseFragment{
     }
     public void setUpForEventSearch(){
 
+    }
+
+    public UserItem crossReference(UserItem user, ArrayList<UserItem>friends){
+        UserItem friend = null;
+
+        for(UserItem u:friends){
+            if(u.getName().equals(user.getName())){
+                friend= u;
+            }
+        }
+
+        if(friend==null)
+            friend=user;
+
+        return friend;
     }
 }

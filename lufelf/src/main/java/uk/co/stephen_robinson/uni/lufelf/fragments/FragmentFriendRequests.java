@@ -1,6 +1,7 @@
 package uk.co.stephen_robinson.uni.lufelf.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +21,15 @@ import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
  * @author James
  * Instantiates a friends fragment
  */
-public class FriendsFragment extends BaseFragment{
+public class FragmentFriendRequests extends BaseFragment{
 
     private ListView friendsList;
 
-    public static FriendsFragment newInstance() {
-        return new FriendsFragment();
+    public static FragmentFriendRequests newInstance() {
+        return new FragmentFriendRequests();
     }
 
-    public FriendsFragment() {
+    public FragmentFriendRequests() {
     }
 
     @Override
@@ -36,7 +37,7 @@ public class FriendsFragment extends BaseFragment{
                              Bundle savedInstanceState) {
         //init
         setFragmentManager(getFragmentManager());
-        rootView = inflater.inflate(R.layout.fragment_friends, container, false);
+        rootView = inflater.inflate(R.layout.fragment_friend_request, container, false);
         setContext(rootView.getContext());
         //showActivitySpinner();
 
@@ -55,29 +56,30 @@ public class FriendsFragment extends BaseFragment{
             @Override
             public void results(ArrayList result) {
                 Message m =(Message)result.get(result.size()-1);
-                ArrayList<FriendItem> friendItems = new ArrayList<FriendItem>();
+                ArrayList<FriendItem> friends = new ArrayList<FriendItem>();
                 if(!toastMaker.isError(String.valueOf(m.getStatusCode()),m.getMessage())){
-
+                    Log.e("result size ",String.valueOf(result.size()));
                     for(int i=0;i<result.size()-1;i++){
+                        Log.e("ONCE ","gone once");
                         Friend f =(Friend)result.get(i);
-                        friendItems.add(new FriendItem(f.getRequest_id(),f.getFriend_id(),f.getUser_id(),f.getFriend_status(),f.getName(),f.getUsername(),f.getLocation_status(),f.getLattitude(),f.getLongitude()));
+                        friends.add(new FriendItem(f.getRequest_id(),f.getFriend_id(),f.getUser_id(),f.getFriend_status(),f.getName(),f.getUsername(),f.getLocation_status(),f.getLattitude(),f.getLongitude()));
                     }
-                    friendsList.setAdapter(new FriendItemAdapter(context,friendItems));
+                    friendsList.setAdapter(new FriendItemAdapter(context, friends));
                     friendsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             FriendItem item = (FriendItem) friendsList.getItemAtPosition(i);
-                            fragmentManager.beginTransaction().add(R.id.container, RequestProfileFragment.newInstance(item), "EventSubView").addToBackStack(null).commit();
+                            fragmentManager.beginTransaction().add(R.id.container, RequestProfileFragment.newInstance(item), "FriendRequest").addToBackStack(null).commit();
                         }
                     });
                 }else{
-                    friendItems.add(FriendItem.getBlankResult());
-                    friendsList.setAdapter(new FriendItemAdapter(context,friendItems));
+                    friends.add(FriendItem.getBlankResult());
+                    friendsList.setAdapter(new FriendItemAdapter(context, friends));
                 }
                 hideActivitySpinner();
             }
         };
 
-        api.v1.getFriendsList(mc);
+        api.v1.getFriendRequests(mc);
     }
 }

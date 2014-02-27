@@ -165,25 +165,25 @@ public class NavigationDrawerFragment extends Fragment {
 
         ArrayList friendsItems=new ArrayList<NavDrawerItem>();
         friendsItems.add(new NavDrawerItem(getString(R.string.view_friends_text), 0));
-        friendsItems.add(new NavDrawerItem(getString(R.string.add_friends_text), 0));
+        friendsItems.add(new NavDrawerItem(getString(R.string.view_friend_request_text), 0));
+        friendsItems.add(new NavDrawerItem(getString(R.string.search_users_text),0));
 
         ArrayList eventItems=new ArrayList<NavDrawerItem>();
         eventItems.add(new NavDrawerItem(getString(R.string.view_event_text), 0));
         eventItems.add(new NavDrawerItem(getString(R.string.create_event_text), 0));
-        eventItems.add(new NavDrawerItem(getString(R.string.remove_event_text), 0));
+        eventItems.add(new NavDrawerItem(getString(R.string.search_events_text),0));
 
         ArrayList placeItems=new ArrayList<NavDrawerItem>();
-        placeItems.add(new NavDrawerItem("View Locations",0));
-        placeItems.add(new NavDrawerItem("Create Location",0));
+        placeItems.add(new NavDrawerItem(getString(R.string.view_locations_text),0));
+        placeItems.add(new NavDrawerItem(getString(R.string.create_location_text),0));
+        placeItems.add(new NavDrawerItem(getString(R.string.search_locations_text),0));
 
         navigationGroups.add(new NavDrawerGroup(getString(R.string.locations_activity),R.drawable.ic_location_place,placeItems));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.friends_activity),R.drawable.ic_friends,friendsItems));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.events_activity),R.drawable.ic_events,eventItems));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.messages_activity),R.drawable.ic_message,new ArrayList<NavDrawerItem>()));
         navigationGroups.add(new NavDrawerGroup(getString(R.string.settings_activity),R.drawable.ic_settings,new ArrayList<NavDrawerItem>()));
-        navigationGroups.add(new NavDrawerGroup(getString(R.string.login_text),0,new ArrayList<NavDrawerItem>()));
-        navigationGroups.add(new NavDrawerGroup(getString(R.string.register_text),0,new ArrayList<NavDrawerItem>()));
-        navigationGroups.add(new NavDrawerGroup(getString(R.string.search_activity),0,new ArrayList<NavDrawerItem>()));
+
         return navigationGroups;
     }
     /**

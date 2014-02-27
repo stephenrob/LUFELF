@@ -86,11 +86,11 @@ public class NetworkHelper {
                 break;
 
             case SENT_MESSAGES:
-                results = null;
+                results = Parser.parseMessages(serverResponse);
                 break;
 
             case RECEIVED_MESSAGES:
-                results = null;
+                results = Parser.parseMessages(serverResponse);
                 break;
 
             default:

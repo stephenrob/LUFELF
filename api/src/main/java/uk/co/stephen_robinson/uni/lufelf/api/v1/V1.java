@@ -143,4 +143,20 @@ public class V1 {
     public void attendEvent(Integer event_id, Single sc){
         Event.attend(event_id, sc);
     }
+
+    public void getSentMessages(Multiple mc){
+        Message.sent(mc);
+    }
+
+    public void getReceivedMessages(Multiple mc){
+        Message.received(mc);
+    }
+
+    public void sendMessage(Integer to, String message, Single sc){
+        Message.send(to, message, sc);
+    }
+
+    public Boolean isLoggedIn(){
+        return Api.getSessionManager().checkLogin();
+    }
 }

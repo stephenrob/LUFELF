@@ -633,4 +633,87 @@ public class Parser {
         return friends;
     }
 
+    public static ArrayList parseMessages(String data){
+        ArrayList messages = new ArrayList();
+        Message status = new Message();
+        XmlPullParser parser;
+        String tagName;
+
+        try {
+            parser = XmlPullParserFactory.newInstance().newPullParser();
+            parser.setInput(new StringReader(data));
+
+            int eventType = parser.getEventType();
+
+            while(eventType != XmlPullParser.END_DOCUMENT){
+                switch (eventType){
+
+                    case XmlPullParser.START_DOCUMENT:
+                        break;
+
+                    case XmlPullParser.START_TAG:
+                        tagName = parser.getName();
+
+                        if(tagName.equalsIgnoreCase(Message.RESPONSE)){
+                            status.status = parser.getAttributeValue(null, Message.STATUS);
+
+                            if(parser.getAttributeValue(null, Message.CODE) != null){
+                                status.statusCode = Integer.parseInt(parser.getAttributeValue(null, Message.CODE));
+                            } else {
+                                status.statusCode = 200;
+                            }
+                        } else if(tagName.equalsIgnoreCase(Message.MESSAGE)){
+                            status.message = parser.nextText();
+                        }
+
+                        if(tagName.equalsIgnoreCase(UserMessage.MESSAGE)){
+                            messages.add(parseUserMessage(parser));
+                        }
+
+                        break;
+
+                    case XmlPullParser.END_TAG:
+                        tagName = parser.getName();
+                        break;
+
+                }
+
+                eventType = parser.next();
+
+            }
+
+        } catch (XmlPullParserException e){
+            messages = null;
+        } catch (IOException e){
+            messages = null;
+        }
+
+        messages.add(status);
+
+        return messages;
+    }
+
+    private static UserMessage parseUserMessage(XmlPullParser parser) throws XmlPullParserException, IOException {
+
+        UserMessage userMessage = new UserMessage();
+
+        parser.require(XmlPullParser.START_TAG, null, UserMessage.MESSAGE);
+
+        while (parser.next() != XmlPullParser.END_TAG) {
+            if (parser.getEventType() != XmlPullParser.START_TAG) {
+                continue;
+            }
+            String tagName = parser.getName();
+            if(tagName.equalsIgnoreCase(UserMessage.MESSAGE_ID)){
+                userMessage.message_id = Integer.valueOf(parser.nextText());
+            } else if(tagName.equalsIgnoreCase(UserMessage.MESSAGE_FROM)){
+                userMessage.from = parser.nextText();
+            } else if(tagName.equalsIgnoreCase(UserMessage.MESSAGE)){
+                userMessage.content = parser.nextText();
+            }
+        }
+        return userMessage;
+
+    }
+
 }

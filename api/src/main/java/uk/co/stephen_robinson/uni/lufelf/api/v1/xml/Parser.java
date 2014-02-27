@@ -1,6 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1.xml;
 
-import android.content.UriMatcher;
+import android.util.Log;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -8,9 +8,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Stephen on 21/02/14.
@@ -479,6 +477,7 @@ public class Parser {
                         tagName = parser.getName();
 
                         if(tagName.equalsIgnoreCase(Friend.FRIEND) && currentFriend != null){
+
                             requests.add(currentFriend);
                         }
 
@@ -491,8 +490,10 @@ public class Parser {
             }
 
         } catch (XmlPullParserException e){
+            Log.e("pullparser",Log.getStackTraceString(e));
             requests = null;
         } catch (IOException e){
+            Log.e("IOEXCEPTION",Log.getStackTraceString(e));
             requests = null;
         }
 
@@ -686,11 +687,13 @@ public class Parser {
             }
 
         } catch (XmlPullParserException e){
+            Log.e("pull",Log.getStackTraceString(e));
             messages = null;
         } catch (IOException e){
+            Log.e("IO",Log.getStackTraceString(e));
             messages = null;
         }
-
+        Log.e("added",status.getStatus());
         messages.add(status);
 
         return messages;

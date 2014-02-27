@@ -28,4 +28,10 @@ public class Message {
     public String getStatus() {
         return status;
     }
+
+    public Message(Integer code, String status, String message){
+        this.message = message;
+        this.status = status;
+        this.statusCode = code;
+    }
 }

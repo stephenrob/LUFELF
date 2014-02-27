@@ -19,6 +19,7 @@ import java.util.List;
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
 import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.NetworkHelper;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 
 /**
  * Created by Stephen on 22/02/2014.
@@ -40,6 +41,13 @@ public class MultipleGet extends AsyncTask<Void, Integer, ArrayList> {
     protected ArrayList doInBackground(Void... voids) {
 
         ArrayList result = new ArrayList();
+
+        if(!Api.isNetworkAvailable()){
+
+            result.add(new Message(400, "fail", "No network available"));
+
+            return result;
+        }
 
         HttpGet getData = new HttpGet(serverScript.protocol.getProtocol() + Helper.SERVER_IP_ADDRESSS + serverScript.path);
 

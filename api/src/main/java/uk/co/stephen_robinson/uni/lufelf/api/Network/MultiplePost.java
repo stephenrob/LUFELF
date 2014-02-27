@@ -1,7 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.api.Network;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -64,7 +63,11 @@ public class MultiplePost extends AsyncTask<List<NameValuePair>, Integer, ArrayL
             }
 
         } catch (Exception e){
-            Log.e("LUFELF API", Log.getStackTraceString(e));
+            result = new ArrayList();
+
+            result.add(new Message(400, "fail", "Error"));
+
+            return result;
         }
 
         return result;

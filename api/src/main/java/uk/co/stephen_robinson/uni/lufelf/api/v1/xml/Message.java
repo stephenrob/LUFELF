@@ -29,6 +29,10 @@ public class Message {
         return status;
     }
 
+    public Message(){
+
+    }
+
     public Message(Integer code, String status, String message){
         this.message = message;
         this.status = status;

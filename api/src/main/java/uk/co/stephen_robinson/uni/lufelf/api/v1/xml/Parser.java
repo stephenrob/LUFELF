@@ -669,9 +669,10 @@ public class Parser {
                         } else if(tagName.equalsIgnoreCase(Message.MESSAGE)){
                             status.message = parser.nextText();
                         }
-
-                        if(tagName.equalsIgnoreCase(UserMessage.MESSAGE)){
-                            messages.add(parseUserMessage(parser));
+                        if(status.message.equals("")){
+                            if(tagName.equalsIgnoreCase(UserMessage.MESSAGE)){
+                                messages.add(parseUserMessage(parser));
+                            }
                         }
 
                         break;

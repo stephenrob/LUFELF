@@ -132,7 +132,7 @@ public class Friend {
         params.add(new BasicNameValuePair("user_id1", Integer.toString(userId)));
         params.add(new BasicNameValuePair("user_id2", Integer.toString(friend_id)));
         params.add(new BasicNameValuePair("request_id", Integer.toString(request_id)));
-        params.add(new BasicNameValuePair("Status", Integer.toString(status)));
+        params.add(new BasicNameValuePair("status", Integer.toString(status)));
         params.add(new BasicNameValuePair(User.PASSWORD, password));
 
         SinglePost networkTask =  new SinglePost(sc, Scripts.FRIEND_HANDSHAKE);

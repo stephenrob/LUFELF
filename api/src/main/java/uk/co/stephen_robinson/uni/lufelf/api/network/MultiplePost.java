@@ -67,7 +67,12 @@ public class MultiplePost extends AsyncTask<List<NameValuePair>, Integer, ArrayL
             }
 
         } catch (Exception e){
-            Log.e("LUFELF API", e.toString());
+
+            result = new ArrayList();
+
+            result.add(new Message(400, "fail", "Error"));
+
+            return result;
         }
 
         return result;

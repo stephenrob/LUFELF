@@ -11,6 +11,7 @@ public class Friend extends Message {
     protected int friend_status;
     protected String name;
     protected String username;
+    protected String lib_no;
     protected int location_status;
     protected Double lattitude;
     protected Double longitude;

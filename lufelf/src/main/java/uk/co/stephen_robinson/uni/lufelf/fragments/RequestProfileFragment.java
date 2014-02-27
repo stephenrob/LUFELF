@@ -32,15 +32,20 @@ public class RequestProfileFragment extends BaseFragment{
     public static RequestProfileFragment newInstance(FriendItem friendItem) {
         RequestProfileFragment f = new RequestProfileFragment();
         Bundle args = new Bundle();
+
         args.putInt("user_id",friendItem.getUser_id());
         args.putString("name", friendItem.getName());
-        args.putString("username",friendItem.getUsername());
-        args.putInt("friend_id", friendItem.getFriend_id());
-        args.putInt("loc_status", friendItem.getLocation_status());
-        args.putDouble("lat", friendItem.getLattitude());
-        args.putDouble("long", friendItem.getLongitude());
         args.putInt("request_id", friendItem.getRequest_id());
-        args.putInt("friend_id",friendItem.getFriend_id());
+        args.putInt("friend_id", friendItem.getFriend_id());
+        if(friendItem.getFriend_id()!=0){
+
+            args.putString("username",friendItem.getUsername());
+            args.putInt("loc_status", friendItem.getLocation_status());
+            args.putDouble("lat", friendItem.getLattitude());
+            args.putDouble("long", friendItem.getLongitude());
+
+            args.putInt("friend_id",friendItem.getFriend_id());
+        }
         f.setArguments(args);
         return f;
     }
@@ -53,7 +58,7 @@ public class RequestProfileFragment extends BaseFragment{
                              Bundle savedInstanceState) {
         //init
         setFragmentManager(getFragmentManager());
-        rootView = inflater.inflate(R.layout.fragment_friend_profile, container, false);
+        rootView = inflater.inflate(R.layout.fragment_friend_profile_request, container, false);
         setContext(rootView.getContext());
         //showActivitySpinner();
 
@@ -65,11 +70,12 @@ public class RequestProfileFragment extends BaseFragment{
         LinearLayout navigateToLayout = (LinearLayout)rootView.findViewById(R.id.navigate_to_friend);
 
         name.setText(args.getString("name"));
-        username.setText("("+args.getString("username")+")");
-
+        if(args.getInt("friend_id")!=0){
+            username.setText("("+args.getString("username")+")");
+        }
         id=args.getInt("user_id");
 
-        loadUser(description);
+        loadUser(username,description);
 
         if(args.getInt("loc_status")==1&&args.getDouble("lat")!=0||args.getDouble("long")!=0){
             navigateToLayout.setOnClickListener(new View.OnClickListener() {
@@ -79,8 +85,14 @@ public class RequestProfileFragment extends BaseFragment{
                 }
             });
         }else{
-            toastMaker.makeToast(args.getString("name") + " is not sharing their location right now!");
+            navigateToLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    toastMaker.makeToast(args.getString("name") + " is not sharing their location right now!");
+                }
+            });
         }
+
 
         ImageView imageView=(ImageView)rootView.findViewById(R.id.image_friend);
         DownloadImage downloadImage = new DownloadImage(imageView,getActivity(),DownloadImage.AVATAR,id);
@@ -110,6 +122,8 @@ public class RequestProfileFragment extends BaseFragment{
                 }
             });
         }else{
+            confirmFriend.setText("Accept");
+            remove.setText("Reject");
             confirmFriend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -145,7 +159,7 @@ public class RequestProfileFragment extends BaseFragment{
         }
         return rootView;
     }
-    public void loadUser(final TextView descriptionView){
+    public void loadUser(final TextView usernameView,final TextView descriptionView){
         Bundle args = getArguments();
         showActivitySpinner(); 
         Single single = new Single() {
@@ -160,6 +174,7 @@ public class RequestProfileFragment extends BaseFragment{
                     final int id = result.get("user_id")==null?0:Integer.valueOf(String.valueOf(result.get("user_id")));
 
                     descriptionView.setText(description);
+                    usernameView.setText(username);
                 }
                 hideActivitySpinner();
             }

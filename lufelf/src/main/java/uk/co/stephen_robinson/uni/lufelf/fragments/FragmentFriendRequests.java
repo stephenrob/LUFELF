@@ -60,9 +60,10 @@ public class FragmentFriendRequests extends BaseFragment{
                 if(!toastMaker.isError(String.valueOf(m.getStatusCode()),m.getMessage())){
                     Log.e("result size ",String.valueOf(result.size()));
                     for(int i=0;i<result.size()-1;i++){
-                        Log.e("ONCE ","gone once");
+
                         Friend f =(Friend)result.get(i);
-                        friends.add(new FriendItem(f.getRequest_id(),f.getFriend_id(),f.getUser_id(),f.getFriend_status(),f.getName(),f.getUsername(),f.getLocation_status(),f.getLattitude(),f.getLongitude()));
+                        Log.e("ONCE ",f.getRequest_id()+" "+f.getFriend_id()+" "+f.getUser_id()+" "+f.getFriend_status()+" "+f.getName()+" "+f.getUsername()+" "+f.getLocation_status()+" "+f.getLattitude()+" "+f.getLongitude());
+                        friends.add(new FriendItem(f.getRequest_id(), f.getFriend_id(), f.getUser_id(), f.getFriend_status(), f.getName(), f.getUsername(), f.getLocation_status(), f.getLattitude(), f.getLongitude()));
                     }
                     friendsList.setAdapter(new FriendItemAdapter(context, friends));
                     friendsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

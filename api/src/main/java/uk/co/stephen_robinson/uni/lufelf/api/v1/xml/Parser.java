@@ -476,7 +476,7 @@ public class Parser {
                     case XmlPullParser.END_TAG:
                         tagName = parser.getName();
 
-                        if(tagName.equalsIgnoreCase(Friend.FRIEND) && currentFriend != null){
+                        if(tagName.equalsIgnoreCase(Friend.USER) && currentFriend != null){
 
                             requests.add(currentFriend);
                         }

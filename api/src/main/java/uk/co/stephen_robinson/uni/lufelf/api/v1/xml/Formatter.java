@@ -80,9 +80,14 @@ public class Formatter {
     }
 
     public static Hashtable updateLocation(Status status){
-        Hashtable results = new Hashtable();
+        Hashtable result = new Hashtable();
 
-        return results;
+        result.put(Status.STATUS, status.status);
+        result.put(Status.CODE, status.statusCode);
+        result.put(Status.MESSAGE, status.message);
+        result.put(Status.IS_NEW, status.is_new);
+
+        return result;
 
     }
 

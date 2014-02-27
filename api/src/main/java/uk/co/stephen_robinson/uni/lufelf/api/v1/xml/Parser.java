@@ -458,7 +458,7 @@ public class Parser {
                             status.message = parser.nextText();
                         }
 
-                        if(tagName.equalsIgnoreCase(Friend.FRIEND)){
+                        if(tagName.equalsIgnoreCase(Friend.USER)){
                             currentFriend = new Friend();
                         } else if(currentFriend != null){
                             if(tagName.equalsIgnoreCase(Friend.USER_ID)){
@@ -467,9 +467,12 @@ public class Parser {
                                 currentFriend.request_id = Integer.valueOf(parser.nextText());
                             } else if(tagName.equalsIgnoreCase(Friend.NAME)){
                                 currentFriend.name = parser.nextText();
+                            } else if(tagName.equalsIgnoreCase(User.LIBRARY_NUMBER)){
+                                currentFriend.lib_no = parser.nextText();
+                            } else if(tagName.equalsIgnoreCase(Friend.USERNAME)){
+                                currentFriend.username = parser.nextText();
                             }
                         }
-
                         break;
 
                     case XmlPullParser.END_TAG:

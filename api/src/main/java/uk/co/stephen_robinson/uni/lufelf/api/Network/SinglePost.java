@@ -17,6 +17,8 @@ import java.util.List;
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.NetworkHelper;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Formatter;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 
 /**
  * Created by Stephen on 20/02/14.
@@ -37,6 +39,13 @@ public class SinglePost extends AsyncTask<List<NameValuePair>, Integer, Hashtabl
     protected Hashtable doInBackground(List<NameValuePair>... params) {
 
         Hashtable result = new Hashtable();
+
+        if(!Api.isNetworkAvailable()){
+
+            result = Formatter.message(new Message(400, "fail", "No network available"));
+
+            return result;
+        }
 
         HttpPost postData = new HttpPost(serverScript.protocol.getProtocol() + Helper.SERVER_IP_ADDRESSS + serverScript.path);
 

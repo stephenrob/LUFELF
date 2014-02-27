@@ -17,6 +17,7 @@ import java.util.List;
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.NetworkHelper;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 
 /**
  * Created by Stephen on 20/02/14.
@@ -37,6 +38,13 @@ public class MultiplePost extends AsyncTask<List<NameValuePair>, Integer, ArrayL
     protected ArrayList doInBackground(List<NameValuePair>... params) {
 
         ArrayList result = new ArrayList();
+
+        if(!Api.isNetworkAvailable()){
+
+            result.add(new Message(400, "fail", "No network available"));
+
+            return result;
+        }
 
         HttpPost postData = new HttpPost(serverScript.protocol.getProtocol() + Helper.SERVER_IP_ADDRESSS + serverScript.path);
 

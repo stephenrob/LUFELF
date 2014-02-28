@@ -62,7 +62,17 @@ public class MultipleGet extends AsyncTask<Void, Integer, ArrayList> {
             }
 
         } catch (Exception e){
+<<<<<<< HEAD
             Log.e("LUFELF API", Log.getStackTraceString(e));
+||||||| merged common ancestors
+            Log.e("LUFELF API", e.toString());
+=======
+            result = new ArrayList();
+
+            result.add(new Message(400, "fail", "Error"));
+
+            return result;
+>>>>>>> origin/api-library
         }
 
         return result;

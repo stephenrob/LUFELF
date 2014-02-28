@@ -602,17 +602,39 @@ public class Parser {
                             } else if(tagName.equalsIgnoreCase(Friend.LOCATION_STATUS)){
                                 currentFriend.location_status = Integer.valueOf(parser.nextText());
                             } else if(tagName.equalsIgnoreCase(Friend.LATTITUDE)){
+<<<<<<< HEAD
                                 String temp = parser.nextText();
                                 if(!temp.equals(""))
                                     currentFriend.lattitude = Double.valueOf(temp);
                                 else
                                     currentFriend.lattitude=0.0;
+||||||| merged common ancestors
+                                currentFriend.lattitude = Double.valueOf(parser.nextText());
+=======
+                                String temp = parser.nextText();
+                                if(!temp.equals("")){
+                                    currentFriend.lattitude = Double.valueOf(temp);
+                                } else {
+                                    currentFriend.lattitude = 0.0;
+                                }
+>>>>>>> origin/api-library
                             } else if(tagName.equalsIgnoreCase(Friend.LONGITUDE)){
+<<<<<<< HEAD
                                 String temp = parser.nextText();
                                 if(!temp.equals(""))
                                     currentFriend.longitude = Double.valueOf(temp);
                                 else
                                     currentFriend.longitude=0.0;
+||||||| merged common ancestors
+                                currentFriend.longitude = Double.valueOf(parser.nextText());
+=======
+                                String temp = parser.nextText();
+                                if(!temp.equals("")){
+                                    currentFriend.longitude = Double.valueOf(temp);
+                                } else {
+                                    currentFriend.longitude = 0.0;
+                                }
+>>>>>>> origin/api-library
                             }
 
                         }
@@ -676,7 +698,7 @@ public class Parser {
                             } else {
                                 status.statusCode = 200;
                             }
-                        } else if(tagName.equalsIgnoreCase(Message.MESSAGE)){
+                        } else if(tagName.equalsIgnoreCase(Message.MESSAGE) && status.statusCode != 200){
                             status.message = parser.nextText();
                         }
                         if(status.message.equals("")){
@@ -725,7 +747,9 @@ public class Parser {
                 userMessage.message_id = Integer.valueOf(parser.nextText());
             } else if(tagName.equalsIgnoreCase(UserMessage.MESSAGE_FROM)){
                 userMessage.from = parser.nextText();
-            } else if(tagName.equalsIgnoreCase(UserMessage.MESSAGE)){
+            } else if(tagName.equalsIgnoreCase(UserMessage.MESSAGE_TO)){
+                userMessage.to = parser.nextText();
+            } else if(tagName.equalsIgnoreCase(UserMessage.CONTENT)){
                 userMessage.content = parser.nextText();
             }
         }

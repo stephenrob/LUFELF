@@ -11,6 +11,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -65,7 +66,15 @@ public class SinglePost extends AsyncTask<List<NameValuePair>, Integer, Hashtabl
             }
 
         } catch (Exception e){
+<<<<<<< HEAD:api/src/main/java/uk/co/stephen_robinson/uni/lufelf/api/Network/SinglePost.java
             Log.e("LUFELF API", Log.getStackTraceString(e));
+||||||| merged common ancestors
+            Log.e("LUFELF API", e.toString());
+=======
+            result = Formatter.message(new Message(400, "fail", "Error"));
+
+            return result;
+>>>>>>> origin/api-library:api/src/main/java/uk/co/stephen_robinson/uni/lufelf/api/network/SinglePost.java
         }
 
         return result;

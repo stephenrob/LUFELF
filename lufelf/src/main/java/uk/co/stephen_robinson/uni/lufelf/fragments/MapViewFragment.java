@@ -121,7 +121,7 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
 
             //centre on current location
             CameraUpdate center= CameraUpdateFactory.newLatLng(getLocation());
-            CameraUpdate zoom=CameraUpdateFactory.zoomTo(16);
+            CameraUpdate zoom=CameraUpdateFactory.zoomTo(10);
 
             map.moveCamera(center);
 

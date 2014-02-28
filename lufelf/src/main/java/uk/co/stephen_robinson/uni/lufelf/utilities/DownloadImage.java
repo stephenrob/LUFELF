@@ -70,13 +70,16 @@ public class DownloadImage{
      * downloads image from server and places it in the desired image view
      */
     //
-    public void downloadFromServer(){
+    public void downloadFromServer(final boolean networkAvailable){
         new AsyncTask<Void,Void,Void>(){
 
             protected void onPreExecute() {
             }
 
             protected Void doInBackground(Void... Params) {
+                if(!networkAvailable){
+                    return null;
+                }
                 //set inputstream,image and resp
                 inputStream = null;
                 image=null;

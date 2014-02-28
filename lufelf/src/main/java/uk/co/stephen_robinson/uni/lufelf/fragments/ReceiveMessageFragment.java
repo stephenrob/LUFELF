@@ -54,7 +54,7 @@ public class ReceiveMessageFragment extends BaseFragment{
         content.setText(args.getString("content"));
 
         DownloadImage downloadImage=new DownloadImage(senderImage,getActivity(),"http://148.88.32.47/avatars/"+args.getString("id")+".jpg");
-        downloadImage.downloadFromServer();
+        downloadImage.downloadFromServer(isNetworkAvailable());
 
         Button replyButton = (Button)rootView.findViewById(R.id.message_from_reply_button);
         replyButton.setOnClickListener(new View.OnClickListener() {

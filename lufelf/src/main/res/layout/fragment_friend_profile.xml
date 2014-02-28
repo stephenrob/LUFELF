@@ -74,17 +74,6 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="40dp"
                 android:layout_below="@id/friend_profile_description"/>
-            <Button
-                android:id="@+id/reject_friend_button"
-                android:layout_marginTop="10dp"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:background="@drawable/button"
-                android:textColor="@color/stdtxt"
-                android:text="Add Friend"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/add_friend_button"/>
 
         </RelativeLayout>
     </ScrollView>

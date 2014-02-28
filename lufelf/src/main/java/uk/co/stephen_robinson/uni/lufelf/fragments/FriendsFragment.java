@@ -1,6 +1,7 @@
 package uk.co.stephen_robinson.uni.lufelf.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,8 @@ public class FriendsFragment extends BaseFragment{
 
                     for(int i=0;i<result.size()-1;i++){
                         Friend f =(Friend)result.get(i);
+                        Log.e("FRIENDS ", f.getRequest_id() + " " + f.getFriend_id() + " " + f.getUser_id() + " " + f.getFriend_status() + " " + f.getName() + " " + f.getUsername() + " " + f.getLocation_status() + " " + f.getLattitude() + " " + f.getLongitude());
+
                         friendItems.add(new FriendItem(f.getRequest_id(),f.getFriend_id(),f.getUser_id(),f.getFriend_status(),f.getName(),f.getUsername(),f.getLocation_status(),f.getLattitude(),f.getLongitude()));
                     }
                     friendsList.setAdapter(new FriendItemAdapter(context,friendItems));

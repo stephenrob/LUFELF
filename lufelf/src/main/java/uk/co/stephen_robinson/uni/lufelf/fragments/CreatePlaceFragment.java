@@ -161,7 +161,7 @@ public class CreatePlaceFragment extends BaseFragment{
                                 File f = new File(Environment.getExternalStorageDirectory(),"tmp_file_store.jpg");
 
                                 UploadImage imageUploader = new UploadImage(f.getPath(), UploadImage.PLACE, String.valueOf(p.getId()), context);
-                                imageUploader.uploadToServer();
+                                imageUploader.uploadToServer(isNetworkAvailable());
                             }
                         }
                     }

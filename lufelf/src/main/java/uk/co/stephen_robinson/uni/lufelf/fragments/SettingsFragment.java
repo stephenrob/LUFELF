@@ -88,7 +88,7 @@ public class SettingsFragment extends BaseFragment{
         ImageView profilePic = (ImageView)rootView.findViewById(R.id.profile_image);
 
         DownloadImage downloadImage = new DownloadImage(profilePic,getActivity(),DownloadImage.AVATAR,215);
-        downloadImage.downloadFromServer();
+        downloadImage.downloadFromServer(isNetworkAvailable());
 
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -70,6 +70,7 @@ public class FragmentFriendRequests extends BaseFragment{
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             FriendItem item = (FriendItem) friendsList.getItemAtPosition(i);
+
                             fragmentManager.beginTransaction().add(R.id.container, RequestProfileFragment.newInstance(item), "FriendRequest").addToBackStack(null).commit();
                         }
                     });

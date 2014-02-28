@@ -217,7 +217,7 @@ public class CreateEventFragment extends BaseFragment{
                         if(e.getEventName().equals(eventName)){
                             File f = new File(Environment.getExternalStorageDirectory(),"tmp_file_store.jpg");
                             UploadImage imageUploader = new UploadImage(f.getPath(),UploadImage.EVENT,e.getId(),context);
-                            imageUploader.uploadToServer();
+                            imageUploader.uploadToServer(isNetworkAvailable());
                         }
                     }
                 }

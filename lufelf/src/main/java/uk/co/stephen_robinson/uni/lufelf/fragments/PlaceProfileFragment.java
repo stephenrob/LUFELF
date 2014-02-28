@@ -83,7 +83,7 @@ public class PlaceProfileFragment extends BaseFragment{
 
         if(args.getString("imageurl")!=null){
             DownloadImage downloadImage=new DownloadImage(profile,getActivity(),DownloadImage.PLACE,args.getInt("id"));
-            downloadImage.downloadFromServer();
+            downloadImage.downloadFromServer(isNetworkAvailable());
         }
 
         return rootView;

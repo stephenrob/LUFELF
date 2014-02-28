@@ -30,6 +30,9 @@ import uk.co.stephen_robinson.uni.lufelf.api.Api;
 public class UploadImage{
 
     Api api;
+
+    private Context context;
+
     //initialise ip constant
     private static final String ipAddress="148.88.32.47";
 
@@ -53,6 +56,7 @@ public class UploadImage{
         this.api = new Api(context, Api.Version.V1);
         this.path=path;
         this.type=type;
+        this.context=context;
     }
 
     /**
@@ -66,6 +70,7 @@ public class UploadImage{
         this.path=path;
         this.query_id=query_id;
         this.type=type;
+        this.context=context;
     }
 
     /**
@@ -83,13 +88,19 @@ public class UploadImage{
     /**
      * Upload to the server
      */
-    public void uploadToServer(){
+    public void uploadToServer(final boolean networkAvailable){
         new AsyncTask<Void,Void,Void>(){
 
             protected void onPreExecute() {
             }
 
             protected Void doInBackground(Void... Params) {
+
+                if(!networkAvailable){
+
+                    return null;
+                }
+
                 String response="";
                 HttpClient client = new DefaultHttpClient();
                 HttpPost postData = new HttpPost("http://"+ipAddress+"/"+type);

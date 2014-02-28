@@ -187,7 +187,7 @@ public class EventProfileFragment extends BaseFragment{
                                 });
 
                                 DownloadImage downloadImage = new DownloadImage(event_pic,getActivity(),DownloadImage.EVENT,Integer.valueOf(args.getString("id")));
-                                downloadImage.downloadFromServer();
+                                downloadImage.downloadFromServer(isNetworkAvailable());
                             }
                             hideActivitySpinner();
                         }

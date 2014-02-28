@@ -243,7 +243,7 @@ public class BaseFragment  extends Fragment{
                     if(userUpload){
                         File f = new File(Environment.getExternalStorageDirectory(),"tmp_file_store.jpg");
                         UploadImage imageUploader = new UploadImage(f.getPath(),UploadImage.AVATAR,context);
-                        imageUploader.uploadToServer();
+                        imageUploader.uploadToServer(isNetworkAvailable());
                     }
                 }
                 break;

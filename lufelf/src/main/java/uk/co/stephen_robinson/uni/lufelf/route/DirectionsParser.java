@@ -30,7 +30,6 @@ public class DirectionsParser {
             for(int i=0;i<steps.length();i++){
                 JSONObject start=steps.getJSONObject(i).getJSONObject("start_location");
 
-                Log.e("Crap","GRRRRRRR "+start.getDouble("lat"));
                 double lat=start.getDouble("lat");
                 double longitude=start.getDouble("lng");
                 r.addNode(new Point(lat,longitude));

@@ -19,10 +19,8 @@ import java.util.Hashtable;
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.adapters.UserItem;
 import uk.co.stephen_robinson.uni.lufelf.adapters.UserItemAdapter;
-import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
-import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.User;
 import uk.co.stephen_robinson.uni.lufelf.utilities.ValidationChecker;
 
 /**
@@ -112,46 +110,17 @@ public class SearchFragment extends BaseFragment{
                                 final String username = result.get("username")==null?"":String.valueOf(result.get("username"));
                                 final int id = result.get("user_id")==null?0:Integer.valueOf(String.valueOf(result.get("user_id")));
 
+                                ArrayList<UserItem> userItems= new ArrayList<UserItem>();
 
-
-                                Multiple m = new Multiple() {
+                                userItems.add(new UserItem(name, description, libno, username, id,true));
+                                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                     @Override
-                                    public void results(ArrayList result) {
-                                        ArrayList<UserItem> userItems= new ArrayList<UserItem>();
-                                        ArrayList<UserItem>users=new ArrayList<UserItem>();
-
-                                        Message m =(Message)result.get(result.size()-1);
-
-                                        if(result.size()>0){
-
-                                            for(int i=0;i<result.size()-1;i++){
-                                                User u =(User)result.get(i);
-                                                users.add(new UserItem(u.getName(),u.getDescription(),u.getLib_no(),"",u.getUser_id(),true));
-                                            }
-                                            UserItem u =new UserItem(name, description, libno, username, id,false);
-                                            Log.e("USER",crossReference(u,users).getName());
-                                            userItems.add(crossReference(u,users));
-                                            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                                @Override
-                                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                                    UserItem user =(UserItem) list.getItemAtPosition(i);
-                                                    fragmentManager.beginTransaction().add(R.id.container, FriendProfileFragment.newInstance(user), "UserProfileSubView").addToBackStack(null).commit();
-                                                }
-                                            });
-
-
-                                        }else{
-                                            userItems.add(UserItem.getBlankResult());
-                                        }
-                                        list.setAdapter(new UserItemAdapter(context,userItems));
+                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                        UserItem user = (UserItem) list.getItemAtPosition(i);
+                                        fragmentManager.beginTransaction().add(R.id.container, FriendProfileFragment.newInstance(user), "UserProfileSubView").addToBackStack(null).commit();
                                     }
-                                };
-
-                                api.v1.getFriendsList(m);
-
-
-
-
+                                });
+                                list.setAdapter(new UserItemAdapter(context,userItems));
                             }
 
                             hideActivitySpinner();
@@ -181,18 +150,5 @@ public class SearchFragment extends BaseFragment{
 
     }
 
-    public UserItem crossReference(UserItem user, ArrayList<UserItem>friends){
-        UserItem friend = null;
 
-        for(UserItem u:friends){
-            if(u.getName().equals(user.getName())){
-                friend= u;
-            }
-        }
-
-        if(friend==null)
-            friend=user;
-
-        return friend;
-    }
 }

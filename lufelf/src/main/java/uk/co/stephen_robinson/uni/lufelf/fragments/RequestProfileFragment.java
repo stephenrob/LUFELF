@@ -74,8 +74,7 @@ public class RequestProfileFragment extends BaseFragment{
             username.setText("("+args.getString("username")+")");
         }
         id=args.getInt("user_id");
-
-        loadUser(username,description);
+        loadUserByUserName(description);
 
         if(args.getInt("loc_status")==1&&args.getDouble("lat")!=0||args.getDouble("long")!=0){
             navigateToLayout.setOnClickListener(new View.OnClickListener() {
@@ -94,10 +93,7 @@ public class RequestProfileFragment extends BaseFragment{
         }
 
 
-        ImageView imageView=(ImageView)rootView.findViewById(R.id.image_friend);
-        DownloadImage downloadImage = new DownloadImage(imageView,getActivity(),DownloadImage.AVATAR,id);
 
-        downloadImage.downloadFromServer();
         Button confirmFriend = (Button)rootView.findViewById(R.id.add_friend_button);
         Button remove = (Button)rootView.findViewById(R.id.reject_friend_button);
 
@@ -116,11 +112,13 @@ public class RequestProfileFragment extends BaseFragment{
                             if (!error)
                                 toastMaker.makeToast((String) result.get(Message.MESSAGE));
                             hideActivitySpinner();
+                            removeFragment();
                         }
                     };
-                    api.v1.deleteFriend(args.getInt("user_id"), single);
+                    api.v1.deleteFriend(id, single);
                 }
             });
+
         }else{
             confirmFriend.setText("Accept");
             remove.setText("Reject");
@@ -135,6 +133,7 @@ public class RequestProfileFragment extends BaseFragment{
                             if (!error)
                                 toastMaker.makeToast((String) result.get(Message.MESSAGE));
                             hideActivitySpinner();
+                            removeFragment();
                         }
                     };
                     api.v1.acceptFriendRequest(args.getInt("request_id"), args.getInt("user_id"), single);
@@ -151,6 +150,7 @@ public class RequestProfileFragment extends BaseFragment{
                             if (!error)
                                 toastMaker.makeToast((String) result.get(Message.MESSAGE));
                             hideActivitySpinner();
+                            removeFragment();
                         }
                     };
                     api.v1.hideFriendRequest(args.getInt("request_id"), args.getInt("user_id"), single);
@@ -180,5 +180,30 @@ public class RequestProfileFragment extends BaseFragment{
             }
         };
         api.v1.getUserByID(String.valueOf(args.getInt("user_id")),single);
+    }
+    public void loadUserByUserName(final TextView descriptionView){
+        Bundle args = getArguments();
+        showActivitySpinner();
+        Single single = new Single() {
+            @Override
+            public void results(Hashtable result) {
+                if(!toastMaker.isError(String.valueOf(result.get(Message.CODE)),(String)result.get(Message.MESSAGE))){
+
+                    final String name = result.get("name")==null?"":String.valueOf(result.get("name"));
+                    final String description = result.get("description").equals("")?"My description...":String.valueOf(result.get("description"));
+                    final String libno = result.get("lib_no")==null?"":String.valueOf(result.get("lib_no"));
+                    final String username = result.get("username")==null?"":String.valueOf(result.get("username"));
+                    final int userid = result.get("user_id")==null?0:Integer.valueOf(String.valueOf(result.get("user_id")));
+                    id=userid;
+                    descriptionView.setText(description);
+                    ImageView imageView=(ImageView)rootView.findViewById(R.id.image_friend);
+                    DownloadImage downloadImage = new DownloadImage(imageView,getActivity(),DownloadImage.AVATAR,id);
+
+                    downloadImage.downloadFromServer(isNetworkAvailable());
+                }
+                hideActivitySpinner();
+            }
+        };
+        api.v1.getUserByUsername(args.getString("username"), single);
     }
 }

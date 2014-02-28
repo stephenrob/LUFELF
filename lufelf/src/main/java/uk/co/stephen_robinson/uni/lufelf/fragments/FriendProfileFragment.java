@@ -72,7 +72,10 @@ public class FriendProfileFragment extends BaseFragment{
 
         downloadImage.downloadFromServer(isNetworkAvailable());
         Button addFriend = (Button)rootView.findViewById(R.id.add_friend_button);
-        if(!args.getBoolean("friend")){
+        if(id==Integer.valueOf(api.v1.currentUserId())){
+            ViewGroup g = (ViewGroup)addFriend.getParent();
+            g.removeView(addFriend);
+        }else if(!args.getBoolean("friend")){
             addFriend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

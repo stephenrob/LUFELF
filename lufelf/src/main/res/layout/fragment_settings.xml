@@ -72,8 +72,20 @@
         android:textColor="@color/titletxt"
         android:gravity="left"
         android:layout_marginTop="30dp" />
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/settings_view_profile"
+        android:layout_below="@id/setting_delete_user1"
+        android:text="View My Profile"
+        android:textSize="18dp"
+        android:textColor="@color/stdtxt"
+        android:gravity="left"
+        android:layout_marginTop="30dp" />
 
     <Button
+        android:id="@+id/settings_logout_button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:padding="10dp"

@@ -174,6 +174,11 @@ public class EventProfileFragment extends BaseFragment{
                                 //set this fragments owner object
                                 owner=new UserItem(name, description, libno, username, id,false);
 
+
+                                if(owner.getId()==Integer.valueOf(api.v1.currentUserId()))
+
+
+
                                 //set the creator text
                                 creator.setText("Created By: "+owner.getName());
 

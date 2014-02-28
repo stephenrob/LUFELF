@@ -29,6 +29,13 @@
                 android:background="@drawable/image_background"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_remove_bin"
+                android:layout_marginLeft="20dp"
+
+                android:layout_toRightOf="@id/image_event"/>
 
             <TextView
                 android:id="@+id/event_name"
@@ -72,10 +79,10 @@
                     android:textColor="@color/stdtxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_marginRight="20dp"
                     android:layout_toRightOf="@id/event_host"/>
                 <ImageView
+                    android:id="@+id/delete_event"
                     android:layout_marginLeft="20dp"
                     android:layout_gravity="center_vertical"
                     android:layout_width="25dp"

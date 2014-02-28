@@ -77,13 +77,15 @@ public class DownloadImage{
             }
 
             protected Void doInBackground(Void... Params) {
-                /*if(!networkAvailable){
-                    return null;
-                }*/
+
                 //set inputstream,image and resp
                 inputStream = null;
                 image=null;
                 resp = -1;
+
+                if(!networkAvailable){
+                    return null;
+                }
 
                 try {
                     Log.e("URL",imageUrl);

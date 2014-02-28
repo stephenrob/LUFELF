@@ -95,7 +95,7 @@ public class LoginFragment extends BaseFragment{
                             }
                         }
                     };
-                    CustomMessages.showMessage("Use as Guest","As a guest you will have limited functionality","Use as guest?","Register.",context,dialogCallback);
+                    CustomMessages.showMessage("Use as Guest","As a guest you will only have access to Locations","Use as guest?","Register.",context,dialogCallback);
 
                 }
             });

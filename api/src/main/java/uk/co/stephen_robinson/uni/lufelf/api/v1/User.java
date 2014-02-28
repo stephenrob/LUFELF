@@ -8,7 +8,9 @@ import java.util.List;
 
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
 import uk.co.stephen_robinson.uni.lufelf.api.SessionManager;
+import uk.co.stephen_robinson.uni.lufelf.api.network.MultiplePost;
 import uk.co.stephen_robinson.uni.lufelf.api.network.SinglePost;
+import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
 
 import static uk.co.stephen_robinson.uni.lufelf.api.Helper.md5;
@@ -112,6 +114,21 @@ public class User {
         networkTask.execute(params);
 
     }
+    static void getMultipleDetails(Search searchField, String searchValue, Multiple mc){
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>(1);
+
+        switch (searchField){
+            case NAME:
+                params.add(new BasicNameValuePair(User.NAME, searchValue));
+                break;
+        }
+
+        MultiplePost networkTask = new MultiplePost(mc, Scripts.QUERY_USER);
+        networkTask.execute(params);
+
+    }
+
 
     static void delete(Single sc){
 

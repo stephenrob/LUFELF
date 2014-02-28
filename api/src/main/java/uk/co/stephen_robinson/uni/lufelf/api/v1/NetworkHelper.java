@@ -95,6 +95,10 @@ public class NetworkHelper {
                 results = Parser.parseMessages(serverResponse);
                 break;
 
+            case QUERY_USER_DETAILS:
+                results = Parser.parseMultipleUsers(serverResponse);
+                break;
+
             default:
                 results = null;
                 break;

@@ -732,4 +732,92 @@ public class Parser {
 
     }
 
+    public static ArrayList parseMultipleUsers(String data){
+        ArrayList users = new ArrayList();
+        Message status = new Message();
+        XmlPullParser parser;
+        String tagName;
+        User userDetails = null;
+
+        try {
+            parser = XmlPullParserFactory.newInstance().newPullParser();
+            parser.setInput(new StringReader(data));
+
+            int eventType = parser.getEventType();
+
+            while(eventType != XmlPullParser.END_DOCUMENT){
+                switch(eventType){
+
+                    case XmlPullParser.START_DOCUMENT:
+                        break;
+
+                    case XmlPullParser.START_TAG:
+                        tagName = parser.getName();
+
+                        if(tagName.equalsIgnoreCase(User.RESPONSE)) {
+                            status.status = parser.getAttributeValue(null, User.STATUS);
+                            // Only status=fail produce return code
+                            if(parser.getAttributeValue(null, User.CODE) != null) {
+                                status.statusCode = Integer.parseInt(parser.getAttributeValue(null, User.CODE));
+                            } else {
+                                status.statusCode = 200;
+                            }
+                        }
+                        else if(tagName.equalsIgnoreCase(User.MESSAGE)) {
+                            status.message = parser.nextText();
+                        }
+                        if(tagName.equalsIgnoreCase("user")){
+                            userDetails = new User();
+                        } else if(userDetails != null){
+                            if(tagName.equalsIgnoreCase(User.USER_ID)){
+                                userDetails.user_id = Integer.parseInt(parser.nextText());
+                            }
+                            else if(tagName.equalsIgnoreCase(User.NAME)){
+                                userDetails.name = parser.nextText();
+                            }
+                            else if(tagName.equalsIgnoreCase(User.USERNAME)){
+                                userDetails.username = parser.nextText();
+                            }
+                            else if(tagName.equalsIgnoreCase(User.LIBRARY_NUMBER)){
+                                userDetails.lib_no = parser.nextText();
+                            }
+                            else if(tagName.equalsIgnoreCase(User.DATE_OF_BIRTH)){
+                                userDetails.dob = parser.nextText();
+                            }
+                            else if(tagName.equalsIgnoreCase(User.TYPE)){
+                                userDetails.type = parser.nextText();
+                            }
+                            else if(tagName.equalsIgnoreCase(User.DESCRIPTION)){
+                                userDetails.description = parser.nextText();
+                            }
+                            else if(tagName.equalsIgnoreCase(User.IS_NEW)){
+                                userDetails.is_new = parser.nextText();
+                            }
+                        }
+                        break;
+
+                    case XmlPullParser.END_TAG:
+                        tagName = parser.getName();
+
+                        if(tagName.equalsIgnoreCase("user") && userDetails != null){
+                            users.add(userDetails);
+                        }
+
+                        break;
+                }
+                eventType = parser.next();
+            }
+
+
+        } catch (XmlPullParserException e){
+            userDetails = null;
+        } catch (IOException e){
+            userDetails = null;
+        }
+
+        users.add(status);
+
+        return users;
+    }
+
 }

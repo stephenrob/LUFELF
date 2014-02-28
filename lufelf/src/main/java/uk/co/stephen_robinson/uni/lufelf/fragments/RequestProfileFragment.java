@@ -1,6 +1,7 @@
 package uk.co.stephen_robinson.uni.lufelf.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,14 +69,18 @@ public class RequestProfileFragment extends BaseFragment{
         TextView username = (TextView)rootView.findViewById(R.id.friend_email);
         TextView description = (TextView)rootView.findViewById(R.id.friend_profile_description);
         LinearLayout navigateToLayout = (LinearLayout)rootView.findViewById(R.id.navigate_to_friend);
+        ImageView imageView=(ImageView)rootView.findViewById(R.id.image_friend);
 
         name.setText(args.getString("name"));
         if(args.getInt("friend_id")!=0){
             username.setText("("+args.getString("username")+")");
         }
         id=args.getInt("user_id");
-        loadUserByUserName(description);
-
+        if(id>0){
+            loadUserByID(imageView,username,description);
+        }else{
+            loadUserByUserName(imageView,description);
+        }
         if(args.getInt("loc_status")==1&&args.getDouble("lat")!=0||args.getDouble("long")!=0){
             navigateToLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -181,7 +186,7 @@ public class RequestProfileFragment extends BaseFragment{
         };
         api.v1.getUserByID(String.valueOf(args.getInt("user_id")),single);
     }
-    public void loadUserByUserName(final TextView descriptionView){
+    public void loadUserByUserName(final ImageView imageView,final TextView descriptionView){
         Bundle args = getArguments();
         showActivitySpinner();
         Single single = new Single() {
@@ -196,7 +201,6 @@ public class RequestProfileFragment extends BaseFragment{
                     final int userid = result.get("user_id")==null?0:Integer.valueOf(String.valueOf(result.get("user_id")));
                     id=userid;
                     descriptionView.setText(description);
-                    ImageView imageView=(ImageView)rootView.findViewById(R.id.image_friend);
                     DownloadImage downloadImage = new DownloadImage(imageView,getActivity(),DownloadImage.AVATAR,id);
 
                     downloadImage.downloadFromServer(isNetworkAvailable());
@@ -205,5 +209,32 @@ public class RequestProfileFragment extends BaseFragment{
             }
         };
         api.v1.getUserByUsername(args.getString("username"), single);
+    }
+    public void loadUserByID(final ImageView imageView,final TextView usernameView,final TextView descriptionView){
+        Bundle args = getArguments();
+        showActivitySpinner();
+        Single single = new Single() {
+            @Override
+            public void results(Hashtable result) {
+                if(!toastMaker.isError(String.valueOf(result.get(Message.CODE)),(String)result.get(Message.MESSAGE))){
+
+                    final String name = result.get("name")==null?"":String.valueOf(result.get("name"));
+                    final String description = result.get("description").equals("")?"My description...":String.valueOf(result.get("description"));
+                    final String libno = result.get("lib_no")==null?"":String.valueOf(result.get("lib_no"));
+                    final String username = result.get("username")==null?"":String.valueOf(result.get("username"));
+                    final int userid = result.get("user_id")==null?0:Integer.valueOf(String.valueOf(result.get("user_id")));
+                    id=userid;
+                    descriptionView.setText(description);
+                    usernameView.setText(username);
+
+                    DownloadImage downloadImage = new DownloadImage(imageView,getActivity(),DownloadImage.AVATAR,id);
+
+                    downloadImage.downloadFromServer(isNetworkAvailable());
+                }
+                hideActivitySpinner();
+            }
+        };
+        api.v1.getUserByID(String.valueOf(args.getInt("user_id")), single);
+        Log.e("USER ID ",String.valueOf(args.getInt("user_id")));
     }
 }

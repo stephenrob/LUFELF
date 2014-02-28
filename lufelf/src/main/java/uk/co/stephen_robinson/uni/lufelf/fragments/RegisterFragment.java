@@ -69,7 +69,7 @@ public class RegisterFragment extends BaseFragment{
                         (EditText)rootView.findViewById(R.id.register_email_add),
                         (EditText)rootView.findViewById(R.id.register_password),
                         (EditText)rootView.findViewById(R.id.register_confirm_password),
-                        (EditText)rootView.findViewById(R.id.register_dob)};
+                        (EditText)rootView.findViewById(R.id.register_dob),(EditText)rootView.findViewById(R.id.register_description)};
 
                 boolean allOk= ValidationChecker.standardValidationCheck(editTexts);
 
@@ -114,12 +114,10 @@ public class RegisterFragment extends BaseFragment{
                     showActivitySpinner();
 
                     //call api
-                    api.v1.registerUser(editTexts[0].getText().toString(), editTexts[1].getText().toString(), editTexts[2].getText().toString(), editTexts[3].getText().toString(), editTexts[5].getText().toString(), User.Type.STUDENT.toString(), "", User.LOCATION_PUBLIC,User.ACCESS_NORMAL,nc);
+                    api.v1.registerUser(editTexts[0].getText().toString(), editTexts[1].getText().toString(), editTexts[2].getText().toString(), editTexts[3].getText().toString(), editTexts[5].getText().toString(), User.Type.STUDENT.toString(), editTexts[6].getText().toString(), User.LOCATION_PUBLIC,User.ACCESS_NORMAL,nc);
                 }
             }
         });
-        //showActivitySpinner();
-
 
         return rootView;
     }

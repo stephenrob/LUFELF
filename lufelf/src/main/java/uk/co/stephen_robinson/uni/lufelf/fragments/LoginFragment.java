@@ -18,6 +18,8 @@ import uk.co.stephen_robinson.uni.lufelf.activities.LoginActivity;
 import uk.co.stephen_robinson.uni.lufelf.activities.MainActivity;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
+import uk.co.stephen_robinson.uni.lufelf.utilities.CustomMessages;
+import uk.co.stephen_robinson.uni.lufelf.utilities.DialogCallback;
 import uk.co.stephen_robinson.uni.lufelf.utilities.ValidationChecker;
 
 /**
@@ -78,8 +80,23 @@ public class LoginFragment extends BaseFragment{
             guestText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showActivitySpinner();
-                    swapToMain(0);
+                    DialogCallback dialogCallback = new DialogCallback() {
+                        @Override
+                        public void messageComplete(int result) {
+                            switch(result){
+                                case 1:
+                                    showActivitySpinner();
+                                    swapToMain(0);
+                                    break;
+                                case -1:
+                                    LoginActivity loginActivity =(LoginActivity) getActivity();
+                                    loginActivity.setLayout(R.layout.fragment_register);
+                                    break;
+                            }
+                        }
+                    };
+                    CustomMessages.showMessage("Use as Guest","As a guest you will have limited functionality","Use as guest?","Register.",context,dialogCallback);
+
                 }
             });
             //get the login button and set the on click listener

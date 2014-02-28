@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -71,32 +72,32 @@ public class MessagesFragment extends BaseFragment{
     }
 
     public void loadMessages(){
-
+        showActivitySpinner();
         Multiple multiple = new Multiple() {
             @Override
             public void results(ArrayList result) {
-                uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message message =(uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message)result.get(result.size()-1);
-                Message m;
-                ArrayList<MessageItem> messageItems = new ArrayList<MessageItem>();
+            uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message message =(uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message)result.get(result.size()-1);
+            Message m;
+            ArrayList<MessageItem> messageItems = new ArrayList<MessageItem>();
 
-                if(!toastMaker.isError(String.valueOf(message.getStatusCode()),message.getMessage())){
+            if(!toastMaker.isError(String.valueOf(message.getStatusCode()),message.getMessage())){
 
-                    for(int i=0;i<result.size()-1;i++){
-                        m=(Message)result.get(i);
-                        messageItems.add(new MessageItem(m.getFrom(),m.getContent(),String.valueOf(m.getMessage_id())));
-                    }
-                    list.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            //do nothing for now
-                        }
-                    });
-                }else{
-                    messageItems.add(MessageItem.getBlankResult());
+                for(int i=0;i<result.size()-1;i++){
+                    m=(Message)result.get(i);
+                    messageItems.add(new MessageItem(m.getFrom(),m.getContent(),String.valueOf(m.getMessage_id())));
                 }
-                //set the adapter
-                list.setAdapter(new MessageItemAdapter(rootView.getContext(), messageItems));
-
+                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        fragmentManager.beginTransaction().add(R.id.container, ReceiveMessageFragment.newInstance((MessageItem) list.getItemAtPosition(i)), "MessageSubView").addToBackStack(null).commit();
+                    }
+                });
+            }else{
+                messageItems.add(MessageItem.getBlankResult());
+            }
+            //set the adapter
+            list.setAdapter(new MessageItemAdapter(rootView.getContext(), messageItems));
+            hideActivitySpinner();
             }
         };
         api.v1.getReceivedMessages(multiple);

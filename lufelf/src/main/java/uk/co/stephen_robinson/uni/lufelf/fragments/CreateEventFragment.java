@@ -20,8 +20,11 @@ import android.widget.TimePicker;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Hashtable;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
@@ -158,13 +161,24 @@ public class CreateEventFragment extends BaseFragment{
             public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                 //create the date string
                 final String dateString=String.valueOf(selectedday)+"/"+String.valueOf(selectedmonth)+"/"+String.valueOf(selectedyear);
+
+
                 //create time picker dialog
                 TimePickerDialog timePicker = new TimePickerDialog(context,new TimePickerDialog.OnTimeSetListener() {
                     //set the functionality of the callback method
                     @Override
                     public void onTimeSet(TimePicker timePicker, int shour, int sminute) {
+                        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                        Date date;
+
                         String dateAndtime=dateString+" "+String.valueOf(shour)+":"+String.valueOf(sminute);
-                        editText.setText(dateAndtime);
+                        try{
+                            date = formatter.parse(dateAndtime);
+
+                            editText.setText(date.toString());
+                        }catch (Exception e){
+                            editText.setText(dateAndtime);
+                        }
                     }
                 },hour,minute,false);
                 timePicker.setTitle("Select Time");

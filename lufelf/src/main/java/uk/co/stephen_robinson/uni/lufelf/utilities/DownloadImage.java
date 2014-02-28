@@ -77,9 +77,9 @@ public class DownloadImage{
             }
 
             protected Void doInBackground(Void... Params) {
-                if(!networkAvailable){
+                /*if(!networkAvailable){
                     return null;
-                }
+                }*/
                 //set inputstream,image and resp
                 inputStream = null;
                 image=null;

@@ -40,7 +40,7 @@
             <Button
                 android:id="@+id/alert_button_pos"
                 android:layout_width="wrap_content"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:layout_marginRight="10dp"
                 android:text="POS_OPTION"
                 android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
             <Button
                 android:id="@+id/alert_button_neg"
                 android:layout_width="wrap_content"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:text="NEG_OPTION"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button"/>

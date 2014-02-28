@@ -14,24 +14,18 @@
     <string name="search_activity">Search</string>
     <string name="messages_activity">Messages</string>
 
-
-    eventItems.add(new NavDrawerItem("- Search Events",0));
-
-    placeItems.add(new NavDrawerItem("- View Locations",0));
-    placeItems.add(new NavDrawerItem("- Create Location",0));
-    placeItems.add(new NavDrawerItem("- Search Locations",0));
     <!-- subheadings -->
-    <string name="view_friends_text">- View Friends List</string>
-    <string name="view_friend_request_text">- View Friend Requests</string>
-    <string name="search_users_text">- Search Users</string>
+    <string name="view_friends_text">View Friends List</string>
+    <string name="view_friend_request_text">View Friend Requests</string>
+    <string name="search_users_text">Search Users</string>
 
-    <string name="view_event_text">- View Events</string>
-    <string name="create_event_text">- Create Event</string>
-    <string name="search_events_text">- Search Events</string>
+    <string name="view_event_text">View Events</string>
+    <string name="create_event_text">Create Event</string>
+    <string name="search_events_text">Search Events</string>
 
-    <string name="view_locations_text">- View Locations</string>
-    <string name="create_location_text">- Create Location</string>
-    <string name="search_locations_text">- Search Locations</string>
+    <string name="view_locations_text">View Locations</string>
+    <string name="create_location_text">Create Location</string>
+    <string name="search_locations_text">Search Locations</string>
 
     <!-- navigation accessibility Strings -->
 

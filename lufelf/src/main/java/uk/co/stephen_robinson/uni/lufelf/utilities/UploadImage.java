@@ -96,10 +96,10 @@ public class UploadImage{
 
             protected Void doInBackground(Void... Params) {
 
-                if(!networkAvailable){
+                /*if(!networkAvailable){
 
                     return null;
-                }
+                }*/
 
                 String response="";
                 HttpClient client = new DefaultHttpClient();

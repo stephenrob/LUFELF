@@ -71,9 +71,9 @@ public class Message {
         List<NameValuePair> params = new ArrayList<NameValuePair>(4);
 
         params.add(new BasicNameValuePair("user_id_from", Integer.toString(userId)));
-        params.add(new BasicNameValuePair(User.PASSWORD, password));
+        params.add(new BasicNameValuePair("password", password));
         params.add(new BasicNameValuePair("user_id_to", Integer.toString(to)));
-        params.add(new BasicNameValuePair(Message.CONTENT, message));
+        params.add(new BasicNameValuePair("message", message));
 
         SinglePost networkTask =  new SinglePost(sc, Scripts.SEND_MESSAGE);
         networkTask.execute(params);

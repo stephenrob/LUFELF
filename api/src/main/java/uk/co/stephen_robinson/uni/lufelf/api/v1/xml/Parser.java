@@ -602,9 +602,17 @@ public class Parser {
                             } else if(tagName.equalsIgnoreCase(Friend.LOCATION_STATUS)){
                                 currentFriend.location_status = Integer.valueOf(parser.nextText());
                             } else if(tagName.equalsIgnoreCase(Friend.LATTITUDE)){
-                                currentFriend.lattitude = Double.valueOf(parser.nextText());
+                                String temp = parser.nextText();
+                                if(!temp.equals(""))
+                                    currentFriend.lattitude = Double.valueOf(temp);
+                                else
+                                    currentFriend.lattitude=0.0;
                             } else if(tagName.equalsIgnoreCase(Friend.LONGITUDE)){
-                                currentFriend.longitude = Double.valueOf(parser.nextText());
+                                String temp = parser.nextText();
+                                if(!temp.equals(""))
+                                    currentFriend.longitude = Double.valueOf(temp);
+                                else
+                                    currentFriend.longitude=0.0;
                             }
 
                         }
@@ -627,8 +635,10 @@ public class Parser {
             }
 
         } catch (XmlPullParserException e){
+            Log.e("pullparse",Log.getStackTraceString(e));
             friends = null;
         } catch (IOException e){
+            Log.e("ioexception",Log.getStackTraceString(e));
             friends = null;
         }
 

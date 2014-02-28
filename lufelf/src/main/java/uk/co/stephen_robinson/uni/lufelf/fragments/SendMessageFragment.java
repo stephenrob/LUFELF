@@ -25,7 +25,7 @@ import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
  */
 public class SendMessageFragment extends BaseFragment{
     private Spinner to;
-    private ArrayList<Integer> friendId;
+    private ArrayList<String> friendUsername;
     /**
      * Returns a new instance of this fragment for the given section
      * number.
@@ -80,17 +80,17 @@ public class SendMessageFragment extends BaseFragment{
             public void results(ArrayList result) {
                 Message m =(Message)result.get(result.size()-1);
                 ArrayList<String> friendNames = new ArrayList<String>();
-                friendId=new ArrayList<Integer>();
+                friendUsername =new ArrayList<String>();
                 if(!toastMaker.isError(String.valueOf(m.getStatusCode()),m.getMessage())){
 
                     for(int i=0;i<result.size()-1;i++){
                         Friend f =(Friend)result.get(i);
                         friendNames.add(f.getUsername()+" ("+f.getName()+") ");
-                        friendId.add(f.getUser_id());
+                        friendUsername.add(f.getUsername());
                     }
                 }else{
                     friendNames.add(FriendItem.getBlankResult().getName());
-                    friendId.add(0);
+                    friendUsername.add("");
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,R.layout.spinner_item,friendNames);
                 to.setAdapter(adapter);
@@ -102,20 +102,42 @@ public class SendMessageFragment extends BaseFragment{
 
         api.v1.getFriendsList(mc);
     }
-    public void sendMessage(String message,int pos){
+    public void sendMessage(final String message,int pos){
         showActivitySpinner();
-        Single single = new Single() {
+
+        Single sc = new Single() {
             @Override
             public void results(Hashtable result) {
-                if(!toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString())){
-                    toastMaker.makeToast(result.get(Message.MESSAGE).toString());
-                    hideActivitySpinner();
-                    removeFragment();
+                if(!toastMaker.isError(String.valueOf(result.get(Message.CODE)),(String)result.get(Message.MESSAGE))){
+
+
+                    final String name = result.get("name")==null?"":String.valueOf(result.get("name"));
+                    final String description = result.get("description")==null?"My description...":String.valueOf(result.get("description"));
+                    final String libno = result.get("lib_no")==null?"":String.valueOf(result.get("lib_no"));
+                    final String username = result.get("username")==null?"":String.valueOf(result.get("username"));
+                    final int id = result.get("user_id")==null?0:Integer.valueOf(String.valueOf(result.get("user_id")));
+
+
+                    Single single = new Single() {
+                        @Override
+                        public void results(Hashtable result) {
+                            if(!toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString())){
+                                toastMaker.makeToast(result.get(Message.MESSAGE).toString());
+                                hideActivitySpinner();
+                                removeFragment();
+                            }
+                            hideActivitySpinner();
+                        }
+                    };
+                    //Log.e("FRIENDID",String.valueOf(friendUsername.get(pos)));
+                    api.v1.sendMessage(id,message,single);
                 }
-                hideActivitySpinner();
             }
         };
 
-        api.v1.sendMessage(friendId.get(pos),message,single);
+        api.v1.getUserByUsername(friendUsername.get(pos),sc);
+
+
+
     }
 }

@@ -27,6 +27,9 @@
     <string name="create_location_text">Create Location</string>
     <string name="search_locations_text">Search Locations</string>
 
+    <string name="view_received_messages">Received Messages</string>
+    <string name="view_sent_message">Sent Messages</string>
+
     <!-- navigation accessibility Strings -->
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

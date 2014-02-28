@@ -9,12 +9,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.adapters.MessageItem;
 import uk.co.stephen_robinson.uni.lufelf.adapters.MessageItemAdapter;
-import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
+import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.Message;
 
 /**
  * @author James
@@ -72,25 +72,34 @@ public class SentMessagesFragment extends BaseFragment{
     }
 
     public void loadMessages(){
-        //showActivitySpinner();
-        Single nc = new Single() {
+        showActivitySpinner();
+        Multiple multiple = new Multiple() {
             @Override
-            public void results(Hashtable result) {
-                hideActivitySpinner();
+            public void results(ArrayList result) {
+                uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message message =(uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message)result.get(result.size()-1);
+                Message m;
+                ArrayList<MessageItem> messageItems = new ArrayList<MessageItem>();
 
+                if(!toastMaker.isError(String.valueOf(message.getStatusCode()),message.getMessage())){
+
+                    for(int i=0;i<result.size()-1;i++){
+                        m=(Message)result.get(i);
+                        messageItems.add(new MessageItem(m.getFrom(),m.getContent(),String.valueOf(m.getMessage_id())));
+                    }
+                    list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            fragmentManager.beginTransaction().add(R.id.container, ReceiveMessageFragment.newInstance((MessageItem) list.getItemAtPosition(i)), "MessageSubView").addToBackStack(null).commit();
+                        }
+                    });
+                }else{
+                    messageItems.add(MessageItem.getBlankResult());
+                }
+                //set the adapter
+                list.setAdapter(new MessageItemAdapter(rootView.getContext(), messageItems));
+                hideActivitySpinner();
             }
         };
-        //make arraylist navdraweritems
-        ArrayList messageItems=new ArrayList<MessageItem>();
-
-        //add fake items
-        for(int i=0;i<30;i++)
-            messageItems.add(new MessageItem("Test From "+i,"Test message that goes on for the length of 40 characters to test the elipses thing","215"));
-
-        //set the adapter
-        list.setAdapter(new MessageItemAdapter(rootView.getContext(), messageItems));
-
-        Hashtable params = new Hashtable();
-        //api.getReceivedMessages(params,nc);
+        api.v1.getSentMessages(multiple);
     }
 }

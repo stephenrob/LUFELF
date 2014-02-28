@@ -675,7 +675,7 @@ public class Parser {
                             } else {
                                 status.statusCode = 200;
                             }
-                        } else if(tagName.equalsIgnoreCase(Message.MESSAGE)){
+                        } else if(tagName.equalsIgnoreCase(Message.MESSAGE) && status.statusCode != 200){
                             status.message = parser.nextText();
                         }
                         if(status.message.equals("")){

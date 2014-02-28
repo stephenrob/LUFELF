@@ -722,7 +722,9 @@ public class Parser {
                 userMessage.message_id = Integer.valueOf(parser.nextText());
             } else if(tagName.equalsIgnoreCase(UserMessage.MESSAGE_FROM)){
                 userMessage.from = parser.nextText();
-            } else if(tagName.equalsIgnoreCase(UserMessage.MESSAGE)){
+            } else if(tagName.equalsIgnoreCase(UserMessage.MESSAGE_TO)){
+                userMessage.to = parser.nextText();
+            } else if(tagName.equalsIgnoreCase(UserMessage.CONTENT)){
                 userMessage.content = parser.nextText();
             }
         }

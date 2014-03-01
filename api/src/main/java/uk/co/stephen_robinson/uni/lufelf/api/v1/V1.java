@@ -43,8 +43,8 @@ public class V1 {
         User.getDetails(User.Search.LIB_NO, param, sc);
     }
 
-    public void getUserByName(String param, Single sc){
-        User.getDetails(User.Search.NAME, param, sc);
+    public void getUserByName(String param, Multiple mc){
+        User.getMultipleDetails(User.Search.NAME, param, mc);
     }
 
     public void getUserByID(String param, Single sc){
@@ -158,5 +158,9 @@ public class V1 {
 
     public Boolean isLoggedIn(){
         return Api.getSessionManager().checkLogin();
+    }
+
+    public void logoutUser(){
+        Api.getSessionManager().logoutUser();
     }
 }

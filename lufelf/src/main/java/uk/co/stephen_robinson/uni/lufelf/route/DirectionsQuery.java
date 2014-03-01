@@ -3,7 +3,6 @@ package uk.co.stephen_robinson.uni.lufelf.route;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -18,7 +17,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import java.util.List;
+import java.util.ArrayList;
 
 
 /**
@@ -50,7 +49,6 @@ public class DirectionsQuery {
         final LatLng startLoc=start;
         final LatLng finishLoc=finish;
         final GoogleMap map=m;
-        Route finalRoute=null;
         AsyncTask test = new AsyncTask<Void, Void, Route>() {
             protected void onPreExecute() {
                 // perhaps show a dialog
@@ -63,7 +61,7 @@ public class DirectionsQuery {
                 String response="";
                 //HttpPost getData=new HttpPost("http://maps.googleapis.com/maps/api/directions/json?origin=Toronto&destination=Montreal&sensor=false");
                 HttpPost getData = new HttpPost("http://maps.googleapis.com/maps/api/directions/json?origin="+String.valueOf(startLoc.latitude)+","+String.valueOf(startLoc.longitude)
-                        +"&destination="+String.valueOf(finishLoc.latitude)+","+String.valueOf(finishLoc.longitude)+"&mode=walking&sensor=true");
+                        +"&destination="+String.valueOf(finishLoc.latitude)+","+String.valueOf(finishLoc.longitude)+"&mode=walking&sensor=false");
 
                 HttpResponse resp;
                 try{
@@ -73,13 +71,14 @@ public class DirectionsQuery {
 
                     return directions.getRoute(responseText);
                 }catch(Exception e){
-                    Log.e("Crap",e.toString());
+                    Toast.makeText(context,"Internet Connection Unavailable",Toast.LENGTH_SHORT);
                 }
                 return null;
             }
             @Override
             protected void onPostExecute(Route r) {
-                List<Point> point=r.getRoute();
+
+                ArrayList<LatLng> point=r.getRoute();
                 if(point.size()>0){
                     PolylineOptions line = new PolylineOptions();
                     line.width(5);
@@ -87,20 +86,16 @@ public class DirectionsQuery {
 
                     MarkerOptions mOptions1=new MarkerOptions();
                     mOptions1.title("A");
-                    mOptions1.position(point.get(0).getLatLng());
+                    mOptions1.position(point.get(0));
 
                     MarkerOptions mOptions2=new MarkerOptions();
                     mOptions2.title("B");
-                    mOptions2.position(point.get(point.size()-1).getLatLng());
+                    mOptions2.position(point.get(point.size() - 1));
 
                     map.addMarker(mOptions1);
                     map.addMarker(mOptions2);
-                    for (Point p:point) {
-                        line.add(p.getLatLng());
-
-                }
-
-                map.addPolyline(line);
+                    line.addAll(point);
+                    map.addPolyline(line);
                 }else{
                     Toast.makeText(context,"No Route Found",Toast.LENGTH_LONG);
                 }

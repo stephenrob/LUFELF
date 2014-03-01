@@ -1,5 +1,7 @@
 package uk.co.stephen_robinson.uni.lufelf.route;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,29 +11,32 @@ import java.util.List;
  */
 public class Route {
 
-    List<Point> route;
+    ArrayList<LatLng> route;
 
     /**
      * initialised the route arrayList
      */
     public Route(){
-        route=new ArrayList<Point>();
+        route=new ArrayList<LatLng>();
     }
 
     /**
      * add a point to the route
-     * @param p the point to add
+     * @param point the point to add
      */
-    public void addNode(Point p){
-        route.add(p);
+    public void addNode(LatLng point){
+        route.add(point);
     }
 
     /**
      * get the route
      * @return Route held by the class
      */
-    public List getRoute(){
+    public ArrayList<LatLng> getRoute(){
         return route;
     }
 
+    public void  combineList(List<LatLng> p){
+        route.addAll(p);
+    }
 }

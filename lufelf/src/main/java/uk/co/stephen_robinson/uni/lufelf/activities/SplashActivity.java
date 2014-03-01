@@ -34,21 +34,7 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
 
         setLayout();
-        Single nc = new Single() {
-            @Override
-            public void results(Hashtable result) {
-                try{
-                    Thread.sleep(2000);
-                }catch (Exception e){
 
-                }
-                SplashFragment splashFragment=(SplashFragment)getFragmentManager().findFragmentById(R.id.container);
-                splashFragment.determineAction();
-            }
-        };
-
-        Api api = new Api(getApplicationContext(), Api.Version.V1);
-        api.v1.loginUser("test", "test", nc);
 
     }
 

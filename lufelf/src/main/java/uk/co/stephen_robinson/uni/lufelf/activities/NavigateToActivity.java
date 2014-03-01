@@ -26,7 +26,7 @@ public class NavigateToActivity extends BaseActivity {
         //if it does swap frgments
         if(id== R.layout.fragment_map){
             Bundle args = getIntent().getExtras();
-            fragmentManager.beginTransaction().replace(R.id.container, MapViewFragment.newInstance(new LatLng(args.getDouble("lat"),args.getDouble("long"))),"NavigateTo").addToBackStack(null).commit();
+            fragmentManager.beginTransaction().replace(R.id.container, MapViewFragment.newInstance(new LatLng(args.getDouble("lat"),args.getDouble("long"))),"NavigateTo").addToBackStack(null).commitAllowingStateLoss();
         }
     }
     @Override

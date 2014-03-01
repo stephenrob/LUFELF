@@ -1,4 +1,4 @@
-package uk.co.stephen_robinson.uni.lufelf.adapters;
+package uk.co.stephen_robinson.uni.lufelf.utilities;
 
 import android.util.Log;
 
@@ -6,6 +6,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
+
+import uk.co.stephen_robinson.uni.lufelf.adapters.EventListItem;
 
 /**
  * Created by James on 25/02/2014.

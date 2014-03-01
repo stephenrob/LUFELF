@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
-import uk.co.stephen_robinson.uni.lufelf.adapters.EventDateComparator;
+import uk.co.stephen_robinson.uni.lufelf.utilities.EventDateComparator;
 import uk.co.stephen_robinson.uni.lufelf.adapters.EventItemAdapter;
 import uk.co.stephen_robinson.uni.lufelf.adapters.EventListItem;
 import uk.co.stephen_robinson.uni.lufelf.adapters.NavDrawerItem;

@@ -159,4 +159,8 @@ public class V1 {
     public Boolean isLoggedIn(){
         return Api.getSessionManager().checkLogin();
     }
+
+    public void logoutUser(){
+        Api.getSessionManager().logoutUser();
+    }
 }

@@ -1,1 +1,1 @@
-include ':database', ':contentprovider', ':api'
+include ':api', ':contentprovider', ':database'

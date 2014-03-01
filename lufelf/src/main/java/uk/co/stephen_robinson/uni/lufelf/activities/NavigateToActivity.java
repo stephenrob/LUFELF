@@ -1,5 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.activities;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.View;
@@ -35,5 +36,25 @@ public class NavigateToActivity extends BaseActivity {
         setContentView(R.layout.activity_navigate_to);
         View v=findViewById(R.id.container);
         setLayout(R.layout.fragment_map);
+    }
+    @Override
+    public void onBackPressed() {
+        //get the fragment manager
+        FragmentManager fm=getFragmentManager();
+
+        //get the size of the backstack
+        int size=fm.getBackStackEntryCount();
+
+        //if the size is greater than one pop
+        //otherwise close the app
+        if(size>1){
+            this.getFragmentManager().popBackStackImmediate();
+            Fragment f = getFragmentManager().findFragmentById(R.id.container);
+            findTagPosition(f.getTag());
+        }else{
+            this.getFragmentManager().popBackStack();
+            finish();
+        }
+
     }
 }

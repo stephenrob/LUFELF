@@ -74,7 +74,7 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
     public void onResume(){
         super.onResume();
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,10000, 5, this);
-        //locationManager.requestLocationUpdates(locationManager.getBestProvider(crit,false),10000, 5, this);
+
     }
     @Override
     public void onPause(){
@@ -245,7 +245,6 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        Log.e("STATUS CHANGED",provider+" "+status);
     }
 
     @Override

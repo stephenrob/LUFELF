@@ -2,6 +2,7 @@ package uk.co.stephen_robinson.uni.lufelf.activities;
 
 import android.app.ActionBar;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -83,6 +84,9 @@ public class MainActivity extends BaseActivity {
         FragmentManager manager = getFragmentManager();
         FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
         manager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        Intent login = new Intent(this,LoginActivity.class);
+        login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(login);
         finish();
     }
 }

@@ -3,6 +3,7 @@ package uk.co.stephen_robinson.uni.lufelf.activities;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.view.MenuItem;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
@@ -127,6 +128,9 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
             findTagPosition(f.getTag());
         }else{
             this.getFragmentManager().popBackStack();
+            Intent login = new Intent(this,LoginActivity.class);
+            login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(login);
             finish();
         }
 

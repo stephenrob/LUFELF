@@ -61,7 +61,7 @@ public class SplashFragment extends BaseFragment{
     }
     public void determineAction(){
         if(api.v1.isLoggedIn()){
-            
+
             Intent swapToApp=new Intent(getActivity().getApplicationContext(),MainActivity.class);
             Bundle args = new Bundle();
             args.putInt("priority",1);

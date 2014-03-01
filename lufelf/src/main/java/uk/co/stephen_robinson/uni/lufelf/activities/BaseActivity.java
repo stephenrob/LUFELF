@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.view.MenuItem;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
+import uk.co.stephen_robinson.uni.lufelf.api.Api;
 import uk.co.stephen_robinson.uni.lufelf.fragments.CreateEventFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.CreatePlaceFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.EventsFragment;
@@ -129,6 +130,8 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
         }else{
             this.getFragmentManager().popBackStack();
             Intent login = new Intent(this,LoginActivity.class);
+            Api api = new Api(getApplicationContext(), Api.Version.V1);
+            api.v1.logoutUser();
             login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(login);
             finish();

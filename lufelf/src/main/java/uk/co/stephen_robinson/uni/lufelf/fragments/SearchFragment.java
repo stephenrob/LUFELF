@@ -16,7 +16,6 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.Hashtable;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
@@ -34,6 +33,7 @@ import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Event;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.EventUser;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Place;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.User;
 import uk.co.stephen_robinson.uni.lufelf.utilities.ValidationChecker;
 
 /**
@@ -144,9 +144,7 @@ public class SearchFragment extends BaseFragment{
                     Single single = new Single() {
                         @Override
                         public void results(Hashtable result) {
-                            Enumeration keys=result.keys();
-                            while(keys.hasMoreElements())
-                                Log.e("Key", keys.nextElement().toString());
+                            ArrayList<UserItem> userItems= new ArrayList<UserItem>();
                             if(!toastMaker.isError(String.valueOf(result.get(Message.CODE)),(String)result.get(Message.MESSAGE))){
 
 
@@ -156,7 +154,7 @@ public class SearchFragment extends BaseFragment{
                                 final String username = result.get("username")==null?"":String.valueOf(result.get("username"));
                                 final int id = result.get("user_id")==null?0:Integer.valueOf(String.valueOf(result.get("user_id")));
 
-                                ArrayList<UserItem> userItems= new ArrayList<UserItem>();
+
 
                                 userItems.add(new UserItem(name, description, libno, username, id,true));
                                 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -166,25 +164,51 @@ public class SearchFragment extends BaseFragment{
                                         fragmentManager.beginTransaction().add(R.id.container, FriendProfileFragment.newInstance(user), "UserProfileSubView").addToBackStack(null).commit();
                                     }
                                 });
-                                list.setAdapter(new UserItemAdapter(context,userItems));
-                            }
+                            }else{
+                                userItems.add(UserItem.getBlankResult());
 
+                            }
+                            list.setAdapter(new UserItemAdapter(context,userItems));
+
+                            hideActivitySpinner();
+                        }
+                    };
+                    Multiple multiple = new Multiple() {
+                        @Override
+                        public void results(ArrayList result) {
+                            Message m =(Message) result.get(result.size()-1);
+                            ArrayList<UserItem> userItems= new ArrayList<UserItem>();
+                            if(!toastMaker.isError(String.valueOf(m.statusCode),m.message)){
+
+                                for(int i=0;i<result.size()-1;i++){
+                                    User u =(User) result.get(i);
+                                    userItems.add(new UserItem(u.getName(),u.getDescription(),u.getLib_no(),u.getUsername(),u.getUser_id(),false));
+                                }
+                                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                        UserItem user = (UserItem) list.getItemAtPosition(i);
+                                        fragmentManager.beginTransaction().add(R.id.container, FriendProfileFragment.newInstance(user), "UserProfileSubView").addToBackStack(null).commit();
+                                    }
+                                });
+
+                            }else{
+                                userItems.add(UserItem.getBlankResult());
+
+                            }
+                            list.setAdapter(new UserItemAdapter(context,userItems));
                             hideActivitySpinner();
                         }
                     };
                     String searchBoxValue=searchBox.getText().toString();
                     boolean ok = ValidationChecker.checkIfEmpty(searchBoxValue);
                     if(!ok){
-                        if(ValidationChecker.isEmailValid(searchBoxValue)){
-                            Log.e("CRAP","email");
+                        if(ValidationChecker.isEmailValid(searchBoxValue))
                             api.v1.getUserByUsername(searchBoxValue, single);
-                        }else if(ValidationChecker.isAllNumbers(searchBoxValue)){
-                            Log.e("CRAP","lib_no");
+                        else if(ValidationChecker.isAllNumbers(searchBoxValue))
                             api.v1.getUserByLibraryNumber(searchBoxValue, single);
-                        }else{
-                            Log.e("CRAP","username");
-                            api.v1.getUserByName(searchBoxValue, single);
-                        }
+                        else
+                            api.v1.getUserByName(searchBoxValue, multiple);
                     }
                     return true;
                 }
@@ -234,7 +258,7 @@ public class SearchFragment extends BaseFragment{
         String[] criteriaSplit =criteria.split("\\s* \\s*");
         for(int i=0;i<criteriaSplit.length;i++)
             for(EventListItem e:eventListItems)
-                if(e.getEventName().contains(criteriaSplit[i])||e.getCreator().contains(criteriaSplit[i])||e.getDescription().contains(criteriaSplit[i])&&!searchForId(returnedItems,e.getId()))
+                if(e.getEventName().contains(criteriaSplit[i])||e.getEventName().equals(criteriaSplit[i])||e.getCreator().contains(criteriaSplit[i])||e.getCreator().equals(criteriaSplit[i])||e.getDescription().contains(criteriaSplit[i])||e.getDescription().equals(criteriaSplit[i])&&!searchForId(returnedItems,e.getId()))
                     returnedItems.add(e);
 
         if(returnedItems.size()==0){
@@ -256,7 +280,7 @@ public class SearchFragment extends BaseFragment{
         String[] criteriaSplit =criteria.split("\\s* \\s*");
         for(int i=0;i<criteriaSplit.length;i++)
             for(PlaceItem p:placeItems)
-                if(p.getName().contains(criteriaSplit[i])||p.getType().contains(criteriaSplit[i])||p.getDescription().contains(criteriaSplit[i])&&!searchForPlaceId(returnedItems, p.getId()))
+                if(p.getName().contains(criteriaSplit[i])||p.getName().equals(criteriaSplit[i])||p.getType().contains(criteriaSplit[i])||p.getDescription().contains(criteriaSplit[i])||p.getDescription().equals(criteriaSplit[i])&&!searchForPlaceId(returnedItems, p.getId()))
                     returnedItems.add(p);
 
         Log.e("ITEms",String.valueOf(returnedItems.size()));

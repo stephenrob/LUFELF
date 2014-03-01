@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
+import uk.co.stephen_robinson.uni.lufelf.api.Api;
 import uk.co.stephen_robinson.uni.lufelf.fragments.NavigationDrawerFragment;
 
 public class MainActivity extends BaseActivity {
@@ -84,6 +85,8 @@ public class MainActivity extends BaseActivity {
         FragmentManager manager = getFragmentManager();
         FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
         manager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        Api api = new Api(getApplicationContext(), Api.Version.V1);
+        api.v1.logoutUser();
         Intent login = new Intent(this,LoginActivity.class);
         login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(login);

@@ -3,11 +3,7 @@ package uk.co.stephen_robinson.uni.lufelf.activities;
 import android.app.FragmentManager;
 import android.os.Bundle;
 
-import java.util.Hashtable;
-
 import uk.co.stephen_robinson.uni.lufelf.R;
-import uk.co.stephen_robinson.uni.lufelf.api.Api;
-import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.fragments.SplashFragment;
 
 public class SplashActivity extends BaseActivity {

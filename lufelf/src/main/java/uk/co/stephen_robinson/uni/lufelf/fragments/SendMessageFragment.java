@@ -30,12 +30,12 @@ public class SendMessageFragment extends BaseFragment{
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static SendMessageFragment newInstance(String userid) {
+    public static SendMessageFragment newInstance(String username) {
         SendMessageFragment f =new SendMessageFragment();
-        if(userid==null)
+        if(username==null)
             return f;
         Bundle args = new Bundle();
-        args.putString("id",userid);
+        args.putString("username",username);
         f.setArguments(args);
         return f;
     }
@@ -57,17 +57,30 @@ public class SendMessageFragment extends BaseFragment{
 
         Button send = (Button)rootView.findViewById(R.id.message_send_button);
 
-        send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendMessage(messageContent.getText().toString(),to.getSelectedItemPosition());
-            }
-        });
+
 
         //showActivitySpinner();
-        Bundle args = getArguments();
-
-        loadFriends();
+        final Bundle args = getArguments();
+        if(args==null){
+            loadFriends();
+            send.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    sendMessage(messageContent.getText().toString(),to.getSelectedItemPosition());
+                }
+            });
+        }else{
+            ArrayList<String> username = new ArrayList<String>();
+            username.add(args.getString("username"));
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,R.layout.spinner_item,username);
+            to.setAdapter(adapter);
+            send.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    sendMessage(messageContent.getText().toString(),args.getString("username"));
+                }
+            });
+        }
 
         return rootView;
     }
@@ -101,6 +114,41 @@ public class SendMessageFragment extends BaseFragment{
         };
 
         api.v1.getFriendsList(mc);
+    }
+    public void sendMessage(final String message,String username){
+        showActivitySpinner();
+
+        Single sc = new Single() {
+            @Override
+            public void results(Hashtable result) {
+                if(!toastMaker.isError(String.valueOf(result.get(Message.CODE)),(String)result.get(Message.MESSAGE))){
+
+
+                    final String name = result.get("name")==null?"":String.valueOf(result.get("name"));
+                    final String description = result.get("description")==null?"My description...":String.valueOf(result.get("description"));
+                    final String libno = result.get("lib_no")==null?"":String.valueOf(result.get("lib_no"));
+                    final String username = result.get("username")==null?"":String.valueOf(result.get("username"));
+                    final int id = result.get("user_id")==null?0:Integer.valueOf(String.valueOf(result.get("user_id")));
+
+
+                    Single single = new Single() {
+                        @Override
+                        public void results(Hashtable result) {
+                            if(!toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString())){
+                                toastMaker.makeToast(result.get(Message.MESSAGE).toString());
+                                hideActivitySpinner();
+                                removeFragment();
+                            }
+                            hideActivitySpinner();
+                        }
+                    };
+                    //Log.e("FRIENDID",String.valueOf(friendUsername.get(pos)));
+                    api.v1.sendMessage(id,message,single);
+                }
+            }
+        };
+
+        api.v1.getUserByUsername(username,sc);
     }
     public void sendMessage(final String message,int pos){
         showActivitySpinner();

@@ -61,18 +61,6 @@ public class LoginFragment extends BaseFragment{
                 }
             });
 
-            //get the textview for the register text
-            TextView debugText=(TextView)rootView.findViewById(R.id.DEBUG_TEST);
-
-            //when register is clicked swap to the register fragment.
-            debugText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    showActivitySpinner();
-                    swapToMain(1);
-                }
-            });
-
             //get the text view for use as guest
             TextView guestText=(TextView)rootView.findViewById(R.id.login_use_as_guest);
 

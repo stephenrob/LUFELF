@@ -17,6 +17,19 @@
         android:textSize="@dimen/title"
         android:layout_alignParentTop="true"
         android:gravity="center_horizontal" />
+    <LinearLayout
+        android:id="@+id/message_new_message_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/message_title"
+        android:gravity="right">
+        <ImageView
+            android:id="@+id/message_new_message_icon"
+            android:layout_below="@id/message_title"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_message_new"/>
+    </LinearLayout>
 
     <ListView
         android:layout_marginTop="20dp"
@@ -24,6 +37,6 @@
         android:background="@drawable/listview_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/message_title"/>
+        android:layout_below="@id/message_new_message_layout"/>
 
 </RelativeLayout>

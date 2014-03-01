@@ -7,16 +7,26 @@ public class MessageItem {
     private String messageFrom;
     private String messageContent;
     private String id;
+    private String messageTo;
+
+
+
     /**
      * set the message from and content of a message item
      * @param messageFrom who the message is from
      * @param messageContent the message
      */
-    public MessageItem(String messageFrom,String messageContent, String id){
+    public MessageItem(String messageFrom,String messageContent, String id,String messageTo){
+        this.messageTo=messageTo;
         this.messageFrom=messageFrom;
         this.messageContent=messageContent;
         this.id = id;
     }
+
+    public String getMessageTo() {
+        return messageTo;
+    }
+
 
     /**
      * returns the content of the message
@@ -43,6 +53,6 @@ public class MessageItem {
     }
 
     public static MessageItem getBlankResult(){
-        return new MessageItem("","None","0");
+        return new MessageItem("","None","0",null);
     }
 }

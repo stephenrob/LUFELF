@@ -14,7 +14,8 @@ import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.adapters.MessageItem;
 import uk.co.stephen_robinson.uni.lufelf.adapters.MessageItemAdapter;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
-import uk.co.stephen_robinson.uni.lufelf.api.v1.Message;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
+import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.UserMessage;
 
 /**
  * @author James
@@ -76,15 +77,15 @@ public class MessagesFragment extends BaseFragment{
         Multiple multiple = new Multiple() {
             @Override
             public void results(ArrayList result) {
-            uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message message =(uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message)result.get(result.size()-1);
-            Message m;
+            Message message =(Message)result.get(result.size()-1);
+            UserMessage m;
             ArrayList<MessageItem> messageItems = new ArrayList<MessageItem>();
 
             if(!toastMaker.isError(String.valueOf(message.getStatusCode()),message.getMessage())){
 
                 for(int i=0;i<result.size()-1;i++){
-                    m=(Message)result.get(i);
-                    messageItems.add(new MessageItem(m.getFrom(),m.getContent(),String.valueOf(m.getMessage_id())));
+                    m=(UserMessage)result.get(i);
+                    messageItems.add(new MessageItem(m.getFrom(),m.getContent(),String.valueOf(m.getMessage_id()),null));
                 }
                 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override

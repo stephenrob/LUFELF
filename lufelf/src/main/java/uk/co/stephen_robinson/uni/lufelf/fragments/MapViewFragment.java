@@ -10,6 +10,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -37,6 +39,8 @@ import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Place;
 import uk.co.stephen_robinson.uni.lufelf.route.DirectionsQuery;
+import uk.co.stephen_robinson.uni.lufelf.utilities.CustomMessages;
+import uk.co.stephen_robinson.uni.lufelf.utilities.DialogCallback;
 
 /**
  * @author James
@@ -69,7 +73,7 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
     @Override
     public void onResume(){
         super.onResume();
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0, 0, this);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,10000, 5, this);
         //locationManager.requestLocationUpdates(locationManager.getBestProvider(crit,false),10000, 5, this);
     }
     @Override
@@ -85,43 +89,43 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
         rootView = inflater.inflate(R.layout.fragment_map, container, false);
         setContext(rootView.getContext());
         //showActivitySpinner();
-
-        //get the location manager
-        this.locationManager=(LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
-        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 400, 5, this);
-
-        crit.setAccuracy(Criteria.ACCURACY_FINE);
-
-        //set the call back request for every 10000 milliseconds or every 5 metres
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0, 0, this);
-
         //get the mapfragment
         map = ((MapFragment) fragmentManager.findFragmentById(R.id.map)).getMap();
+        //get the location manager
+        this.locationManager=(LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+
 
         //check if location services are available
         if(!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+
+            DialogCallback dc = new DialogCallback() {
+                @Override
+                public void messageComplete(int result) {
+                    if(result==1){
+                        Intent myIntent = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS );
+                        context.startActivity(myIntent);
+                    }
+                }
+            };
+
             //if they're not available display toast message
-            Toast.makeText(context,"Please enable your GPS",5).show();
+            CustomMessages.showMessage("GPS Not Enabled","Would you like to enable your GPS?","Yes","No",context,dc);
+
             //change
             //center on the university campus
-            CameraUpdate center= CameraUpdateFactory.newLatLng(new LatLng(54.0103,2.7856));
+            CameraUpdate center= CameraUpdateFactory.newLatLng(new LatLng(54.0084879,-2.7850552));
             CameraUpdate zoom=CameraUpdateFactory.zoomTo(16);
 
             map.moveCamera(center);
             map.animateCamera(zoom);
         }else{
-            //Criteria crit = new Criteria();
-            //crit.setAccuracy(Criteria.ACCURACY_FINE);
-
-            //set the call back request for every 400 milliseconds or every 5 metres
-            //locationManager.requestLocationUpdates(locationManager.getBestProvider(crit, false), 400, 5, this);
-
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,10000, 5, this);
             //set the locationenabled boolean
             map.setMyLocationEnabled(true);
 
             //centre on current location
             CameraUpdate center= CameraUpdateFactory.newLatLng(getLocation());
-            CameraUpdate zoom=CameraUpdateFactory.zoomTo(10);
+            CameraUpdate zoom=CameraUpdateFactory.zoomTo(16);
 
             map.moveCamera(center);
 
@@ -141,9 +145,7 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
         }else{
             populateWithPlaces();
         }
-        //query.loginUser(new LatLng(54.0097969,-2.7862154),new LatLng(54.0078566,-2.7856414));
-        //navigateTo(new LatLng(54.0103,2.7856));
-        //hideBusy();
+
         return rootView;
     }
 
@@ -216,9 +218,14 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
     public void onLocationChanged(Location location) {
         Log.e("location","updating");
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10);
-        map.animateCamera(cameraUpdate);
-        locationManager.removeUpdates(this);
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                new LatLng(location.getLatitude(), location.getLongitude()), 17));
+
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(new LatLng(location.getLatitude(), location.getLongitude()))
+                .zoom(17)
+                .build();
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         Single single = new Single() {
             @Override

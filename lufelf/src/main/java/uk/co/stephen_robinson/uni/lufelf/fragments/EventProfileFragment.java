@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -26,6 +27,7 @@ import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Event;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.EventUser;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
+import uk.co.stephen_robinson.uni.lufelf.utilities.CSVGenerator;
 import uk.co.stephen_robinson.uni.lufelf.utilities.DownloadImage;
 
 /**
@@ -69,7 +71,6 @@ public class EventProfileFragment extends BaseFragment{
         final Bundle args=getArguments();
         rootView = inflater.inflate(R.layout.fragment_event_profile, container, false);
         setContext(rootView.getContext());
-        showActivitySpinner();
 
         //get the various textview from the layout
         final TextView eventName=(TextView)rootView.findViewById(R.id.event_name);
@@ -80,11 +81,45 @@ public class EventProfileFragment extends BaseFragment{
         final TextView description=(TextView)rootView.findViewById(R.id.event_description_box);
         final TextView attendees_list =(TextView)rootView.findViewById(R.id.event_attendees_text);
         final ImageView event_pic =(ImageView)rootView.findViewById(R.id.image_event);
+        final ImageView remove_event=(ImageView)rootView.findViewById(R.id.remove_event);
+
+        remove_event.setVisibility(View.INVISIBLE);
+
+        loadDetails(eventName,datetime,description,address,creator,attendees_list,event_pic,remove_event,args);
 
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                swapToNavigateTo(finish);            }
+                swapToNavigateTo(finish);
+            }
+        });
+
+        final LinearLayout accept = (LinearLayout)rootView.findViewById(R.id.event_profile_accept);
+
+        accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showActivitySpinner();
+                Single sc = new Single() {
+                    @Override
+                    public void results(Hashtable result) {
+                        toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
+                        toastMaker.makeToast(result.get(Message.MESSAGE).toString());
+                        hideActivitySpinner();
+                        loadDetails(eventName,datetime,description,address,creator,attendees_list,event_pic,remove_event,args);
+                    }
+                };
+                api.v1.attendEvent(Integer.valueOf(args.getString("id")),sc);
+            }
+        });
+
+        final LinearLayout reject = (LinearLayout)rootView.findViewById(R.id.event_profile_reject);
+        reject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("REJECTING","REJETE");
+                handleReject(args.getString("id"));
+            }
         });
 
         //set the intent for when the date time is clicked
@@ -127,6 +162,15 @@ public class EventProfileFragment extends BaseFragment{
             }
         });
 
+
+        //set the text
+
+
+        return rootView;
+    }
+
+    public void loadDetails(final TextView eventName,final TextView datetime,final TextView description,final TextView address,final TextView creator,final TextView attendees_list,final ImageView event_pic,final ImageView remove_event,final Bundle args){
+        showActivitySpinner();
         Multiple m =new Multiple() {
             @Override
             public void results(ArrayList result) {
@@ -175,9 +219,27 @@ public class EventProfileFragment extends BaseFragment{
                                 owner=new UserItem(name, description, libno, username, id,false);
 
 
-                                if(owner.getId()==Integer.valueOf(api.v1.currentUserId()))
-
-
+                                if(owner.getId()==Integer.valueOf(api.v1.currentUserId())){
+                                    remove_event.setVisibility(View.VISIBLE);
+                                    remove_event.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Single sc = new Single() {
+                                                @Override
+                                                public void results(Hashtable result) {
+                                                    if(!toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString())){
+                                                        toastMaker.makeToast(result.get(Message.MESSAGE).toString());
+                                                        removeFragment();
+                                                    }
+                                                }
+                                            };
+                                            api.v1.deleteEvent(Integer.valueOf(args.getString("id")),sc);
+                                        }
+                                    });
+                                }else{
+                                    ViewGroup parent = (ViewGroup)remove_event.getParent();
+                                    parent.removeView(remove_event);
+                                }
 
                                 //set the creator text
                                 creator.setText("Created By: "+owner.getName());
@@ -205,11 +267,14 @@ public class EventProfileFragment extends BaseFragment{
         };
 
         api.v1.getEvent(Integer.valueOf(args.getString("id")),m);
-        //set the text
-
-
-        return rootView;
     }
+
+    public void handleReject(String id){
+        CSVGenerator csvGenerator = new CSVGenerator();
+        csvGenerator.append(id);
+        ArrayList<String> ids = csvGenerator.getAll();
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

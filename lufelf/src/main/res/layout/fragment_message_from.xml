@@ -27,18 +27,15 @@
         android:layout_below="@id/message_title"
         >
 
-        <ImageView
-            android:layout_width="75dp"
-            android:padding="5dp"
+        <TextView
+            android:layout_marginRight="20dp"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/message_before_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/image_friend_message"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/ic_question_mark"
-            android:background="@drawable/image_background"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"/>
+            android:text="To:"
+            android:textSize="@dimen/subtitle"
+            />
 
         <EditText
             android:layout_width="fill_parent"
@@ -83,18 +80,4 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/message_from_reply_button"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:padding="11dp"
-        android:background="@drawable/button"
-        android:textColor="@color/stdtxt"
-        android:text="Reply"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@id/message_linear_layout"
-        android:layout_centerHorizontal="true"
-        />
 </RelativeLayout>

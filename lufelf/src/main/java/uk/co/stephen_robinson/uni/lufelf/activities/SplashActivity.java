@@ -1,7 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.activities;
 
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.os.Bundle;
 
 import java.util.Hashtable;
@@ -9,7 +8,6 @@ import java.util.Hashtable;
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
-import uk.co.stephen_robinson.uni.lufelf.fragments.NavigationDrawerFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.SplashFragment;
 
 public class SplashActivity extends BaseActivity {
@@ -17,7 +15,6 @@ public class SplashActivity extends BaseActivity {
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
-    public NavigationDrawerFragment mNavigationDrawerFragment;
 
 
     public void setLayout(){
@@ -41,13 +38,12 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void results(Hashtable result) {
                 try{
-                    Thread.sleep(10000);
+                    Thread.sleep(2000);
                 }catch (Exception e){
 
                 }
-                Intent swapToLogin=new Intent(getBaseContext(),LoginActivity.class);
-                startActivity(swapToLogin);
-                overridePendingTransition(R.anim.fade_out,0);
+                SplashFragment splashFragment=(SplashFragment)getFragmentManager().findFragmentById(R.id.container);
+                splashFragment.determineAction();
             }
         };
 

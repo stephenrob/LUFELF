@@ -30,11 +30,12 @@
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"/>
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:background="@drawable/ic_remove_bin"
                 android:layout_marginLeft="20dp"
-
+                android:id="@+id/remove_event"
                 android:layout_toRightOf="@id/image_event"/>
 
             <TextView

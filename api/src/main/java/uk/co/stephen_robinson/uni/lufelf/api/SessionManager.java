@@ -68,7 +68,7 @@ public class SessionManager {
     }
 
     public boolean checkLogin(){
-        return sharedPreferences.getBoolean(IS_LOGIN, false);
+        return sharedPreferences.getBoolean(IS_LOGIN,false);
     }
 
     public void setPrivacy(String privacy){

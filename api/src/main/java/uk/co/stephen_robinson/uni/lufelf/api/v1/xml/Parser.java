@@ -602,39 +602,19 @@ public class Parser {
                             } else if(tagName.equalsIgnoreCase(Friend.LOCATION_STATUS)){
                                 currentFriend.location_status = Integer.valueOf(parser.nextText());
                             } else if(tagName.equalsIgnoreCase(Friend.LATTITUDE)){
-<<<<<<< HEAD
-                                String temp = parser.nextText();
-                                if(!temp.equals(""))
-                                    currentFriend.lattitude = Double.valueOf(temp);
-                                else
-                                    currentFriend.lattitude=0.0;
-||||||| merged common ancestors
-                                currentFriend.lattitude = Double.valueOf(parser.nextText());
-=======
                                 String temp = parser.nextText();
                                 if(!temp.equals("")){
                                     currentFriend.lattitude = Double.valueOf(temp);
                                 } else {
                                     currentFriend.lattitude = 0.0;
                                 }
->>>>>>> origin/api-library
                             } else if(tagName.equalsIgnoreCase(Friend.LONGITUDE)){
-<<<<<<< HEAD
-                                String temp = parser.nextText();
-                                if(!temp.equals(""))
-                                    currentFriend.longitude = Double.valueOf(temp);
-                                else
-                                    currentFriend.longitude=0.0;
-||||||| merged common ancestors
-                                currentFriend.longitude = Double.valueOf(parser.nextText());
-=======
                                 String temp = parser.nextText();
                                 if(!temp.equals("")){
                                     currentFriend.longitude = Double.valueOf(temp);
                                 } else {
                                     currentFriend.longitude = 0.0;
                                 }
->>>>>>> origin/api-library
                             }
 
                         }

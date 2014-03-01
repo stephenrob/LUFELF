@@ -69,10 +69,13 @@
     <string name="event_place">Location</string>
     <string name="event_date_time">Time and Date</string>
     <string name="event_description">Description</string>
+
+
     <!-- Event sub fragment -->
     <string name="event_subfragment_location">Navigate To</string>
+
     <!-- Create Place fragment -->
-    <string name="place_text">Create Place</string>
+    <string name="place_text">Create Location</string>
     <string name="place_name">Place Name</string>
     <string name="place_address">Address</string>
     <string name="place_type">Place Type</string>

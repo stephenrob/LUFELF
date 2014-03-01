@@ -22,6 +22,7 @@ import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Event;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.EventUser;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
+import uk.co.stephen_robinson.uni.lufelf.utilities.CSVGenerator;
 
 
 /**
@@ -88,14 +89,31 @@ public class EventsFragment extends BaseFragment{
                         Event e=(Event)result.get(i);
                         Log.e("EVENT DATES",e.getDate());
                         eventItems.add(new EventListItem(String.valueOf(e.getId()),e.getName(),R.drawable.ic_location,"Creator "+i,new LatLng(i,i),e.getDate(),"This is a description for EVENT "+i,new ArrayList<EventUser>()));
+
                     }
                     Collections.sort(eventItems,new EventDateComparator());
-                    list.setAdapter(new EventItemAdapter(context, eventItems));
+                    list.setAdapter(new EventItemAdapter(context, checkBlackList(eventItems)));
                 }
                 hideActivitySpinner();
             }
         };
         //get the events
         api.v1.getAllEvents(multipleCallback);
+    }
+    public ArrayList<EventListItem> checkBlackList(ArrayList<EventListItem> eventListItems){
+
+        CSVGenerator csvGenerator=new CSVGenerator();
+
+        int i=0;
+
+        ArrayList<String> blacklist = csvGenerator.getAll();
+
+        while(i<eventListItems.size()){
+            for(int count =0;count<blacklist.size();count++)
+                if(eventListItems.get(i).getId().equals(blacklist.get(count)))
+                    eventListItems.remove(i);
+            i++;
+        }
+        return eventListItems;
     }
 }

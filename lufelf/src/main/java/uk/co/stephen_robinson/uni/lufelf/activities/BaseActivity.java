@@ -15,6 +15,7 @@ import uk.co.stephen_robinson.uni.lufelf.fragments.MapViewFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.MessagesFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.NavigationDrawerFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.SearchFragment;
+import uk.co.stephen_robinson.uni.lufelf.fragments.SentMessagesFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.SettingsFragment;
 
 /**
@@ -32,14 +33,14 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
     Fragment[][] fragments={{MapViewFragment.newInstance(null), CreatePlaceFragment.newInstance(),SearchFragment.newInstance(SearchFragment.placeSearch)},
             {FriendsFragment.newInstance(), FragmentFriendRequests.newInstance(),SearchFragment.newInstance(SearchFragment.friendsSearch)},
             {EventsFragment.newInstance(), CreateEventFragment.newInstance(),SearchFragment.newInstance(SearchFragment.eventSearch)},
-            {MessagesFragment.newInstance()},
+            {MessagesFragment.newInstance(), SentMessagesFragment.newInstance()},
             {SettingsFragment.newInstance()}};
 
 
-    String[][] tags={{"Locations","Create Location"},
+    String[][] tags={{"Locations","Create Location","Search Location"},
             {"Friends","View Requests","Add Friend"},
             {"Events","Create Event","Remove Event"},
-            {"Messages"},
+            {"Messages","Sent Messages"},
             {"Settings"}};
 
     /**

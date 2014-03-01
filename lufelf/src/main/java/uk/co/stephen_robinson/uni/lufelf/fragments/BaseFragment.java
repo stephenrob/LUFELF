@@ -147,8 +147,12 @@ public class BaseFragment  extends Fragment{
 
         //otherwise get the location
         Location loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        longitude=loc.getLongitude();
-        latitude=loc.getLatitude();
+        if(loc!=null){
+            longitude=loc.getLongitude();
+            latitude=loc.getLatitude();
+        }else{
+            return new LatLng(54.0084879,-2.7850552);
+        }
 
         //return LatLng
         return new LatLng(latitude,longitude);

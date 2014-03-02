@@ -90,6 +90,7 @@ public class MessagesFragment extends BaseFragment{
                 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        resetIndexes();
                         fragmentManager.beginTransaction().add(R.id.container, ReceiveMessageFragment.newInstance((MessageItem) list.getItemAtPosition(i)), "MessageSubView").addToBackStack(null).commit();
                     }
                 });

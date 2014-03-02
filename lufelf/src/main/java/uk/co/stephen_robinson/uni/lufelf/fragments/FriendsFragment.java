@@ -44,6 +44,7 @@ public class FriendsFragment extends BaseFragment{
         addFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                resetIndexes();
                 fragmentManager.beginTransaction().add(R.id.container, SearchFragment.newInstance(SearchFragment.friendsSearch), "AddFriend").addToBackStack(null).commit();
             }
         });
@@ -73,6 +74,7 @@ public class FriendsFragment extends BaseFragment{
                     friendsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            resetIndexes();
                             FriendItem item = (FriendItem) friendsList.getItemAtPosition(i);
                             fragmentManager.beginTransaction().add(R.id.container, RequestProfileFragment.newInstance(item), "EventSubView").addToBackStack(null).commit();
                         }

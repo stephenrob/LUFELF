@@ -63,7 +63,7 @@ public class EventsFragment extends BaseFragment{
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 resetIndexes();
                 EventListItem item = (EventListItem) list.getItemAtPosition(i);
-                fragmentManager.beginTransaction().add(R.id.container, EventProfileFragment.newInstance(item), "EventSubView").addToBackStack(null).commit();
+                fragmentManager.beginTransaction().replace(R.id.container, EventProfileFragment.newInstance(item), "EventSubView").addToBackStack(null).commit();
             }
         });
 
@@ -110,10 +110,5 @@ public class EventsFragment extends BaseFragment{
             i++;
         }
         return eventListItems;
-    }
-    @Override
-    public void onResume(){
-        super.onResume();
-        addEvents();
     }
 }

@@ -24,18 +24,19 @@ public class EventDateComparator implements Comparator<EventListItem> {
         try{
             dateFormat1 = formatter.parse(date1);
             dateFormat2 = formatter.parse(date2);
+            if(dateFormat1.before(dateFormat2)){
+                return -1;
+            }
+            if(dateFormat1.after(dateFormat2)){
+                return 1;
+            }
+            if(dateFormat1.equals(dateFormat2)){
+                return 0;
+            }
         }catch (Exception e){
             Log.e("date format exception",Log.getStackTraceString(e));
         }
-        if(dateFormat1.before(dateFormat2)){
-            return -1;
-        }
-        if(dateFormat1.after(dateFormat2)){
-            return 1;
-        }
-        if(dateFormat1.equals(dateFormat2)){
-            return 0;
-        }
+
         return date1.compareTo(date2);
     }
 }

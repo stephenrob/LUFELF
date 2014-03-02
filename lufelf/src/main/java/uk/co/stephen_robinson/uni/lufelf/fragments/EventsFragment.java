@@ -1,6 +1,7 @@
 package uk.co.stephen_robinson.uni.lufelf.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,12 @@ import android.widget.ListView;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.adapters.EventItemAdapter;
@@ -83,11 +88,11 @@ public class EventsFragment extends BaseFragment{
                 if(!toastMaker.isError(String.valueOf(m.statusCode),m.message)){
                     for(int i=0;i<result.size()-1;i++){
                         Event e=(Event)result.get(i);
-                        eventItems.add(new EventListItem(String.valueOf(e.getId()),e.getName(),R.drawable.ic_location,"Creator "+i,new LatLng(i,i),e.getDate(),"This is a description for EVENT "+i,new ArrayList<EventUser>()));
+                        eventItems.add(new EventListItem(String.valueOf(e.getId()), e.getName(), R.drawable.ic_location, "Creator " + i, new LatLng(i, i), e.getDate(), "This is a description for EVENT " + i, new ArrayList<EventUser>()));
 
                     }
                     Collections.sort(eventItems,new EventDateComparator());
-                    list.setAdapter(new EventItemAdapter(context, checkBlackList(eventItems)));
+                    list.setAdapter(new EventItemAdapter(context, checkDate(checkBlackList(eventItems))));
                 }
                 hideActivitySpinner();
             }
@@ -110,5 +115,27 @@ public class EventsFragment extends BaseFragment{
             i++;
         }
         return eventListItems;
+    }
+    public ArrayList<EventListItem> checkDate(ArrayList<EventListItem> eventListItems){
+        ArrayList<EventListItem> returnItems= new ArrayList<EventListItem>();
+        //get current time and date
+        Calendar currentDate=Calendar.getInstance();
+
+        for(int i=0;i<eventListItems.size();i++){
+            String date1 = eventListItems.get(i).getDateTime().substring(0,10);
+
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            try{
+                Date date = formatter.parse(date1);
+                Date currentDay = formatter.parse(formatter.format(currentDate.getTime()));
+                Log.e("comparison result",String.valueOf(date.compareTo(currentDate.getTime())));
+                if(date.compareTo(currentDay)>=0){
+                    returnItems.add(eventListItems.get(i));
+                }
+            }catch (Exception e){
+
+            }
+        }
+        return returnItems;
     }
 }

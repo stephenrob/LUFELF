@@ -28,6 +28,8 @@ import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Event;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.EventUser;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 import uk.co.stephen_robinson.uni.lufelf.utilities.CSVGenerator;
+import uk.co.stephen_robinson.uni.lufelf.utilities.CustomMessages;
+import uk.co.stephen_robinson.uni.lufelf.utilities.DialogCallback;
 import uk.co.stephen_robinson.uni.lufelf.utilities.DownloadImage;
 
 /**
@@ -226,19 +228,24 @@ public class EventProfileFragment extends BaseFragment{
                                         public void onClick(View view) {
                                             Single sc = new Single() {
                                                 @Override
-                                                public void results(Hashtable result) {
-                                                    if(!toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString())){
-                                                        toastMaker.makeToast(result.get(Message.MESSAGE).toString());
-                                                        removeFragment();
+                                                public void results(final Hashtable result) {
+                                                    if (!toastMaker.isError(result.get(Message.CODE).toString(), result.get(Message.MESSAGE).toString())) {
+                                                        DialogCallback dialogCallback = new DialogCallback() {
+                                                            @Override
+                                                            public void messageComplete(int dialogResult) {
+                                                                if(dialogResult==1){
+                                                                    toastMaker.makeToast(result.get(Message.MESSAGE).toString());
+                                                                    removeFragment();
+                                                                }
+                                                            }
+                                                        };
+                                                        CustomMessages.showMessage("Delete Event?","Are you sure you want to delete this event?","Yes","Cancel",context,dialogCallback);
                                                     }
                                                 }
                                             };
-                                            api.v1.deleteEvent(Integer.valueOf(args.getString("id")),sc);
+                                            api.v1.deleteEvent(Integer.valueOf(args.getString("id")), sc);
                                         }
                                     });
-                                }else{
-                                    ViewGroup parent = (ViewGroup)remove_event.getParent();
-                                    parent.removeView(remove_event);
                                 }
 
                                 //set the creator text
@@ -269,10 +276,18 @@ public class EventProfileFragment extends BaseFragment{
         api.v1.getEvent(Integer.valueOf(args.getString("id")),m);
     }
 
-    public void handleReject(String id){
-        CSVGenerator csvGenerator = new CSVGenerator();
-        csvGenerator.append(id);
-        removeFragment();
+    public void handleReject(final String id){
+        DialogCallback dialogCallback = new DialogCallback() {
+            @Override
+            public void messageComplete(int result) {
+                if(result==1){
+                    CSVGenerator csvGenerator = new CSVGenerator();
+                    csvGenerator.append(id);
+                    removeFragment();
+                }
+            }
+        };
+        CustomMessages.showMessage("Blacklist event?","Are you sure you want to add this event to your blacklist?\nRemember, you can clear your black list at any time in settings!","Add to Blacklist","cancel",context,dialogCallback);
     }
 
     @Override

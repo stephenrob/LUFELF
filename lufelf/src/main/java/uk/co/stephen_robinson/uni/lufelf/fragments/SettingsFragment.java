@@ -18,6 +18,7 @@ import uk.co.stephen_robinson.uni.lufelf.activities.MainActivity;
 import uk.co.stephen_robinson.uni.lufelf.adapters.UserItem;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
+import uk.co.stephen_robinson.uni.lufelf.utilities.CSVGenerator;
 import uk.co.stephen_robinson.uni.lufelf.utilities.CustomMessages;
 import uk.co.stephen_robinson.uni.lufelf.utilities.DialogCallback;
 import uk.co.stephen_robinson.uni.lufelf.utilities.DownloadImage;
@@ -159,6 +160,16 @@ public class SettingsFragment extends BaseFragment{
                 };
 
                 api.v1.getUserByID(String.valueOf(api.v1.currentUserId()),sc);
+            }
+        });
+
+        TextView clearBlacklist = (TextView)rootView.findViewById(R.id.settings_clear_blacklist);
+        clearBlacklist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CSVGenerator csvGenerator=new CSVGenerator();
+                csvGenerator.clearAll();
+                toastMaker.makeToast("Cleared!");
             }
         });
 

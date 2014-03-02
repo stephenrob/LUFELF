@@ -139,7 +139,6 @@ public class CreatePlaceFragment extends BaseFragment{
                     }
                 }
                 hideActivitySpinner();
-                removeFragment();
             }
         };
 

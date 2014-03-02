@@ -17,6 +17,8 @@ import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Friend;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
+import uk.co.stephen_robinson.uni.lufelf.utilities.CustomMessages;
+import uk.co.stephen_robinson.uni.lufelf.utilities.DialogCallback;
 import uk.co.stephen_robinson.uni.lufelf.utilities.DownloadImage;
 
 /**
@@ -121,18 +123,28 @@ public class FriendProfileFragment extends BaseFragment{
                         addFriend.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                showActivitySpinner();
-                                Single single =new Single() {
+                                DialogCallback dialogCallback=new DialogCallback() {
                                     @Override
-                                    public void results(Hashtable result) {
-                                        boolean error=toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
-                                        if(!error)
-                                            toastMaker.makeToast((String)result.get(Message.MESSAGE));
-                                        hideActivitySpinner();
+                                    public void messageComplete(int dialogResult) {
+                                        if(dialogResult==1){
+                                            showActivitySpinner();
+                                            Single single =new Single() {
+                                                @Override
+                                                public void results(Hashtable result) {
+
+                                                    boolean error=toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
+                                                    if(!error)
+                                                        toastMaker.makeToast((String)result.get(Message.MESSAGE));
+                                                    hideActivitySpinner();
+                                                }
+                                            };
+
+                                            api.v1.deleteFriend(id, single);
+                                        }
                                     }
                                 };
+                                CustomMessages.showMessage("Remove Friend?","Are you sure you want to remove this friend?","Yes","Cancel",context,dialogCallback);
 
-                                api.v1.deleteFriend(id, single);
                             }
                         });
                     }else{
@@ -140,17 +152,17 @@ public class FriendProfileFragment extends BaseFragment{
                             @Override
                             public void onClick(View view) {
                                 showActivitySpinner();
-                                Single single =new Single() {
+                                Single single = new Single() {
                                     @Override
                                     public void results(Hashtable result) {
-                                        boolean error=toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
-                                        if(!error)
-                                            toastMaker.makeToast((String)result.get(Message.MESSAGE));
+                                        boolean error = toastMaker.isError(result.get(Message.CODE).toString(), result.get(Message.MESSAGE).toString());
+                                        if (!error)
+                                            toastMaker.makeToast((String) result.get(Message.MESSAGE));
                                         hideActivitySpinner();
                                     }
                                 };
 
-                                api.v1.addFriend(id,single);
+                                api.v1.addFriend(id, single);
                             }
                         });
                     }

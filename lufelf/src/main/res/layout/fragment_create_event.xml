@@ -47,14 +47,13 @@
             android:id="@+id/profile_image"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
             android:src="@drawable/ic_camera"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"/>
 
 
         <EditText
-            android:capitalize="sentences"
+            android:capitalize="words"
             android:id="@+id/create_event_name"
             android:layout_marginTop="10dp"
             android:layout_width="fill_parent"

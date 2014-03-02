@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.adapters.MessageItem;
-import uk.co.stephen_robinson.uni.lufelf.adapters.MessageItemAdapter;
+import uk.co.stephen_robinson.uni.lufelf.adapters.SentMessageItemAdapter;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.UserMessage;
@@ -97,7 +97,7 @@ public class SentMessagesFragment extends BaseFragment{
                     messageItems.add(MessageItem.getBlankResult());
                 }
                 //set the adapter
-                list.setAdapter(new MessageItemAdapter(rootView.getContext(), messageItems));
+                list.setAdapter(new SentMessageItemAdapter(rootView.getContext(), messageItems));
                 hideActivitySpinner();
             }
         };

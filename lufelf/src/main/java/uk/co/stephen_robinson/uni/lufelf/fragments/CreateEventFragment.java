@@ -20,11 +20,8 @@ import android.widget.TimePicker;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Hashtable;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
@@ -123,7 +120,9 @@ public class CreateEventFragment extends BaseFragment{
                             if(!error){
                                 toastMaker.makeToast(result.get(Message.MESSAGE).toString());
                                 uploadImage(name.getText().toString());
+                                hideActivitySpinner();
                                 removeFragment();
+
                             }
                         }
                     };
@@ -160,7 +159,7 @@ public class CreateEventFragment extends BaseFragment{
             //set the callback method when the user sets the date
             public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                 //create the date string
-                final String dateString=String.valueOf(selectedday)+"/"+String.valueOf(selectedmonth)+"/"+String.valueOf(selectedyear);
+                final String dateString=String.valueOf(selectedday)+"/"+String.valueOf(selectedmonth+1)+"/"+String.valueOf(selectedyear);
 
 
                 //create time picker dialog
@@ -168,17 +167,11 @@ public class CreateEventFragment extends BaseFragment{
                     //set the functionality of the callback method
                     @Override
                     public void onTimeSet(TimePicker timePicker, int shour, int sminute) {
-                        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                        Date date;
+
 
                         String dateAndtime=dateString+" "+String.valueOf(shour)+":"+String.valueOf(sminute);
-                        try{
-                            date = formatter.parse(dateAndtime);
+                        editText.setText(dateAndtime);
 
-                            editText.setText(date.toString());
-                        }catch (Exception e){
-                            editText.setText(dateAndtime);
-                        }
                     }
                 },hour,minute,false);
                 timePicker.setTitle("Select Time");
@@ -235,8 +228,7 @@ public class CreateEventFragment extends BaseFragment{
                         }
                     }
                 }
-                hideActivitySpinner();
-                removeFragment();
+
             }
         };
 

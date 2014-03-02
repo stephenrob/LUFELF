@@ -605,6 +605,8 @@ public class Parser {
                                 String temp = parser.nextText();
                                 if(!temp.equals("")){
                                     currentFriend.lattitude = Double.valueOf(temp);
+                                }else if(temp.equals("0/.")){
+                                    currentFriend.lattitude = 0.0;
                                 } else {
                                     currentFriend.lattitude = 0.0;
                                 }
@@ -612,7 +614,9 @@ public class Parser {
                                 String temp = parser.nextText();
                                 if(!temp.equals("")){
                                     currentFriend.longitude = Double.valueOf(temp);
-                                } else {
+                                }else if(temp.equals("0/.")){
+                                    currentFriend.longitude = 0.0;
+                                }else{
                                     currentFriend.longitude = 0.0;
                                 }
                             }

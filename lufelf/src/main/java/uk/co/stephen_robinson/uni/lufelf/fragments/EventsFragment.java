@@ -1,7 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
-import uk.co.stephen_robinson.uni.lufelf.utilities.EventDateComparator;
 import uk.co.stephen_robinson.uni.lufelf.adapters.EventItemAdapter;
 import uk.co.stephen_robinson.uni.lufelf.adapters.EventListItem;
 import uk.co.stephen_robinson.uni.lufelf.adapters.NavDrawerItem;
@@ -23,6 +21,7 @@ import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Event;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.EventUser;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 import uk.co.stephen_robinson.uni.lufelf.utilities.CSVGenerator;
+import uk.co.stephen_robinson.uni.lufelf.utilities.EventDateComparator;
 
 
 /**
@@ -56,7 +55,7 @@ public class EventsFragment extends BaseFragment{
         //get the events listview
         list = (ListView)rootView.findViewById(R.id.events_listview);
         //add events to the listview
-        addEvents(inflater, container, rootView);
+        addEvents();
 
         //set item click listener
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -73,11 +72,8 @@ public class EventsFragment extends BaseFragment{
 
     /**
      * add the events to the view
-     * @param inflater the inflater for the layout
-     * @param container the view group container
-     * @param rootView the rootview of the fragment
      */
-    public void addEvents(LayoutInflater inflater, ViewGroup container,View rootView){
+    public void addEvents(){
         showActivitySpinner();
         Multiple multipleCallback=new Multiple() {
             @Override
@@ -87,7 +83,6 @@ public class EventsFragment extends BaseFragment{
                 if(!toastMaker.isError(String.valueOf(m.statusCode),m.message)){
                     for(int i=0;i<result.size()-1;i++){
                         Event e=(Event)result.get(i);
-                        Log.e("EVENT DATES",e.getDate());
                         eventItems.add(new EventListItem(String.valueOf(e.getId()),e.getName(),R.drawable.ic_location,"Creator "+i,new LatLng(i,i),e.getDate(),"This is a description for EVENT "+i,new ArrayList<EventUser>()));
 
                     }
@@ -115,5 +110,10 @@ public class EventsFragment extends BaseFragment{
             i++;
         }
         return eventListItems;
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        addEvents();
     }
 }

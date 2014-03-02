@@ -272,7 +272,7 @@ public class EventProfileFragment extends BaseFragment{
     public void handleReject(String id){
         CSVGenerator csvGenerator = new CSVGenerator();
         csvGenerator.append(id);
-        ArrayList<String> ids = csvGenerator.getAll();
+        removeFragment();
     }
 
     @Override

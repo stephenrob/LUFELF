@@ -62,7 +62,6 @@ public class FragmentFriendRequests extends BaseFragment{
                     for(int i=0;i<result.size()-1;i++){
 
                         Friend f =(Friend)result.get(i);
-                        Log.e("ONCE ",f.getRequest_id()+" "+f.getFriend_id()+" "+f.getUser_id()+" "+f.getFriend_status()+" "+f.getName()+" "+f.getUsername()+" "+f.getLocation_status()+" "+f.getLattitude()+" "+f.getLongitude());
                         friends.add(new FriendItem(f.getRequest_id(), f.getFriend_id(), f.getUser_id(), f.getFriend_status(), f.getName(), f.getUsername(), f.getLocation_status(), f.getLattitude(), f.getLongitude()));
                     }
                     friendsList.setAdapter(new FriendItemAdapter(context, friends));

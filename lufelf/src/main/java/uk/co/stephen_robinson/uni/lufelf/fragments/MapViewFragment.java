@@ -134,7 +134,7 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
         }
 
 
-        DirectionsQuery query = new DirectionsQuery(context);
+        DirectionsQuery query = new DirectionsQuery(getActivity());
 
         Bundle args = getArguments();
         if(args!=null){
@@ -226,21 +226,22 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
                 .zoom(17)
                 .build();
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        if(api.v1.isLoggedIn()){
+            Single single = new Single() {
+                @Override
+                public void results(Hashtable result) {
+                    Enumeration keys = result.keys();
+                    while(keys.hasMoreElements()){
+                        Log.e("CRAP",keys.nextElement().toString());
+                    }
 
-        Single single = new Single() {
-            @Override
-            public void results(Hashtable result) {
-                Enumeration keys = result.keys();
-                while(keys.hasMoreElements()){
-                    Log.e("CRAP",keys.nextElement().toString());
+                    Log.e("location", "LOCATIONUPDATE");
+                    boolean error=toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
                 }
+            };
 
-                Log.e("location", "LOCATIONUPDATE");
-                boolean error=toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
-            }
-        };
-
-        api.v1.updateLocation(latLng.latitude,latLng.longitude,single);
+            api.v1.updateLocation(latLng.latitude,latLng.longitude,single);
+        }
     }
 
     @Override
@@ -312,4 +313,12 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
         return id.split(",");
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        MapFragment f = (MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map);
+        if (f != null)
+            getFragmentManager().beginTransaction().remove(f).commit();
+    }
 }

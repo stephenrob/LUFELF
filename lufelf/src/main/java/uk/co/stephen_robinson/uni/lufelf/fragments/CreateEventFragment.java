@@ -123,7 +123,7 @@ public class CreateEventFragment extends BaseFragment{
                             if(!error){
                                 toastMaker.makeToast(result.get(Message.MESSAGE).toString());
                                 uploadImage(name.getText().toString());
-
+                                removeFragment();
                             }
                         }
                     };

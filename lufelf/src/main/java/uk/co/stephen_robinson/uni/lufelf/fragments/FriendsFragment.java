@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -39,7 +40,13 @@ public class FriendsFragment extends BaseFragment{
         rootView = inflater.inflate(R.layout.fragment_friends, container, false);
         setContext(rootView.getContext());
         //showActivitySpinner();
-
+        ImageView addFriend = (ImageView)rootView.findViewById(R.id.friends_title_buttons);
+        addFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentManager.beginTransaction().add(R.id.container, SearchFragment.newInstance(SearchFragment.friendsSearch), "AddFriend").addToBackStack(null).commit();
+            }
+        });
         friendsList=(ListView)rootView.findViewById(R.id.friends_listview);
 
 

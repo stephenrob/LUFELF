@@ -1,20 +1,17 @@
 package uk.co.stephen_robinson.uni.lufelf.fragments;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Hashtable;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
@@ -118,33 +115,8 @@ public class CreatePlaceFragment extends BaseFragment{
 
         return rootView;
     }
-    public void showDate(final EditText editText){
 
-        //get current time and date
-        Calendar currentDate=Calendar.getInstance();
-
-        //set current variables
-        int currentyear=currentDate.get(Calendar.YEAR);
-        int currentMonth=currentDate.get(Calendar.MONTH);
-        int currentDay=currentDate.get(Calendar.DAY_OF_MONTH);
-
-
-        //create datepicker and time dialogs dialogs
-        DatePickerDialog datePicker=new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
-            //set the callback method when the user sets the date
-            public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
-                //create the date string
-                final String dateString=String.valueOf(selectedday)+"/"+String.valueOf(selectedmonth)+"/"+String.valueOf(selectedyear);
-                editText.setText(dateString);
-            }
-        },currentyear, currentMonth, currentDay);
-        datePicker.setTitle("Select Date");
-        datePicker.show();
-    }
     public void uploadImage(final String placeName){
-
-
-
         Multiple m = new Multiple() {
             @Override
             public void results(ArrayList result) {

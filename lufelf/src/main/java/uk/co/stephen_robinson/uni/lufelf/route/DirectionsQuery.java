@@ -1,5 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.route;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -30,13 +31,15 @@ public class DirectionsQuery {
     private HttpClient client;
     private DirectionsParser directions;
     private Context context;
+    private Activity activity;
     /**
      * instantiates the directions and client variables.
      */
-    public DirectionsQuery(Context context){
+    public DirectionsQuery(Activity activity){
         directions=new DirectionsParser();
         client= new DefaultHttpClient();
-        this.context=context;
+        this.context=activity;
+        this.activity=activity;
     }
 
     /**
@@ -58,6 +61,16 @@ public class DirectionsQuery {
             }
             @Override
             protected Route doInBackground(Void...voided) {
+                if(startLoc==null||finishLoc==null){
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(context,"Location information not available - unable to route",Toast.LENGTH_SHORT);
+                        }
+                    });
+
+                    return null;
+                }
                 String response="";
                 //HttpPost getData=new HttpPost("http://maps.googleapis.com/maps/api/directions/json?origin=Toronto&destination=Montreal&sensor=false");
                 HttpPost getData = new HttpPost("http://maps.googleapis.com/maps/api/directions/json?origin="+String.valueOf(startLoc.latitude)+","+String.valueOf(startLoc.longitude)
@@ -71,33 +84,39 @@ public class DirectionsQuery {
 
                     return directions.getRoute(responseText);
                 }catch(Exception e){
-                    Toast.makeText(context,"Internet Connection Unavailable",Toast.LENGTH_SHORT);
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(context, "Internet Connection Unavailable", Toast.LENGTH_SHORT);
+                        }
+                    });
                 }
                 return null;
             }
             @Override
             protected void onPostExecute(Route r) {
+                if(r!=null){
+                    ArrayList<LatLng> point=r.getRoute();
+                    if(point.size()>0){
+                        PolylineOptions line = new PolylineOptions();
+                        line.width(5);
+                        line.color(Color.RED);
 
-                ArrayList<LatLng> point=r.getRoute();
-                if(point.size()>0){
-                    PolylineOptions line = new PolylineOptions();
-                    line.width(5);
-                    line.color(Color.RED);
+                        MarkerOptions mOptions1=new MarkerOptions();
+                        mOptions1.title("A");
+                        mOptions1.position(point.get(0));
 
-                    MarkerOptions mOptions1=new MarkerOptions();
-                    mOptions1.title("A");
-                    mOptions1.position(point.get(0));
+                        MarkerOptions mOptions2=new MarkerOptions();
+                        mOptions2.title("B");
+                        mOptions2.position(point.get(point.size() - 1));
 
-                    MarkerOptions mOptions2=new MarkerOptions();
-                    mOptions2.title("B");
-                    mOptions2.position(point.get(point.size() - 1));
-
-                    map.addMarker(mOptions1);
-                    map.addMarker(mOptions2);
-                    line.addAll(point);
-                    map.addPolyline(line);
-                }else{
-                    Toast.makeText(context,"No Route Found",Toast.LENGTH_LONG);
+                        map.addMarker(mOptions1);
+                        map.addMarker(mOptions2);
+                        line.addAll(point);
+                        map.addPolyline(line);
+                    }else{
+                        Toast.makeText(context,"No Route Found",Toast.LENGTH_LONG);
+                    }
                 }
             }
         }.execute();

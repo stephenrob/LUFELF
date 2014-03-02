@@ -17,7 +17,7 @@
     <!-- subheadings -->
     <string name="view_friends_text">View Friends List</string>
     <string name="view_friend_request_text">View Friend Requests</string>
-    <string name="search_users_text">Search Users</string>
+    <string name="search_users_text">Search Friends</string>
 
     <string name="view_event_text">View Events</string>
     <string name="create_event_text">Create Event</string>
@@ -27,8 +27,8 @@
     <string name="create_location_text">Create Location</string>
     <string name="search_locations_text">Search Locations</string>
 
-    <string name="view_received_messages">Received Messages</string>
-    <string name="view_sent_message">Sent Messages</string>
+    <string name="view_received_messages">Inbox</string>
+    <string name="view_sent_message">Sent Items</string>
 
     <!-- navigation accessibility Strings -->
 

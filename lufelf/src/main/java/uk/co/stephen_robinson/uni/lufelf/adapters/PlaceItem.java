@@ -10,7 +10,7 @@ import uk.co.stephen_robinson.uni.lufelf.R;
  */
 public class PlaceItem {
 
-    private static int other= R.drawable.other;
+    private static int other= R.drawable.university;
     private static int pub=R.drawable.pub;
     private static int restaurant=R.drawable.restaurant;
     private static int lecture_theatre=R.drawable.lecture;

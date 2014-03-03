@@ -70,7 +70,7 @@ public class SettingsFragment extends BaseFragment{
             }
         });
 
-        TextView deleteAccount = (TextView) rootView.findViewById(R.id.setting_delete_user);
+        TextView deleteAccount = (TextView) rootView.findViewById(R.id.setting_delete_user1);
         deleteAccount.setOnClickListener(new View.OnClickListener() {
 
             @Override

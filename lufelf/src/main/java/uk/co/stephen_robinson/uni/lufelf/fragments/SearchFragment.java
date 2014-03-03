@@ -140,7 +140,7 @@ public class SearchFragment extends BaseFragment{
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEND) {
                     searchBox.performClick();
-                    showActivitySpinner();
+
                     Single single = new Single() {
                         @Override
                         public void results(Hashtable result) {
@@ -201,8 +201,10 @@ public class SearchFragment extends BaseFragment{
                         }
                     };
                     String searchBoxValue=searchBox.getText().toString();
-                    boolean ok = ValidationChecker.checkIfEmpty(searchBoxValue);
-                    if(!ok){
+                    EditText[] editTexts={searchBox};
+                    boolean ok = ValidationChecker.standardValidationCheck(editTexts);
+                    if(ok){
+                        showActivitySpinner();
                         if(ValidationChecker.isEmailValid(searchBoxValue))
                             api.v1.getUserByUsername(searchBoxValue, single);
                         else if(ValidationChecker.isAllNumbers(searchBoxValue))

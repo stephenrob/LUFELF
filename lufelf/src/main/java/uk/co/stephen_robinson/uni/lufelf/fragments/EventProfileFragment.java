@@ -226,28 +226,29 @@ public class EventProfileFragment extends BaseFragment{
                                     remove_event.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            Single sc = new Single() {
+                                            DialogCallback dialogCallback = new DialogCallback() {
                                                 @Override
-                                                public void results(final Hashtable result) {
-                                                    if (!toastMaker.isError(result.get(Message.CODE).toString(), result.get(Message.MESSAGE).toString())) {
-                                                        DialogCallback dialogCallback = new DialogCallback() {
+                                                public void messageComplete(int dialogResult) {
+                                                    if(dialogResult==1){
+                                                            Single sc = new Single() {
                                                             @Override
-                                                            public void messageComplete(int dialogResult) {
-                                                                if(dialogResult==1){
-                                                                    toastMaker.makeToast(result.get(Message.MESSAGE).toString());
-                                                                    removeFragment();
+                                                            public void results(final Hashtable result) {
+                                                                if (!toastMaker.isError(result.get(Message.CODE).toString(), result.get(Message.MESSAGE).toString())) {
+
+                                                                                toastMaker.makeToast(result.get(Message.MESSAGE).toString());
+                                                                                removeFragment();
+
                                                                 }
                                                             }
                                                         };
-                                                        CustomMessages.showMessage("Delete Event?","Are you sure you want to delete this event?","Yes","Cancel",context,dialogCallback);
+                                                        api.v1.deleteEvent(Integer.valueOf(args.getString("id")), sc);
                                                     }
                                                 }
                                             };
-                                            api.v1.deleteEvent(Integer.valueOf(args.getString("id")), sc);
+                                            CustomMessages.showMessage("Delete Event?","Are you sure you want to delete this event?","Yes","Cancel",context,dialogCallback);
                                         }
                                     });
                                 }
-
                                 //set the creator text
                                 creator.setText("Created By: "+owner.getName());
 

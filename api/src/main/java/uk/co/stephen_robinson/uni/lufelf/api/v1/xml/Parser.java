@@ -603,19 +603,19 @@ public class Parser {
                                 currentFriend.location_status = Integer.valueOf(parser.nextText());
                             } else if(tagName.equalsIgnoreCase(Friend.LATTITUDE)){
                                 String temp = parser.nextText();
-                                if(!temp.equals("")){
+                                if(temp.equals("0/.")){
+                                    currentFriend.longitude = 0.0;
+                                }else if(!temp.equals("")){
                                     currentFriend.lattitude = Double.valueOf(temp);
-                                }else if(temp.equals("0/.")){
-                                    currentFriend.lattitude = 0.0;
-                                } else {
+                                }else {
                                     currentFriend.lattitude = 0.0;
                                 }
                             } else if(tagName.equalsIgnoreCase(Friend.LONGITUDE)){
                                 String temp = parser.nextText();
-                                if(!temp.equals("")){
-                                    currentFriend.longitude = Double.valueOf(temp);
-                                }else if(temp.equals("0/.")){
+                                if(temp.equals("0/.")){
                                     currentFriend.longitude = 0.0;
+                                }else if(!temp.equals("")){
+                                    currentFriend.longitude = Double.valueOf(temp);
                                 }else{
                                     currentFriend.longitude = 0.0;
                                 }

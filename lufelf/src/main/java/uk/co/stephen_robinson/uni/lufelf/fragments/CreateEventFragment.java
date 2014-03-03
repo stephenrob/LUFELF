@@ -200,8 +200,9 @@ public class CreateEventFragment extends BaseFragment{
                     }
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,R.layout.spinner_item,placesStrings);
                     placeSpinner.setAdapter(adapter);
-                    hideActivitySpinner();
+
                 }
+                hideActivitySpinner();
             }
         };
         api.v1.getAllPlaces(multipleCallback);

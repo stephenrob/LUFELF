@@ -57,9 +57,9 @@ public class Parser {
                 eventType = parser.next();
             }
         } catch (XmlPullParserException e){
-            message = null;
+            message = new Message(400, "fail", "Error");
         } catch (IOException e){
-            message = null;
+            message = new Message(400, "fail", "Error");
         }
 
         return message;
@@ -143,13 +143,19 @@ public class Parser {
             userDetails.status = message.status;
             userDetails.statusCode = message.statusCode;
 
-        } catch (XmlPullParserException e){
-            userDetails = null;
+        }  catch (XmlPullParserException e){
+            message = new Message(400, "fail", "Error");
+            userDetails = new User();
+            userDetails.message = message.message;
+            userDetails.status = message.status;
+            userDetails.statusCode = message.statusCode;
         } catch (IOException e){
-            userDetails = null;
+            message = new Message(400, "fail", "Error");
+            userDetails = new User();
+            userDetails.message = message.message;
+            userDetails.status = message.status;
+            userDetails.statusCode = message.statusCode;
         }
-
-
 
         return userDetails;
     }
@@ -227,13 +233,17 @@ public class Parser {
 
             }
 
-        } catch (XmlPullParserException e){
-            places = null;
-        } catch (IOException e){
-            places = null;
-        }
+            places.add(status);
 
-        places.add(status);
+        } catch (XmlPullParserException e){
+            places = new ArrayList();
+
+            places.add(new Message(400, "fail", "Error"));
+        } catch (IOException e){
+            places = new ArrayList();
+
+            places.add(new Message(400, "fail", "Error"));
+        }
 
         return places;
 
@@ -338,14 +348,17 @@ public class Parser {
                 eventType = parser.next();
 
             }
+            events.add(status);
 
         } catch (XmlPullParserException e){
-            events = null;
-        } catch (IOException e){
-            events = null;
-        }
+            events = new ArrayList();
 
-        events.add(status);
+            events.add(new Message(400, "fail", "Error"));
+        } catch (IOException e){
+            events = new ArrayList();
+
+            events.add(new Message(400, "fail", "Error"));
+        }
 
         return events;
 
@@ -415,9 +428,19 @@ public class Parser {
                 eventType = parser.next();
             }
         } catch (XmlPullParserException e){
-            status = null;
+            Message message = new Message(400, "fail", "Error");
+            status = new Status();
+            status.status = message.status;
+            status.statusCode = message.statusCode;
+            status.message = message.message;
+            status.is_new = false;
         } catch (IOException e){
-            status = null;
+            Message message = new Message(400, "fail", "Error");
+            status = new Status();
+            status.status = message.status;
+            status.statusCode = message.statusCode;
+            status.message = message.message;
+            status.is_new = false;
         }
 
         return status;
@@ -490,13 +513,17 @@ public class Parser {
 
             }
 
-        } catch (XmlPullParserException e){
-            requests = null;
-        } catch (IOException e){
-            requests = null;
-        }
+            requests.add(status);
 
-        requests.add(status);
+        } catch (XmlPullParserException e){
+            requests = new ArrayList();
+
+            requests.add(new Message(400, "fail", "Error"));
+        } catch (IOException e){
+            requests = new ArrayList();
+
+            requests.add(new Message(400, "fail", "Error"));
+        }
 
         return requests;
 
@@ -545,9 +572,9 @@ public class Parser {
                 eventType = parser.next();
             }
         } catch (XmlPullParserException e){
-            message = null;
+            message = new Message(400, "fail", "Error");
         } catch (IOException e){
-            message = null;
+            message = new Message(400, "fail", "Error");
         }
 
         return message;
@@ -635,15 +662,20 @@ public class Parser {
 
             }
 
+            friends.add(status);
+
         } catch (XmlPullParserException e){
-            friends = null;
+            friends = new ArrayList();
+
+            friends.add(new Message(400, "fail", "Error"));
         } catch (IOException e){
-            friends = null;
+            friends = new ArrayList();
+
+            friends.add(new Message(400, "fail", "Error"));
         }
 
-        friends.add(status);
-
         return friends;
+
     }
 
     public static ArrayList parseMessages(String data){
@@ -696,13 +728,17 @@ public class Parser {
 
             }
 
-        } catch (XmlPullParserException e){
-            messages = null;
-        } catch (IOException e){
-            messages = null;
-        }
+            messages.add(status);
 
-        messages.add(status);
+        } catch (XmlPullParserException e){
+            messages = new ArrayList();
+
+            messages.add(new Message(400, "fail", "Error"));
+        } catch (IOException e){
+            messages = new ArrayList();
+
+            messages.add(new Message(400, "fail", "Error"));
+        }
 
         return messages;
     }
@@ -809,13 +845,17 @@ public class Parser {
             }
 
 
-        } catch (XmlPullParserException e){
-            userDetails = null;
-        } catch (IOException e){
-            userDetails = null;
-        }
+            users.add(status);
 
-        users.add(status);
+        } catch (XmlPullParserException e){
+            users = new ArrayList();
+
+            users.add(new Message(400, "fail", "Error"));
+        } catch (IOException e){
+            users = new ArrayList();
+
+            users.add(new Message(400, "fail", "Error"));
+        }
 
         return users;
     }

@@ -1,7 +1,9 @@
 package uk.co.stephen_robinson.uni.lufelf.route;
 
 
+import android.app.Activity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -18,6 +20,10 @@ import java.util.List;
 public class DirectionsParser {
 
     private JSONObject returnedData;
+    private Activity activity;
+    public DirectionsParser(Activity activity){
+        this.activity=activity;
+    }
 
     /**
      * returns the route of the returned directions
@@ -43,6 +49,7 @@ public class DirectionsParser {
             }
         }catch(Exception e){
             Log.e("Route parser error",e.toString());
+            Toast.makeText(activity,"No Route Available",Toast.LENGTH_LONG);
         }
         return r;
     }

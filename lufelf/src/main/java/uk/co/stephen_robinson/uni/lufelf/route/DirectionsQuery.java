@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -36,7 +37,7 @@ public class DirectionsQuery {
      * instantiates the directions and client variables.
      */
     public DirectionsQuery(Activity activity){
-        directions=new DirectionsParser();
+        directions=new DirectionsParser(activity);
         client= new DefaultHttpClient();
         this.context=activity;
         this.activity=activity;
@@ -115,8 +116,12 @@ public class DirectionsQuery {
                         line.addAll(point);
                         map.addPolyline(line);
                     }else{
+                        Log.e("HERE","ROUTE2");
                         Toast.makeText(context,"No Route Found",Toast.LENGTH_LONG);
                     }
+                }else{
+                    Log.e("HERE","ROUTE");
+
                 }
             }
         }.execute();

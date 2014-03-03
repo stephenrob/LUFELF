@@ -7,4 +7,8 @@ public class EventUser extends User {
     protected String date_accepted = "";
 
     public static final String DATE_ACCEPTED = "date_accepted";
+
+    public String getDate_accepted() {
+        return date_accepted;
+    }
 }

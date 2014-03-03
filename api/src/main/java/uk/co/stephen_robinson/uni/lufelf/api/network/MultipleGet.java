@@ -11,6 +11,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -29,12 +32,15 @@ public class MultipleGet extends AsyncTask<Void, Integer, ArrayList> {
     private Script serverScript = null;
     private HttpClient serverClient;
     private Multiple multipleCallback;
-
+    private int connectionTimeout = 5000;
+    private int socketTimeout = 7000;
+    private HttpParams httpParams;
 
     public MultipleGet(Multiple mc, Script script) {
         this.multipleCallback = mc;
         this.serverScript = script;
         serverClient = new DefaultHttpClient();
+        httpParams = new BasicHttpParams();
     }
 
     @Override
@@ -50,6 +56,8 @@ public class MultipleGet extends AsyncTask<Void, Integer, ArrayList> {
         }
 
         HttpGet getData = new HttpGet(serverScript.protocol.getProtocol() + Helper.SERVER_IP_ADDRESSS + serverScript.path);
+        HttpConnectionParams.setConnectionTimeout(httpParams, connectionTimeout);
+        HttpConnectionParams.setSoTimeout(httpParams, socketTimeout);
 
         try {
             ResponseHandler<String> responseHandler = new BasicResponseHandler();

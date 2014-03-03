@@ -10,6 +10,9 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -30,11 +33,15 @@ public class MultiplePost extends AsyncTask<List<NameValuePair>, Integer, ArrayL
     private Script serverScript = null;
     private HttpClient serverClient;
     private Multiple multipleCallback;
+    private int connectionTimeout = 5000;
+    private int socketTimeout = 7000;
+    private HttpParams httpParams;
 
     public MultiplePost(Multiple mc, Script script){
         this.multipleCallback = mc;
         this.serverScript = script;
         serverClient = new DefaultHttpClient();
+        httpParams = new BasicHttpParams();
     }
 
     @Override
@@ -50,6 +57,8 @@ public class MultiplePost extends AsyncTask<List<NameValuePair>, Integer, ArrayL
         }
 
         HttpPost postData = new HttpPost(serverScript.protocol.getProtocol() + Helper.SERVER_IP_ADDRESSS + serverScript.path);
+        HttpConnectionParams.setConnectionTimeout(httpParams, connectionTimeout);
+        HttpConnectionParams.setSoTimeout(httpParams, socketTimeout);
 
         try {
             postData.setEntity(new UrlEncodedFormEntity(params[0]));

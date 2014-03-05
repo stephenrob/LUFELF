@@ -25,7 +25,7 @@ import uk.co.stephen_robinson.uni.lufelf.utilities.ValidationChecker;
 
 /**
  * @author James
- * Fragment for Registering
+ * Fragment for creating a place
  */
 public class CreatePlaceFragment extends BaseFragment{
 
@@ -116,6 +116,10 @@ public class CreatePlaceFragment extends BaseFragment{
         return rootView;
     }
 
+    /**
+     * uploads an image for a place
+     * @param placeName the place name to upload an image for
+     */
     public void uploadImage(final String placeName){
         Multiple m = new Multiple() {
             @Override

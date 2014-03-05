@@ -6,6 +6,10 @@ import android.os.Bundle;
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.fragments.SplashFragment;
 
+/**
+ * @author James
+ * the splash activity manages the splash fragment.
+ */
 public class SplashActivity extends BaseActivity {
 
     /**

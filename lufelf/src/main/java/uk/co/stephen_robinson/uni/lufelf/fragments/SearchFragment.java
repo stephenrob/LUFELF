@@ -97,6 +97,10 @@ public class SearchFragment extends BaseFragment{
 
         return rootView;
     }
+
+    /**
+     * configure the search for places.
+     */
     public void setUpForPlaceSearch(){
 
         searchBox.setHint("Enter your search criteria");
@@ -114,6 +118,10 @@ public class SearchFragment extends BaseFragment{
         });
 
     }
+
+    /**
+     * search the locations
+     */
     public void searchForLocations(){
         showActivitySpinner();
         Multiple multipleCallback = new Multiple() {
@@ -133,6 +141,10 @@ public class SearchFragment extends BaseFragment{
         };
         api.v1.getAllPlaces(multipleCallback);
     }
+
+    /**
+     * setup the search for users.
+     */
     public void setUpForUserSearch(){
         searchBox.setHint("Enter username, lib no or name");
 
@@ -218,7 +230,9 @@ public class SearchFragment extends BaseFragment{
             }
         });
     }
-
+    /**
+     * set up the search for events
+     */
     public void setUpForEventSearch(){
         searchBox.setHint("Enter your search criteria");
 
@@ -233,6 +247,10 @@ public class SearchFragment extends BaseFragment{
             }
         });
     }
+
+    /**
+     * search for the events.
+     */
     public void searchForEvents(){
         showActivitySpinner();
         Multiple multipleCallback=new Multiple() {
@@ -255,6 +273,13 @@ public class SearchFragment extends BaseFragment{
         api.v1.getAllEvents(multipleCallback);
 
     }
+
+    /**
+     * match the criteria
+     * @param criteria the search criteria
+     * @param eventListItems the events to search
+     * @return the matched events
+     */
     public ArrayList<EventListItem> matchCriteria(String criteria,ArrayList<EventListItem> eventListItems){
         ArrayList<EventListItem> returnedItems = new ArrayList<EventListItem>();
         String[] criteriaSplit =criteria.split("\\s* \\s*");
@@ -277,6 +302,13 @@ public class SearchFragment extends BaseFragment{
 
         return returnedItems;
     }
+
+    /**
+     * search places using criteria
+     * @param criteria the search criteria
+     * @param placeItems the list of places to search
+     * @return all events that match the search criteria.
+     */
     public ArrayList<PlaceItem> matchPlaceCriteria(String criteria,ArrayList<PlaceItem> placeItems){
         ArrayList<PlaceItem> returnedItems = new ArrayList<PlaceItem>();
         String[] criteriaSplit =criteria.split("\\s* \\s*");
@@ -300,6 +332,13 @@ public class SearchFragment extends BaseFragment{
 
         return returnedItems;
     }
+
+    /**
+     * search for an id
+     * @param e the event list items
+     * @param id the id to match
+     * @return boolean if the item is found in the list
+     */
     public boolean searchForId(ArrayList<EventListItem> e,String id){
 
         for(EventListItem eventListItem:e)
@@ -307,6 +346,13 @@ public class SearchFragment extends BaseFragment{
                 return true;
         return false;
     }
+
+    /**
+     * search for an id of a place
+     * @param p the list of places to search
+     * @param id the id to search for
+     * @return boolean if the places is found
+     */
     public boolean searchForPlaceId(ArrayList<PlaceItem> p,int id){
 
         for(PlaceItem placeItem:p)

@@ -11,24 +11,31 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
- * Created by James on 28/02/2014.
+ * @author James
+ * creates a csv file for the blacklist
  */
 public class CSVGenerator {
+
     private String filename;
+
+    /**
+     * create the csv file for the blacklist
+     */
     public CSVGenerator(){
         File folder = new File(Environment.getExternalStorageDirectory()+ "/LUFELF");
 
-        Log.e("MADE",String.valueOf(folder.exists()));
 
         boolean var = false;
         if (!folder.exists())
             var = folder.mkdir();
-        if(var)
-            Log.e("MADE","FOLDER");
-        Log.e("PATH",folder.toString());
 
         filename = folder.toString() + "/" + "EventBlackList.csv";
     }
+
+    /**
+     * add an event to the blacklist
+     * @param eventID the event id to be added
+     */
     public void append(String eventID){
         ArrayList<String> allData=getAll();
         if(!allData.contains(eventID)){
@@ -41,6 +48,10 @@ public class CSVGenerator {
             }
         }
     }
+
+    /**
+     * clears the blacklist
+     */
     public void clearAll(){
         try{
             FileWriter fw = new FileWriter(filename);
@@ -50,6 +61,11 @@ public class CSVGenerator {
             Log.e("exception!",Log.getStackTraceString(e));
         }
     }
+
+    /**
+     * returns a list of ids held in the blacklist
+     * @return list of event ids
+     */
     public ArrayList<String> getAll(){
         ArrayList<String> ids= new ArrayList<String>();
         try{

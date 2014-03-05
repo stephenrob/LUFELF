@@ -11,6 +11,11 @@ import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.fragments.MapViewFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.NavigationDrawerFragment;
 
+/**
+ * @author James
+ * the navigatetoactivity manages the map fragment which navigates a user from A -> B
+ */
+
 public class NavigateToActivity extends BaseActivity {
 
     /**

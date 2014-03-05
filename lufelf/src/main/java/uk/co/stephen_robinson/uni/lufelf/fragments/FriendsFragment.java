@@ -55,6 +55,10 @@ public class FriendsFragment extends BaseFragment{
 
         return rootView;
     }
+
+    /**
+     * load the friends of the user
+     */
     public void loadFriends(){
         showActivitySpinner();
         Multiple mc = new Multiple() {

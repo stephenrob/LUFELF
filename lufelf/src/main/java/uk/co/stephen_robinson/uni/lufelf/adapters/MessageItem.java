@@ -1,7 +1,8 @@
 package uk.co.stephen_robinson.uni.lufelf.adapters;
 
 /**
- * Created by James on 20/02/2014.
+ * @author James
+ * used to hold details of a message
  */
 public class MessageItem {
     private String messageFrom;
@@ -23,6 +24,10 @@ public class MessageItem {
         this.id = id;
     }
 
+    /**
+     * returns the message to
+     * @return the send to
+     */
     public String getMessageTo() {
         return messageTo;
     }
@@ -52,6 +57,10 @@ public class MessageItem {
         return id;
     }
 
+    /**
+     * returns the blank result
+     * @return a blank messageItem...
+     */
     public static MessageItem getBlankResult(){
         return new MessageItem("","None","0",null);
     }

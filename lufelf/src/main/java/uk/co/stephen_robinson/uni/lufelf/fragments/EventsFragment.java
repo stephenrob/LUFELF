@@ -100,6 +100,12 @@ public class EventsFragment extends BaseFragment{
         //get the events
         api.v1.getAllEvents(multipleCallback);
     }
+
+    /**
+     * cross reference all event items with the blacklist which stored locally.
+     * @param eventListItems the list of items to crossreference
+     * @return the new list of items, without the blacklisted events omitted.
+     */
     public ArrayList<EventListItem> checkBlackList(ArrayList<EventListItem> eventListItems){
 
         CSVGenerator csvGenerator=new CSVGenerator();
@@ -116,6 +122,12 @@ public class EventsFragment extends BaseFragment{
         }
         return eventListItems;
     }
+
+    /**
+     * cross reference the event items and remove any that occurred before todays date.
+     * @param eventListItems the event items to filter
+     * @return the new list of items after the dates have been filtered.
+     */
     public ArrayList<EventListItem> checkDate(ArrayList<EventListItem> eventListItems){
         ArrayList<EventListItem> returnItems= new ArrayList<EventListItem>();
         //get current time and date

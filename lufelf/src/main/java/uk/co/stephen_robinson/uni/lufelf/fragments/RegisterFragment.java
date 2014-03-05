@@ -121,6 +121,11 @@ public class RegisterFragment extends BaseFragment{
 
         return rootView;
     }
+
+    /**
+     * show the datepicker view
+     * @param editText the text field to attatch this action too.
+     */
     public void showDate(final EditText editText){
 
         //get current time and date

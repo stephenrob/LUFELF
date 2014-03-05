@@ -19,7 +19,7 @@ import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 
 /**
  * @author James
- * Instantiates a friends fragment
+ * Instantiates a friends request fragment
  */
 public class FragmentFriendRequests extends BaseFragment{
 
@@ -48,6 +48,10 @@ public class FragmentFriendRequests extends BaseFragment{
 
         return rootView;
     }
+
+    /**
+     * load the users friend request
+     */
     public void loadFriends(){
         showActivitySpinner();
         Multiple mc = new Multiple() {

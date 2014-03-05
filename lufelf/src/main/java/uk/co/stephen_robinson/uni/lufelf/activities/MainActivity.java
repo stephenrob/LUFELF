@@ -13,6 +13,11 @@ import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
 import uk.co.stephen_robinson.uni.lufelf.fragments.NavigationDrawerFragment;
 
+/**
+ * @author James
+ * the main activity that manages all of the fragments within the application
+ */
+
 public class MainActivity extends BaseActivity {
 
     /**
@@ -81,15 +86,28 @@ public class MainActivity extends BaseActivity {
         }
         return super.onCreateOptionsMenu(menu);
     }
+
+    /**
+     * Logout is used to log the user out of the app
+     * @param item the menu item clicked
+     */
     public void logout(MenuItem item){
+        //get the fragment manage
         FragmentManager manager = getFragmentManager();
+        //get the first item in the backstack
         FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
+        //pop all items from the first item
         manager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        //get the api object
         Api api = new Api(getApplicationContext(), Api.Version.V1);
+        //log the user out
         api.v1.logoutUser();
+        //start the login intent
         Intent login = new Intent(this,LoginActivity.class);
         login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //start the new activity
         startActivity(login);
+        //kill this activity
         finish();
     }
 }

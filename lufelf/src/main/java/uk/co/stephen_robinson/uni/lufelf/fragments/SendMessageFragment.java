@@ -21,7 +21,7 @@ import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 
 /**
  * @author James
- * Place profile
+ * send message fragment
  */
 public class SendMessageFragment extends BaseFragment{
     private Spinner to;
@@ -84,6 +84,10 @@ public class SendMessageFragment extends BaseFragment{
 
         return rootView;
     }
+
+    /**
+     * load the friends list into the spinner
+     */
     public void loadFriends(){
         showActivitySpinner();
         Multiple mc = new Multiple() {
@@ -115,6 +119,12 @@ public class SendMessageFragment extends BaseFragment{
 
         api.v1.getFriendsList(mc);
     }
+
+    /**
+     * send the message
+     * @param message the content of the message
+     * @param username the username to send it to
+     */
     public void sendMessage(final String message,String username){
         showActivitySpinner();
 

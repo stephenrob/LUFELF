@@ -19,7 +19,7 @@ import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.UserMessage;
 
 /**
  * @author James
- * Place profile
+ * this fragment displays all messages.
  */
 public class MessagesFragment extends BaseFragment{
 
@@ -58,20 +58,14 @@ public class MessagesFragment extends BaseFragment{
         //get the events listview
         list = (ListView)rootView.findViewById(R.id.message_listview);
 
-        /*list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                resetIndexes();
-                MessageItem item = (MessageItem) list.getItemAtPosition(i);
-                fragmentManager.beginTransaction().replace(R.id.container, ReceiveMessageFragment.newInstance(item), "ViewMessage").addToBackStack(null).commit();
-
-            }
-        });*/
         loadMessages();
 
         return rootView;
     }
 
+    /**
+     * loads all messages for the current user
+     */
     public void loadMessages(){
         showActivitySpinner();
         Multiple multiple = new Multiple() {

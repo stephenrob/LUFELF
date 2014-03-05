@@ -10,7 +10,8 @@ import java.util.Date;
 import uk.co.stephen_robinson.uni.lufelf.adapters.EventListItem;
 
 /**
- * Created by James on 25/02/2014.
+ * @author James
+ * compares dates of an event
  */
 public class EventDateComparator implements Comparator<EventListItem> {
     @Override

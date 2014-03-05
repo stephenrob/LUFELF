@@ -53,6 +53,12 @@ public class DirectionsParser {
         }
         return r;
     }
+
+    /**
+     * decodes a polyline returned from google direction
+     * @param encoded the string to decode
+     * @return a list of latlng
+     */
     private List<LatLng> decodePoly(String encoded) {
 
         List<LatLng> poly = new ArrayList<LatLng>();

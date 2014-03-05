@@ -6,7 +6,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by James on 19/02/2014.
+ * @author James
+ * validates EditTexts
  */
 public class ValidationChecker {
 

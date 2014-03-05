@@ -367,6 +367,10 @@ public class BaseFragment  extends Fragment{
         }
         return "";
     }
+
+    /**
+     * removes the current fragment
+     */
     public void removeFragment(){
         BaseActivity b = (BaseActivity)getActivity();
         b.onBackPressed();

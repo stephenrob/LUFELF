@@ -9,6 +9,11 @@ import uk.co.stephen_robinson.uni.lufelf.fragments.LoginFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.NavigationDrawerFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.RegisterFragment;
 
+/**
+ * @author James
+ * the login activity used to manage the register and login fragments.
+ */
+
 public class LoginActivity extends BaseActivity {
 
     /**

@@ -207,6 +207,11 @@ public class CreateEventFragment extends BaseFragment{
         };
         api.v1.getAllPlaces(multipleCallback);
     }
+
+    /**
+     * uploads an event to the server
+     * @param eventName the event name to upkoad an image for
+     */
     public void uploadImage(final String eventName){
 
 

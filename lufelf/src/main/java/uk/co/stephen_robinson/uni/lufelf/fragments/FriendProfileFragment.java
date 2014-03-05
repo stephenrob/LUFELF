@@ -100,6 +100,12 @@ public class FriendProfileFragment extends BaseFragment{
         }
         return rootView;
     }
+
+    /**
+     * check if the current user is already friends with the user they're viewing
+     * @param addFriend the textview of add friend
+     * @param username the username of the user.
+     */
     public void checkFriend(final TextView addFriend,final String username){
         showActivitySpinner();
         Multiple m = new Multiple() {
@@ -173,6 +179,13 @@ public class FriendProfileFragment extends BaseFragment{
 
         api.v1.getFriendsList(m);
     }
+
+    /**
+     * checks if the user is currently in their friends list
+     * @param user the user to check
+     * @param friends the friends list of the current user
+     * @return true if the the friend is already a friend
+     */
     public boolean crossReference(UserItem user, ArrayList<UserItem> friends){
 
         for(UserItem u:friends){

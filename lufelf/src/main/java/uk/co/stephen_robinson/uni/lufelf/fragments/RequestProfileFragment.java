@@ -22,7 +22,7 @@ import uk.co.stephen_robinson.uni.lufelf.utilities.DownloadImage;
 
 /**
  * @author James
- * Creates a fragment of a friends profile.
+ * Creates a fragment of a friend requests profile.
  */
 public class RequestProfileFragment extends BaseFragment{
     private int id;
@@ -186,6 +186,12 @@ public class RequestProfileFragment extends BaseFragment{
         };
         api.v1.getUserByID(String.valueOf(args.getInt("user_id")),single);
     }
+
+    /**
+     * get the user by their username
+     * @param imageView the imageview to update
+     * @param descriptionView the description field to update
+     */
     public void loadUserByUserName(final ImageView imageView,final TextView descriptionView){
         Bundle args = getArguments();
         showActivitySpinner();
@@ -210,6 +216,13 @@ public class RequestProfileFragment extends BaseFragment{
         };
         api.v1.getUserByUsername(args.getString("username"), single);
     }
+
+    /**
+     * load the username by id
+     * @param imageView the imageview to update
+     * @param usernameView the username to set
+     * @param descriptionView the description field to update
+     */
     public void loadUserByID(final ImageView imageView,final TextView usernameView,final TextView descriptionView){
         Bundle args = getArguments();
         showActivitySpinner();

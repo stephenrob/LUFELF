@@ -19,7 +19,7 @@ import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.UserMessage;
 
 /**
  * @author James
- * Place profile
+ * sent messages fragment
  */
 public class SentMessagesFragment extends BaseFragment{
 
@@ -72,6 +72,9 @@ public class SentMessagesFragment extends BaseFragment{
         return rootView;
     }
 
+    /**
+     * load the users sent messages
+     */
     public void loadMessages(){
         showActivitySpinner();
         Multiple multiple = new Multiple() {

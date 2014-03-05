@@ -171,6 +171,18 @@ public class EventProfileFragment extends BaseFragment{
         return rootView;
     }
 
+    /**
+     * loads the details of an event...
+     * @param eventName
+     * @param datetime
+     * @param description
+     * @param address
+     * @param creator
+     * @param attendees_list
+     * @param event_pic
+     * @param remove_event
+     * @param args
+     */
     public void loadDetails(final TextView eventName,final TextView datetime,final TextView description,final TextView address,final TextView creator,final TextView attendees_list,final ImageView event_pic,final ImageView remove_event,final Bundle args){
         showActivitySpinner();
         Multiple m =new Multiple() {

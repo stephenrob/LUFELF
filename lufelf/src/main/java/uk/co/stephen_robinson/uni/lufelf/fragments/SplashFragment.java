@@ -35,20 +35,7 @@ public class SplashFragment extends BaseFragment{
         setFragmentManager(getFragmentManager());
         rootView = inflater.inflate(R.layout.splash_screen_layout, container, false);
         setContext(rootView.getContext());
-        //showActivitySpinner();
-        /*
-        Single nc = new Single() {
-            @Override
-            public void results(Hashtable result) {
-                try{
-                    Thread.sleep(2000);
-                }catch (Exception e){
 
-                }
-
-            }
-        };
-        api.v1.loginUser("test", "test", nc);*/
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -59,6 +46,10 @@ public class SplashFragment extends BaseFragment{
 
         return rootView;
     }
+
+    /**
+     * swap to activity based on if the user is logged in
+     */
     public void determineAction(){
         if(api.v1.isLoggedIn()){
 

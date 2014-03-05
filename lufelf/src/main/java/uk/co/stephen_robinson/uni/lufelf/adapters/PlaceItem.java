@@ -6,7 +6,7 @@ import uk.co.stephen_robinson.uni.lufelf.R;
 
 /**
  * @author James
- * Models the a place
+ * Models a place
  */
 public class PlaceItem {
 

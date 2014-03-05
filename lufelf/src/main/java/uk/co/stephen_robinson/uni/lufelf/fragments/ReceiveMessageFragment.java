@@ -75,6 +75,11 @@ public class ReceiveMessageFragment extends BaseFragment{
 
         return rootView;
     }
+
+    /**
+     * get the user name of the user that sent the mssage
+     * @param id the id of the user that sent the message
+     */
     public void loadUser(String id){
         showActivitySpinner();
         Single sc = new Single() {

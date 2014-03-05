@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="uk.co.stephen_robinson.uni.lufelf" >
+
     <permission
         android:name="uk.co.stephen_robinson.uni.lufelf.permission.MAPS_RECEIVE"
         android:protectionLevel="signature"/>
@@ -26,7 +27,7 @@
         android:theme="@style/AppTheme" >
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDW2U-RGahwq_VLPzKlyj6fbTRQhJIM92E"/>
+            android:value="AIzaSyCj1x6C10JEZ_9eVEe8kyHHafUY9cQJDWE"/>
         <activity
             android:screenOrientation="portrait"
             android:name=".activities.MainActivity"

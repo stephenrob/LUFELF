@@ -137,7 +137,7 @@ public class RegisterFragment extends BaseFragment{
             //set the callback method when the user sets the date
             public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                 //create the date string
-                final String dateString=String.valueOf(selectedday)+"/"+String.valueOf(selectedmonth)+"/"+String.valueOf(selectedyear);
+                final String dateString=String.valueOf(selectedday)+"/"+String.valueOf(selectedmonth+1)+"/"+String.valueOf(selectedyear);
                 editText.setText(dateString);
             }
         },currentyear, currentMonth, currentDay);

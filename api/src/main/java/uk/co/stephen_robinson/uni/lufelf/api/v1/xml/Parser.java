@@ -1,16 +1,12 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1.xml;
 
-import android.content.UriMatcher;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Stephen on 21/02/14.
@@ -225,9 +221,17 @@ public class Parser {
                             } else if(tagName.equalsIgnoreCase(Place.NAME)){
                                 place.name = parser.nextText();
                             } else if(tagName.equalsIgnoreCase(Place.LATTITUDE)){
-                                place.lattitude = Double.valueOf(parser.nextText());
+                                try{
+                                    place.lattitude = Double.valueOf(parser.nextText());
+                                }catch(Exception e){
+                                    place.lattitude=0.0;
+                                }
                             } else if(tagName.equalsIgnoreCase(Place.LONGDITUDE)){
-                                place.longditude = Double.valueOf(parser.nextText());
+                                try{
+                                    place.longditude = Double.valueOf(parser.nextText());
+                                }catch(Exception e){
+                                    place.longditude=0.0;
+                                }
                             } else if(tagName.equalsIgnoreCase(Place.DESCRIPTION)){
                                 place.description = parser.nextText();
                             } else if(tagName.equalsIgnoreCase(Place.TYPE)){
@@ -690,16 +694,20 @@ public class Parser {
                                 currentFriend.location_status = Integer.valueOf(parser.nextText());
                             } else if(tagName.equalsIgnoreCase(Friend.LATTITUDE)){
                                 String temp = parser.nextText();
-                                if(!temp.equals("")){
+                                if(temp.equals("0/.")){
+                                    currentFriend.lattitude = 0.0;
+                                }else if(!temp.equals("")){
                                     currentFriend.lattitude = Double.valueOf(temp);
-                                } else {
+                                }else {
                                     currentFriend.lattitude = 0.0;
                                 }
                             } else if(tagName.equalsIgnoreCase(Friend.LONGITUDE)){
                                 String temp = parser.nextText();
-                                if(!temp.equals("")){
+                                if(temp.equals("0/.")){
+                                    currentFriend.longitude = 0.0;
+                                }else if(!temp.equals("")){
                                     currentFriend.longitude = Double.valueOf(temp);
-                                } else {
+                                }else {
                                     currentFriend.longitude = 0.0;
                                 }
                             }

@@ -3,6 +3,12 @@ package uk.co.stephen_robinson.uni.lufelf.api.v1.xml;
 /**
  * Created by Stephen on 20/02/14.
  */
+
+/**
+ * @author stephen
+ *
+ * Stored variables and xml tag names for Message data returned from the api, all other xml types extend message
+ */
 public class Message {
 
     protected String message = "";
@@ -29,10 +35,20 @@ public class Message {
         return status;
     }
 
+    /**
+     * Blank constructor used in some parsing methods
+     */
     public Message(){
 
     }
 
+    /**
+     * Constructor used to generate a quick status message
+     *
+     * @param code Status code returned from the server
+     * @param status Status success/failure returned from the server
+     * @param message Message returned from the server
+     */
     public Message(Integer code, String status, String message){
         this.message = message;
         this.status = status;

@@ -7,6 +7,11 @@ package uk.co.stephen_robinson.uni.lufelf.database;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+/**
+ * @author Stephen
+ * Creates and upgrades the friend requests table in the local database.
+ */
+
 public class FriendRequestsTable {
 
     public static final String TABLE_FRIEND_REQUESTS = "friend_requests";
@@ -26,6 +31,12 @@ public class FriendRequestsTable {
         database.execSQL(CREATE_TABLE);
     }
 
+    /**
+     *
+     * @param database Database to create the table in
+     * @param oldVersion Old version number of the database/table, used for logging upgrade
+     * @param newVersion New version number of the database/table, used for logging upgrade
+     */
     public static void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
         Log.w(FriendRequestsTable.class.getName(), "Upgrading database from version "
                 + oldVersion + " to " + newVersion

@@ -15,8 +15,20 @@ import java.util.List;
 /**
  * Created by Stephen on 21/02/14.
  */
+
+/**
+ * @author stephen
+ *
+ * Parses all incoming xml from the server
+ */
 public class Parser {
 
+    /**
+     * static method for parsing a generic message returned from the server
+     *
+     * @param data xml string returned from the server
+     * @return parsed data as Message
+     */
     public static Message parseGenericResult(String data){
         Message message = null;
         XmlPullParser parser;
@@ -65,6 +77,12 @@ public class Parser {
         return message;
     }
 
+    /**
+     * static method for parsing user details returned from the server
+     *
+     * @param data xml string returned from the server
+     * @return parsed data as user
+     */
     public static User parseUserDetails(String data){
         User userDetails = null;
         Message message = new Message();
@@ -160,6 +178,11 @@ public class Parser {
         return userDetails;
     }
 
+    /**
+     * static method for parsing list of places
+     * @param data xml string returned from the server
+     * @return array list of all places found
+     */
     public static ArrayList parsePlaces(String data){
         ArrayList places = new ArrayList();
         Message status = new Message();
@@ -249,6 +272,12 @@ public class Parser {
 
     }
 
+    /**
+     * static method for parsing events returned from the server
+     *
+     * @param data xml string returned from the server
+     * @return array list of all events found
+     */
     public static ArrayList parseEvents(String data){
         ArrayList events = new ArrayList();
         Message status = new Message();
@@ -364,6 +393,14 @@ public class Parser {
 
     }
 
+    /**
+     * static private method for parsing attendees of an event, called and returns to parseEvents
+     *
+     * @param parser parser object to parse event user
+     * @return EventUser who is attending even
+     * @throws XmlPullParserException
+     * @throws IOException
+     */
     private static EventUser parseEventUser(XmlPullParser parser) throws XmlPullParserException, IOException {
 
         EventUser eventUser = new EventUser();
@@ -385,6 +422,12 @@ public class Parser {
 
     }
 
+    /**
+     * static method for parsing returned location update
+     *
+     * @param data xml string returned from the server
+     * @return Status of update location
+     */
     public static Status parseUpdateLocation(String data){
         Status status = null;
         XmlPullParser parser;
@@ -446,6 +489,12 @@ public class Parser {
         return status;
     }
 
+    /**
+     * static method for parsing friend requests list from server
+     *
+     * @param data xml string returned from the server
+     * @return array list of all friend requests found
+     */
     public static ArrayList parseFriendRequests(String data){
 
         ArrayList requests = new ArrayList();
@@ -529,6 +578,12 @@ public class Parser {
 
     }
 
+    /**
+     * static method for parsing result of updating a friend request
+     *
+     * @param data xml string returned from the server
+     * @return Message indicating success/failure of updating friend request
+     */
     public static Message parseFriendHandshake(String data){
         Message message = null;
         XmlPullParser parser;
@@ -580,6 +635,12 @@ public class Parser {
         return message;
     }
 
+    /**
+     * static method for parsing list of friends from the server
+     *
+     * @param data xml string returned from the server
+     * @return array list of friends found
+     */
     public static ArrayList parseFriendsList(String data){
         ArrayList friends = new ArrayList();
         Message status = new Message();
@@ -678,6 +739,12 @@ public class Parser {
 
     }
 
+    /**
+     * static method for parsing list of user messages sent/received
+     *
+     * @param data xml string returned from the server
+     * @return array list of message found
+     */
     public static ArrayList parseMessages(String data){
         ArrayList messages = new ArrayList();
         Message status = new Message();
@@ -743,6 +810,14 @@ public class Parser {
         return messages;
     }
 
+    /**
+     * private static method for parsing individual message found for parseMessages
+     *
+     * @param parser parser object to parse user message for
+     * @return Usermessage, to directly add to the list of messages in parseMessages
+     * @throws XmlPullParserException
+     * @throws IOException
+     */
     private static UserMessage parseUserMessage(XmlPullParser parser) throws XmlPullParserException, IOException {
 
         UserMessage userMessage = new UserMessage();
@@ -768,6 +843,12 @@ public class Parser {
 
     }
 
+    /**
+     * static method for parsing a list of multiple users
+     *
+     * @param data xml string returned from the server
+     * @return array list of users found from server query
+     */
     public static ArrayList parseMultipleUsers(String data){
         ArrayList users = new ArrayList();
         Message status = new Message();

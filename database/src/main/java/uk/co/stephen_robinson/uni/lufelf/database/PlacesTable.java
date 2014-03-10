@@ -7,6 +7,11 @@ package uk.co.stephen_robinson.uni.lufelf.database;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+/**
+ * @author Stephen
+ * Creates and upgrades the places table in the local database.
+ */
+
 public class PlacesTable {
 
     // Table Specification
@@ -30,10 +35,20 @@ public class PlacesTable {
         + COLUMN_USER + " integer not null, "
         + ");";
 
+    /**
+     *
+     * @param database Database to create the table in
+     */
     public static void onCreate(SQLiteDatabase database){
         database.execSQL(CREATE_TABLE);
     }
 
+    /**
+     *
+     * @param database Database to create the table in
+     * @param oldVersion Old version number of the database/table, used for logging upgrade
+     * @param newVersion New version number of the database/table, used for logging upgrade
+     */
     public static void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
         Log.w(PlacesTable.class.getName(), "Upgrading database from version "
             + oldVersion + " to " + newVersion

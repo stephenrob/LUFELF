@@ -16,6 +16,12 @@ import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
 /**
  * Created by Stephen on 24/02/2014.
  */
+
+/**
+ * @author stephen
+ *
+ * Stores all server executable methods for status
+ */
 public class Status {
 
     protected Integer id;
@@ -30,26 +36,52 @@ public class Status {
     public static final String LONGITUDE = "lon";
     public static final String IS_NEW = "is_new";
 
+    /**
+     *
+     * @return status id
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     *
+     * @return location status
+     */
     public Integer getLocation() {
         return location;
     }
 
+    /**
+     *
+     * @return lattitude of status
+     */
     public Double getLattitude() {
         return lattitude;
     }
 
+    /**
+     *
+     * @return longitude of status
+     */
     public Double getLongitude() {
         return longitude;
     }
 
+    /**
+     *
+     * @return boolean is a new status update
+     */
     public Boolean getIs_new() {
         return is_new;
     }
 
+    /**
+     * static method for updating user privacy setting
+     *
+     * @param status privacy value to update to
+     * @param sc single callback to execute when network task completes
+     */
     static void updatePrivacy(int status, Single sc){
         int userId = Integer.parseInt(Api.getSessionManager().getUserDetails().get(SessionManager.KEY_USERID));
         String password = Api.getSessionManager().getUserDetails().get(SessionManager.KEY_PASSWORD);
@@ -66,6 +98,13 @@ public class Status {
         networkTask.execute(params);
     }
 
+    /**
+     * static method for updating user location
+     *
+     * @param lat lattitude of new location
+     * @param lon longitude of new location
+     * @param sc single callback to execute when network task completes
+     */
     static void updateLocation(Double lat, Double lon, Single sc){
         int userId = Integer.parseInt(Api.getSessionManager().getUserDetails().get(SessionManager.KEY_USERID));
         String password = Api.getSessionManager().getUserDetails().get(SessionManager.KEY_PASSWORD);

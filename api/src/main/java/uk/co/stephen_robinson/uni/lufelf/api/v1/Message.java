@@ -17,6 +17,12 @@ import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.UserMessage;
 /**
  * Created by Stephen on 26/02/2014.
  */
+
+/**
+ * @author stephen
+ *
+ * Stores all server executable methods for messages
+ */
 public class Message {
 
     protected int message_id;
@@ -27,18 +33,35 @@ public class Message {
     public static final String MESSAGE_FROM = "message_from";
     public static final String CONTENT = "message";
 
+    /**
+     *
+     * @return message id
+     */
     public int getMessage_id() {
         return message_id;
     }
 
+    /**
+     *
+     * @return who message from
+     */
     public String getFrom() {
         return from;
     }
 
+    /**
+     *
+     * @return message content
+     */
     public String getContent() {
         return content;
     }
 
+    /**
+     * static method for getting all sent messages
+     *
+     * @param mc multiple callback to execute when network task completes
+     */
     static void sent(Multiple mc){
         int userId = Integer.parseInt(Api.getSessionManager().getUserDetails().get(SessionManager.KEY_USERID));
         String password = Api.getSessionManager().getUserDetails().get(SessionManager.KEY_PASSWORD);
@@ -52,6 +75,11 @@ public class Message {
         networkTask.execute(params);
     }
 
+    /**
+     * static method for getting all received messages
+     *
+     * @param mc multiple callback to execute when network task completes
+     */
     static void received(Multiple mc){
         int userId = Integer.parseInt(Api.getSessionManager().getUserDetails().get(SessionManager.KEY_USERID));
         String password = Api.getSessionManager().getUserDetails().get(SessionManager.KEY_PASSWORD);
@@ -65,6 +93,13 @@ public class Message {
         networkTask.execute(params);
     }
 
+    /**
+     * static method for sending a messages
+     *
+     * @param to user id of person to send message to
+     * @param message message to send to the user
+     * @param sc single callback to execute when network task completes
+     */
     static void send(Integer to, String message, Single sc){
         int userId = Integer.parseInt(Api.getSessionManager().getUserDetails().get(SessionManager.KEY_USERID));
         String password = Api.getSessionManager().getUserDetails().get(SessionManager.KEY_PASSWORD);

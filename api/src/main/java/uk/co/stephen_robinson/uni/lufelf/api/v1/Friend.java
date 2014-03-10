@@ -16,6 +16,12 @@ import uk.co.stephen_robinson.uni.lufelf.api.network.callbacks.Single;
 /**
  * Created by Stephen on 24/02/2014.
  */
+
+/**
+ * @author stephen
+ *
+ * Stores all server executable methods for friends
+ */
 public class Friend {
 
     protected int request_id;
@@ -39,42 +45,84 @@ public class Friend {
     public static final String LATTITUDE = "lat";
     public static final String LONGITUDE = "lon";
 
+    /**
+     *
+     * @return friend request id
+     */
     public int getRequest_id() {
         return request_id;
     }
 
+    /**
+     *
+     * @return friend id
+     */
     public int getFriend_id() {
         return friend_id;
     }
 
+    /**
+     *
+     * @return friends user id
+     */
     public int getUser_id() {
         return user_id;
     }
 
+    /**
+     *
+     * @return friendship status
+     */
     public int getStatus() {
         return status;
     }
 
+    /**
+     *
+     * @return friends name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @return friends username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     *
+     * @return friends location status
+     */
     public int getLocation_status() {
         return location_status;
     }
 
+    /**
+     *
+     * @return location lattitude
+     */
     public Double getLattitude() {
         return lattitude;
     }
 
+    /**
+     *
+     * @return location longitude
+     */
     public Double getLongitude() {
         return longitude;
     }
 
+    /**
+     * static method for adding a friend
+     *
+     * @param id user id of person to add as a friend
+     * @param sc single callback to execute when network task completes
+     */
     static void add(Integer id, Single sc){
 
         int userId = Integer.parseInt(Api.getSessionManager().getUserDetails().get(SessionManager.KEY_USERID));
@@ -91,6 +139,12 @@ public class Friend {
 
     }
 
+    /**
+     * static method for deleting a friend
+     *
+     * @param id user id of person to delete as a friend
+     * @param sc single callback to execute when network task completes
+     */
     static void delete(Integer id, Single sc){
 
         int userId = Integer.parseInt(Api.getSessionManager().getUserDetails().get(SessionManager.KEY_USERID));
@@ -107,6 +161,11 @@ public class Friend {
 
     }
 
+    /**
+     * static method for getting all friend requests
+     *
+     * @param mc multiple callback to execute when network task completes
+     */
     static void requests(Multiple mc){
 
         int userId = Integer.parseInt(Api.getSessionManager().getUserDetails().get(SessionManager.KEY_USERID));
@@ -122,6 +181,14 @@ public class Friend {
 
     }
 
+    /**
+     * static method for updating a friend request
+     *
+     * @param request_id friend request id to update
+     * @param friend_id user id who's in the friend request
+     * @param status status to set the request to
+     * @param sc single callback to execute when network task completes
+     */
     static void updateRequest(Integer request_id, Integer friend_id, Integer status, Single sc){
 
         int userId = Integer.parseInt(Api.getSessionManager().getUserDetails().get(SessionManager.KEY_USERID));
@@ -140,6 +207,11 @@ public class Friend {
 
     }
 
+    /**
+     * static method for listing all friends
+     *
+     * @param mc multiple callback to execute when network task completes
+     */
     static void list(Multiple mc){
 
         int userId = Integer.parseInt(Api.getSessionManager().getUserDetails().get(SessionManager.KEY_USERID));

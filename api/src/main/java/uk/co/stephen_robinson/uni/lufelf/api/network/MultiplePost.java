@@ -28,6 +28,11 @@ import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 /**
  * Created by Stephen on 20/02/14.
  */
+
+/**
+ * @author stephen
+ * Generic async task class for issuing a multiple post request to the server and parsing the result
+ */
 public class MultiplePost extends AsyncTask<List<NameValuePair>, Integer, ArrayList> {
 
     private Script serverScript = null;
@@ -37,6 +42,13 @@ public class MultiplePost extends AsyncTask<List<NameValuePair>, Integer, ArrayL
     private int socketTimeout = 7000;
     private HttpParams httpParams;
 
+    /**
+     * Constructor method, sets the local callback and script being used
+     *
+     * @param mc Multiple callback method to return data to
+     * @param script Script being accessed on the server
+     */
+
     public MultiplePost(Multiple mc, Script script){
         this.multipleCallback = mc;
         this.serverScript = script;
@@ -44,6 +56,12 @@ public class MultiplePost extends AsyncTask<List<NameValuePair>, Integer, ArrayL
         httpParams = new BasicHttpParams();
     }
 
+    /**
+     * Executed in the background of the async task, sends request to the server and parses the result
+     *
+     * @param params server post parameters
+     * @return arraylist of results which is immediately passed to the onPostExecute method
+     */
     @Override
     protected ArrayList doInBackground(List<NameValuePair>... params) {
 
@@ -86,6 +104,12 @@ public class MultiplePost extends AsyncTask<List<NameValuePair>, Integer, ArrayL
 
         return result;
     }
+
+    /**
+     * Code to be executed on the ui thread when the async task completes
+     *
+     * @param list arraylist of results returned from the doInBackground method
+     */
 
     @Override
     protected void onPostExecute(ArrayList list) {

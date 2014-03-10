@@ -27,6 +27,11 @@ import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 /**
  * Created by Stephen on 22/02/2014.
  */
+
+/**
+ * @author stephen
+ * Generic async task class for issuing a multiple get request to the server and parsing the result
+ */
 public class MultipleGet extends AsyncTask<Void, Integer, ArrayList> {
 
     private Script serverScript = null;
@@ -36,12 +41,26 @@ public class MultipleGet extends AsyncTask<Void, Integer, ArrayList> {
     private int socketTimeout = 7000;
     private HttpParams httpParams;
 
+    /**
+     * Constructor method, sets the local callback and script being used
+     *
+     * @param mc Multiple callback method to return data to
+     * @param script Script being accessed on the server
+     */
+
     public MultipleGet(Multiple mc, Script script) {
         this.multipleCallback = mc;
         this.serverScript = script;
         serverClient = new DefaultHttpClient();
         httpParams = new BasicHttpParams();
     }
+
+    /**
+     * Method which is executed in the background of the async task
+     *
+     * @param voids No parameters passed through
+     * @return array list of results, immediately passed into onPostExecute
+     */
 
     @Override
     protected ArrayList doInBackground(Void... voids) {
@@ -84,6 +103,11 @@ public class MultipleGet extends AsyncTask<Void, Integer, ArrayList> {
         return result;
     }
 
+    /**
+     * Anything to execute after the async task has completed
+     *
+     * @param list array list of data returned from the server and parser
+     */
     @Override
     protected void onPostExecute(ArrayList list) {
         multipleCallback.results(list);

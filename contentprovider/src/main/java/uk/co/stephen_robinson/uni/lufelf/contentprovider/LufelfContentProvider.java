@@ -27,6 +27,12 @@ import uk.co.stephen_robinson.uni.lufelf.database.PlacesTable;
 /**
  * Created by Stephen on 29/01/2014.
  */
+
+/**
+ * @author stephen
+ *
+ * Custom Content Provider for the LUFELF database
+ */
 public class LufelfContentProvider extends ContentProvider {
 
     private LufelfDatabaseHelper database;
@@ -95,12 +101,27 @@ public class LufelfContentProvider extends ContentProvider {
         sURIMatcher.addURI(AUTHORITY, PLACES_BASE_PATH + "/#", PLACE);
     }
 
+    /**
+     * Initialises the datbase
+     *
+     * @return false all the time
+     */
     @Override
     public boolean onCreate() {
         database = new LufelfDatabaseHelper(getContext());
         return false;
     }
 
+    /**
+     * Queries the content provider based on the given methods
+     *
+     * @param uri Database Object to update
+     * @param projection Columns required
+     * @param selection Field to base selection on
+     * @param selectionArgs Query String
+     * @param sortOrder Order to sort the results
+     * @return Query results as a cursor object
+     */
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder){
 
@@ -181,11 +202,25 @@ public class LufelfContentProvider extends ContentProvider {
 
     }
 
+    /**
+     * Null method
+     *
+     * @param uri
+     * @return null
+     */
+
     @Override
     public String getType(Uri uri) {
         return null;
     }
 
+    /**
+     * Inserts data into the given database object
+     *
+     * @param uri Database Object to insert into
+     * @param values Data to insert into the database
+     * @return Uri to created object
+     */
     @Override
     public Uri insert(Uri uri, ContentValues values){
         int uriType = sURIMatcher.match(uri);
@@ -232,6 +267,13 @@ public class LufelfContentProvider extends ContentProvider {
         return Uri.parse(base_path + "/" + id);
     }
 
+    /**
+     *
+     * @param uri Database Object to delete from
+     * @param selection Field to to delete from
+     * @param selectionArgs Value to delete
+     * @return
+     */
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs){
         int uriType = sURIMatcher.match(uri);
@@ -329,6 +371,15 @@ public class LufelfContentProvider extends ContentProvider {
 
     }
 
+    /**
+     *
+     * @param uri Database Object to update
+     * @param values Data to update in the database
+     * @param selection Field to base selection on
+     * @param selectionArgs Value to update
+     * @return
+     */
+
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         int uriType = sURIMatcher.match(uri);
@@ -424,6 +475,12 @@ public class LufelfContentProvider extends ContentProvider {
         getContext().getContentResolver().notifyChange(uri, null);
         return rowsUpdated;
     }
+
+    /**
+     * Private method to check if columns exist
+     *
+     * @param projection Column to check exist
+     */
 
     private void checkColumns(String[] projection){
         String[] available = {

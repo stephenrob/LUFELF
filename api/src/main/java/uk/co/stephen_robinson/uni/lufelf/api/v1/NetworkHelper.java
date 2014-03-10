@@ -15,8 +15,21 @@ import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Parser;
 /**
  * Created by Stephen on 21/02/14.
  */
+
+/**
+ * @author stephen
+ *
+ * Network helper for determining which parsing and formating of returned data needs to be done
+ */
 public class NetworkHelper {
 
+    /**
+     * static method for formatting result as hashtable
+     *
+     * @param serverScript script executed on the server
+     * @param serverResponse returned xml data from the server
+     * @return hashtable of formated result
+     */
     public static Hashtable formatResult(Script serverScript, String serverResponse){
 
         Hashtable result = new Hashtable();
@@ -61,6 +74,13 @@ public class NetworkHelper {
         return result;
     }
 
+    /**
+     * static method for formatting result as an array list
+     *
+     * @param serverScript script executed on the server
+     * @param serverResponse returned xml data from the server
+     * @return arraylist of returned data from the server
+     */
     public static ArrayList formatMultipleResults(Script serverScript, String serverResponse){
 
         ArrayList results;

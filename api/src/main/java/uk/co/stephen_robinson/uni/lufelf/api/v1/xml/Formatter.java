@@ -8,8 +8,20 @@ import uk.co.stephen_robinson.uni.lufelf.api.v1.Scripts;
 /**
  * Created by Stephen on 21/02/14.
  */
+
+/**
+ * @author stephen
+ *
+ * Formats returned data into hashtables for single requests
+ */
 public class Formatter {
 
+    /**
+     * Turns returned message into a hashtable
+     *
+     * @param m message returned to format
+     * @return message encoded in a hashtable
+     */
     public static Hashtable message(Message m){
         Hashtable message = new Hashtable();
 
@@ -20,6 +32,13 @@ public class Formatter {
         return message;
     }
 
+    /**
+     * Turns a returned user into a hashtable with the result
+     *
+     * @param userDetails user returned to format
+     * @param serverScript script on the server that was executed to ensure correct details are only returned to the calling method
+     * @return relevant user details encoded in a hashtable
+     */
     public static Hashtable userDetails(User userDetails, Script serverScript){
         Hashtable results = new Hashtable();
 
@@ -79,6 +98,12 @@ public class Formatter {
         return results;
     }
 
+    /**
+     * Relevant information from updating location encoded in a hashtable
+     *
+     * @param status location status to encode in hashtable
+     * @return hashtable of location status information encoded in a hashtable
+     */
     public static Hashtable updateLocation(Status status){
         Hashtable result = new Hashtable();
 

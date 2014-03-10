@@ -6,7 +6,18 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Created by Stephen on 22/02/2014.
  */
+
+/**
+ * @author stephen
+ * Provides overall helper methods to the api package
+ */
 public class Helper {
+
+    /**
+     *
+     * @param s string to encode in md5
+     * @return Returns encoded md5 string or null string if there is an error
+     */
 
     public static final String md5(final String s) {
         final String MD5 = "MD5";

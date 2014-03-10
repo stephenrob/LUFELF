@@ -1,6 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.api.v1.xml;
 
-import android.util.Log;
+import android.content.UriMatcher;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -8,13 +8,27 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Stephen on 21/02/14.
  */
+
+/**
+ * @author stephen
+ *
+ * Parses all incoming xml from the server
+ */
 public class Parser {
 
+    /**
+     * static method for parsing a generic message returned from the server
+     *
+     * @param data xml string returned from the server
+     * @return parsed data as Message
+     */
     public static Message parseGenericResult(String data){
         Message message = null;
         XmlPullParser parser;
@@ -55,14 +69,20 @@ public class Parser {
                 eventType = parser.next();
             }
         } catch (XmlPullParserException e){
-            message = null;
+            message = new Message(400, "fail", "Error");
         } catch (IOException e){
-            message = null;
+            message = new Message(400, "fail", "Error");
         }
 
         return message;
     }
 
+    /**
+     * static method for parsing user details returned from the server
+     *
+     * @param data xml string returned from the server
+     * @return parsed data as user
+     */
     public static User parseUserDetails(String data){
         User userDetails = null;
         Message message = new Message();
@@ -141,17 +161,28 @@ public class Parser {
             userDetails.status = message.status;
             userDetails.statusCode = message.statusCode;
 
-        } catch (XmlPullParserException e){
-            userDetails = null;
+        }  catch (XmlPullParserException e){
+            message = new Message(400, "fail", "Error");
+            userDetails = new User();
+            userDetails.message = message.message;
+            userDetails.status = message.status;
+            userDetails.statusCode = message.statusCode;
         } catch (IOException e){
-            userDetails = null;
+            message = new Message(400, "fail", "Error");
+            userDetails = new User();
+            userDetails.message = message.message;
+            userDetails.status = message.status;
+            userDetails.statusCode = message.statusCode;
         }
-
-
 
         return userDetails;
     }
 
+    /**
+     * static method for parsing list of places
+     * @param data xml string returned from the server
+     * @return array list of all places found
+     */
     public static ArrayList parsePlaces(String data){
         ArrayList places = new ArrayList();
         Message status = new Message();
@@ -194,17 +225,9 @@ public class Parser {
                             } else if(tagName.equalsIgnoreCase(Place.NAME)){
                                 place.name = parser.nextText();
                             } else if(tagName.equalsIgnoreCase(Place.LATTITUDE)){
-                                try{
-                                    place.lattitude = Double.valueOf(parser.nextText());
-                                }catch(Exception e){
-                                    place.lattitude=0.0;
-                                }
+                                place.lattitude = Double.valueOf(parser.nextText());
                             } else if(tagName.equalsIgnoreCase(Place.LONGDITUDE)){
-                                try{
-                                    place.longditude = Double.valueOf(parser.nextText());
-                                }catch(Exception e){
-                                    place.longditude=0.0;
-                                }
+                                place.longditude = Double.valueOf(parser.nextText());
                             } else if(tagName.equalsIgnoreCase(Place.DESCRIPTION)){
                                 place.description = parser.nextText();
                             } else if(tagName.equalsIgnoreCase(Place.TYPE)){
@@ -233,18 +256,28 @@ public class Parser {
 
             }
 
-        } catch (XmlPullParserException e){
-            places = null;
-        } catch (IOException e){
-            places = null;
-        }
+            places.add(status);
 
-        places.add(status);
+        } catch (XmlPullParserException e){
+            places = new ArrayList();
+
+            places.add(new Message(400, "fail", "Error"));
+        } catch (IOException e){
+            places = new ArrayList();
+
+            places.add(new Message(400, "fail", "Error"));
+        }
 
         return places;
 
     }
 
+    /**
+     * static method for parsing events returned from the server
+     *
+     * @param data xml string returned from the server
+     * @return array list of all events found
+     */
     public static ArrayList parseEvents(String data){
         ArrayList events = new ArrayList();
         Message status = new Message();
@@ -344,19 +377,30 @@ public class Parser {
                 eventType = parser.next();
 
             }
+            events.add(status);
 
         } catch (XmlPullParserException e){
-            events = null;
-        } catch (IOException e){
-            events = null;
-        }
+            events = new ArrayList();
 
-        events.add(status);
+            events.add(new Message(400, "fail", "Error"));
+        } catch (IOException e){
+            events = new ArrayList();
+
+            events.add(new Message(400, "fail", "Error"));
+        }
 
         return events;
 
     }
 
+    /**
+     * static private method for parsing attendees of an event, called and returns to parseEvents
+     *
+     * @param parser parser object to parse event user
+     * @return EventUser who is attending even
+     * @throws XmlPullParserException
+     * @throws IOException
+     */
     private static EventUser parseEventUser(XmlPullParser parser) throws XmlPullParserException, IOException {
 
         EventUser eventUser = new EventUser();
@@ -378,6 +422,12 @@ public class Parser {
 
     }
 
+    /**
+     * static method for parsing returned location update
+     *
+     * @param data xml string returned from the server
+     * @return Status of update location
+     */
     public static Status parseUpdateLocation(String data){
         Status status = null;
         XmlPullParser parser;
@@ -421,14 +471,30 @@ public class Parser {
                 eventType = parser.next();
             }
         } catch (XmlPullParserException e){
-            status = null;
+            Message message = new Message(400, "fail", "Error");
+            status = new Status();
+            status.status = message.status;
+            status.statusCode = message.statusCode;
+            status.message = message.message;
+            status.is_new = false;
         } catch (IOException e){
-            status = null;
+            Message message = new Message(400, "fail", "Error");
+            status = new Status();
+            status.status = message.status;
+            status.statusCode = message.statusCode;
+            status.message = message.message;
+            status.is_new = false;
         }
 
         return status;
     }
 
+    /**
+     * static method for parsing friend requests list from server
+     *
+     * @param data xml string returned from the server
+     * @return array list of all friend requests found
+     */
     public static ArrayList parseFriendRequests(String data){
 
         ArrayList requests = new ArrayList();
@@ -484,8 +550,7 @@ public class Parser {
                     case XmlPullParser.END_TAG:
                         tagName = parser.getName();
 
-                        if(tagName.equalsIgnoreCase(Friend.USER) && currentFriend != null){
-
+                        if(tagName.equalsIgnoreCase(Friend.FRIEND) && currentFriend != null){
                             requests.add(currentFriend);
                         }
 
@@ -497,20 +562,28 @@ public class Parser {
 
             }
 
-        } catch (XmlPullParserException e){
-            Log.e("pullparser",Log.getStackTraceString(e));
-            requests = null;
-        } catch (IOException e){
-            Log.e("IOEXCEPTION",Log.getStackTraceString(e));
-            requests = null;
-        }
+            requests.add(status);
 
-        requests.add(status);
+        } catch (XmlPullParserException e){
+            requests = new ArrayList();
+
+            requests.add(new Message(400, "fail", "Error"));
+        } catch (IOException e){
+            requests = new ArrayList();
+
+            requests.add(new Message(400, "fail", "Error"));
+        }
 
         return requests;
 
     }
 
+    /**
+     * static method for parsing result of updating a friend request
+     *
+     * @param data xml string returned from the server
+     * @return Message indicating success/failure of updating friend request
+     */
     public static Message parseFriendHandshake(String data){
         Message message = null;
         XmlPullParser parser;
@@ -554,14 +627,20 @@ public class Parser {
                 eventType = parser.next();
             }
         } catch (XmlPullParserException e){
-            message = null;
+            message = new Message(400, "fail", "Error");
         } catch (IOException e){
-            message = null;
+            message = new Message(400, "fail", "Error");
         }
 
         return message;
     }
 
+    /**
+     * static method for parsing list of friends from the server
+     *
+     * @param data xml string returned from the server
+     * @return array list of friends found
+     */
     public static ArrayList parseFriendsList(String data){
         ArrayList friends = new ArrayList();
         Message status = new Message();
@@ -611,20 +690,16 @@ public class Parser {
                                 currentFriend.location_status = Integer.valueOf(parser.nextText());
                             } else if(tagName.equalsIgnoreCase(Friend.LATTITUDE)){
                                 String temp = parser.nextText();
-                                if(temp.equals("0/.")){
-                                    currentFriend.longitude = 0.0;
-                                }else if(!temp.equals("")){
+                                if(!temp.equals("")){
                                     currentFriend.lattitude = Double.valueOf(temp);
-                                }else {
+                                } else {
                                     currentFriend.lattitude = 0.0;
                                 }
                             } else if(tagName.equalsIgnoreCase(Friend.LONGITUDE)){
                                 String temp = parser.nextText();
-                                if(temp.equals("0/.")){
-                                    currentFriend.longitude = 0.0;
-                                }else if(!temp.equals("")){
+                                if(!temp.equals("")){
                                     currentFriend.longitude = Double.valueOf(temp);
-                                }else{
+                                } else {
                                     currentFriend.longitude = 0.0;
                                 }
                             }
@@ -648,19 +723,28 @@ public class Parser {
 
             }
 
+            friends.add(status);
+
         } catch (XmlPullParserException e){
-            Log.e("pullparse",Log.getStackTraceString(e));
-            friends = null;
+            friends = new ArrayList();
+
+            friends.add(new Message(400, "fail", "Error"));
         } catch (IOException e){
-            Log.e("ioexception",Log.getStackTraceString(e));
-            friends = null;
+            friends = new ArrayList();
+
+            friends.add(new Message(400, "fail", "Error"));
         }
 
-        friends.add(status);
-
         return friends;
+
     }
 
+    /**
+     * static method for parsing list of user messages sent/received
+     *
+     * @param data xml string returned from the server
+     * @return array list of message found
+     */
     public static ArrayList parseMessages(String data){
         ArrayList messages = new ArrayList();
         Message status = new Message();
@@ -711,19 +795,29 @@ public class Parser {
 
             }
 
+            messages.add(status);
+
         } catch (XmlPullParserException e){
-            Log.e("pull",Log.getStackTraceString(e));
-            messages = null;
+            messages = new ArrayList();
+
+            messages.add(new Message(400, "fail", "Error"));
         } catch (IOException e){
-            Log.e("IO",Log.getStackTraceString(e));
-            messages = null;
+            messages = new ArrayList();
+
+            messages.add(new Message(400, "fail", "Error"));
         }
-        Log.e("added",status.getStatus());
-        messages.add(status);
 
         return messages;
     }
 
+    /**
+     * private static method for parsing individual message found for parseMessages
+     *
+     * @param parser parser object to parse user message for
+     * @return Usermessage, to directly add to the list of messages in parseMessages
+     * @throws XmlPullParserException
+     * @throws IOException
+     */
     private static UserMessage parseUserMessage(XmlPullParser parser) throws XmlPullParserException, IOException {
 
         UserMessage userMessage = new UserMessage();
@@ -749,6 +843,12 @@ public class Parser {
 
     }
 
+    /**
+     * static method for parsing a list of multiple users
+     *
+     * @param data xml string returned from the server
+     * @return array list of users found from server query
+     */
     public static ArrayList parseMultipleUsers(String data){
         ArrayList users = new ArrayList();
         Message status = new Message();
@@ -826,13 +926,17 @@ public class Parser {
             }
 
 
-        } catch (XmlPullParserException e){
-            userDetails = null;
-        } catch (IOException e){
-            userDetails = null;
-        }
+            users.add(status);
 
-        users.add(status);
+        } catch (XmlPullParserException e){
+            users = new ArrayList();
+
+            users.add(new Message(400, "fail", "Error"));
+        } catch (IOException e){
+            users = new ArrayList();
+
+            users.add(new Message(400, "fail", "Error"));
+        }
 
         return users;
     }

@@ -16,6 +16,12 @@ import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 /**
  * Created by Stephen on 21/02/14.
  */
+
+/**
+ * @author stephen
+ *
+ * Stores all server executable methods for places
+ */
 public class Place {
 
     public int id = 0;
@@ -38,6 +44,12 @@ public class Place {
     public static final String IMAGE_URL = "place_image_url";
     public static final String USER_ID = "user_id";
 
+    /**
+     * static method for creating a place
+     *
+     * @param p place to create
+     * @param sc single callback to execute when network task completes
+     */
     static void create(Place p, Single sc){
 
         int userId = Integer.parseInt(Api.getSessionManager().getUserDetails().get(SessionManager.KEY_USERID));
@@ -59,6 +71,11 @@ public class Place {
 
     }
 
+    /**
+     * static method for listing all places
+     *
+     * @param mc multiple callback to execute when network task completes
+     */
     static void listAll(Multiple mc){
         MultipleGet networkTask = new MultipleGet(mc, Scripts.PLACE_LIST);
         networkTask.execute();

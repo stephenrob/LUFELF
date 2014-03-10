@@ -5,6 +5,12 @@ import uk.co.stephen_robinson.uni.lufelf.api.Network.Script;
 /**
  * Created by Stephen on 20/02/14.
  */
+
+/**
+ * @author stephen
+ *
+ * Stores all the scripts available on the server in V1 of the api
+ */
 public class Scripts {
 
     public static final Script LOGIN_USER = new Script(Name.LOGIN_USER.toString(), "/login_user.php", Script.Protocol.HTTP, Script.Type.POST);

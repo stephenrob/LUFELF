@@ -18,6 +18,12 @@ import static uk.co.stephen_robinson.uni.lufelf.api.Helper.md5;
 /**
  * Created by Stephen on 21/02/14.
  */
+
+/**
+ * @author stephen
+ *
+ * Stores all server executable methods for users
+ */
 public class User {
 
     int user_id = 0;
@@ -55,6 +61,12 @@ public class User {
 
     public enum Search {USERNAME, LIB_NO, NAME, USER_ID};
 
+    /**
+     * static method for registering/creating a new user
+     *
+     * @param user details of user to create/register
+     * @param sc single callback to execute when network task completes
+     */
     static void register(User user, Single sc){
 
         List<NameValuePair> params = new ArrayList<NameValuePair>(9);
@@ -77,6 +89,12 @@ public class User {
 
     }
 
+    /**
+     * static method for logging in user
+     *
+     * @param user details of user to login
+     * @param sc single callback to execute when network task completes
+     */
     static  void login(User user, Single sc){
 
         List<NameValuePair> params = new ArrayList<NameValuePair>(2);
@@ -91,6 +109,13 @@ public class User {
 
     }
 
+    /**
+     * static method for getting details of a single user
+     *
+     * @param searchField field to search on either Username, library number or user id
+     * @param searchValue value to find on the server
+     * @param sc single callback to execute when network task completes
+     */
     static void getDetails(Search searchField, String searchValue, Single sc){
 
         List<NameValuePair> params = new ArrayList<NameValuePair>(1);
@@ -114,6 +139,14 @@ public class User {
         networkTask.execute(params);
 
     }
+
+    /**
+     * static method for getting details of multiple users
+     *
+     * @param searchField field to search on, only name currently
+     * @param searchValue value to search name on
+     * @param mc multiple callback to execute when network task completes
+     */
     static void getMultipleDetails(Search searchField, String searchValue, Multiple mc){
 
         List<NameValuePair> params = new ArrayList<NameValuePair>(1);
@@ -129,7 +162,11 @@ public class User {
 
     }
 
-
+    /**
+     * static method for deleting currently logged in user account
+     *
+     * @param sc single callback to execute when network task completes
+     */
     static void delete(Single sc){
 
         int userId = Integer.parseInt(Api.getSessionManager().getUserDetails().get(SessionManager.KEY_USERID));

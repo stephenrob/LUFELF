@@ -7,6 +7,11 @@ package uk.co.stephen_robinson.uni.lufelf.database;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+/**
+ * @author Stephen
+ * Creates and upgrades the messages table in the local database.
+ */
+
 public class MessagesTable {
 
     public static final String TABLE_MESSAGES = "messages";
@@ -24,10 +29,20 @@ public class MessagesTable {
             + COLUMN_TYPE + " text not null"
             + ");";
 
+    /**
+     *
+     * @param database Database to create the table in
+     */
     public static void onCreate(SQLiteDatabase database){
         database.execSQL(CREATE_TABLE);
     }
 
+    /**
+     *
+     * @param database Database to create the table in
+     * @param oldVersion Old version number of the database/table, used for logging upgrade
+     * @param newVersion New version number of the database/table, used for logging upgrade
+     */
     public static void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
         Log.w(MessagesTable.class.getName(), "Upgrading database from version "
                 + oldVersion + " to " + newVersion

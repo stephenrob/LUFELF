@@ -1,7 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,6 @@ import java.util.Collections;
 import java.util.Hashtable;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
-import uk.co.stephen_robinson.uni.lufelf.utilities.EventDateComparator;
 import uk.co.stephen_robinson.uni.lufelf.adapters.EventItemAdapter;
 import uk.co.stephen_robinson.uni.lufelf.adapters.EventListItem;
 import uk.co.stephen_robinson.uni.lufelf.adapters.NavDrawerItem;
@@ -34,6 +32,7 @@ import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.EventUser;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Place;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.User;
+import uk.co.stephen_robinson.uni.lufelf.utilities.EventDateComparator;
 import uk.co.stephen_robinson.uni.lufelf.utilities.ValidationChecker;
 
 /**
@@ -317,7 +316,6 @@ public class SearchFragment extends BaseFragment{
                 if(p.getName().contains(criteriaSplit[i])||p.getName().equals(criteriaSplit[i])||p.getType().contains(criteriaSplit[i])||p.getDescription().contains(criteriaSplit[i])||p.getDescription().equals(criteriaSplit[i])&&!searchForPlaceId(returnedItems, p.getId()))
                     returnedItems.add(p);
 
-        Log.e("ITEms",String.valueOf(returnedItems.size()));
         if(returnedItems.size()==0){
             returnedItems.add(new PlaceItem(0,"","No Results","","",0,"",0.0,0.0));
         }else{

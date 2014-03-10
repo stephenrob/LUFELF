@@ -1,7 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +61,7 @@ public class FragmentFriendRequests extends BaseFragment{
                 Message m =(Message)result.get(result.size()-1);
                 ArrayList<FriendItem> friends = new ArrayList<FriendItem>();
                 if(!toastMaker.isError(String.valueOf(m.getStatusCode()),m.getMessage())){
-                    Log.e("result size ",String.valueOf(result.size()));
+
                     for(int i=0;i<result.size()-1;i++){
 
                         Friend f =(Friend)result.get(i);

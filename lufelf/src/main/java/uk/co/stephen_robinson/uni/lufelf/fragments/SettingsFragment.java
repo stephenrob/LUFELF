@@ -1,7 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,7 +77,6 @@ public class SettingsFragment extends BaseFragment{
                 DialogCallback dialogCallback = new DialogCallback() {
                     @Override
                     public void messageComplete(int result) {
-                        Log.e("BUTTON","DIALOG CLALED");
                         switch(result){
                             case 1:
                                 showActivitySpinner();

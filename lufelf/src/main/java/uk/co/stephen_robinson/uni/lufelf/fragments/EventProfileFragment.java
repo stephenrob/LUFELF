@@ -2,7 +2,6 @@ package uk.co.stephen_robinson.uni.lufelf.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -119,7 +118,6 @@ public class EventProfileFragment extends BaseFragment{
         reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("REJECTING","REJETE");
                 handleReject(args.getString("id"));
             }
         });
@@ -146,10 +144,8 @@ public class EventProfileFragment extends BaseFragment{
                     formatter=new SimpleDateFormat("dd/MM/yyyyHH:mm");
                     try{
                         startDate=formatter.parse(datetime.getText().toString());
-                    }catch (Exception f){
-                        Log.e("inner date format exception",Log.getStackTraceString(f));
-                    }
-                    Log.e("date format exception",Log.getStackTraceString(e));
+                    }catch (Exception f){}
+
                 }
 
                 //set the intent
@@ -188,9 +184,7 @@ public class EventProfileFragment extends BaseFragment{
         Multiple m =new Multiple() {
             @Override
             public void results(ArrayList result) {
-                Log.e("OUTPUT",result.toString());
                 Message message=(Message)result.get(result.size()-1);
-                Log.e("MSG",String.valueOf(message.getStatusCode())+" "+message.getMessage());
                 if(!toastMaker.isError(String.valueOf(message.getStatusCode()),message.getMessage())){
                     //get the event obkect
                     Event event =(Event) result.get(0);

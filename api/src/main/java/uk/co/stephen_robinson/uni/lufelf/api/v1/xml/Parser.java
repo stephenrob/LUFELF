@@ -194,9 +194,17 @@ public class Parser {
                             } else if(tagName.equalsIgnoreCase(Place.NAME)){
                                 place.name = parser.nextText();
                             } else if(tagName.equalsIgnoreCase(Place.LATTITUDE)){
-                                place.lattitude = Double.valueOf(parser.nextText());
+                                try{
+                                    place.lattitude = Double.valueOf(parser.nextText());
+                                }catch(Exception e){
+                                    place.lattitude=0.0;
+                                }
                             } else if(tagName.equalsIgnoreCase(Place.LONGDITUDE)){
-                                place.longditude = Double.valueOf(parser.nextText());
+                                try{
+                                    place.longditude = Double.valueOf(parser.nextText());
+                                }catch(Exception e){
+                                    place.longditude=0.0;
+                                }
                             } else if(tagName.equalsIgnoreCase(Place.DESCRIPTION)){
                                 place.description = parser.nextText();
                             } else if(tagName.equalsIgnoreCase(Place.TYPE)){

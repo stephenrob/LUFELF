@@ -1,7 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -134,13 +133,13 @@ public class EventsFragment extends BaseFragment{
         Calendar currentDate=Calendar.getInstance();
 
         for(int i=0;i<eventListItems.size();i++){
-            String date1 = eventListItems.get(i).getDateTime().substring(0,10);
-
-            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             try{
+                String date1 = eventListItems.get(i).getDateTime().substring(0,10);
+
+                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
                 Date date = formatter.parse(date1);
                 Date currentDay = formatter.parse(formatter.format(currentDate.getTime()));
-                Log.e("comparison result",String.valueOf(date.compareTo(currentDate.getTime())));
                 if(date.compareTo(currentDay)>=0){
                     returnItems.add(eventListItems.get(i));
                 }

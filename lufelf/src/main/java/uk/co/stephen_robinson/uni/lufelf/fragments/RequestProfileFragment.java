@@ -1,7 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -248,6 +247,5 @@ public class RequestProfileFragment extends BaseFragment{
             }
         };
         api.v1.getUserByID(String.valueOf(args.getInt("user_id")), single);
-        Log.e("USER ID ",String.valueOf(args.getInt("user_id")));
     }
 }

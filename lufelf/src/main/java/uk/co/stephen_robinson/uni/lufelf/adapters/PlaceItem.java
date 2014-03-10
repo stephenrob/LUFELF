@@ -153,6 +153,8 @@ public class PlaceItem {
             icon=library;
         if(type.equals(""))
             icon=other;
+        if(icon==0)
+            icon=other;
     }
 
     /**

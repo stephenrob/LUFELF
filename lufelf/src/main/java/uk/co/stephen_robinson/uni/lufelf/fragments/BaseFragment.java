@@ -23,7 +23,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -280,7 +279,6 @@ public class BaseFragment  extends Fragment{
         try{
             temp=MediaStore.Images.Media.getBitmap(context.getContentResolver(), tempDir);
         }catch (Exception e){
-            Log.e("crap", e.toString());
         }
         /*if(temp == null)
 

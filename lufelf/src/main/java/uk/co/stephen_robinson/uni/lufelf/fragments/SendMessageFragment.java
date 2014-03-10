@@ -152,7 +152,6 @@ public class SendMessageFragment extends BaseFragment{
                             hideActivitySpinner();
                         }
                     };
-                    //Log.e("FRIENDID",String.valueOf(friendUsername.get(pos)));
                     api.v1.sendMessage(id,message,single);
                 }
             }
@@ -187,7 +186,6 @@ public class SendMessageFragment extends BaseFragment{
                             hideActivitySpinner();
                         }
                     };
-                    //Log.e("FRIENDID",String.valueOf(friendUsername.get(pos)));
                     api.v1.sendMessage(id,message,single);
                 }
             }

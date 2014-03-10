@@ -10,7 +10,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.ImageView;
 
 import java.io.InputStream;
@@ -88,7 +87,6 @@ public class DownloadImage{
                 }
 
                 try {
-                    Log.e("URL",imageUrl);
                     //init new url based on imageURl
                     URL url = new URL(imageUrl);
 
@@ -116,7 +114,7 @@ public class DownloadImage{
                         inputStream.close();
 
                 } catch (Exception e) {
-                    Log.e("Crap", Log.getStackTraceString(e));
+
                 }
 
                 //we can't update ui stuff from the background thread

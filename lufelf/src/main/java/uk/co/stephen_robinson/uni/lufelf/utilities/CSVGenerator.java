@@ -1,7 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.utilities;
 
 import android.os.Environment;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -44,7 +43,6 @@ public class CSVGenerator {
                 fw.append(eventID + ",");
                 fw.close();
             }catch(Exception e){
-                Log.e("exception!",Log.getStackTraceString(e));
             }
         }
     }
@@ -57,9 +55,7 @@ public class CSVGenerator {
             FileWriter fw = new FileWriter(filename);
             fw.append("");
             fw.close();
-        }catch(Exception e){
-            Log.e("exception!",Log.getStackTraceString(e));
-        }
+        }catch(Exception e){}
     }
 
     /**

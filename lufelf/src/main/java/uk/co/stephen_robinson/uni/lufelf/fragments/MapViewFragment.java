@@ -11,7 +11,6 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -216,10 +215,7 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.e("location","updating");
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(location.getLatitude(), location.getLongitude()), 17));
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(new LatLng(location.getLatitude(), location.getLongitude()))
@@ -231,11 +227,6 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
                 @Override
                 public void results(Hashtable result) {
                     Enumeration keys = result.keys();
-                    while(keys.hasMoreElements()){
-                        Log.e("CRAP",keys.nextElement().toString());
-                    }
-
-                    Log.e("location", "LOCATIONUPDATE");
                     boolean error=toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
                 }
             };

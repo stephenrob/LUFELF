@@ -5,7 +5,6 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -187,14 +186,12 @@ public class CreateEventFragment extends BaseFragment{
         Multiple multipleCallback = new Multiple() {
             @Override
             public void results(ArrayList result) {
-                Log.e("multiple callback", result.toString());
                 Message m = (Message)result.get(result.size()-1);
                 if(!toastMaker.isError(String.valueOf(m.statusCode),m.message)){
                     places=new ArrayList<PlaceItem>();
                     ArrayList<String> placesStrings = new ArrayList<String>();
                     for(int i=0;i<result.size()-1;i++){
                         Place p =(Place)result.get(i);
-                        Log.e("place",p.toString());
                         places.add(new PlaceItem(p.getId(), p.getName(), p.getAddress(), p.getType(), p.getDescription(), p.getUser_id(), p.getImage_url(), 0, 0));
                         placesStrings.add(p.getName());
                     }

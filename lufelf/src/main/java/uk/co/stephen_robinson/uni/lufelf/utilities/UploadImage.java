@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Base64;
-import android.util.Log;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -134,11 +133,8 @@ public class UploadImage{
                     response = client.execute(postData,responseHandler);
 
                     //print result
-                    Log.e("CRAP",response);
                     return null;
-                }catch(Exception e){
-                    Log.e("Crap",e.toString());
-                }
+                }catch(Exception e){}
                 return null;
             }
 

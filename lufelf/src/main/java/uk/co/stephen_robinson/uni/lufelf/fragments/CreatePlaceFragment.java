@@ -1,7 +1,9 @@
 package uk.co.stephen_robinson.uni.lufelf.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +12,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
+import uk.co.stephen_robinson.uni.lufelf.activities.PlaceMarker;
 import uk.co.stephen_robinson.uni.lufelf.adapters.PlaceItem;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Place;
+import uk.co.stephen_robinson.uni.lufelf.utilities.PlaceMarkerInterface;
 import uk.co.stephen_robinson.uni.lufelf.utilities.UploadImage;
 import uk.co.stephen_robinson.uni.lufelf.utilities.ValidationChecker;
 
@@ -27,8 +33,11 @@ import uk.co.stephen_robinson.uni.lufelf.utilities.ValidationChecker;
  * @author James
  * Fragment for creating a place
  */
-public class CreatePlaceFragment extends BaseFragment{
+public class CreatePlaceFragment extends BaseFragment implements PlaceMarkerInterface{
 
+
+    LatLng selectedLocation=null;
+    Button place_loc;
     /**
      * Returns a new instance of this fragment for the given section
      * number.
@@ -55,7 +64,14 @@ public class CreatePlaceFragment extends BaseFragment{
 
         //get the image view
         ImageView place_pic = (ImageView)rootView.findViewById(R.id.profile_image);
-
+        place_loc= (Button)rootView.findViewById(R.id.create_place_pic_loc);
+        place_loc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(rootView.getContext(),PlaceMarker.class);
+                getActivity().startActivityForResult(intent, 1);
+            }
+        });
         place_pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,14 +106,15 @@ public class CreatePlaceFragment extends BaseFragment{
                     Single nc= new Single() {
                         @Override
                         public void results(Hashtable result) {
-
                             boolean error = toastMaker.isError(result.get(Message.CODE).toString(),result.get(Message.MESSAGE).toString());
                             if(!error){
                                 uploadImage(editTexts[0].getText().toString());
                                 toastMaker.makeToast(result.get(Message.MESSAGE).toString());
+                                resetIndexes();
                                 removeFragment();
-                            }
 
+                            }
+                            hideActivitySpinner();
                         }
                     };
 
@@ -105,17 +122,23 @@ public class CreatePlaceFragment extends BaseFragment{
                     showActivitySpinner();
                     //create a new userdetails class for the api
                     //call api
-                    api.v1.addPlace(editTexts[0].getText().toString(),editTexts[1].getText().toString(),getLocation().latitude,getLocation().longitude, PlaceItem.convertTypeIntoCompatibleString(placeType.getSelectedItemPosition()),editTexts[2].getText().toString(),nc);
-
+                    if(selectedLocation==null){
+                        Log.e("selectedlocation","NULLL");
+                        api.v1.addPlace(editTexts[0].getText().toString(),editTexts[1].getText().toString(),getLocation().latitude,getLocation().longitude, PlaceItem.convertTypeIntoCompatibleString(placeType.getSelectedItemPosition()),editTexts[2].getText().toString(),nc);
+                    }else{
+                        Log.e("selectedlocation","not null "+selectedLocation.latitude+" long: "+selectedLocation.longitude);
+                        api.v1.addPlace(editTexts[0].getText().toString(),editTexts[1].getText().toString(),selectedLocation.latitude,selectedLocation.longitude, PlaceItem.convertTypeIntoCompatibleString(placeType.getSelectedItemPosition()),editTexts[2].getText().toString(),nc);
+                    }
                 }
             }
         });
         //showActivitySpinner();
 
 
-        return rootView;
-    }
 
+
+        return rootView;
+    } 
     /**
      * uploads an image for a place
      * @param placeName the place name to upload an image for
@@ -142,11 +165,18 @@ public class CreatePlaceFragment extends BaseFragment{
                         }
                     }
                 }
-                hideActivitySpinner();
+
             }
         };
 
         api.v1.getAllPlaces(m);
 
+    }
+
+    @Override
+    public void placeMarkerCallback(LatLng location) {
+        place_loc.setText("Location Set!");
+        selectedLocation=location;
+        Log.e("CRAP","lat "+selectedLocation.latitude+" long "+selectedLocation.longitude);
     }
 }

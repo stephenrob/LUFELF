@@ -1,5 +1,6 @@
 package uk.co.stephen_robinson.uni.lufelf.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,8 +15,8 @@ import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -32,13 +33,11 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 
 import uk.co.stephen_robinson.uni.lufelf.R;
-import uk.co.stephen_robinson.uni.lufelf.activities.NavigateToActivity;
 import uk.co.stephen_robinson.uni.lufelf.adapters.PlaceItem;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Multiple;
 import uk.co.stephen_robinson.uni.lufelf.api.Network.callbacks.Single;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Message;
 import uk.co.stephen_robinson.uni.lufelf.api.v1.xml.Place;
-import uk.co.stephen_robinson.uni.lufelf.route.DirectionsQuery;
 import uk.co.stephen_robinson.uni.lufelf.utilities.CustomMessages;
 import uk.co.stephen_robinson.uni.lufelf.utilities.DialogCallback;
 
@@ -46,29 +45,26 @@ import uk.co.stephen_robinson.uni.lufelf.utilities.DialogCallback;
  * @author James
  * Fragment that displays the map with location or the navigation view
  */
-public class MapViewFragment extends BaseFragment implements LocationListener,GoogleMap.InfoWindowAdapter,GoogleMap.OnInfoWindowClickListener{
+public class PlaceMarkerFragment extends BaseFragment implements LocationListener,GoogleMap.InfoWindowAdapter,GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMarkerDragListener{
     private GoogleMap map;
     private LocationManager locationManager;
     private ArrayList placeItems;
     private Criteria crit = new Criteria();
-
+    private MarkerOptions mOptions1;
+    private LatLng currentloc;
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static MapViewFragment newInstance(LatLng finish) {
-        if(finish==null)
-            return new MapViewFragment();
-        MapViewFragment m=new MapViewFragment();
+    public static PlaceMarkerFragment newInstance() {
+        PlaceMarkerFragment m=new PlaceMarkerFragment();
         Bundle args=new Bundle();
-        args.putDouble("lat",finish.latitude);
-        args.putDouble("long",finish.longitude);
 
         m.setArguments(args);
         return m;
     }
 
-    public MapViewFragment() {
+    public PlaceMarkerFragment() {
     }
     @Override
     public void onResume(){
@@ -86,11 +82,28 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
 
         //init
         setFragmentManager(getFragmentManager());
-        rootView = inflater.inflate(R.layout.fragment_map, container, false);
+        rootView = inflater.inflate(R.layout.fragment_place_marker, container, false);
         setContext(rootView.getContext());
         //showActivitySpinner();
         //get the mapfragment
         map = ((MapFragment) fragmentManager.findFragmentById(R.id.map)).getMap();
+        Button doneButton= (Button) rootView.findViewById(R.id.done_button);
+
+
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i= new Intent();
+                if(currentloc!=null){
+                    i.putExtra("lat",currentloc.latitude);
+                    i.putExtra("long",currentloc.longitude);
+                    getActivity().setResult(Activity.RESULT_OK,i);
+                }
+                getActivity().setResult(Activity.RESULT_CANCELED);
+                getActivity().finish();
+            }
+        });
+
         //get the location manager
         this.locationManager=(LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
 
@@ -133,19 +146,14 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
 
         }
 
-
-        DirectionsQuery query = new DirectionsQuery(getActivity());
-
-        Bundle args = getArguments();
-        if(args!=null){
-            if(isNetworkAvailable())
-                query.getRoute(getLocation(), new LatLng(args.getDouble("lat"),args.getDouble("long") ),map);
-            else
-                Toast.makeText(context,"No Active Internet Connection Found",Toast.LENGTH_LONG).show();
-        }else{
-            populateWithPlaces();
-        }
-
+        populateWithPlaces();
+        toastMaker.makeToast("Place the marker!");
+        mOptions1=new MarkerOptions();
+        mOptions1.title("Drag me about");
+        mOptions1.position(getLocation());
+        mOptions1.draggable(true);
+        map.addMarker(mOptions1);
+        map.setOnMarkerDragListener(this);
         return rootView;
     }
 
@@ -293,7 +301,7 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
         resetIndexes();
         String[] idTitle=stripID(m.getTitle());
         fragmentManager.beginTransaction().add(R.id.container, PlaceProfileFragment.newInstance((PlaceItem) placeItems.get(Integer.valueOf(idTitle[0]))), "PlaceSubView").addToBackStack(null).commit();
-       // m.getPosition().latitude;
+        // m.getPosition().latitude;
     }
 
     /**
@@ -305,14 +313,21 @@ public class MapViewFragment extends BaseFragment implements LocationListener,Go
         return id.split(",");
     }
 
+
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if(!(getActivity() instanceof NavigateToActivity)){
-            MapFragment f = (MapFragment) getFragmentManager()
-                    .findFragmentById(R.id.map);
-            if (f != null)
-                getFragmentManager().beginTransaction().remove(f).commit();
-        }
+    public void onMarkerDragStart(Marker marker) {
+
     }
+
+    @Override
+    public void onMarkerDrag(Marker marker) {
+
+    }
+
+    @Override
+    public void onMarkerDragEnd(Marker marker) {
+        toastMaker.makeToast("Location set!");
+        currentloc=marker.getPosition();
+    }
+
 }

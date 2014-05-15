@@ -120,6 +120,7 @@ public class CreateEventFragment extends BaseFragment{
                                 toastMaker.makeToast(result.get(Message.MESSAGE).toString());
                                 uploadImage(name.getText().toString());
                                 hideActivitySpinner();
+                                resetIndexes();
                                 removeFragment();
 
                             }

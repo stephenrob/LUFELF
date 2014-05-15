@@ -94,6 +94,24 @@
                     android:lines="4"
                     android:background="@drawable/text_box_selector"
                     android:hint="@string/place_description"/>
+                <Button
+                    android:id="@+id/create_place_pic_loc"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:background="@drawable/button"
+                    android:textColor="@color/stdtxt"
+                    android:text="Select your location"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="40dp"
+                    android:layout_below="@id/create_place_description"
+                    android:layout_centerHorizontal="true"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="(Or leave blank to use your current location)"/>
             </LinearLayout>
             <Button
                 android:id="@+id/create_place_submit"

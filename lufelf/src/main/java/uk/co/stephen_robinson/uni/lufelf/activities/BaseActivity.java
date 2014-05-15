@@ -6,6 +6,8 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.view.MenuItem;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
 import uk.co.stephen_robinson.uni.lufelf.fragments.CreateEventFragment;
@@ -19,6 +21,7 @@ import uk.co.stephen_robinson.uni.lufelf.fragments.NavigationDrawerFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.SearchFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.SentMessagesFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.SettingsFragment;
+import uk.co.stephen_robinson.uni.lufelf.utilities.PlaceMarkerInterface;
 
 /**
  * @author James
@@ -152,5 +155,10 @@ public class BaseActivity extends Activity implements NavigationDrawerFragment.N
         currentGroupPosition=groupPos;
         currentChildPosition=position;
     }
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        PlaceMarkerInterface placeMarkerInterface = (CreatePlaceFragment)getFragmentManager().findFragmentByTag("Create Location");
+        if(data!=null)
+            placeMarkerInterface.placeMarkerCallback(new LatLng(data.getDoubleExtra("lat",0.0),data.getDoubleExtra("long",0.0)));
+    }
 }

@@ -9,9 +9,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import uk.co.stephen_robinson.uni.lufelf.R;
 import uk.co.stephen_robinson.uni.lufelf.api.Api;
+import uk.co.stephen_robinson.uni.lufelf.fragments.CreatePlaceFragment;
 import uk.co.stephen_robinson.uni.lufelf.fragments.NavigationDrawerFragment;
+import uk.co.stephen_robinson.uni.lufelf.utilities.PlaceMarkerInterface;
 
 /**
  * @author James
@@ -110,4 +114,7 @@ public class MainActivity extends BaseActivity {
         //kill this activity
         finish();
     }
+
+
+
 }

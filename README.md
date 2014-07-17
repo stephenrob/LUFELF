@@ -1,5 +1,7 @@
-LUFELF - Lancaster University Friends, Events, Locations Finder
+LUFELF
 ======
+
+LUFELF - Lancaster University Friends, Events, Locations Finder
 
 SCC210 Group Project - Android Application
 
